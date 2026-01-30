@@ -1,0 +1,38 @@
+name: Update CTI Dashboard
+
+on:
+  schedule:
+    # Run at 6am Central Time (12:00 UTC in winter, 11:00 UTC in summer)
+    # Using 12:00 UTC to be safe
+    - cron: '0 12 * * *'
+  workflow_dispatch:  # Allow manual trigger
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Generate dashboard
+        env:
+          SYTELINE_USERNAME: ${{ secrets.SYTELINE_USERNAME }}
+          SYTELINE_PASSWORD: ${{ secrets.SYTELINE_PASSWORD }}
+        run: node generate-dashboard.js
+      
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git diff --staged --quiet || git commit -m "Auto-update dashboard $(date +'%Y-%m-%d %H:%M')"
+          git push

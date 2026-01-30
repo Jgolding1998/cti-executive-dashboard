@@ -1,0 +1,916 @@
+{
+  "GeneratedAt": "2026-01-30 21:38:24",
+  "DataSource": "SyteLine IDO API (Automated)",
+  "Period": {
+    "Yesterday": "2026-01-29",
+    "MonthStart": "2026-01-01",
+    "YearStart": "2026-01-01",
+    "MTDBusinessDays": 22,
+    "YTDBusinessDays": 22
+  },
+  "Summary": {
+    "Yesterday": {
+      "Product": 65969.9,
+      "Service": 39850.8,
+      "Freight": 4944.42,
+      "Miscellaneous": 0,
+      "Total": 110765.12
+    },
+    "MTD": {
+      "Product": 2114330.23,
+      "Service": 830161.97,
+      "Freight": 98826.99,
+      "Miscellaneous": 0,
+      "Total": 3043319.19
+    },
+    "YTD": {
+      "Product": 2114330.23,
+      "Service": 830161.97,
+      "Freight": 98826.99,
+      "Miscellaneous": 0,
+      "Total": 3043319.19
+    },
+    "MTDDailyAverage": 138332.69,
+    "YTDDailyAverage": 138332.69
+  },
+  "ARaging": {
+    "Current": 3445580.8799999985,
+    "Days1_30": 583517.4299999999,
+    "Days31_60": 132248.69000000003,
+    "Days61_90": 181915.09,
+    "Days90Plus": 242773.85,
+    "Total": 4586035.940000008
+  },
+  "CashFlowPrediction": [
+    {
+      "Week": "Week of Jan 26",
+      "WeekNum": 1,
+      "StartDate": "2026-01-26",
+      "EndDate": "2026-01-30",
+      "Actual": 628895.82,
+      "Predicted": 0,
+      "Total": 628895.82,
+      "ExpectedCollections": 2599459.7,
+      "Confidence": 85,
+      "DayBreakdown": [
+        {
+          "Date": "2026-01-26",
+          "DayOfWeek": "Monday",
+          "Type": "Actual",
+          "Amount": 117990.48
+        },
+        {
+          "Date": "2026-01-27",
+          "DayOfWeek": "Tuesday",
+          "Type": "Actual",
+          "Amount": 195740.27
+        },
+        {
+          "Date": "2026-01-28",
+          "DayOfWeek": "Wednesday",
+          "Type": "Actual",
+          "Amount": 186304.05
+        },
+        {
+          "Date": "2026-01-29",
+          "DayOfWeek": "Thursday",
+          "Type": "Actual",
+          "Amount": 110765.12
+        },
+        {
+          "Date": "2026-01-30",
+          "DayOfWeek": "Friday",
+          "Type": "Today",
+          "Amount": 18095.9
+        }
+      ]
+    },
+    {
+      "Week": "Week of Feb 2",
+      "WeekNum": 2,
+      "StartDate": "2026-02-02",
+      "EndDate": "2026-02-06",
+      "Actual": 0,
+      "Predicted": 382131.99,
+      "Total": 382131.99,
+      "ExpectedCollections": 382131.99,
+      "Confidence": 70,
+      "DayBreakdown": [
+        {
+          "Date": "2026-02-02",
+          "DayOfWeek": "Monday",
+          "Type": "Predicted",
+          "Amount": 57319.8
+        },
+        {
+          "Date": "2026-02-03",
+          "DayOfWeek": "Tuesday",
+          "Type": "Predicted",
+          "Amount": 106996.96
+        },
+        {
+          "Date": "2026-02-04",
+          "DayOfWeek": "Wednesday",
+          "Type": "Predicted",
+          "Amount": 95533
+        },
+        {
+          "Date": "2026-02-05",
+          "DayOfWeek": "Thursday",
+          "Type": "Predicted",
+          "Amount": 76426.4
+        },
+        {
+          "Date": "2026-02-06",
+          "DayOfWeek": "Friday",
+          "Type": "Predicted",
+          "Amount": 45855.84
+        }
+      ]
+    },
+    {
+      "Week": "Week of Feb 9",
+      "WeekNum": 3,
+      "StartDate": "2026-02-09",
+      "EndDate": "2026-02-13",
+      "Actual": 0,
+      "Predicted": 247925.51,
+      "Total": 247925.51,
+      "ExpectedCollections": 247925.51,
+      "Confidence": 55,
+      "DayBreakdown": [
+        {
+          "Date": "2026-02-09",
+          "DayOfWeek": "Monday",
+          "Type": "Predicted",
+          "Amount": 37188.83
+        },
+        {
+          "Date": "2026-02-10",
+          "DayOfWeek": "Tuesday",
+          "Type": "Predicted",
+          "Amount": 69419.14
+        },
+        {
+          "Date": "2026-02-11",
+          "DayOfWeek": "Wednesday",
+          "Type": "Predicted",
+          "Amount": 61981.38
+        },
+        {
+          "Date": "2026-02-12",
+          "DayOfWeek": "Thursday",
+          "Type": "Predicted",
+          "Amount": 49585.1
+        },
+        {
+          "Date": "2026-02-13",
+          "DayOfWeek": "Friday",
+          "Type": "Predicted",
+          "Amount": 29751.06
+        }
+      ]
+    },
+    {
+      "Week": "Week of Feb 16",
+      "WeekNum": 4,
+      "StartDate": "2026-02-16",
+      "EndDate": "2026-02-20",
+      "Actual": 0,
+      "Predicted": 129759.73,
+      "Total": 129759.73,
+      "ExpectedCollections": 167216.15,
+      "Confidence": 55,
+      "DayBreakdown": [
+        {
+          "Date": "2026-02-16",
+          "DayOfWeek": "Monday",
+          "Type": "Predicted",
+          "Amount": 25082.42
+        },
+        {
+          "Date": "2026-02-17",
+          "DayOfWeek": "Tuesday",
+          "Type": "Predicted",
+          "Amount": 9364.1
+        },
+        {
+          "Date": "2026-02-18",
+          "DayOfWeek": "Wednesday",
+          "Type": "Predicted",
+          "Amount": 41804.04
+        },
+        {
+          "Date": "2026-02-19",
+          "DayOfWeek": "Thursday",
+          "Type": "Predicted",
+          "Amount": 33443.23
+        },
+        {
+          "Date": "2026-02-20",
+          "DayOfWeek": "Friday",
+          "Type": "Predicted",
+          "Amount": 20065.94
+        }
+      ]
+    },
+    {
+      "Week": "Week of Feb 23",
+      "WeekNum": 5,
+      "StartDate": "2026-02-23",
+      "EndDate": "2026-02-27",
+      "Actual": 0,
+      "Predicted": 116815.66,
+      "Total": 116815.66,
+      "ExpectedCollections": 116815.66,
+      "Confidence": 40,
+      "DayBreakdown": [
+        {
+          "Date": "2026-02-23",
+          "DayOfWeek": "Monday",
+          "Type": "Predicted",
+          "Amount": 17522.35
+        },
+        {
+          "Date": "2026-02-24",
+          "DayOfWeek": "Tuesday",
+          "Type": "Predicted",
+          "Amount": 32708.38
+        },
+        {
+          "Date": "2026-02-25",
+          "DayOfWeek": "Wednesday",
+          "Type": "Predicted",
+          "Amount": 29203.91
+        },
+        {
+          "Date": "2026-02-26",
+          "DayOfWeek": "Thursday",
+          "Type": "Predicted",
+          "Amount": 23363.13
+        },
+        {
+          "Date": "2026-02-27",
+          "DayOfWeek": "Friday",
+          "Type": "Predicted",
+          "Amount": 14017.88
+        }
+      ]
+    },
+    {
+      "Week": "Week of Mar 2",
+      "WeekNum": 6,
+      "StartDate": "2026-03-02",
+      "EndDate": "2026-03-06",
+      "Actual": 0,
+      "Predicted": 84517.37,
+      "Total": 84517.37,
+      "ExpectedCollections": 84517.37,
+      "Confidence": 40,
+      "DayBreakdown": [
+        {
+          "Date": "2026-03-02",
+          "DayOfWeek": "Monday",
+          "Type": "Predicted",
+          "Amount": 12677.61
+        },
+        {
+          "Date": "2026-03-03",
+          "DayOfWeek": "Tuesday",
+          "Type": "Predicted",
+          "Amount": 23664.86
+        },
+        {
+          "Date": "2026-03-04",
+          "DayOfWeek": "Wednesday",
+          "Type": "Predicted",
+          "Amount": 21129.34
+        },
+        {
+          "Date": "2026-03-05",
+          "DayOfWeek": "Thursday",
+          "Type": "Predicted",
+          "Amount": 16903.47
+        },
+        {
+          "Date": "2026-03-06",
+          "DayOfWeek": "Friday",
+          "Type": "Predicted",
+          "Amount": 10142.08
+        }
+      ]
+    }
+  ],
+  "TopCustomers": {
+    "Yesterday": [
+      {
+        "Name": "JOHNSON CONTROLS FIRE PROTECTION",
+        "Amount": 10890.75
+      },
+      {
+        "Name": "US Cold Storage #370 - Lake City",
+        "Amount": 7248.6
+      },
+      {
+        "Name": "JBS-Pilgrim's - Greeley",
+        "Amount": 5743
+      },
+      {
+        "Name": "Americold Logistics - 2115 - Modesto",
+        "Amount": 5720
+      },
+      {
+        "Name": "JI Landis Welding & Mechanical",
+        "Amount": 5201
+      },
+      {
+        "Name": "Americold Logistics - 8407 - Garden City",
+        "Amount": 4380
+      },
+      {
+        "Name": "DFA Dairy Brands - Meadow Gold - Las Vegas",
+        "Amount": 4241
+      },
+      {
+        "Name": "Cool Air, Inc",
+        "Amount": 3822
+      },
+      {
+        "Name": "Mondelez Chicago Bakery",
+        "Amount": 3573
+      },
+      {
+        "Name": "Murphy Company",
+        "Amount": 3290
+      },
+      {
+        "Name": "Wells Enterprises Inc Engineering Center",
+        "Amount": 3278
+      },
+      {
+        "Name": "Coca-Cola Consolidated - Indianapolis",
+        "Amount": 3132
+      },
+      {
+        "Name": "Coca-Cola SW Beverages - El Paso",
+        "Amount": 3116
+      },
+      {
+        "Name": "Smithfield (FM) - Milan",
+        "Amount": 3023
+      },
+      {
+        "Name": "Westward Seafoods - Alyeska - Unalaska",
+        "Amount": 3002
+      }
+    ],
+    "MTD": [
+      {
+        "Name": "Keep Supply",
+        "Amount": 78255.35
+      },
+      {
+        "Name": "CP&R - Concrete Protection & Restoration",
+        "Amount": 76052.9
+      },
+      {
+        "Name": "Evapco - Lake View",
+        "Amount": 73549
+      },
+      {
+        "Name": "Republic Refrigeration - Monroe",
+        "Amount": 55951.3
+      },
+      {
+        "Name": "JOHNSON CONTROLS FIRE PROTECTION",
+        "Amount": 53991.89
+      },
+      {
+        "Name": "Cimco Refrigeration - CANADA - Burlington",
+        "Amount": 40596.5
+      },
+      {
+        "Name": "Cimco Refrigeration - US - Mobile",
+        "Amount": 39667.1
+      },
+      {
+        "Name": "D&H Refrigeration",
+        "Amount": 35420.4
+      },
+      {
+        "Name": "Wagner-Meinert - Fort Wayne",
+        "Amount": 34039.6
+      },
+      {
+        "Name": "AC&R Specialists",
+        "Amount": 34027
+      },
+      {
+        "Name": "Coca-Cola Bottling Co United - College Park",
+        "Amount": 33249
+      },
+      {
+        "Name": "Clauger USA LLC",
+        "Amount": 31584.7
+      },
+      {
+        "Name": "Modern Mechanical Ice Systems LLC",
+        "Amount": 29189.8
+      },
+      {
+        "Name": "Waltec Electrical Services LTD",
+        "Amount": 29012.2
+      },
+      {
+        "Name": "ARC Mechanical",
+        "Amount": 28982.1
+      }
+    ]
+  },
+  "TopProducts": {
+    "MTD": [
+      {
+        "Item": "CTI TECH ON SITE",
+        "Description": "CTI tech on-site for calibration of up t",
+        "Amount": 353828.3
+      },
+      {
+        "Item": "GG-NH3-100",
+        "Description": "Gas Sensor, Ammonia 0-100 ppm, 4/20 mA o",
+        "Amount": 353203.06
+      },
+      {
+        "Item": "GG-NH3-RC",
+        "Description": "Replacement Electrochemical Cell, NH3, r",
+        "Amount": 150848.2
+      },
+      {
+        "Item": "CAL ADD",
+        "Description": "Additional Sensor (above 12) onsite cali",
+        "Amount": 140106.3
+      },
+      {
+        "Item": "GG-VL2-NH3",
+        "Description": "Gas Sensor, Vent Line, catalytic-bead, A",
+        "Amount": 95773.58
+      },
+      {
+        "Item": "GG-NH3-250",
+        "Description": "Gas Sensor, Ammonia 0-250 ppm, 4/20 mA o",
+        "Amount": 91911.4
+      },
+      {
+        "Item": "AMERICOLD SA 2024-2026",
+        "Description": "Americold 3 year SA.  Flat rate per site",
+        "Amount": 85187.72
+      },
+      {
+        "Item": "TB17L CAL GAS",
+        "Description": "Certified Calibration Gas, 17L Cylinder,",
+        "Amount": 83908.97
+      },
+      {
+        "Item": "CTI TECH ON SITE - WEEKEND",
+        "Description": "CTI tech on-site for calibration of up t",
+        "Amount": 78329
+      },
+      {
+        "Item": "DUOSENSE-M",
+        "Description": "Gas Sensor, Carbon Monoxide (0-200 ppm),",
+        "Amount": 66665.5
+      },
+      {
+        "Item": "EM2-24",
+        "Description": "Gas Detection Entrance Monitor, White, L",
+        "Amount": 66494.05
+      },
+      {
+        "Item": "F1-NH3",
+        "Description": "Wingman F1 portable gas detector, Ammoni",
+        "Amount": 66059.75
+      },
+      {
+        "Item": "RB34L-NH3/100",
+        "Description": "Certified Calibration Gas, 34L Cylinder,",
+        "Amount": 54323
+      },
+      {
+        "Item": "GG-NH3-100-ST",
+        "Description": "Gas Sensor, Ammonia 0-100 ppm, 4/20 mA o",
+        "Amount": 53572.6
+      },
+      {
+        "Item": "GG-NH3-2%",
+        "Description": "Gas Sensor NH3, 0-2% range (0-20,000 ppm",
+        "Amount": 50946.08
+      }
+    ]
+  },
+  "DailyTrend": [
+    {
+      "Date": "2025-12-01",
+      "DayOfWeek": "Monday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-02",
+      "DayOfWeek": "Tuesday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-03",
+      "DayOfWeek": "Wednesday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-04",
+      "DayOfWeek": "Thursday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-05",
+      "DayOfWeek": "Friday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-08",
+      "DayOfWeek": "Monday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-09",
+      "DayOfWeek": "Tuesday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-10",
+      "DayOfWeek": "Wednesday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-11",
+      "DayOfWeek": "Thursday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-12",
+      "DayOfWeek": "Friday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-15",
+      "DayOfWeek": "Monday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-16",
+      "DayOfWeek": "Tuesday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-17",
+      "DayOfWeek": "Wednesday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-18",
+      "DayOfWeek": "Thursday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-19",
+      "DayOfWeek": "Friday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-22",
+      "DayOfWeek": "Monday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-23",
+      "DayOfWeek": "Tuesday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-24",
+      "DayOfWeek": "Wednesday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-25",
+      "DayOfWeek": "Thursday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-26",
+      "DayOfWeek": "Friday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-29",
+      "DayOfWeek": "Monday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-30",
+      "DayOfWeek": "Tuesday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2025-12-31",
+      "DayOfWeek": "Wednesday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2026-01-01",
+      "DayOfWeek": "Thursday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2026-01-02",
+      "DayOfWeek": "Friday",
+      "Product": 0,
+      "Service": 0,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 0
+    },
+    {
+      "Date": "2026-01-05",
+      "DayOfWeek": "Monday",
+      "Product": 10595.1,
+      "Service": 2877,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 13472.1
+    },
+    {
+      "Date": "2026-01-06",
+      "DayOfWeek": "Tuesday",
+      "Product": 15938.18,
+      "Service": 9353,
+      "Freight": 548.59,
+      "Miscellaneous": 0,
+      "Total": 25839.77
+    },
+    {
+      "Date": "2026-01-07",
+      "DayOfWeek": "Wednesday",
+      "Product": 46630.9,
+      "Service": 49069.54,
+      "Freight": 1752.2,
+      "Miscellaneous": 0,
+      "Total": 97452.64
+    },
+    {
+      "Date": "2026-01-08",
+      "DayOfWeek": "Thursday",
+      "Product": 69134.68,
+      "Service": 68662.7,
+      "Freight": 5736.55,
+      "Miscellaneous": 0,
+      "Total": 143533.93
+    },
+    {
+      "Date": "2026-01-09",
+      "DayOfWeek": "Friday",
+      "Product": 47086.49,
+      "Service": 47511.4,
+      "Freight": 2879,
+      "Miscellaneous": 0,
+      "Total": 97476.89
+    },
+    {
+      "Date": "2026-01-12",
+      "DayOfWeek": "Monday",
+      "Product": 160349.9,
+      "Service": 57649,
+      "Freight": 8762.98,
+      "Miscellaneous": 0,
+      "Total": 226761.88
+    },
+    {
+      "Date": "2026-01-13",
+      "DayOfWeek": "Tuesday",
+      "Product": 324797.35,
+      "Service": 32982.29,
+      "Freight": 14944.96,
+      "Miscellaneous": 0,
+      "Total": 372724.6
+    },
+    {
+      "Date": "2026-01-14",
+      "DayOfWeek": "Wednesday",
+      "Product": 200818.35,
+      "Service": 36715.35,
+      "Freight": 10045.01,
+      "Miscellaneous": 0,
+      "Total": 247578.71
+    },
+    {
+      "Date": "2026-01-15",
+      "DayOfWeek": "Thursday",
+      "Product": 85184.04,
+      "Service": 62171.7,
+      "Freight": 4597.34,
+      "Miscellaneous": 0,
+      "Total": 151953.08
+    },
+    {
+      "Date": "2026-01-16",
+      "DayOfWeek": "Friday",
+      "Product": 115574.55,
+      "Service": 89703.15,
+      "Freight": 4986.36,
+      "Miscellaneous": 0,
+      "Total": 210264.06
+    },
+    {
+      "Date": "2026-01-19",
+      "DayOfWeek": "Monday",
+      "Product": 97554.4,
+      "Service": 40823.77,
+      "Freight": 4875.79,
+      "Miscellaneous": 0,
+      "Total": 143253.96
+    },
+    {
+      "Date": "2026-01-20",
+      "DayOfWeek": "Tuesday",
+      "Product": 116510.4,
+      "Service": 45962.8,
+      "Freight": 7627.46,
+      "Miscellaneous": 0,
+      "Total": 170100.66
+    },
+    {
+      "Date": "2026-01-21",
+      "DayOfWeek": "Wednesday",
+      "Product": 85971.97,
+      "Service": 46135.1,
+      "Freight": 2919.35,
+      "Miscellaneous": 0,
+      "Total": 135026.42
+    },
+    {
+      "Date": "2026-01-22",
+      "DayOfWeek": "Thursday",
+      "Product": 126820.8,
+      "Service": 16099.2,
+      "Freight": 5444.22,
+      "Miscellaneous": 0,
+      "Total": 148364.22
+    },
+    {
+      "Date": "2026-01-23",
+      "DayOfWeek": "Friday",
+      "Product": 181358.72,
+      "Service": 39107.14,
+      "Freight": 6250.25,
+      "Miscellaneous": 0,
+      "Total": 226716.11
+    },
+    {
+      "Date": "2026-01-26",
+      "DayOfWeek": "Monday",
+      "Product": 66816.9,
+      "Service": 47653.35,
+      "Freight": 3520.23,
+      "Miscellaneous": 0,
+      "Total": 117990.48
+    },
+    {
+      "Date": "2026-01-27",
+      "DayOfWeek": "Tuesday",
+      "Product": 134371.8,
+      "Service": 56256.6,
+      "Freight": 5111.87,
+      "Miscellaneous": 0,
+      "Total": 195740.27
+    },
+    {
+      "Date": "2026-01-28",
+      "DayOfWeek": "Wednesday",
+      "Product": 159051.6,
+      "Service": 23482.18,
+      "Freight": 3770.27,
+      "Miscellaneous": 0,
+      "Total": 186304.05
+    },
+    {
+      "Date": "2026-01-29",
+      "DayOfWeek": "Thursday",
+      "Product": 65969.9,
+      "Service": 39850.8,
+      "Freight": 4944.42,
+      "Miscellaneous": 0,
+      "Total": 110765.12
+    },
+    {
+      "Date": "2026-01-30",
+      "DayOfWeek": "Friday",
+      "Product": 0,
+      "Service": 18095.9,
+      "Freight": 0,
+      "Miscellaneous": 0,
+      "Total": 18095.9
+    }
+  ]
+}
