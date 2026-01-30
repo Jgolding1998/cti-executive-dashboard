@@ -548,17 +548,17 @@
                                           "Type":  "Executive",
                                           "ProductAmount":  34722.45,
                                           "Name":  "Joel",
-                                          "CityCount":  607,
+                                          "CityCount":  625,
                                           "Role":  "COO",
                                           "ServiceAmount":  31259.80
                                       },
                                       {
                                           "Amount":  12107.00,
-                                          "StateCount":  30,
+                                          "StateCount":  31,
                                           "Type":  "Admin",
                                           "ProductAmount":  9259.00,
                                           "Name":  "Allison",
-                                          "CityCount":  48,
+                                          "CityCount":  52,
                                           "Role":  "Accounting",
                                           "ServiceAmount":  2848.00
                                       },
@@ -584,11 +584,11 @@
                                       },
                                       {
                                           "Amount":  3278.00,
-                                          "StateCount":  5,
+                                          "StateCount":  6,
                                           "Type":  "Sales",
                                           "ProductAmount":  3278.00,
                                           "Name":  "Greg",
-                                          "CityCount":  5,
+                                          "CityCount":  6,
                                           "Role":  "Sales Rep",
                                           "ServiceAmount":  0
                                       },
@@ -618,7 +618,7 @@
                                           "Type":  "Sales",
                                           "ProductAmount":  588.00,
                                           "Name":  "cjord",
-                                          "CityCount":  38,
+                                          "CityCount":  39,
                                           "Role":  "Sales Rep",
                                           "ServiceAmount":  0
                                       }
@@ -631,7 +631,7 @@
                                     "ProductAmount":  1421792.69,
                                     "Role":  "COO",
                                     "Name":  "Joel",
-                                    "CityCount":  607,
+                                    "CityCount":  625,
                                     "States":  "AB-C, AL, AR, AZ, BC-C, CA, CO, CO-VA, CT, DE, FL, GA, GT-M, IA, ID, IL, IN, KS, KY, LA, MA, MB-C, MD, ME, MI, MN, MO, MS, MT, NC, ND, NE, NJ, NM, NS-C, NV, NY, NZ-WG, OH, OK, ON-C, OR, PA, QC-C, SC, SD, SK-C, TN, TX, UT, VA, VT, WA, WI, WV, WY",
                                     "InvoiceCount":  1521,
                                     "StateCount":  56,
@@ -657,10 +657,10 @@
                                     "ProductAmount":  132488.80,
                                     "Role":  "Accounting",
                                     "Name":  "Allison",
-                                    "CityCount":  48,
-                                    "States":  "AB-C, BC-C, CA, CT, GA, IA, ID, IL, IN, KS, LA, MA, MD, MI, MN, MO, NC, NH, NY, OH, OK, ON-C, OR, PE-C, RI, TX, VA, WA, WI, WY",
+                                    "CityCount":  52,
+                                    "States":  "AB-C, BC-C, CA, CT, GA, IA, ID, IL, IN, KS, LA, MA, MD, MI, MN, MO, NC, NH, NY, OH, OK, ON-C, OR, PA, PE-C, RI, TX, VA, WA, WI, WY",
                                     "InvoiceCount":  100,
-                                    "StateCount":  30,
+                                    "StateCount":  31,
                                     "Amount":  166778.80
                                 },
                                 {
@@ -683,7 +683,7 @@
                                     "ProductAmount":  75040.45,
                                     "Role":  "Sales Rep",
                                     "Name":  "cjord",
-                                    "CityCount":  38,
+                                    "CityCount":  39,
                                     "States":  "AL, AR, AZ, CA, DE, FL, GA, IL, IN, KY, MN, MO, MS, NC, NY, OH, PA, SC, TX, VA, WA, WI, WY",
                                     "InvoiceCount":  69,
                                     "StateCount":  23,
@@ -722,10 +722,10 @@
                                     "ProductAmount":  24051.35,
                                     "Role":  "Sales Rep",
                                     "Name":  "marissa",
-                                    "CityCount":  13,
-                                    "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, WA",
+                                    "CityCount":  14,
+                                    "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, US-PR, WA",
                                     "InvoiceCount":  20,
-                                    "StateCount":  12,
+                                    "StateCount":  13,
                                     "Amount":  24437.35
                                 },
                                 {
@@ -796,14 +796,14 @@
                                 {
                                     "Type":  "Sales",
                                     "ServiceAmount":  0,
-                                    "TopCities":  "Westminster, MD; Mount Vernon, OH; Tempe, AZ; Green Bay, WI; Tukwila, WA",
+                                    "TopCities":  "Tempe, AZ; Mount Vernon, OH; Westminster, MD; Tukwila, WA; Green Bay, WI",
                                     "ProductAmount":  5013.60,
                                     "Role":  "Sales Rep",
                                     "Name":  "Greg",
-                                    "CityCount":  5,
-                                    "States":  "AZ, MD, OH, WA, WI",
+                                    "CityCount":  6,
+                                    "States":  "AZ, MD, OH, SC, WA, WI",
                                     "InvoiceCount":  6,
-                                    "StateCount":  5,
+                                    "StateCount":  6,
                                     "Amount":  5013.60
                                 },
                                 {
@@ -1232,11 +1232,11 @@
                                           },
                                           {
                                               "Amount":  3278.00,
-                                              "StateCount":  5,
+                                              "StateCount":  6,
                                               "Type":  "Sales",
                                               "ProductAmount":  3278.00,
                                               "Name":  "Greg",
-                                              "CityCount":  5,
+                                              "CityCount":  6,
                                               "Role":  "Sales Rep",
                                               "ServiceAmount":  0
                                           },
@@ -1256,7 +1256,7 @@
                                               "Type":  "Sales",
                                               "ProductAmount":  588.00,
                                               "Name":  "cjord",
-                                              "CityCount":  38,
+                                              "CityCount":  39,
                                               "Role":  "Sales Rep",
                                               "ServiceAmount":  0
                                           }
@@ -1295,7 +1295,7 @@
                                         "ProductAmount":  75040.45,
                                         "Role":  "Sales Rep",
                                         "Name":  "cjord",
-                                        "CityCount":  38,
+                                        "CityCount":  39,
                                         "States":  "AL, AR, AZ, CA, DE, FL, GA, IL, IN, KY, MN, MO, MS, NC, NY, OH, PA, SC, TX, VA, WA, WI, WY",
                                         "InvoiceCount":  69,
                                         "StateCount":  23,
@@ -1334,10 +1334,10 @@
                                         "ProductAmount":  24051.35,
                                         "Role":  "Sales Rep",
                                         "Name":  "marissa",
-                                        "CityCount":  13,
-                                        "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, WA",
+                                        "CityCount":  14,
+                                        "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, US-PR, WA",
                                         "InvoiceCount":  20,
-                                        "StateCount":  12,
+                                        "StateCount":  13,
                                         "Amount":  24437.35
                                     },
                                     {
@@ -1382,14 +1382,14 @@
                                     {
                                         "Type":  "Sales",
                                         "ServiceAmount":  0,
-                                        "TopCities":  "Westminster, MD; Mount Vernon, OH; Tempe, AZ; Green Bay, WI; Tukwila, WA",
+                                        "TopCities":  "Tempe, AZ; Mount Vernon, OH; Westminster, MD; Tukwila, WA; Green Bay, WI",
                                         "ProductAmount":  5013.60,
                                         "Role":  "Sales Rep",
                                         "Name":  "Greg",
-                                        "CityCount":  5,
-                                        "States":  "AZ, MD, OH, WA, WI",
+                                        "CityCount":  6,
+                                        "States":  "AZ, MD, OH, SC, WA, WI",
                                         "InvoiceCount":  6,
-                                        "StateCount":  5,
+                                        "StateCount":  6,
                                         "Amount":  5013.60
                                     },
                                     {
@@ -2055,12 +2055,12 @@
                                         "Item":  "CTI TECH ON SITE"
                                     },
                                     {
-                                        "Amount":  353203.06,
+                                        "Amount":  354253.76,
                                         "Description":  "Gas Sensor, Ammonia 0-100 ppm, 4/20 mA o",
                                         "Item":  "GG-NH3-100"
                                     },
                                     {
-                                        "Amount":  150848.20,
+                                        "Amount":  157780.70,
                                         "Description":  "Replacement Electrochemical Cell, NH3, r",
                                         "Item":  "GG-NH3-RC"
                                     },
@@ -2070,12 +2070,12 @@
                                         "Item":  "CAL ADD"
                                     },
                                     {
-                                        "Amount":  95773.58,
+                                        "Amount":  97279.58,
                                         "Description":  "Gas Sensor, Vent Line, catalytic-bead, A",
                                         "Item":  "GG-VL2-NH3"
                                     },
                                     {
-                                        "Amount":  91911.40,
+                                        "Amount":  95428.80,
                                         "Description":  "Gas Sensor, Ammonia 0-250 ppm, 4/20 mA o",
                                         "Item":  "GG-NH3-250"
                                     },
@@ -2095,6 +2095,11 @@
                                         "Item":  "CTI TECH ON SITE - WEEKEND"
                                     },
                                     {
+                                        "Amount":  68135.75,
+                                        "Description":  "Wingman F1 portable gas detector, Ammoni",
+                                        "Item":  "F1-NH3"
+                                    },
+                                    {
                                         "Amount":  66665.50,
                                         "Description":  "Gas Sensor, Carbon Monoxide (0-200 ppm),",
                                         "Item":  "DUOSENSE-M"
@@ -2105,12 +2110,7 @@
                                         "Item":  "EM2-24"
                                     },
                                     {
-                                        "Amount":  66059.75,
-                                        "Description":  "Wingman F1 portable gas detector, Ammoni",
-                                        "Item":  "F1-NH3"
-                                    },
-                                    {
-                                        "Amount":  54323.00,
+                                        "Amount":  55271.60,
                                         "Description":  "Certified Calibration Gas, 34L Cylinder,",
                                         "Item":  "RB34L-NH3/100"
                                     },
@@ -2120,9 +2120,9 @@
                                         "Item":  "GG-NH3-100-ST"
                                     },
                                     {
-                                        "Amount":  50946.08,
-                                        "Description":  "Gas Sensor NH3, 0-2% range (0-20,000 ppm",
-                                        "Item":  "GG-NH3-2%"
+                                        "Amount":  51147.30,
+                                        "Description":  "Certified Calibration Gas, 17L Cylinder,",
+                                        "Item":  "RB17L-NH3/100"
                                     }
                                 ]
                     },
@@ -2141,5 +2141,5 @@
                     "Days1_30":  617951.15,
                     "Days61_90":  165937.48
                 },
-    "GeneratedAt":  "2026-01-30 16:33:13"
+    "GeneratedAt":  "2026-01-30 16:36:55"
 }

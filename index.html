@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -363,7 +363,7 @@
         </div>
         
         <!-- All Team Section -->
-        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--warning);">ðŸ“Š All Team Performance (with Roles)</h3>
+        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--warning);">📊 All Team Performance (with Roles)</h3>
         <div class="dashboard">
             <div class="card span-2">
                 <div class="card-title">All Team - Month to Date</div>
@@ -376,7 +376,7 @@
         </div>
         
         <!-- Sales Reps Section -->
-        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--success);">ðŸ’¼ Sales Reps</h3>
+        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--success);">💼 Sales Reps</h3>
         <div class="dashboard">
             <div class="card span-2">
                 <div class="card-title">Sales Reps - Month to Date</div>
@@ -389,7 +389,7 @@
         </div>
         
         <!-- Service Reps Section -->
-        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid #4ecdc4;">ðŸ”§ Service Reps & Territory Coverage</h3>
+        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid #4ecdc4;">🔧 Service Reps & Territory Coverage</h3>
         <div class="dashboard">
             <div class="card span-2">
                 <div class="card-title">Service Reps - Revenue by Territory</div>
@@ -402,7 +402,7 @@
         </div>
         
         <!-- Yesterday Section -->
-        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--accent);">ðŸ“… Yesterday's Activity</h3>
+        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--accent);">📅 Yesterday's Activity</h3>
         <div class="dashboard">
             <div class="card span-2">
                 <div class="card-title">Yesterday's Sales by Team Member</div>
@@ -450,14 +450,14 @@
                 <div class="card-title">Prediction Algorithm Details</div>
                 <div style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 8px; font-size: 13px; line-height: 1.8;">
                     <strong>How the forecast is calculated:</strong><br>
-                    â€¢ <strong>Historical Patterns:</strong> Weighted average of sales by day of week (60%)<br>
-                    â€¢ <strong>AR Expectations:</strong> Expected collections from aging buckets (40%)<br>
-                    â€¢ <strong>Collection Rates:</strong> Current 20%/wk, 1-30d 15%/wk, 31-60d 10%/wk<br>
-                    â€¢ <strong>Actual Data:</strong> Days already passed use actual GL data<br>
-                    â€¢ <strong>Weekend Rule:</strong> Saturday/Sunday sales roll into Monday<br>
-                    â€¢ <strong>Confidence:</strong> Decreases with forecast distance<br>
+                    • <strong>Historical Patterns:</strong> Weighted average of sales by day of week (60%)<br>
+                    • <strong>AR Expectations:</strong> Expected collections from aging buckets (40%)<br>
+                    • <strong>Collection Rates:</strong> Current 20%/wk, 1-30d 15%/wk, 31-60d 10%/wk<br>
+                    • <strong>Actual Data:</strong> Days already passed use actual GL data<br>
+                    • <strong>Weekend Rule:</strong> Saturday/Sunday sales roll into Monday<br>
+                    • <strong>Confidence:</strong> Decreases with forecast distance<br>
                     <br>
-                    <em style="color: var(--text-secondary);">Formula: (Historical DOW Avg Ã— 0.70) + (AR Collection Expectation Ã— 0.30)</em>
+                    <em style="color: var(--text-secondary);">Formula: (Historical DOW Avg × 0.70) + (AR Collection Expectation × 0.30)</em>
                 </div>
             </div>
             <div class="card span-2">
@@ -521,7 +521,7 @@
             <div class="card span-2">
                 <div class="card-title">Service Tech Locations</div>
                 <div style="padding: 40px; text-align: center; color: var(--text-secondary);">
-                    <div style="font-size: 48px; margin-bottom: 15px;">ðŸ”§</div>
+                    <div style="font-size: 48px; margin-bottom: 15px;">🔧</div>
                     <div>Salesforce integration coming soon</div>
                     <div style="font-size: 12px; margin-top: 10px;">Will show real-time service technician locations</div>
                 </div>
@@ -1081,17 +1081,17 @@
                                           "Type":  "Executive",
                                           "ProductAmount":  34722.45,
                                           "Name":  "Joel",
-                                          "CityCount":  607,
+                                          "CityCount":  625,
                                           "Role":  "COO",
                                           "ServiceAmount":  31259.80
                                       },
                                       {
                                           "Amount":  12107.00,
-                                          "StateCount":  30,
+                                          "StateCount":  31,
                                           "Type":  "Admin",
                                           "ProductAmount":  9259.00,
                                           "Name":  "Allison",
-                                          "CityCount":  48,
+                                          "CityCount":  52,
                                           "Role":  "Accounting",
                                           "ServiceAmount":  2848.00
                                       },
@@ -1117,11 +1117,11 @@
                                       },
                                       {
                                           "Amount":  3278.00,
-                                          "StateCount":  5,
+                                          "StateCount":  6,
                                           "Type":  "Sales",
                                           "ProductAmount":  3278.00,
                                           "Name":  "Greg",
-                                          "CityCount":  5,
+                                          "CityCount":  6,
                                           "Role":  "Sales Rep",
                                           "ServiceAmount":  0
                                       },
@@ -1151,7 +1151,7 @@
                                           "Type":  "Sales",
                                           "ProductAmount":  588.00,
                                           "Name":  "cjord",
-                                          "CityCount":  38,
+                                          "CityCount":  39,
                                           "Role":  "Sales Rep",
                                           "ServiceAmount":  0
                                       }
@@ -1164,7 +1164,7 @@
                                     "ProductAmount":  1421792.69,
                                     "Role":  "COO",
                                     "Name":  "Joel",
-                                    "CityCount":  607,
+                                    "CityCount":  625,
                                     "States":  "AB-C, AL, AR, AZ, BC-C, CA, CO, CO-VA, CT, DE, FL, GA, GT-M, IA, ID, IL, IN, KS, KY, LA, MA, MB-C, MD, ME, MI, MN, MO, MS, MT, NC, ND, NE, NJ, NM, NS-C, NV, NY, NZ-WG, OH, OK, ON-C, OR, PA, QC-C, SC, SD, SK-C, TN, TX, UT, VA, VT, WA, WI, WV, WY",
                                     "InvoiceCount":  1521,
                                     "StateCount":  56,
@@ -1190,10 +1190,10 @@
                                     "ProductAmount":  132488.80,
                                     "Role":  "Accounting",
                                     "Name":  "Allison",
-                                    "CityCount":  48,
-                                    "States":  "AB-C, BC-C, CA, CT, GA, IA, ID, IL, IN, KS, LA, MA, MD, MI, MN, MO, NC, NH, NY, OH, OK, ON-C, OR, PE-C, RI, TX, VA, WA, WI, WY",
+                                    "CityCount":  52,
+                                    "States":  "AB-C, BC-C, CA, CT, GA, IA, ID, IL, IN, KS, LA, MA, MD, MI, MN, MO, NC, NH, NY, OH, OK, ON-C, OR, PA, PE-C, RI, TX, VA, WA, WI, WY",
                                     "InvoiceCount":  100,
-                                    "StateCount":  30,
+                                    "StateCount":  31,
                                     "Amount":  166778.80
                                 },
                                 {
@@ -1216,7 +1216,7 @@
                                     "ProductAmount":  75040.45,
                                     "Role":  "Sales Rep",
                                     "Name":  "cjord",
-                                    "CityCount":  38,
+                                    "CityCount":  39,
                                     "States":  "AL, AR, AZ, CA, DE, FL, GA, IL, IN, KY, MN, MO, MS, NC, NY, OH, PA, SC, TX, VA, WA, WI, WY",
                                     "InvoiceCount":  69,
                                     "StateCount":  23,
@@ -1255,10 +1255,10 @@
                                     "ProductAmount":  24051.35,
                                     "Role":  "Sales Rep",
                                     "Name":  "marissa",
-                                    "CityCount":  13,
-                                    "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, WA",
+                                    "CityCount":  14,
+                                    "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, US-PR, WA",
                                     "InvoiceCount":  20,
-                                    "StateCount":  12,
+                                    "StateCount":  13,
                                     "Amount":  24437.35
                                 },
                                 {
@@ -1329,14 +1329,14 @@
                                 {
                                     "Type":  "Sales",
                                     "ServiceAmount":  0,
-                                    "TopCities":  "Westminster, MD; Mount Vernon, OH; Tempe, AZ; Green Bay, WI; Tukwila, WA",
+                                    "TopCities":  "Tempe, AZ; Mount Vernon, OH; Westminster, MD; Tukwila, WA; Green Bay, WI",
                                     "ProductAmount":  5013.60,
                                     "Role":  "Sales Rep",
                                     "Name":  "Greg",
-                                    "CityCount":  5,
-                                    "States":  "AZ, MD, OH, WA, WI",
+                                    "CityCount":  6,
+                                    "States":  "AZ, MD, OH, SC, WA, WI",
                                     "InvoiceCount":  6,
-                                    "StateCount":  5,
+                                    "StateCount":  6,
                                     "Amount":  5013.60
                                 },
                                 {
@@ -1765,11 +1765,11 @@
                                           },
                                           {
                                               "Amount":  3278.00,
-                                              "StateCount":  5,
+                                              "StateCount":  6,
                                               "Type":  "Sales",
                                               "ProductAmount":  3278.00,
                                               "Name":  "Greg",
-                                              "CityCount":  5,
+                                              "CityCount":  6,
                                               "Role":  "Sales Rep",
                                               "ServiceAmount":  0
                                           },
@@ -1789,7 +1789,7 @@
                                               "Type":  "Sales",
                                               "ProductAmount":  588.00,
                                               "Name":  "cjord",
-                                              "CityCount":  38,
+                                              "CityCount":  39,
                                               "Role":  "Sales Rep",
                                               "ServiceAmount":  0
                                           }
@@ -1828,7 +1828,7 @@
                                         "ProductAmount":  75040.45,
                                         "Role":  "Sales Rep",
                                         "Name":  "cjord",
-                                        "CityCount":  38,
+                                        "CityCount":  39,
                                         "States":  "AL, AR, AZ, CA, DE, FL, GA, IL, IN, KY, MN, MO, MS, NC, NY, OH, PA, SC, TX, VA, WA, WI, WY",
                                         "InvoiceCount":  69,
                                         "StateCount":  23,
@@ -1867,10 +1867,10 @@
                                         "ProductAmount":  24051.35,
                                         "Role":  "Sales Rep",
                                         "Name":  "marissa",
-                                        "CityCount":  13,
-                                        "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, WA",
+                                        "CityCount":  14,
+                                        "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, US-PR, WA",
                                         "InvoiceCount":  20,
-                                        "StateCount":  12,
+                                        "StateCount":  13,
                                         "Amount":  24437.35
                                     },
                                     {
@@ -1915,14 +1915,14 @@
                                     {
                                         "Type":  "Sales",
                                         "ServiceAmount":  0,
-                                        "TopCities":  "Westminster, MD; Mount Vernon, OH; Tempe, AZ; Green Bay, WI; Tukwila, WA",
+                                        "TopCities":  "Tempe, AZ; Mount Vernon, OH; Westminster, MD; Tukwila, WA; Green Bay, WI",
                                         "ProductAmount":  5013.60,
                                         "Role":  "Sales Rep",
                                         "Name":  "Greg",
-                                        "CityCount":  5,
-                                        "States":  "AZ, MD, OH, WA, WI",
+                                        "CityCount":  6,
+                                        "States":  "AZ, MD, OH, SC, WA, WI",
                                         "InvoiceCount":  6,
-                                        "StateCount":  5,
+                                        "StateCount":  6,
                                         "Amount":  5013.60
                                     },
                                     {
@@ -2588,12 +2588,12 @@
                                         "Item":  "CTI TECH ON SITE"
                                     },
                                     {
-                                        "Amount":  353203.06,
+                                        "Amount":  354253.76,
                                         "Description":  "Gas Sensor, Ammonia 0-100 ppm, 4/20 mA o",
                                         "Item":  "GG-NH3-100"
                                     },
                                     {
-                                        "Amount":  150848.20,
+                                        "Amount":  157780.70,
                                         "Description":  "Replacement Electrochemical Cell, NH3, r",
                                         "Item":  "GG-NH3-RC"
                                     },
@@ -2603,12 +2603,12 @@
                                         "Item":  "CAL ADD"
                                     },
                                     {
-                                        "Amount":  95773.58,
+                                        "Amount":  97279.58,
                                         "Description":  "Gas Sensor, Vent Line, catalytic-bead, A",
                                         "Item":  "GG-VL2-NH3"
                                     },
                                     {
-                                        "Amount":  91911.40,
+                                        "Amount":  95428.80,
                                         "Description":  "Gas Sensor, Ammonia 0-250 ppm, 4/20 mA o",
                                         "Item":  "GG-NH3-250"
                                     },
@@ -2628,6 +2628,11 @@
                                         "Item":  "CTI TECH ON SITE - WEEKEND"
                                     },
                                     {
+                                        "Amount":  68135.75,
+                                        "Description":  "Wingman F1 portable gas detector, Ammoni",
+                                        "Item":  "F1-NH3"
+                                    },
+                                    {
                                         "Amount":  66665.50,
                                         "Description":  "Gas Sensor, Carbon Monoxide (0-200 ppm),",
                                         "Item":  "DUOSENSE-M"
@@ -2638,12 +2643,7 @@
                                         "Item":  "EM2-24"
                                     },
                                     {
-                                        "Amount":  66059.75,
-                                        "Description":  "Wingman F1 portable gas detector, Ammoni",
-                                        "Item":  "F1-NH3"
-                                    },
-                                    {
-                                        "Amount":  54323.00,
+                                        "Amount":  55271.60,
                                         "Description":  "Certified Calibration Gas, 34L Cylinder,",
                                         "Item":  "RB34L-NH3/100"
                                     },
@@ -2653,9 +2653,9 @@
                                         "Item":  "GG-NH3-100-ST"
                                     },
                                     {
-                                        "Amount":  50946.08,
-                                        "Description":  "Gas Sensor NH3, 0-2% range (0-20,000 ppm",
-                                        "Item":  "GG-NH3-2%"
+                                        "Amount":  51147.30,
+                                        "Description":  "Certified Calibration Gas, 17L Cylinder,",
+                                        "Item":  "RB17L-NH3/100"
                                     }
                                 ]
                     },
@@ -2674,7 +2674,7 @@
                     "Days1_30":  617951.15,
                     "Days61_90":  165937.48
                 },
-    "GeneratedAt":  "2026-01-30 16:33:13"
+    "GeneratedAt":  "2026-01-30 16:36:55"
 };
 
         // Load data from file or embedded
@@ -2744,12 +2744,12 @@
                 const role = item.Role ? `<span style="font-size:11px;color:var(--text-secondary);background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:4px;margin-left:8px;">${item.Role}</span>` : '';
                 const breakdown = showBreakdown && (item.ProductAmount || item.ServiceAmount) ? 
                     `<div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">
-                        <span style="color:#4ecdc4;">Product: ${fmt(item.ProductAmount || 0)}</span> Â· 
+                        <span style="color:#4ecdc4;">Product: ${fmt(item.ProductAmount || 0)}</span> · 
                         <span style="color:#ff6b6b;">Service: ${fmt(item.ServiceAmount || 0)}</span>
                     </div>` : '';
                 const territory = showTerritory && (item.StateCount || item.CityCount) ?
                     `<div style="font-size:11px;color:var(--warning);margin-top:4px;">
-                        ðŸ“ ${item.StateCount || 0} states Â· ${item.CityCount || 0} locations
+                        📍 ${item.StateCount || 0} states · ${item.CityCount || 0} locations
                         ${item.States ? `<div style="font-size:10px;color:var(--text-secondary);margin-top:2px;">${item.States}</div>` : ''}
                     </div>` : '';
                 return `<div class="salesperson-card">
@@ -3178,4 +3178,3 @@
     </script>
 </body>
 </html>
-
