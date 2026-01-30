@@ -538,12 +538,9 @@
                 <div class="chart-container tall"><canvas id="stateChart"></canvas></div>
             </div>
             <div class="card span-2">
-                <div class="card-title">Service Tech Locations</div>
-                <div style="padding: 40px; text-align: center; color: var(--text-secondary);">
-                    <div style="font-size: 48px; margin-bottom: 15px;">🔧</div>
-                    <div>Salesforce integration coming soon</div>
-                    <div style="font-size: 12px; margin-top: 10px;">Will show real-time service technician locations</div>
-                </div>
+                <div class="card-title">Service Tech Territory Coverage</div>
+                <div id="serviceTechMap" style="height: 320px; border-radius: 10px;"></div>
+                <div id="serviceTechLegend" style="margin-top: 10px; font-size: 11px; display: flex; gap: 15px; flex-wrap: wrap;"></div>
             </div>
         </div>
     </div>
@@ -2693,7 +2690,7 @@
                     "Days1_30":  617951.15,
                     "Days61_90":  165937.48
                 },
-    "GeneratedAt":  "2026-01-30 16:45:52"
+    "GeneratedAt":  "2026-01-30 16:47:23"
 };
 
         // Load data from file or embedded
@@ -3212,6 +3209,40 @@
                 },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9' } } } }
             });
+
+            // Service Tech Territory Map
+            const svcMap = L.map('serviceTechMap').setView([39.8, -98.6], 4);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(svcMap);
+            
+            const serviceReps = DATA.ServiceReps?.MTD || [];
+            const repColors = ['#ff6b6b', '#feca57', '#a29bfe']; // Different color per rep
+            let legendHtml = '';
+            
+            serviceReps.forEach((rep, idx) => {
+                const color = repColors[idx % repColors.length];
+                const states = (rep.States || '').split(', ').filter(s => s);
+                
+                states.forEach(state => {
+                    const coords = stateCoords[state];
+                    if (coords) {
+                        L.circleMarker([coords[0], coords[1]], {
+                            radius: 15,
+                            fillColor: color,
+                            color: color,
+                            weight: 2,
+                            opacity: 0.9,
+                            fillOpacity: 0.5
+                        }).addTo(svcMap).bindPopup(`<b>${state}</b><br>${rep.Name} territory<br>${fmt(rep.Amount)} MTD`);
+                    }
+                });
+                
+                legendHtml += `<div style="display:flex;align-items:center;gap:5px;">
+                    <div style="width:12px;height:12px;border-radius:50%;background:${color};"></div>
+                    <span>${rep.Name}: ${states.length} states</span>
+                </div>`;
+            });
+            
+            document.getElementById('serviceTechLegend').innerHTML = legendHtml;
         }
 
         loadData();
