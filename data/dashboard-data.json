@@ -1,0 +1,1567 @@
+﻿{
+    "Summary":  {
+                    "YTDDailyAverage":  144919.96,
+                    "YTD":  {
+                                "Total":  3043319.19,
+                                "Freight":  98826.99,
+                                "Service":  830161.97,
+                                "Miscellaneous":  0,
+                                "Product":  2114330.23
+                            },
+                    "MTD":  {
+                                "Total":  3043319.19,
+                                "Freight":  98826.99,
+                                "Service":  830161.97,
+                                "Miscellaneous":  0,
+                                "Product":  2114330.23
+                            },
+                    "Yesterday":  {
+                                      "Total":  110765.12,
+                                      "Freight":  4944.42,
+                                      "Service":  39850.80,
+                                      "Miscellaneous":  0,
+                                      "Product":  65969.90
+                                  },
+                    "MTDDailyAverage":  144919.96
+                },
+    "ShippingHeatMap":  [
+                            {
+                                "Zip":  "54603",
+                                "State":  "WI",
+                                "Count":  1,
+                                "City":  "La Crosse"
+                            },
+                            {
+                                "Zip":  "29006",
+                                "State":  "SC",
+                                "Count":  1,
+                                "City":  "Batesburg"
+                            },
+                            {
+                                "Zip":  "31408",
+                                "State":  "GA",
+                                "Count":  4,
+                                "City":  "Savannah"
+                            },
+                            {
+                                "Zip":  "83338",
+                                "State":  "ID",
+                                "Count":  2,
+                                "City":  "Jerome"
+                            },
+                            {
+                                "Zip":  "52501",
+                                "State":  "IA",
+                                "Count":  1,
+                                "City":  "Ottumwa"
+                            },
+                            {
+                                "Zip":  "56031",
+                                "State":  "MN",
+                                "Count":  1,
+                                "City":  "Fairmont"
+                            },
+                            {
+                                "Zip":  "24153",
+                                "State":  "VA",
+                                "Count":  1,
+                                "City":  "Salem"
+                            },
+                            {
+                                "Zip":  "02760",
+                                "State":  "MA",
+                                "Count":  1,
+                                "City":  "North Attleborough"
+                            },
+                            {
+                                "Zip":  "49426",
+                                "State":  "MI",
+                                "Count":  1,
+                                "City":  "Hudsonville"
+                            },
+                            {
+                                "Zip":  "14787",
+                                "State":  "NY",
+                                "Count":  1,
+                                "City":  "Westfield"
+                            },
+                            {
+                                "Zip":  "51012",
+                                "State":  "IA",
+                                "Count":  1,
+                                "City":  "Cherokee"
+                            },
+                            {
+                                "Zip":  "75052",
+                                "State":  "TX",
+                                "Count":  1,
+                                "City":  "Grand Prairie"
+                            },
+                            {
+                                "Zip":  "17543",
+                                "State":  "PA",
+                                "Count":  2,
+                                "City":  "Lititz"
+                            },
+                            {
+                                "Zip":  "75141",
+                                "State":  "TX",
+                                "Count":  1,
+                                "City":  "Hutchins"
+                            },
+                            {
+                                "Zip":  "72701",
+                                "State":  "AR",
+                                "Count":  2,
+                                "City":  "Fayetteville"
+                            },
+                            {
+                                "Zip":  "17901",
+                                "State":  "PA",
+                                "Count":  3,
+                                "City":  "Pottsville"
+                            },
+                            {
+                                "Zip":  "98199",
+                                "State":  "WA",
+                                "Count":  11,
+                                "City":  "Seattle"
+                            },
+                            {
+                                "Zip":  "68137",
+                                "State":  "NE",
+                                "Count":  10,
+                                "City":  "Omaha"
+                            },
+                            {
+                                "Zip":  "64804",
+                                "State":  "MO",
+                                "Count":  3,
+                                "City":  "Joplin"
+                            },
+                            {
+                                "Zip":  "35957",
+                                "State":  "AL",
+                                "Count":  1,
+                                "City":  "Boaz"
+                            },
+                            {
+                                "Zip":  "60467",
+                                "State":  "IL",
+                                "Count":  1,
+                                "City":  "Orland Park"
+                            },
+                            {
+                                "Zip":  "23666",
+                                "State":  "VA",
+                                "Count":  1,
+                                "City":  "Hampton"
+                            },
+                            {
+                                "Zip":  "49735",
+                                "State":  "MI",
+                                "Count":  1,
+                                "City":  "Gaylord"
+                            },
+                            {
+                                "Zip":  "26003",
+                                "State":  "WV",
+                                "Count":  1,
+                                "City":  "Wheeling"
+                            },
+                            {
+                                "Zip":  "08037",
+                                "State":  "NJ",
+                                "Count":  1,
+                                "City":  "Hammonton"
+                            },
+                            {
+                                "Zip":  "52641",
+                                "State":  "IA",
+                                "Count":  1,
+                                "City":  "Mount Pleasant"
+                            },
+                            {
+                                "Zip":  "V4W 2W8",
+                                "State":  "BC-C",
+                                "Count":  1,
+                                "City":  "Aldergrove"
+                            },
+                            {
+                                "Zip":  "61008",
+                                "State":  "IL",
+                                "Count":  1,
+                                "City":  "Belvidere"
+                            },
+                            {
+                                "Zip":  "60957",
+                                "State":  "IL",
+                                "Count":  4,
+                                "City":  "Paxton"
+                            },
+                            {
+                                "Zip":  "27529",
+                                "State":  "NC",
+                                "Count":  2,
+                                "City":  "Garner"
+                            },
+                            {
+                                "Zip":  "44870",
+                                "State":  "OH",
+                                "Count":  1,
+                                "City":  "Sandusky"
+                            },
+                            {
+                                "Zip":  "60484",
+                                "State":  "IL",
+                                "Count":  2,
+                                "City":  "University Park"
+                            },
+                            {
+                                "Zip":  "51031",
+                                "State":  "IA",
+                                "Count":  2,
+                                "City":  "Le Mars"
+                            },
+                            {
+                                "Zip":  "29847",
+                                "State":  "SC",
+                                "Count":  1,
+                                "City":  "Trenton"
+                            },
+                            {
+                                "Zip":  "49646",
+                                "State":  "MI",
+                                "Count":  1,
+                                "City":  "Kalkaska"
+                            },
+                            {
+                                "Zip":  "21220",
+                                "State":  "MD",
+                                "Count":  5,
+                                "City":  "Baltimore"
+                            },
+                            {
+                                "Zip":  "96819",
+                                "State":  "HI",
+                                "Count":  1,
+                                "City":  "Honolulu"
+                            },
+                            {
+                                "Zip":  "04740",
+                                "State":  "ME",
+                                "Count":  1,
+                                "City":  "Easton"
+                            },
+                            {
+                                "Zip":  "68766",
+                                "State":  "NE",
+                                "Count":  1,
+                                "City":  "South Sioux City"
+                            },
+                            {
+                                "Zip":  "98264",
+                                "State":  "WA",
+                                "Count":  1,
+                                "City":  "Lynden"
+                            },
+                            {
+                                "Zip":  "54130",
+                                "State":  "WI",
+                                "Count":  5,
+                                "City":  "Kaukauna"
+                            },
+                            {
+                                "Zip":  "70806",
+                                "State":  "LA",
+                                "Count":  1,
+                                "City":  "Baton Rouge"
+                            },
+                            {
+                                "Zip":  "45385",
+                                "State":  "OH",
+                                "Count":  1,
+                                "City":  "Xenia"
+                            },
+                            {
+                                "Zip":  "17331",
+                                "State":  "PA",
+                                "Count":  1,
+                                "City":  "HANOVER"
+                            },
+                            {
+                                "Zip":  "42101",
+                                "State":  "KY",
+                                "Count":  1,
+                                "City":  "Bowling Green"
+                            },
+                            {
+                                "Zip":  "44146",
+                                "State":  "OH",
+                                "Count":  2,
+                                "City":  "Bedford Heights"
+                            },
+                            {
+                                "Zip":  "55309",
+                                "State":  "MN",
+                                "Count":  2,
+                                "City":  "Big Lake"
+                            },
+                            {
+                                "Zip":  "56156",
+                                "State":  "MN",
+                                "Count":  1,
+                                "City":  "Luverne"
+                            },
+                            {
+                                "Zip":  "52806",
+                                "State":  "IA",
+                                "Count":  1,
+                                "City":  "Davenport"
+                            },
+                            {
+                                "Zip":  "31730-7432",
+                                "State":  "GA",
+                                "Count":  2,
+                                "City":  "Camilla"
+                            },
+                            {
+                                "Zip":  "48849",
+                                "State":  "MI",
+                                "Count":  2,
+                                "City":  "Lake Odessa"
+                            },
+                            {
+                                "Zip":  "82604",
+                                "State":  "WY",
+                                "Count":  1,
+                                "City":  "Casper"
+                            },
+                            {
+                                "Zip":  "43402",
+                                "State":  "OH",
+                                "Count":  1,
+                                "City":  "Bowling Green"
+                            },
+                            {
+                                "Zip":  "17019",
+                                "State":  "PA",
+                                "Count":  2,
+                                "City":  "Dillsburg"
+                            },
+                            {
+                                "Zip":  "30643",
+                                "State":  "GA",
+                                "Count":  1,
+                                "City":  "Hartwell"
+                            },
+                            {
+                                "Zip":  "14543",
+                                "State":  "NY",
+                                "Count":  1,
+                                "City":  "Rush"
+                            },
+                            {
+                                "Zip":  "44104",
+                                "State":  "OH",
+                                "Count":  1,
+                                "City":  "Cleveland"
+                            },
+                            {
+                                "Zip":  "17801",
+                                "State":  "PA",
+                                "Count":  1,
+                                "City":  "Sunbury"
+                            },
+                            {
+                                "Zip":  "54401",
+                                "State":  "WI",
+                                "Count":  3,
+                                "City":  "Wausau"
+                            },
+                            {
+                                "Zip":  "91761",
+                                "State":  "CA",
+                                "Count":  1,
+                                "City":  "Ontario"
+                            },
+                            {
+                                "Zip":  "80640",
+                                "State":  "CO",
+                                "Count":  1,
+                                "City":  "Henderson"
+                            },
+                            {
+                                "Zip":  "73401",
+                                "State":  "OK",
+                                "Count":  2,
+                                "City":  "Ardmore"
+                            },
+                            {
+                                "Zip":  "95301",
+                                "State":  "CA",
+                                "Count":  1,
+                                "City":  "Atwater"
+                            },
+                            {
+                                "Zip":  "74055",
+                                "State":  "OK",
+                                "Count":  2,
+                                "City":  "Owasso"
+                            },
+                            {
+                                "Zip":  "51101",
+                                "State":  "IA",
+                                "Count":  8,
+                                "City":  "Sioux City"
+                            },
+                            {
+                                "Zip":  "63134",
+                                "State":  "MO",
+                                "Count":  1,
+                                "City":  "Berkeley"
+                            },
+                            {
+                                "Zip":  "44647",
+                                "State":  "OH",
+                                "Count":  3,
+                                "City":  "Massillon"
+                            },
+                            {
+                                "Zip":  "91733",
+                                "State":  "CA",
+                                "Count":  5,
+                                "City":  "South El Monte"
+                            },
+                            {
+                                "Zip":  "39601",
+                                "State":  "MS",
+                                "Count":  1,
+                                "City":  "Brookhaven"
+                            },
+                            {
+                                "Zip":  "56232",
+                                "State":  "MN",
+                                "Count":  1,
+                                "City":  "Dawson"
+                            },
+                            {
+                                "Zip":  "5010",
+                                "State":  "NZ-WG",
+                                "Count":  1,
+                                "City":  "Lower Hutt"
+                            },
+                            {
+                                "Zip":  "29506",
+                                "State":  "SC",
+                                "Count":  2,
+                                "City":  "Florence"
+                            },
+                            {
+                                "Zip":  "90631",
+                                "State":  "CA",
+                                "Count":  4,
+                                "City":  "La Habra"
+                            },
+                            {
+                                "Zip":  "84088",
+                                "State":  "UT",
+                                "Count":  2,
+                                "City":  "West Jordan"
+                            },
+                            {
+                                "Zip":  "53959",
+                                "State":  "WI",
+                                "Count":  1,
+                                "City":  "Reedsburg"
+                            },
+                            {
+                                "Zip":  "37408",
+                                "State":  "TN",
+                                "Count":  1,
+                                "City":  "Chattanooga"
+                            },
+                            {
+                                "Zip":  "99301",
+                                "State":  "WA",
+                                "Count":  6,
+                                "City":  "Pasco"
+                            },
+                            {
+                                "Zip":  "7570027",
+                                "State":  "RM",
+                                "Count":  1,
+                                "City":  "Las Condes"
+                            },
+                            {
+                                "Zip":  "91356",
+                                "State":  "CA",
+                                "Count":  1,
+                                "City":  "Los Angeles"
+                            },
+                            {
+                                "Zip":  "49321",
+                                "State":  "MI",
+                                "Count":  2,
+                                "City":  "Comstock Park"
+                            },
+                            {
+                                "Zip":  "97210",
+                                "State":  "OR",
+                                "Count":  6,
+                                "City":  "Portland"
+                            },
+                            {
+                                "Zip":  "54603",
+                                "State":  "WI",
+                                "Count":  1,
+                                "City":  "LaCrosse"
+                            },
+                            {
+                                "Zip":  "21830",
+                                "State":  "MD",
+                                "Count":  1,
+                                "City":  "Hebron"
+                            },
+                            {
+                                "Zip":  "75141",
+                                "State":  "TX",
+                                "Count":  1,
+                                "City":  "Hutchens"
+                            },
+                            {
+                                "Zip":  "85213",
+                                "State":  "AZ",
+                                "Count":  1,
+                                "City":  "Mesa"
+                            },
+                            {
+                                "Zip":  "44512",
+                                "State":  "OH",
+                                "Count":  1,
+                                "City":  "Youngstown"
+                            },
+                            {
+                                "Zip":  "97317",
+                                "State":  "OR",
+                                "Count":  5,
+                                "City":  "Salem"
+                            },
+                            {
+                                "Zip":  "97322",
+                                "State":  "OR",
+                                "Count":  2,
+                                "City":  "Albany"
+                            },
+                            {
+                                "Zip":  "28103",
+                                "State":  "NC",
+                                "Count":  1,
+                                "City":  "Marshville"
+                            },
+                            {
+                                "Zip":  "57103",
+                                "State":  "SD",
+                                "Count":  3,
+                                "City":  "Sioux Falls"
+                            },
+                            {
+                                "Zip":  "57252",
+                                "State":  "SD",
+                                "Count":  1,
+                                "City":  "Milbank"
+                            },
+                            {
+                                "Zip":  "45869",
+                                "State":  "OH",
+                                "Count":  3,
+                                "City":  "New Bremen"
+                            },
+                            {
+                                "Zip":  "76903",
+                                "State":  "TX",
+                                "Count":  1,
+                                "City":  "San Angelo"
+                            },
+                            {
+                                "Zip":  "28655",
+                                "State":  "NC",
+                                "Count":  1,
+                                "City":  "Morganton"
+                            },
+                            {
+                                "Zip":  "95633",
+                                "State":  "CA",
+                                "Count":  1,
+                                "City":  "Garden Valley"
+                            },
+                            {
+                                "Zip":  "78163",
+                                "State":  "TX",
+                                "Count":  1,
+                                "City":  "Bulverde"
+                            },
+                            {
+                                "Zip":  "35752",
+                                "State":  "AL",
+                                "Count":  1,
+                                "City":  "Hollywood"
+                            },
+                            {
+                                "Zip":  "76705",
+                                "State":  "TX",
+                                "Count":  2,
+                                "City":  "Waco"
+                            },
+                            {
+                                "Zip":  "17201",
+                                "State":  "PA",
+                                "Count":  1,
+                                "City":  "Chambersburg"
+                            },
+                            {
+                                "Zip":  "85034",
+                                "State":  "AZ",
+                                "Count":  1,
+                                "City":  "Phoenix"
+                            }
+                        ],
+    "CashFlowPrediction":  [
+                               {
+                                   "Total":  628895.82,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-01-26",
+                                                            "Amount":  117990.48,
+                                                            "Type":  "Actual",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-01-27",
+                                                            "Amount":  195740.27,
+                                                            "Type":  "Actual",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-01-28",
+                                                            "Amount":  186304.05,
+                                                            "Type":  "Actual",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-01-29",
+                                                            "Amount":  110765.12,
+                                                            "Type":  "Actual",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-01-30",
+                                                            "Amount":  18095.90,
+                                                            "Type":  "Today",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-01-30",
+                                   "ExpectedCollections":  2503691.38,
+                                   "Actual":  628895.82,
+                                   "Sources":  {
+                                                   "From61_90":  14553.21,
+                                                   "From1_30":  145879.36,
+                                                   "FromCurrent":  2316138.3,
+                                                   "From90Plus":  7283.22,
+                                                   "From31_60":  19837.30
+                                               },
+                                   "StartDate":  "2026-01-26",
+                                   "Predicted":  0,
+                                   "ARDue":  184220.84,
+                                   "WeekNum":  1,
+                                   "Week":  "Week of Jan 26",
+                                   "Confidence":  85
+                               },
+                               {
+                                   "Total":  500825.80,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-02-02",
+                                                            "Amount":  75123.87,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-03",
+                                                            "Amount":  140231.22,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-04",
+                                                            "Amount":  125206.45,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-05",
+                                                            "Amount":  100165.16,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-06",
+                                                            "Amount":  60099.10,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-02-06",
+                                   "ExpectedCollections":  500825.80,
+                                   "Actual":  0,
+                                   "Sources":  {
+                                                   "From61_90":  12196.96,
+                                                   "From1_30":  313803.39,
+                                                   "FromCurrent":  128954.7,
+                                                   "From90Plus":  8701.95,
+                                                   "From31_60":  37168.80
+                                               },
+                                   "StartDate":  "2026-02-02",
+                                   "Predicted":  500825.80,
+                                   "ARDue":  269732.89,
+                                   "WeekNum":  2,
+                                   "Week":  "Week of Feb 2",
+                                   "Confidence":  70
+                               },
+                               {
+                                   "Total":  444090.82,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-02-09",
+                                                            "Amount":  66613.62,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-10",
+                                                            "Amount":  124345.43,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-11",
+                                                            "Amount":  111022.71,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-12",
+                                                            "Amount":  88818.16,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-13",
+                                                            "Amount":  53290.90,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-02-13",
+                                   "ExpectedCollections":  444090.82,
+                                   "Actual":  0,
+                                   "Sources":  {
+                                                   "From61_90":  13509.12,
+                                                   "From1_30":  155028.10,
+                                                   "FromCurrent":  188813.1,
+                                                   "From90Plus":  9813.05,
+                                                   "From31_60":  76927.45
+                                               },
+                                   "StartDate":  "2026-02-09",
+                                   "Predicted":  444090.82,
+                                   "ARDue":  886260.10,
+                                   "WeekNum":  3,
+                                   "Week":  "Week of Feb 9",
+                                   "Confidence":  55
+                               },
+                               {
+                                   "Total":  630354.31,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-02-16",
+                                                            "Amount":  121846.84,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-17",
+                                                            "Amount":  45489.49,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-18",
+                                                            "Amount":  203078.07,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-19",
+                                                            "Amount":  162462.45,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-20",
+                                                            "Amount":  97477.47,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-02-20",
+                                   "ExpectedCollections":  812312.26,
+                                   "Actual":  0,
+                                   "Sources":  {
+                                                   "From61_90":  20684.05,
+                                                   "From1_30":  89992.62,
+                                                   "FromCurrent":  620382,
+                                                   "From90Plus":  11038.44,
+                                                   "From31_60":  70215.16
+                                               },
+                                   "StartDate":  "2026-02-16",
+                                   "Predicted":  630354.31,
+                                   "ARDue":  691858.65,
+                                   "WeekNum":  4,
+                                   "Week":  "Week of Feb 16",
+                                   "Confidence":  55
+                               },
+                               {
+                                   "Total":  683177.26,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-02-23",
+                                                            "Amount":  102476.59,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-24",
+                                                            "Amount":  191289.63,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-25",
+                                                            "Amount":  170794.32,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-26",
+                                                            "Amount":  136635.45,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-27",
+                                                            "Amount":  81981.27,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-02-27",
+                                   "ExpectedCollections":  683177.26,
+                                   "Actual":  0,
+                                   "Sources":  {
+                                                   "From61_90":  24058.53,
+                                                   "From1_30":  106966.18,
+                                                   "FromCurrent":  484301.3,
+                                                   "From90Plus":  13034.24,
+                                                   "From31_60":  54817.01
+                                               },
+                                   "StartDate":  "2026-02-23",
+                                   "Predicted":  683177.26,
+                                   "ARDue":  698251.97,
+                                   "WeekNum":  5,
+                                   "Week":  "Week of Feb 23",
+                                   "Confidence":  40
+                               },
+                               {
+                                   "Total":  677240.68,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-03-02",
+                                                            "Amount":  101586.10,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-03-03",
+                                                            "Amount":  189627.39,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-03-04",
+                                                            "Amount":  169310.17,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-03-05",
+                                                            "Amount":  135448.14,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-03-06",
+                                                            "Amount":  81268.88,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-03-06",
+                                   "ExpectedCollections":  677240.68,
+                                   "Actual":  0,
+                                   "Sources":  {
+                                                   "From61_90":  23687.01,
+                                                   "From1_30":  100024.21,
+                                                   "FromCurrent":  488776.4,
+                                                   "From90Plus":  15349.80,
+                                                   "From31_60":  49403.27
+                                               },
+                                   "StartDate":  "2026-03-02",
+                                   "Predicted":  677240.68,
+                                   "ARDue":  147750.02,
+                                   "WeekNum":  6,
+                                   "Week":  "Week of Mar 2",
+                                   "Confidence":  40
+                               }
+                           ],
+    "TopCustomers":  {
+                         "Yesterday":  [
+                                           {
+                                               "Name":  "JOHNSON CONTROLS FIRE PROTECTION",
+                                               "Amount":  10890.75
+                                           },
+                                           {
+                                               "Name":  "US Cold Storage #370 - Lake City",
+                                               "Amount":  7248.60
+                                           },
+                                           {
+                                               "Name":  "JBS-Pilgrim\u0027s - Greeley",
+                                               "Amount":  5743.00
+                                           },
+                                           {
+                                               "Name":  "Americold Logistics - 2115 - Modesto",
+                                               "Amount":  5720.00
+                                           },
+                                           {
+                                               "Name":  "JI Landis Welding \u0026 Mechanical",
+                                               "Amount":  5201.00
+                                           },
+                                           {
+                                               "Name":  "Americold Logistics - 8407 - Garden City",
+                                               "Amount":  4380.00
+                                           },
+                                           {
+                                               "Name":  "DFA Dairy Brands - Meadow Gold - Las Vegas",
+                                               "Amount":  4241.00
+                                           },
+                                           {
+                                               "Name":  "Cool Air, Inc",
+                                               "Amount":  3822.00
+                                           },
+                                           {
+                                               "Name":  "Mondelez Chicago Bakery",
+                                               "Amount":  3573.00
+                                           },
+                                           {
+                                               "Name":  "Murphy Company",
+                                               "Amount":  3290.00
+                                           },
+                                           {
+                                               "Name":  "Wells Enterprises Inc Engineering Center",
+                                               "Amount":  3278.00
+                                           },
+                                           {
+                                               "Name":  "Coca-Cola Consolidated - Indianapolis",
+                                               "Amount":  3132.00
+                                           },
+                                           {
+                                               "Name":  "Coca-Cola SW Beverages - El Paso",
+                                               "Amount":  3116.00
+                                           },
+                                           {
+                                               "Name":  "Smithfield (FM) - Milan",
+                                               "Amount":  3023.00
+                                           },
+                                           {
+                                               "Name":  "Westward Seafoods - Alyeska - Unalaska",
+                                               "Amount":  3002.00
+                                           }
+                                       ],
+                         "MTD":  [
+                                     {
+                                         "Name":  "Keep Supply",
+                                         "Amount":  78255.35
+                                     },
+                                     {
+                                         "Name":  "CP\u0026R - Concrete Protection \u0026 Restoration",
+                                         "Amount":  76052.90
+                                     },
+                                     {
+                                         "Name":  "Evapco - Lake View",
+                                         "Amount":  73549.00
+                                     },
+                                     {
+                                         "Name":  "Republic Refrigeration - Monroe",
+                                         "Amount":  55951.30
+                                     },
+                                     {
+                                         "Name":  "JOHNSON CONTROLS FIRE PROTECTION",
+                                         "Amount":  53991.89
+                                     },
+                                     {
+                                         "Name":  "Cimco Refrigeration - CANADA - Burlington",
+                                         "Amount":  40596.50
+                                     },
+                                     {
+                                         "Name":  "Cimco Refrigeration - US - Mobile",
+                                         "Amount":  39667.10
+                                     },
+                                     {
+                                         "Name":  "D\u0026H Refrigeration",
+                                         "Amount":  35420.40
+                                     },
+                                     {
+                                         "Name":  "Wagner-Meinert - Fort Wayne",
+                                         "Amount":  34039.60
+                                     },
+                                     {
+                                         "Name":  "AC\u0026R Specialists",
+                                         "Amount":  34027.00
+                                     },
+                                     {
+                                         "Name":  "Coca-Cola Bottling Co United - College Park",
+                                         "Amount":  33249.00
+                                     },
+                                     {
+                                         "Name":  "Clauger USA LLC",
+                                         "Amount":  31584.70
+                                     },
+                                     {
+                                         "Name":  "Modern Mechanical Ice Systems LLC",
+                                         "Amount":  29189.80
+                                     },
+                                     {
+                                         "Name":  "Waltec Electrical Services LTD",
+                                         "Amount":  29012.20
+                                     },
+                                     {
+                                         "Name":  "ARC Mechanical",
+                                         "Amount":  28982.10
+                                     }
+                                 ]
+                     },
+    "DayOfWeekAverages":  null,
+    "Period":  {
+                   "MonthStart":  "2026-01-01",
+                   "MTDBusinessDays":  21,
+                   "YearStart":  "2026-01-01",
+                   "Yesterday":  "2026-01-29",
+                   "YTDBusinessDays":  21
+               },
+    "DataSource":  "SyteLine GL Ledger with ProductCode (LFTR/LGAS/LIHL=Service)",
+    "GeneratedAt":  "2026-01-30 14:34:39",
+    "DailyTrend":  [
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-01",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-02",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-03",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-04",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-05",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-08",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-09",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-10",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-11",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-12",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-15",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-16",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-17",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-18",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-19",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-22",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-23",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-24",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-25",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-26",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-29",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-30",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-31",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2026-01-01",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2026-01-02",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  13472.10,
+                           "Service":  2877.00,
+                           "Product":  10595.10,
+                           "Date":  "2026-01-05",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  25839.77,
+                           "Service":  9353.00,
+                           "Product":  15938.18,
+                           "Date":  "2026-01-06",
+                           "Freight":  548.59
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  97452.64,
+                           "Service":  49069.54,
+                           "Product":  46630.90,
+                           "Date":  "2026-01-07",
+                           "Freight":  1752.20
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  143533.93,
+                           "Service":  68662.70,
+                           "Product":  69134.68,
+                           "Date":  "2026-01-08",
+                           "Freight":  5736.55
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  97476.89,
+                           "Service":  47511.40,
+                           "Product":  47086.49,
+                           "Date":  "2026-01-09",
+                           "Freight":  2879.00
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  230666.22,
+                           "Service":  57649.00,
+                           "Product":  164144.10,
+                           "Date":  "2026-01-12",
+                           "Freight":  8873.12
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  372724.60,
+                           "Service":  32982.29,
+                           "Product":  324797.35,
+                           "Date":  "2026-01-13",
+                           "Freight":  14944.96
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  247578.71,
+                           "Service":  36715.35,
+                           "Product":  200818.35,
+                           "Date":  "2026-01-14",
+                           "Freight":  10045.01
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  151953.08,
+                           "Service":  62171.70,
+                           "Product":  85184.04,
+                           "Date":  "2026-01-15",
+                           "Freight":  4597.34
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  210264.06,
+                           "Service":  89703.15,
+                           "Product":  115574.55,
+                           "Date":  "2026-01-16",
+                           "Freight":  4986.36
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  143253.96,
+                           "Service":  40823.77,
+                           "Product":  97554.40,
+                           "Date":  "2026-01-19",
+                           "Freight":  4875.79
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  170100.66,
+                           "Service":  45962.80,
+                           "Product":  116510.40,
+                           "Date":  "2026-01-20",
+                           "Freight":  7627.46
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  135026.42,
+                           "Service":  46135.10,
+                           "Product":  85971.97,
+                           "Date":  "2026-01-21",
+                           "Freight":  2919.35
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  148364.22,
+                           "Service":  16099.20,
+                           "Product":  126820.80,
+                           "Date":  "2026-01-22",
+                           "Freight":  5444.22
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  226716.11,
+                           "Service":  39107.14,
+                           "Product":  181358.72,
+                           "Date":  "2026-01-23",
+                           "Freight":  6250.25
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  117990.48,
+                           "Service":  47653.35,
+                           "Product":  66816.90,
+                           "Date":  "2026-01-26",
+                           "Freight":  3520.23
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  195740.27,
+                           "Service":  56256.60,
+                           "Product":  134371.80,
+                           "Date":  "2026-01-27",
+                           "Freight":  5111.87
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  186304.05,
+                           "Service":  23482.18,
+                           "Product":  159051.60,
+                           "Date":  "2026-01-28",
+                           "Freight":  3770.27
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  110765.12,
+                           "Service":  39850.80,
+                           "Product":  65969.90,
+                           "Date":  "2026-01-29",
+                           "Freight":  4944.42
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  18095.90,
+                           "Service":  18095.90,
+                           "Product":  0,
+                           "Date":  "2026-01-30",
+                           "Freight":  0
+                       }
+                   ],
+    "ARaging":  {
+                    "Current":  3308769,
+                    "Days90Plus":  242773.85,
+                    "Days31_60":  132248.69,
+                    "Total":  4449224.06,
+                    "Days1_30":  583517.43,
+                    "Days61_90":  181915.09
+                },
+    "TopProducts":  {
+                        "MTD":  [
+                                    {
+                                        "Amount":  353828.30,
+                                        "Description":  "CTI tech on-site for calibration of up t",
+                                        "Item":  "CTI TECH ON SITE"
+                                    },
+                                    {
+                                        "Amount":  353203.06,
+                                        "Description":  "Gas Sensor, Ammonia 0-100 ppm, 4/20 mA o",
+                                        "Item":  "GG-NH3-100"
+                                    },
+                                    {
+                                        "Amount":  150848.20,
+                                        "Description":  "Replacement Electrochemical Cell, NH3, r",
+                                        "Item":  "GG-NH3-RC"
+                                    },
+                                    {
+                                        "Amount":  140106.30,
+                                        "Description":  "Additional Sensor (above 12) onsite cali",
+                                        "Item":  "CAL ADD"
+                                    },
+                                    {
+                                        "Amount":  95773.58,
+                                        "Description":  "Gas Sensor, Vent Line, catalytic-bead, A",
+                                        "Item":  "GG-VL2-NH3"
+                                    },
+                                    {
+                                        "Amount":  91911.40,
+                                        "Description":  "Gas Sensor, Ammonia 0-250 ppm, 4/20 mA o",
+                                        "Item":  "GG-NH3-250"
+                                    },
+                                    {
+                                        "Amount":  85187.72,
+                                        "Description":  "Americold 3 year SA.  Flat rate per site",
+                                        "Item":  "AMERICOLD SA 2024-2026"
+                                    },
+                                    {
+                                        "Amount":  83908.97,
+                                        "Description":  "Certified Calibration Gas, 17L Cylinder,",
+                                        "Item":  "TB17L CAL GAS"
+                                    },
+                                    {
+                                        "Amount":  78329.00,
+                                        "Description":  "CTI tech on-site for calibration of up t",
+                                        "Item":  "CTI TECH ON SITE - WEEKEND"
+                                    },
+                                    {
+                                        "Amount":  66665.50,
+                                        "Description":  "Gas Sensor, Carbon Monoxide (0-200 ppm),",
+                                        "Item":  "DUOSENSE-M"
+                                    },
+                                    {
+                                        "Amount":  66494.05,
+                                        "Description":  "Gas Detection Entrance Monitor, White, L",
+                                        "Item":  "EM2-24"
+                                    },
+                                    {
+                                        "Amount":  66059.75,
+                                        "Description":  "Wingman F1 portable gas detector, Ammoni",
+                                        "Item":  "F1-NH3"
+                                    },
+                                    {
+                                        "Amount":  54323.00,
+                                        "Description":  "Certified Calibration Gas, 34L Cylinder,",
+                                        "Item":  "RB34L-NH3/100"
+                                    },
+                                    {
+                                        "Amount":  53572.60,
+                                        "Description":  "Gas Sensor, Ammonia 0-100 ppm, 4/20 mA o",
+                                        "Item":  "GG-NH3-100-ST"
+                                    },
+                                    {
+                                        "Amount":  50946.08,
+                                        "Description":  "Gas Sensor NH3, 0-2% range (0-20,000 ppm",
+                                        "Item":  "GG-NH3-2%"
+                                    }
+                                ]
+                    }
+}

@@ -1,0 +1,2308 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTI Gas - Executive Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --secondary: #3d5a80;
+            --accent: #ee6c4d;
+            --success: #06d6a0;
+            --warning: #ffd166;
+            --danger: #ef476f;
+            --bg-dark: #0d1b2a;
+            --bg-card: #1b2838;
+            --text-primary: #ffffff;
+            --text-secondary: #98c1d9;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+        }
+        .header {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header h1 { font-size: 24px; font-weight: 300; }
+        .header h1 span { font-weight: 700; color: var(--accent); }
+        .header .nav { display: flex; gap: 15px; }
+        .header .nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.3s;
+        }
+        .header .nav a:hover, .header .nav a.active {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        .timestamp { color: var(--text-secondary); font-size: 12px; }
+        .page { display: none; padding: 25px; max-width: 1900px; margin: 0 auto; }
+        .page.active { display: block; }
+        .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 6px 25px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .card.span-2 { grid-column: span 2; }
+        .card.span-3 { grid-column: span 3; }
+        .card.span-4 { grid-column: span 4; }
+        .card-title {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .card-title::before {
+            content: '';
+            width: 3px;
+            height: 16px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+        .metric {
+            font-size: 36px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff, var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .metric.green { background: linear-gradient(135deg, var(--success), #00ff88); -webkit-background-clip: text; }
+        .metric.small { font-size: 26px; }
+        .metric-label { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+        .breakdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
+        .breakdown-item {
+            text-align: center;
+            padding: 12px 8px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            border-left: 3px solid;
+            overflow: hidden;
+            min-width: 0;
+        }
+        .breakdown-item.product { border-color: #4ecdc4; }
+        .breakdown-item.service { border-color: #ff6b6b; }
+        .breakdown-item.freight { border-color: #feca57; }
+        .breakdown-item.misc { border-color: #a29bfe; }
+        .breakdown-item .amount { font-size: 16px; font-weight: 600; }
+        .breakdown-item .label { font-size: 10px; text-transform: uppercase; color: var(--text-secondary); margin-top: 3px; }
+        .chart-container { position: relative; height: 280px; margin-top: 10px; }
+        .chart-container.tall { height: 350px; }
+        #shippingMap { height: 320px; border-radius: 10px; margin-top: 10px; }
+        .top-list { margin-top: 10px; max-height: 350px; overflow-y: auto; }
+        .top-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 6px;
+            margin-bottom: 6px;
+        }
+        .top-item:hover { background: rgba(255,255,255,0.06); }
+        .top-item .rank {
+            width: 24px;
+            height: 24px;
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            margin-right: 12px;
+        }
+        .top-item .rank.gold { background: linear-gradient(135deg, #ffd700, #ff8c00); }
+        .top-item .rank.silver { background: linear-gradient(135deg, #c0c0c0, #808080); }
+        .top-item .rank.bronze { background: linear-gradient(135deg, #cd7f32, #8b4513); }
+        .top-item .name { flex: 1; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .top-item .amount { font-weight: 600; color: var(--success); font-size: 13px; }
+        .cash-flow-week {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 12px;
+        }
+        .cash-flow-week .week-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .cash-flow-week .week-label { font-weight: 600; font-size: 14px; }
+        .cash-flow-week .week-total { font-size: 22px; font-weight: 700; color: var(--success); }
+        .cash-flow-week .confidence {
+            font-size: 11px;
+            padding: 3px 8px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+        }
+        .cash-flow-week .confidence.high { background: rgba(6,214,160,0.2); color: var(--success); }
+        .cash-flow-week .confidence.medium { background: rgba(255,209,102,0.2); color: var(--warning); }
+        .cash-flow-week .confidence.low { background: rgba(239,71,111,0.2); color: var(--danger); }
+        .cash-flow-week .day-breakdown { display: flex; gap: 8px; }
+        .cash-flow-week .day {
+            flex: 1;
+            text-align: center;
+            padding: 8px 4px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 6px;
+            font-size: 11px;
+        }
+        .cash-flow-week .day.actual { border-bottom: 2px solid var(--success); }
+        .cash-flow-week .day.predicted { border-bottom: 2px solid var(--warning); opacity: 0.8; }
+        .cash-flow-week .day.today { border-bottom: 2px solid var(--accent); }
+        .cash-flow-week .day .day-name { color: var(--text-secondary); margin-bottom: 4px; }
+        .cash-flow-week .day .day-amount { font-weight: 600; }
+        .ar-aging { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 15px; }
+        .ar-bucket {
+            text-align: center;
+            padding: 15px 10px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+        }
+        .ar-bucket .amount { font-size: 18px; font-weight: 700; }
+        .ar-bucket .label { font-size: 10px; color: var(--text-secondary); margin-top: 4px; }
+        .ar-bucket.current .amount { color: var(--success); }
+        .ar-bucket.days30 .amount { color: #4ecdc4; }
+        .ar-bucket.days60 .amount { color: var(--warning); }
+        .ar-bucket.days90 .amount { color: #ff9f43; }
+        .ar-bucket.over90 .amount { color: var(--danger); }
+        .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 20px; }
+        .kpi-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 18px;
+            text-align: center;
+        }
+        .kpi-card .value { font-size: 28px; font-weight: 700; }
+        .kpi-card .label { font-size: 11px; color: var(--text-secondary); margin-top: 5px; text-transform: uppercase; }
+        .tab-buttons { display: flex; gap: 8px; margin-bottom: 12px; }
+        .tab-btn {
+            padding: 6px 14px;
+            background: rgba(255,255,255,0.05);
+            border: none;
+            border-radius: 15px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .tab-btn.active { background: var(--accent); color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        @media (max-width: 1200px) {
+            .card.span-2, .card.span-3 { grid-column: span 1; }
+            .breakdown { grid-template-columns: repeat(2, 1fr); }
+            .kpi-row { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1><span>CTI</span> Executive Dashboard</h1>
+        <div class="nav">
+            <a href="#" class="active" onclick="showPage('overview')">Overview</a>
+            <a href="#" onclick="showPage('cashflow')">Cash Flow</a>
+            <a href="#" onclick="showPage('customers')">Customers</a>
+            <a href="#" onclick="showPage('products')">Products</a>
+            <a href="#" onclick="showPage('geography')">Geography</a>
+        </div>
+        <div class="timestamp" id="timestamp">Loading...</div>
+    </div>
+
+    <!-- OVERVIEW PAGE -->
+    <div id="overview" class="page active">
+        <div class="kpi-row">
+            <div class="kpi-card">
+                <div class="value" style="color: var(--success);" id="kpiYesterday">$0</div>
+                <div class="label">Yesterday's Sales</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: #4ecdc4;" id="kpiMTD">$0</div>
+                <div class="label">Month-to-Date</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: var(--warning);" id="kpiYTD">$0</div>
+                <div class="label">Year-to-Date</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: var(--accent);" id="kpiAR">$0</div>
+                <div class="label">AR Outstanding</div>
+            </div>
+        </div>
+        <div class="dashboard">
+            <div class="card span-2">
+                <div class="card-title">60-Day Sales Trend</div>
+                <div class="chart-container tall"><canvas id="trendChart"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Yesterday's Breakdown</div>
+                <div class="metric" id="yesterdayTotal">$0</div>
+                <div class="metric-label" id="yesterdayDate">--</div>
+                <div class="breakdown">
+                    <div class="breakdown-item product"><div class="amount" id="yProduct">$0</div><div class="label">Product</div></div>
+                    <div class="breakdown-item service"><div class="amount" id="yService">$0</div><div class="label">Service</div></div>
+                    <div class="breakdown-item freight"><div class="amount" id="yFreight">$0</div><div class="label">Freight</div></div>
+                    <div class="breakdown-item misc"><div class="amount" id="yMisc">$0</div><div class="label">Misc</div></div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">MTD Sales Mix</div>
+                <div class="chart-container"><canvas id="categoryPie"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Daily Averages</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px;">
+                    <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 10px;">
+                        <div class="metric small green" id="mtdAvg">$0</div>
+                        <div class="metric-label">MTD Daily Avg</div>
+                    </div>
+                    <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 10px;">
+                        <div class="metric small" id="ytdAvg">$0</div>
+                        <div class="metric-label">YTD Daily Avg</div>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
+                    <div style="text-align: center; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px;">
+                        <div style="font-size: 20px; font-weight: 600;" id="mtdDays">0</div>
+                        <div class="metric-label">MTD Business Days</div>
+                    </div>
+                    <div style="text-align: center; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px;">
+                        <div style="font-size: 20px; font-weight: 600;" id="ytdDays">0</div>
+                        <div class="metric-label">YTD Business Days</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">AR Aging</div>
+                <div class="ar-aging">
+                    <div class="ar-bucket current"><div class="amount" id="arCurrent">$0</div><div class="label">Current</div></div>
+                    <div class="ar-bucket days30"><div class="amount" id="ar30">$0</div><div class="label">1-30 Days</div></div>
+                    <div class="ar-bucket days60"><div class="amount" id="ar60">$0</div><div class="label">31-60 Days</div></div>
+                    <div class="ar-bucket days90"><div class="amount" id="ar90">$0</div><div class="label">61-90 Days</div></div>
+                    <div class="ar-bucket over90"><div class="amount" id="ar90plus">$0</div><div class="label">90+ Days</div></div>
+                </div>
+                <div class="chart-container" style="height: 180px;"><canvas id="arChart"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Day of Week Performance</div>
+                <div class="chart-container"><canvas id="dowChart"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Top Customers (MTD)</div>
+                <div class="top-list" id="topCustomersMTD"></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Top Products (MTD)</div>
+                <div class="top-list" id="topProductsMTD"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CASH FLOW PAGE -->
+    <div id="cashflow" class="page">
+        <div class="kpi-row">
+            <div class="kpi-card">
+                <div class="value" style="color: var(--success);" id="cfThisWeek">$0</div>
+                <div class="label">This Week Forecast</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: #4ecdc4;" id="cfNextWeek">$0</div>
+                <div class="label">Next Week Forecast</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: var(--warning);" id="cf6Week">$0</div>
+                <div class="label">6-Week Total</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: var(--accent);" id="cfARDue">$0</div>
+                <div class="label">AR Due Next 6 Weeks</div>
+            </div>
+        </div>
+        <div class="dashboard">
+            <div class="card span-3">
+                <div class="card-title">6-Week Cash Flow Forecast</div>
+                <div class="chart-container tall"><canvas id="cashFlowChart"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Week-by-Week Breakdown</div>
+                <div id="weekBreakdown" style="max-height: 500px; overflow-y: auto;"></div>
+            </div>
+        </div>
+        <div class="dashboard" style="margin-top: 20px;">
+            <div class="card span-2">
+                <div class="card-title">Prediction Algorithm Details</div>
+                <div style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 8px; font-size: 13px; line-height: 1.8;">
+                    <strong>How the forecast is calculated:</strong><br>
+                    â€¢ <strong>Historical Patterns:</strong> Weighted average of sales by day of week (Mon-Fri)<br>
+                    â€¢ <strong>AR Expectations:</strong> Invoices due within the forecast period (15% expected collection rate)<br>
+                    â€¢ <strong>Actual Data:</strong> Days already passed use actual GL data<br>
+                    â€¢ <strong>Weekend Rule:</strong> Saturday/Sunday sales roll into Monday<br>
+                    â€¢ <strong>Confidence:</strong> Decreases with forecast distance (90% â†’ 45%)<br>
+                    <br>
+                    <em style="color: var(--text-secondary);">Formula: (DayOfWeek Avg Ã— 0.85) + (AR Due Ã— 0.15)</em>
+                </div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Historical Day-of-Week Averages</div>
+                <div class="chart-container"><canvas id="dowAvgChart"></canvas></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CUSTOMERS PAGE -->
+    <div id="customers" class="page">
+        <div class="dashboard">
+            <div class="card span-2">
+                <div class="card-title">Top 15 Customers - Month to Date</div>
+                <div class="chart-container tall"><canvas id="customerBarChart"></canvas></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Yesterday's Top Customers</div>
+                <div class="top-list" id="topCustomersYesterday" style="max-height: 500px;"></div>
+            </div>
+            <div class="card">
+                <div class="card-title">MTD Customer List</div>
+                <div class="top-list" id="fullCustomerList" style="max-height: 500px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCTS PAGE -->
+    <div id="products" class="page">
+        <div class="dashboard">
+            <div class="card span-2">
+                <div class="card-title">Top 15 Products - Month to Date</div>
+                <div class="chart-container tall"><canvas id="productBarChart"></canvas></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Product Category Mix</div>
+                <div class="chart-container tall"><canvas id="productPieChart"></canvas></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Full Product List (MTD)</div>
+                <div class="top-list" id="fullProductList" style="max-height: 600px;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GEOGRAPHY PAGE -->
+    <div id="geography" class="page">
+        <div class="dashboard">
+            <div class="card span-3">
+                <div class="card-title">Shipping Destinations Heat Map</div>
+                <div id="shippingMap"></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Top Shipping Locations</div>
+                <div class="top-list" id="topLocations" style="max-height: 400px;"></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Shipments by State</div>
+                <div class="chart-container tall"><canvas id="stateChart"></canvas></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Service Tech Locations</div>
+                <div style="padding: 40px; text-align: center; color: var(--text-secondary);">
+                    <div style="font-size: 48px; margin-bottom: 15px;">ðŸ”§</div>
+                    <div>Salesforce integration coming soon</div>
+                    <div style="font-size: 12px; margin-top: 10px;">Will show real-time service technician locations</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data will be embedded here by the generator script
+        let DATA = {
+    "Summary":  {
+                    "YTDDailyAverage":  144919.96,
+                    "YTD":  {
+                                "Total":  3043319.19,
+                                "Freight":  98826.99,
+                                "Service":  830161.97,
+                                "Miscellaneous":  0,
+                                "Product":  2114330.23
+                            },
+                    "MTD":  {
+                                "Total":  3043319.19,
+                                "Freight":  98826.99,
+                                "Service":  830161.97,
+                                "Miscellaneous":  0,
+                                "Product":  2114330.23
+                            },
+                    "Yesterday":  {
+                                      "Total":  110765.12,
+                                      "Freight":  4944.42,
+                                      "Service":  39850.80,
+                                      "Miscellaneous":  0,
+                                      "Product":  65969.90
+                                  },
+                    "MTDDailyAverage":  144919.96
+                },
+    "ShippingHeatMap":  [
+                            {
+                                "Zip":  "54603",
+                                "State":  "WI",
+                                "Count":  1,
+                                "City":  "La Crosse"
+                            },
+                            {
+                                "Zip":  "29006",
+                                "State":  "SC",
+                                "Count":  1,
+                                "City":  "Batesburg"
+                            },
+                            {
+                                "Zip":  "31408",
+                                "State":  "GA",
+                                "Count":  4,
+                                "City":  "Savannah"
+                            },
+                            {
+                                "Zip":  "83338",
+                                "State":  "ID",
+                                "Count":  2,
+                                "City":  "Jerome"
+                            },
+                            {
+                                "Zip":  "52501",
+                                "State":  "IA",
+                                "Count":  1,
+                                "City":  "Ottumwa"
+                            },
+                            {
+                                "Zip":  "56031",
+                                "State":  "MN",
+                                "Count":  1,
+                                "City":  "Fairmont"
+                            },
+                            {
+                                "Zip":  "24153",
+                                "State":  "VA",
+                                "Count":  1,
+                                "City":  "Salem"
+                            },
+                            {
+                                "Zip":  "02760",
+                                "State":  "MA",
+                                "Count":  1,
+                                "City":  "North Attleborough"
+                            },
+                            {
+                                "Zip":  "49426",
+                                "State":  "MI",
+                                "Count":  1,
+                                "City":  "Hudsonville"
+                            },
+                            {
+                                "Zip":  "14787",
+                                "State":  "NY",
+                                "Count":  1,
+                                "City":  "Westfield"
+                            },
+                            {
+                                "Zip":  "51012",
+                                "State":  "IA",
+                                "Count":  1,
+                                "City":  "Cherokee"
+                            },
+                            {
+                                "Zip":  "75052",
+                                "State":  "TX",
+                                "Count":  1,
+                                "City":  "Grand Prairie"
+                            },
+                            {
+                                "Zip":  "17543",
+                                "State":  "PA",
+                                "Count":  2,
+                                "City":  "Lititz"
+                            },
+                            {
+                                "Zip":  "75141",
+                                "State":  "TX",
+                                "Count":  1,
+                                "City":  "Hutchins"
+                            },
+                            {
+                                "Zip":  "72701",
+                                "State":  "AR",
+                                "Count":  2,
+                                "City":  "Fayetteville"
+                            },
+                            {
+                                "Zip":  "17901",
+                                "State":  "PA",
+                                "Count":  3,
+                                "City":  "Pottsville"
+                            },
+                            {
+                                "Zip":  "98199",
+                                "State":  "WA",
+                                "Count":  11,
+                                "City":  "Seattle"
+                            },
+                            {
+                                "Zip":  "68137",
+                                "State":  "NE",
+                                "Count":  10,
+                                "City":  "Omaha"
+                            },
+                            {
+                                "Zip":  "64804",
+                                "State":  "MO",
+                                "Count":  3,
+                                "City":  "Joplin"
+                            },
+                            {
+                                "Zip":  "35957",
+                                "State":  "AL",
+                                "Count":  1,
+                                "City":  "Boaz"
+                            },
+                            {
+                                "Zip":  "60467",
+                                "State":  "IL",
+                                "Count":  1,
+                                "City":  "Orland Park"
+                            },
+                            {
+                                "Zip":  "23666",
+                                "State":  "VA",
+                                "Count":  1,
+                                "City":  "Hampton"
+                            },
+                            {
+                                "Zip":  "49735",
+                                "State":  "MI",
+                                "Count":  1,
+                                "City":  "Gaylord"
+                            },
+                            {
+                                "Zip":  "26003",
+                                "State":  "WV",
+                                "Count":  1,
+                                "City":  "Wheeling"
+                            },
+                            {
+                                "Zip":  "08037",
+                                "State":  "NJ",
+                                "Count":  1,
+                                "City":  "Hammonton"
+                            },
+                            {
+                                "Zip":  "52641",
+                                "State":  "IA",
+                                "Count":  1,
+                                "City":  "Mount Pleasant"
+                            },
+                            {
+                                "Zip":  "V4W 2W8",
+                                "State":  "BC-C",
+                                "Count":  1,
+                                "City":  "Aldergrove"
+                            },
+                            {
+                                "Zip":  "61008",
+                                "State":  "IL",
+                                "Count":  1,
+                                "City":  "Belvidere"
+                            },
+                            {
+                                "Zip":  "60957",
+                                "State":  "IL",
+                                "Count":  4,
+                                "City":  "Paxton"
+                            },
+                            {
+                                "Zip":  "27529",
+                                "State":  "NC",
+                                "Count":  2,
+                                "City":  "Garner"
+                            },
+                            {
+                                "Zip":  "44870",
+                                "State":  "OH",
+                                "Count":  1,
+                                "City":  "Sandusky"
+                            },
+                            {
+                                "Zip":  "60484",
+                                "State":  "IL",
+                                "Count":  2,
+                                "City":  "University Park"
+                            },
+                            {
+                                "Zip":  "51031",
+                                "State":  "IA",
+                                "Count":  2,
+                                "City":  "Le Mars"
+                            },
+                            {
+                                "Zip":  "29847",
+                                "State":  "SC",
+                                "Count":  1,
+                                "City":  "Trenton"
+                            },
+                            {
+                                "Zip":  "49646",
+                                "State":  "MI",
+                                "Count":  1,
+                                "City":  "Kalkaska"
+                            },
+                            {
+                                "Zip":  "21220",
+                                "State":  "MD",
+                                "Count":  5,
+                                "City":  "Baltimore"
+                            },
+                            {
+                                "Zip":  "96819",
+                                "State":  "HI",
+                                "Count":  1,
+                                "City":  "Honolulu"
+                            },
+                            {
+                                "Zip":  "04740",
+                                "State":  "ME",
+                                "Count":  1,
+                                "City":  "Easton"
+                            },
+                            {
+                                "Zip":  "68766",
+                                "State":  "NE",
+                                "Count":  1,
+                                "City":  "South Sioux City"
+                            },
+                            {
+                                "Zip":  "98264",
+                                "State":  "WA",
+                                "Count":  1,
+                                "City":  "Lynden"
+                            },
+                            {
+                                "Zip":  "54130",
+                                "State":  "WI",
+                                "Count":  5,
+                                "City":  "Kaukauna"
+                            },
+                            {
+                                "Zip":  "70806",
+                                "State":  "LA",
+                                "Count":  1,
+                                "City":  "Baton Rouge"
+                            },
+                            {
+                                "Zip":  "45385",
+                                "State":  "OH",
+                                "Count":  1,
+                                "City":  "Xenia"
+                            },
+                            {
+                                "Zip":  "17331",
+                                "State":  "PA",
+                                "Count":  1,
+                                "City":  "HANOVER"
+                            },
+                            {
+                                "Zip":  "42101",
+                                "State":  "KY",
+                                "Count":  1,
+                                "City":  "Bowling Green"
+                            },
+                            {
+                                "Zip":  "44146",
+                                "State":  "OH",
+                                "Count":  2,
+                                "City":  "Bedford Heights"
+                            },
+                            {
+                                "Zip":  "55309",
+                                "State":  "MN",
+                                "Count":  2,
+                                "City":  "Big Lake"
+                            },
+                            {
+                                "Zip":  "56156",
+                                "State":  "MN",
+                                "Count":  1,
+                                "City":  "Luverne"
+                            },
+                            {
+                                "Zip":  "52806",
+                                "State":  "IA",
+                                "Count":  1,
+                                "City":  "Davenport"
+                            },
+                            {
+                                "Zip":  "31730-7432",
+                                "State":  "GA",
+                                "Count":  2,
+                                "City":  "Camilla"
+                            },
+                            {
+                                "Zip":  "48849",
+                                "State":  "MI",
+                                "Count":  2,
+                                "City":  "Lake Odessa"
+                            },
+                            {
+                                "Zip":  "82604",
+                                "State":  "WY",
+                                "Count":  1,
+                                "City":  "Casper"
+                            },
+                            {
+                                "Zip":  "43402",
+                                "State":  "OH",
+                                "Count":  1,
+                                "City":  "Bowling Green"
+                            },
+                            {
+                                "Zip":  "17019",
+                                "State":  "PA",
+                                "Count":  2,
+                                "City":  "Dillsburg"
+                            },
+                            {
+                                "Zip":  "30643",
+                                "State":  "GA",
+                                "Count":  1,
+                                "City":  "Hartwell"
+                            },
+                            {
+                                "Zip":  "14543",
+                                "State":  "NY",
+                                "Count":  1,
+                                "City":  "Rush"
+                            },
+                            {
+                                "Zip":  "44104",
+                                "State":  "OH",
+                                "Count":  1,
+                                "City":  "Cleveland"
+                            },
+                            {
+                                "Zip":  "17801",
+                                "State":  "PA",
+                                "Count":  1,
+                                "City":  "Sunbury"
+                            },
+                            {
+                                "Zip":  "54401",
+                                "State":  "WI",
+                                "Count":  3,
+                                "City":  "Wausau"
+                            },
+                            {
+                                "Zip":  "91761",
+                                "State":  "CA",
+                                "Count":  1,
+                                "City":  "Ontario"
+                            },
+                            {
+                                "Zip":  "80640",
+                                "State":  "CO",
+                                "Count":  1,
+                                "City":  "Henderson"
+                            },
+                            {
+                                "Zip":  "73401",
+                                "State":  "OK",
+                                "Count":  2,
+                                "City":  "Ardmore"
+                            },
+                            {
+                                "Zip":  "95301",
+                                "State":  "CA",
+                                "Count":  1,
+                                "City":  "Atwater"
+                            },
+                            {
+                                "Zip":  "74055",
+                                "State":  "OK",
+                                "Count":  2,
+                                "City":  "Owasso"
+                            },
+                            {
+                                "Zip":  "51101",
+                                "State":  "IA",
+                                "Count":  8,
+                                "City":  "Sioux City"
+                            },
+                            {
+                                "Zip":  "63134",
+                                "State":  "MO",
+                                "Count":  1,
+                                "City":  "Berkeley"
+                            },
+                            {
+                                "Zip":  "44647",
+                                "State":  "OH",
+                                "Count":  3,
+                                "City":  "Massillon"
+                            },
+                            {
+                                "Zip":  "91733",
+                                "State":  "CA",
+                                "Count":  5,
+                                "City":  "South El Monte"
+                            },
+                            {
+                                "Zip":  "39601",
+                                "State":  "MS",
+                                "Count":  1,
+                                "City":  "Brookhaven"
+                            },
+                            {
+                                "Zip":  "56232",
+                                "State":  "MN",
+                                "Count":  1,
+                                "City":  "Dawson"
+                            },
+                            {
+                                "Zip":  "5010",
+                                "State":  "NZ-WG",
+                                "Count":  1,
+                                "City":  "Lower Hutt"
+                            },
+                            {
+                                "Zip":  "29506",
+                                "State":  "SC",
+                                "Count":  2,
+                                "City":  "Florence"
+                            },
+                            {
+                                "Zip":  "90631",
+                                "State":  "CA",
+                                "Count":  4,
+                                "City":  "La Habra"
+                            },
+                            {
+                                "Zip":  "84088",
+                                "State":  "UT",
+                                "Count":  2,
+                                "City":  "West Jordan"
+                            },
+                            {
+                                "Zip":  "53959",
+                                "State":  "WI",
+                                "Count":  1,
+                                "City":  "Reedsburg"
+                            },
+                            {
+                                "Zip":  "37408",
+                                "State":  "TN",
+                                "Count":  1,
+                                "City":  "Chattanooga"
+                            },
+                            {
+                                "Zip":  "99301",
+                                "State":  "WA",
+                                "Count":  6,
+                                "City":  "Pasco"
+                            },
+                            {
+                                "Zip":  "7570027",
+                                "State":  "RM",
+                                "Count":  1,
+                                "City":  "Las Condes"
+                            },
+                            {
+                                "Zip":  "91356",
+                                "State":  "CA",
+                                "Count":  1,
+                                "City":  "Los Angeles"
+                            },
+                            {
+                                "Zip":  "49321",
+                                "State":  "MI",
+                                "Count":  2,
+                                "City":  "Comstock Park"
+                            },
+                            {
+                                "Zip":  "97210",
+                                "State":  "OR",
+                                "Count":  6,
+                                "City":  "Portland"
+                            },
+                            {
+                                "Zip":  "54603",
+                                "State":  "WI",
+                                "Count":  1,
+                                "City":  "LaCrosse"
+                            },
+                            {
+                                "Zip":  "21830",
+                                "State":  "MD",
+                                "Count":  1,
+                                "City":  "Hebron"
+                            },
+                            {
+                                "Zip":  "75141",
+                                "State":  "TX",
+                                "Count":  1,
+                                "City":  "Hutchens"
+                            },
+                            {
+                                "Zip":  "85213",
+                                "State":  "AZ",
+                                "Count":  1,
+                                "City":  "Mesa"
+                            },
+                            {
+                                "Zip":  "44512",
+                                "State":  "OH",
+                                "Count":  1,
+                                "City":  "Youngstown"
+                            },
+                            {
+                                "Zip":  "97317",
+                                "State":  "OR",
+                                "Count":  5,
+                                "City":  "Salem"
+                            },
+                            {
+                                "Zip":  "97322",
+                                "State":  "OR",
+                                "Count":  2,
+                                "City":  "Albany"
+                            },
+                            {
+                                "Zip":  "28103",
+                                "State":  "NC",
+                                "Count":  1,
+                                "City":  "Marshville"
+                            },
+                            {
+                                "Zip":  "57103",
+                                "State":  "SD",
+                                "Count":  3,
+                                "City":  "Sioux Falls"
+                            },
+                            {
+                                "Zip":  "57252",
+                                "State":  "SD",
+                                "Count":  1,
+                                "City":  "Milbank"
+                            },
+                            {
+                                "Zip":  "45869",
+                                "State":  "OH",
+                                "Count":  3,
+                                "City":  "New Bremen"
+                            },
+                            {
+                                "Zip":  "76903",
+                                "State":  "TX",
+                                "Count":  1,
+                                "City":  "San Angelo"
+                            },
+                            {
+                                "Zip":  "28655",
+                                "State":  "NC",
+                                "Count":  1,
+                                "City":  "Morganton"
+                            },
+                            {
+                                "Zip":  "95633",
+                                "State":  "CA",
+                                "Count":  1,
+                                "City":  "Garden Valley"
+                            },
+                            {
+                                "Zip":  "78163",
+                                "State":  "TX",
+                                "Count":  1,
+                                "City":  "Bulverde"
+                            },
+                            {
+                                "Zip":  "35752",
+                                "State":  "AL",
+                                "Count":  1,
+                                "City":  "Hollywood"
+                            },
+                            {
+                                "Zip":  "76705",
+                                "State":  "TX",
+                                "Count":  2,
+                                "City":  "Waco"
+                            },
+                            {
+                                "Zip":  "17201",
+                                "State":  "PA",
+                                "Count":  1,
+                                "City":  "Chambersburg"
+                            },
+                            {
+                                "Zip":  "85034",
+                                "State":  "AZ",
+                                "Count":  1,
+                                "City":  "Phoenix"
+                            }
+                        ],
+    "CashFlowPrediction":  [
+                               {
+                                   "Total":  628895.82,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-01-26",
+                                                            "Amount":  117990.48,
+                                                            "Type":  "Actual",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-01-27",
+                                                            "Amount":  195740.27,
+                                                            "Type":  "Actual",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-01-28",
+                                                            "Amount":  186304.05,
+                                                            "Type":  "Actual",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-01-29",
+                                                            "Amount":  110765.12,
+                                                            "Type":  "Actual",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-01-30",
+                                                            "Amount":  18095.90,
+                                                            "Type":  "Today",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-01-30",
+                                   "ExpectedCollections":  2503691.38,
+                                   "Actual":  628895.82,
+                                   "Sources":  {
+                                                   "From61_90":  14553.21,
+                                                   "From1_30":  145879.36,
+                                                   "FromCurrent":  2316138.3,
+                                                   "From90Plus":  7283.22,
+                                                   "From31_60":  19837.30
+                                               },
+                                   "StartDate":  "2026-01-26",
+                                   "Predicted":  0,
+                                   "ARDue":  184220.84,
+                                   "WeekNum":  1,
+                                   "Week":  "Week of Jan 26",
+                                   "Confidence":  85
+                               },
+                               {
+                                   "Total":  500825.80,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-02-02",
+                                                            "Amount":  75123.87,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-03",
+                                                            "Amount":  140231.22,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-04",
+                                                            "Amount":  125206.45,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-05",
+                                                            "Amount":  100165.16,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-06",
+                                                            "Amount":  60099.10,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-02-06",
+                                   "ExpectedCollections":  500825.80,
+                                   "Actual":  0,
+                                   "Sources":  {
+                                                   "From61_90":  12196.96,
+                                                   "From1_30":  313803.39,
+                                                   "FromCurrent":  128954.7,
+                                                   "From90Plus":  8701.95,
+                                                   "From31_60":  37168.80
+                                               },
+                                   "StartDate":  "2026-02-02",
+                                   "Predicted":  500825.80,
+                                   "ARDue":  269732.89,
+                                   "WeekNum":  2,
+                                   "Week":  "Week of Feb 2",
+                                   "Confidence":  70
+                               },
+                               {
+                                   "Total":  444090.82,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-02-09",
+                                                            "Amount":  66613.62,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-10",
+                                                            "Amount":  124345.43,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-11",
+                                                            "Amount":  111022.71,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-12",
+                                                            "Amount":  88818.16,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-13",
+                                                            "Amount":  53290.90,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-02-13",
+                                   "ExpectedCollections":  444090.82,
+                                   "Actual":  0,
+                                   "Sources":  {
+                                                   "From61_90":  13509.12,
+                                                   "From1_30":  155028.10,
+                                                   "FromCurrent":  188813.1,
+                                                   "From90Plus":  9813.05,
+                                                   "From31_60":  76927.45
+                                               },
+                                   "StartDate":  "2026-02-09",
+                                   "Predicted":  444090.82,
+                                   "ARDue":  886260.10,
+                                   "WeekNum":  3,
+                                   "Week":  "Week of Feb 9",
+                                   "Confidence":  55
+                               },
+                               {
+                                   "Total":  630354.31,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-02-16",
+                                                            "Amount":  121846.84,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-17",
+                                                            "Amount":  45489.49,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-18",
+                                                            "Amount":  203078.07,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-19",
+                                                            "Amount":  162462.45,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-20",
+                                                            "Amount":  97477.47,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-02-20",
+                                   "ExpectedCollections":  812312.26,
+                                   "Actual":  0,
+                                   "Sources":  {
+                                                   "From61_90":  20684.05,
+                                                   "From1_30":  89992.62,
+                                                   "FromCurrent":  620382,
+                                                   "From90Plus":  11038.44,
+                                                   "From31_60":  70215.16
+                                               },
+                                   "StartDate":  "2026-02-16",
+                                   "Predicted":  630354.31,
+                                   "ARDue":  691858.65,
+                                   "WeekNum":  4,
+                                   "Week":  "Week of Feb 16",
+                                   "Confidence":  55
+                               },
+                               {
+                                   "Total":  683177.26,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-02-23",
+                                                            "Amount":  102476.59,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-24",
+                                                            "Amount":  191289.63,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-25",
+                                                            "Amount":  170794.32,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-26",
+                                                            "Amount":  136635.45,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-27",
+                                                            "Amount":  81981.27,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-02-27",
+                                   "ExpectedCollections":  683177.26,
+                                   "Actual":  0,
+                                   "Sources":  {
+                                                   "From61_90":  24058.53,
+                                                   "From1_30":  106966.18,
+                                                   "FromCurrent":  484301.3,
+                                                   "From90Plus":  13034.24,
+                                                   "From31_60":  54817.01
+                                               },
+                                   "StartDate":  "2026-02-23",
+                                   "Predicted":  683177.26,
+                                   "ARDue":  698251.97,
+                                   "WeekNum":  5,
+                                   "Week":  "Week of Feb 23",
+                                   "Confidence":  40
+                               },
+                               {
+                                   "Total":  677240.68,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-03-02",
+                                                            "Amount":  101586.10,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-03-03",
+                                                            "Amount":  189627.39,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-03-04",
+                                                            "Amount":  169310.17,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-03-05",
+                                                            "Amount":  135448.14,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-03-06",
+                                                            "Amount":  81268.88,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-03-06",
+                                   "ExpectedCollections":  677240.68,
+                                   "Actual":  0,
+                                   "Sources":  {
+                                                   "From61_90":  23687.01,
+                                                   "From1_30":  100024.21,
+                                                   "FromCurrent":  488776.4,
+                                                   "From90Plus":  15349.80,
+                                                   "From31_60":  49403.27
+                                               },
+                                   "StartDate":  "2026-03-02",
+                                   "Predicted":  677240.68,
+                                   "ARDue":  147750.02,
+                                   "WeekNum":  6,
+                                   "Week":  "Week of Mar 2",
+                                   "Confidence":  40
+                               }
+                           ],
+    "TopCustomers":  {
+                         "Yesterday":  [
+                                           {
+                                               "Name":  "JOHNSON CONTROLS FIRE PROTECTION",
+                                               "Amount":  10890.75
+                                           },
+                                           {
+                                               "Name":  "US Cold Storage #370 - Lake City",
+                                               "Amount":  7248.60
+                                           },
+                                           {
+                                               "Name":  "JBS-Pilgrim\u0027s - Greeley",
+                                               "Amount":  5743.00
+                                           },
+                                           {
+                                               "Name":  "Americold Logistics - 2115 - Modesto",
+                                               "Amount":  5720.00
+                                           },
+                                           {
+                                               "Name":  "JI Landis Welding \u0026 Mechanical",
+                                               "Amount":  5201.00
+                                           },
+                                           {
+                                               "Name":  "Americold Logistics - 8407 - Garden City",
+                                               "Amount":  4380.00
+                                           },
+                                           {
+                                               "Name":  "DFA Dairy Brands - Meadow Gold - Las Vegas",
+                                               "Amount":  4241.00
+                                           },
+                                           {
+                                               "Name":  "Cool Air, Inc",
+                                               "Amount":  3822.00
+                                           },
+                                           {
+                                               "Name":  "Mondelez Chicago Bakery",
+                                               "Amount":  3573.00
+                                           },
+                                           {
+                                               "Name":  "Murphy Company",
+                                               "Amount":  3290.00
+                                           },
+                                           {
+                                               "Name":  "Wells Enterprises Inc Engineering Center",
+                                               "Amount":  3278.00
+                                           },
+                                           {
+                                               "Name":  "Coca-Cola Consolidated - Indianapolis",
+                                               "Amount":  3132.00
+                                           },
+                                           {
+                                               "Name":  "Coca-Cola SW Beverages - El Paso",
+                                               "Amount":  3116.00
+                                           },
+                                           {
+                                               "Name":  "Smithfield (FM) - Milan",
+                                               "Amount":  3023.00
+                                           },
+                                           {
+                                               "Name":  "Westward Seafoods - Alyeska - Unalaska",
+                                               "Amount":  3002.00
+                                           }
+                                       ],
+                         "MTD":  [
+                                     {
+                                         "Name":  "Keep Supply",
+                                         "Amount":  78255.35
+                                     },
+                                     {
+                                         "Name":  "CP\u0026R - Concrete Protection \u0026 Restoration",
+                                         "Amount":  76052.90
+                                     },
+                                     {
+                                         "Name":  "Evapco - Lake View",
+                                         "Amount":  73549.00
+                                     },
+                                     {
+                                         "Name":  "Republic Refrigeration - Monroe",
+                                         "Amount":  55951.30
+                                     },
+                                     {
+                                         "Name":  "JOHNSON CONTROLS FIRE PROTECTION",
+                                         "Amount":  53991.89
+                                     },
+                                     {
+                                         "Name":  "Cimco Refrigeration - CANADA - Burlington",
+                                         "Amount":  40596.50
+                                     },
+                                     {
+                                         "Name":  "Cimco Refrigeration - US - Mobile",
+                                         "Amount":  39667.10
+                                     },
+                                     {
+                                         "Name":  "D\u0026H Refrigeration",
+                                         "Amount":  35420.40
+                                     },
+                                     {
+                                         "Name":  "Wagner-Meinert - Fort Wayne",
+                                         "Amount":  34039.60
+                                     },
+                                     {
+                                         "Name":  "AC\u0026R Specialists",
+                                         "Amount":  34027.00
+                                     },
+                                     {
+                                         "Name":  "Coca-Cola Bottling Co United - College Park",
+                                         "Amount":  33249.00
+                                     },
+                                     {
+                                         "Name":  "Clauger USA LLC",
+                                         "Amount":  31584.70
+                                     },
+                                     {
+                                         "Name":  "Modern Mechanical Ice Systems LLC",
+                                         "Amount":  29189.80
+                                     },
+                                     {
+                                         "Name":  "Waltec Electrical Services LTD",
+                                         "Amount":  29012.20
+                                     },
+                                     {
+                                         "Name":  "ARC Mechanical",
+                                         "Amount":  28982.10
+                                     }
+                                 ]
+                     },
+    "DayOfWeekAverages":  null,
+    "Period":  {
+                   "MonthStart":  "2026-01-01",
+                   "MTDBusinessDays":  21,
+                   "YearStart":  "2026-01-01",
+                   "Yesterday":  "2026-01-29",
+                   "YTDBusinessDays":  21
+               },
+    "DataSource":  "SyteLine GL Ledger with ProductCode (LFTR/LGAS/LIHL=Service)",
+    "GeneratedAt":  "2026-01-30 14:34:39",
+    "DailyTrend":  [
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-01",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-02",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-03",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-04",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-05",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-08",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-09",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-10",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-11",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-12",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-15",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-16",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-17",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-18",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-19",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-22",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-23",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-24",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-25",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-26",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-29",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-30",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-31",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2026-01-01",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2026-01-02",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  13472.10,
+                           "Service":  2877.00,
+                           "Product":  10595.10,
+                           "Date":  "2026-01-05",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  25839.77,
+                           "Service":  9353.00,
+                           "Product":  15938.18,
+                           "Date":  "2026-01-06",
+                           "Freight":  548.59
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  97452.64,
+                           "Service":  49069.54,
+                           "Product":  46630.90,
+                           "Date":  "2026-01-07",
+                           "Freight":  1752.20
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  143533.93,
+                           "Service":  68662.70,
+                           "Product":  69134.68,
+                           "Date":  "2026-01-08",
+                           "Freight":  5736.55
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  97476.89,
+                           "Service":  47511.40,
+                           "Product":  47086.49,
+                           "Date":  "2026-01-09",
+                           "Freight":  2879.00
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  230666.22,
+                           "Service":  57649.00,
+                           "Product":  164144.10,
+                           "Date":  "2026-01-12",
+                           "Freight":  8873.12
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  372724.60,
+                           "Service":  32982.29,
+                           "Product":  324797.35,
+                           "Date":  "2026-01-13",
+                           "Freight":  14944.96
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  247578.71,
+                           "Service":  36715.35,
+                           "Product":  200818.35,
+                           "Date":  "2026-01-14",
+                           "Freight":  10045.01
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  151953.08,
+                           "Service":  62171.70,
+                           "Product":  85184.04,
+                           "Date":  "2026-01-15",
+                           "Freight":  4597.34
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  210264.06,
+                           "Service":  89703.15,
+                           "Product":  115574.55,
+                           "Date":  "2026-01-16",
+                           "Freight":  4986.36
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  143253.96,
+                           "Service":  40823.77,
+                           "Product":  97554.40,
+                           "Date":  "2026-01-19",
+                           "Freight":  4875.79
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  170100.66,
+                           "Service":  45962.80,
+                           "Product":  116510.40,
+                           "Date":  "2026-01-20",
+                           "Freight":  7627.46
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  135026.42,
+                           "Service":  46135.10,
+                           "Product":  85971.97,
+                           "Date":  "2026-01-21",
+                           "Freight":  2919.35
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  148364.22,
+                           "Service":  16099.20,
+                           "Product":  126820.80,
+                           "Date":  "2026-01-22",
+                           "Freight":  5444.22
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  226716.11,
+                           "Service":  39107.14,
+                           "Product":  181358.72,
+                           "Date":  "2026-01-23",
+                           "Freight":  6250.25
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  117990.48,
+                           "Service":  47653.35,
+                           "Product":  66816.90,
+                           "Date":  "2026-01-26",
+                           "Freight":  3520.23
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  195740.27,
+                           "Service":  56256.60,
+                           "Product":  134371.80,
+                           "Date":  "2026-01-27",
+                           "Freight":  5111.87
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  186304.05,
+                           "Service":  23482.18,
+                           "Product":  159051.60,
+                           "Date":  "2026-01-28",
+                           "Freight":  3770.27
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  110765.12,
+                           "Service":  39850.80,
+                           "Product":  65969.90,
+                           "Date":  "2026-01-29",
+                           "Freight":  4944.42
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  18095.90,
+                           "Service":  18095.90,
+                           "Product":  0,
+                           "Date":  "2026-01-30",
+                           "Freight":  0
+                       }
+                   ],
+    "ARaging":  {
+                    "Current":  3308769,
+                    "Days90Plus":  242773.85,
+                    "Days31_60":  132248.69,
+                    "Total":  4449224.06,
+                    "Days1_30":  583517.43,
+                    "Days61_90":  181915.09
+                },
+    "TopProducts":  {
+                        "MTD":  [
+                                    {
+                                        "Amount":  353828.30,
+                                        "Description":  "CTI tech on-site for calibration of up t",
+                                        "Item":  "CTI TECH ON SITE"
+                                    },
+                                    {
+                                        "Amount":  353203.06,
+                                        "Description":  "Gas Sensor, Ammonia 0-100 ppm, 4/20 mA o",
+                                        "Item":  "GG-NH3-100"
+                                    },
+                                    {
+                                        "Amount":  150848.20,
+                                        "Description":  "Replacement Electrochemical Cell, NH3, r",
+                                        "Item":  "GG-NH3-RC"
+                                    },
+                                    {
+                                        "Amount":  140106.30,
+                                        "Description":  "Additional Sensor (above 12) onsite cali",
+                                        "Item":  "CAL ADD"
+                                    },
+                                    {
+                                        "Amount":  95773.58,
+                                        "Description":  "Gas Sensor, Vent Line, catalytic-bead, A",
+                                        "Item":  "GG-VL2-NH3"
+                                    },
+                                    {
+                                        "Amount":  91911.40,
+                                        "Description":  "Gas Sensor, Ammonia 0-250 ppm, 4/20 mA o",
+                                        "Item":  "GG-NH3-250"
+                                    },
+                                    {
+                                        "Amount":  85187.72,
+                                        "Description":  "Americold 3 year SA.  Flat rate per site",
+                                        "Item":  "AMERICOLD SA 2024-2026"
+                                    },
+                                    {
+                                        "Amount":  83908.97,
+                                        "Description":  "Certified Calibration Gas, 17L Cylinder,",
+                                        "Item":  "TB17L CAL GAS"
+                                    },
+                                    {
+                                        "Amount":  78329.00,
+                                        "Description":  "CTI tech on-site for calibration of up t",
+                                        "Item":  "CTI TECH ON SITE - WEEKEND"
+                                    },
+                                    {
+                                        "Amount":  66665.50,
+                                        "Description":  "Gas Sensor, Carbon Monoxide (0-200 ppm),",
+                                        "Item":  "DUOSENSE-M"
+                                    },
+                                    {
+                                        "Amount":  66494.05,
+                                        "Description":  "Gas Detection Entrance Monitor, White, L",
+                                        "Item":  "EM2-24"
+                                    },
+                                    {
+                                        "Amount":  66059.75,
+                                        "Description":  "Wingman F1 portable gas detector, Ammoni",
+                                        "Item":  "F1-NH3"
+                                    },
+                                    {
+                                        "Amount":  54323.00,
+                                        "Description":  "Certified Calibration Gas, 34L Cylinder,",
+                                        "Item":  "RB34L-NH3/100"
+                                    },
+                                    {
+                                        "Amount":  53572.60,
+                                        "Description":  "Gas Sensor, Ammonia 0-100 ppm, 4/20 mA o",
+                                        "Item":  "GG-NH3-100-ST"
+                                    },
+                                    {
+                                        "Amount":  50946.08,
+                                        "Description":  "Gas Sensor NH3, 0-2% range (0-20,000 ppm",
+                                        "Item":  "GG-NH3-2%"
+                                    }
+                                ]
+                    }
+};
+
+        // Load data from file or embedded
+        async function loadData() {
+            try {
+                // Try to load from file first
+                const response = await fetch('data/dashboard-data.json?' + Date.now());
+                DATA = await response.json();
+            } catch (e) {
+                console.log('Loading from embedded data...');
+                // Embedded data will be here if generated
+            }
+            if (DATA) {
+                initDashboard();
+            } else {
+                document.getElementById('timestamp').textContent = 'Error: No data available. Run generate-dashboard.ps1';
+            }
+        }
+
+        const stateCoords = {
+            'AL':[32.8,-86.8],'AK':[61.4,-152.4],'AZ':[33.7,-111.4],'AR':[35,-92.4],'CA':[36.1,-119.7],
+            'CO':[39.1,-105.3],'CT':[41.6,-72.8],'DE':[39.3,-75.5],'FL':[27.8,-81.7],'GA':[33,-83.6],
+            'HI':[21.1,-157.5],'ID':[44.2,-114.5],'IL':[40.3,-89],'IN':[39.8,-86.3],'IA':[42,-93.2],
+            'KS':[38.5,-96.7],'KY':[37.7,-84.7],'LA':[31.2,-91.9],'ME':[44.7,-69.4],'MD':[39.1,-76.8],
+            'MA':[42.2,-71.5],'MI':[43.3,-84.5],'MN':[45.7,-93.9],'MS':[32.7,-89.7],'MO':[38.5,-92.3],
+            'MT':[46.9,-110.5],'NE':[41.1,-98.3],'NV':[38.3,-117.1],'NH':[43.5,-71.6],'NJ':[40.3,-74.5],
+            'NM':[34.8,-106.2],'NY':[42.2,-75],'NC':[35.6,-79.8],'ND':[47.5,-99.8],'OH':[40.4,-82.8],
+            'OK':[35.6,-96.9],'OR':[44.6,-122.1],'PA':[40.6,-77.2],'RI':[41.7,-71.5],'SC':[33.9,-80.9],
+            'SD':[44.3,-99.4],'TN':[35.7,-86.7],'TX':[31.1,-97.6],'UT':[40.2,-111.9],'VT':[44,-72.7],
+            'VA':[37.8,-78.2],'WA':[47.4,-121.5],'WV':[38.5,-81],'WI':[44.3,-89.6],'WY':[42.8,-107.3]
+        };
+
+        function fmt(n) { return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0}).format(n||0); }
+        function fmtK(n) { return '$' + (n/1000).toFixed(0) + 'k'; }
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            event.target.classList.add('active');
+            if (pageId === 'geography') setTimeout(initMap, 100);
+        }
+
+        function renderList(id, items, nameField='Name') {
+            const el = document.getElementById(id);
+            if (!items?.length) { el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-secondary)">No data</div>'; return; }
+            el.innerHTML = items.map((item,i) => {
+                const rank = i<3 ? ['gold','silver','bronze'][i] : '';
+                const name = item[nameField] || item.Name || item.Item || '?';
+                return `<div class="top-item"><div class="rank ${rank}">${i+1}</div><div class="name" title="${name}">${name.substring(0,40)}</div><div class="amount">${fmt(item.Amount)}</div></div>`;
+            }).join('');
+        }
+
+        let charts = {};
+
+        function initDashboard() {
+            document.getElementById('timestamp').textContent = `Updated: ${DATA.GeneratedAt}`;
+            
+            // KPIs
+            document.getElementById('kpiYesterday').textContent = fmt(DATA.Summary.Yesterday.Total);
+            document.getElementById('kpiMTD').textContent = fmt(DATA.Summary.MTD.Total);
+            document.getElementById('kpiYTD').textContent = fmt(DATA.Summary.YTD.Total);
+            document.getElementById('kpiAR').textContent = fmt(DATA.ARaging?.Total || 0);
+
+            // Yesterday
+            document.getElementById('yesterdayTotal').textContent = fmt(DATA.Summary.Yesterday.Total);
+            document.getElementById('yesterdayDate').textContent = DATA.Period.Yesterday;
+            document.getElementById('yProduct').textContent = fmt(DATA.Summary.Yesterday.Product);
+            document.getElementById('yService').textContent = fmt(DATA.Summary.Yesterday.Service);
+            document.getElementById('yFreight').textContent = fmt(DATA.Summary.Yesterday.Freight);
+            document.getElementById('yMisc').textContent = fmt(DATA.Summary.Yesterday.Miscellaneous);
+
+            // Averages
+            document.getElementById('mtdAvg').textContent = fmt(DATA.Summary.MTDDailyAverage);
+            document.getElementById('ytdAvg').textContent = fmt(DATA.Summary.YTDDailyAverage);
+            document.getElementById('mtdDays').textContent = DATA.Period.MTDBusinessDays;
+            document.getElementById('ytdDays').textContent = DATA.Period.YTDBusinessDays;
+
+            // AR Aging
+            if (DATA.ARaging) {
+                document.getElementById('arCurrent').textContent = fmt(DATA.ARaging.Current);
+                document.getElementById('ar30').textContent = fmt(DATA.ARaging.Days1_30);
+                document.getElementById('ar60').textContent = fmt(DATA.ARaging.Days31_60);
+                document.getElementById('ar90').textContent = fmt(DATA.ARaging.Days61_90);
+                document.getElementById('ar90plus').textContent = fmt(DATA.ARaging.Days90Plus);
+            }
+
+            // Lists
+            renderList('topCustomersMTD', DATA.TopCustomers.MTD);
+            renderList('topProductsMTD', DATA.TopProducts.MTD, 'Item');
+            renderList('topCustomersYesterday', DATA.TopCustomers.Yesterday);
+            renderList('fullCustomerList', DATA.TopCustomers.MTD);
+            renderList('fullProductList', DATA.TopProducts.MTD, 'Item');
+
+            // Charts
+            initCharts();
+            initCashFlow();
+        }
+
+        function initCharts() {
+            // Trend Chart
+            const trendCtx = document.getElementById('trendChart').getContext('2d');
+            charts.trend = new Chart(trendCtx, {
+                type: 'line',
+                data: {
+                    labels: DATA.DailyTrend.map(d => new Date(d.Date).toLocaleDateString('en-US',{month:'short',day:'numeric'})),
+                    datasets: [{
+                        label: 'Total Sales',
+                        data: DATA.DailyTrend.map(d => d.Total),
+                        borderColor: '#4ecdc4',
+                        backgroundColor: 'rgba(78,205,196,0.1)',
+                        fill: true,
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', maxTicksLimit: 15 } },
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }
+                    }
+                }
+            });
+
+            // Category Pie
+            const pieCtx = document.getElementById('categoryPie').getContext('2d');
+            charts.pie = new Chart(pieCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Product', 'Service', 'Freight', 'Misc'],
+                    datasets: [{ data: [DATA.Summary.MTD.Product, DATA.Summary.MTD.Service, DATA.Summary.MTD.Freight, DATA.Summary.MTD.Miscellaneous], backgroundColor: ['#4ecdc4','#ff6b6b','#feca57','#a29bfe'], borderWidth: 0 }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#98c1d9' } } } }
+            });
+
+            // AR Chart
+            if (DATA.ARaging) {
+                const arCtx = document.getElementById('arChart').getContext('2d');
+                charts.ar = new Chart(arCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Current', '1-30', '31-60', '61-90', '90+'],
+                        datasets: [{ data: [DATA.ARaging.Current, DATA.ARaging.Days1_30, DATA.ARaging.Days31_60, DATA.ARaging.Days61_90, DATA.ARaging.Days90Plus], backgroundColor: ['#06d6a0','#4ecdc4','#ffd166','#ff9f43','#ef476f'] }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } } }
+                });
+            }
+
+            // Day of Week Chart
+            if (DATA.DayOfWeekAverages) {
+                const dowCtx = document.getElementById('dowChart').getContext('2d');
+                const days = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
+                charts.dow = new Chart(dowCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: days.map(d => d.substring(0,3)),
+                        datasets: [{ data: days.map(d => DATA.DayOfWeekAverages[d] || 0), backgroundColor: '#4ecdc4' }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } } }
+                });
+            }
+
+            // Customer Bar Chart
+            if (DATA.TopCustomers.MTD?.length) {
+                const custCtx = document.getElementById('customerBarChart').getContext('2d');
+                charts.cust = new Chart(custCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: DATA.TopCustomers.MTD.slice(0,15).map(c => c.Name.substring(0,25)),
+                        datasets: [{ data: DATA.TopCustomers.MTD.slice(0,15).map(c => c.Amount), backgroundColor: '#4ecdc4' }]
+                    },
+                    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }, y: { grid: { display: false }, ticks: { color: '#98c1d9' } } } }
+                });
+            }
+
+            // Product Bar Chart
+            if (DATA.TopProducts.MTD?.length) {
+                const prodCtx = document.getElementById('productBarChart').getContext('2d');
+                charts.prod = new Chart(prodCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: DATA.TopProducts.MTD.slice(0,15).map(p => p.Item.substring(0,20)),
+                        datasets: [{ data: DATA.TopProducts.MTD.slice(0,15).map(p => p.Amount), backgroundColor: '#feca57' }]
+                    },
+                    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }, y: { grid: { display: false }, ticks: { color: '#98c1d9' } } } }
+                });
+            }
+        }
+
+        function initCashFlow() {
+            if (!DATA.CashFlowPrediction?.length) return;
+
+            const cf = DATA.CashFlowPrediction;
+            document.getElementById('cfThisWeek').textContent = fmt(cf[0]?.Total);
+            document.getElementById('cfNextWeek').textContent = fmt(cf[1]?.Total);
+            document.getElementById('cf6Week').textContent = fmt(cf.reduce((s,w) => s + w.Total, 0));
+            document.getElementById('cfARDue').textContent = fmt(cf.reduce((s,w) => s + (w.ARDue||0), 0));
+
+            // Week breakdown
+            const wb = document.getElementById('weekBreakdown');
+            wb.innerHTML = cf.map(w => {
+                const confClass = w.Confidence >= 80 ? 'high' : w.Confidence >= 60 ? 'medium' : 'low';
+                return `
+                    <div class="cash-flow-week">
+                        <div class="week-header">
+                            <div><span class="week-label">${w.Week}</span></div>
+                            <div class="week-total">${fmt(w.Total)}</div>
+                            <span class="confidence ${confClass}">${w.Confidence}% confidence</span>
+                        </div>
+                        <div class="day-breakdown">
+                            ${w.DayBreakdown.map(d => `
+                                <div class="day ${d.Type.toLowerCase()}">
+                                    <div class="day-name">${d.DayOfWeek.substring(0,3)}</div>
+                                    <div class="day-amount">${fmt(d.Amount)}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Cash Flow Chart
+            const cfCtx = document.getElementById('cashFlowChart').getContext('2d');
+            charts.cf = new Chart(cfCtx, {
+                type: 'bar',
+                data: {
+                    labels: cf.map(w => w.Week.replace('Week of ','')),
+                    datasets: [
+                        { label: 'Actual', data: cf.map(w => w.Actual), backgroundColor: '#06d6a0' },
+                        { label: 'Predicted', data: cf.map(w => w.Predicted), backgroundColor: 'rgba(255,209,102,0.7)' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#98c1d9' } } },
+                    scales: {
+                        x: { stacked: true, grid: { display: false }, ticks: { color: '#98c1d9' } },
+                        y: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }
+                    }
+                }
+            });
+
+            // DOW Avg Chart
+            if (DATA.DayOfWeekAverages) {
+                const dowCtx = document.getElementById('dowAvgChart').getContext('2d');
+                const days = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
+                charts.dowAvg = new Chart(dowCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: days,
+                        datasets: [{ label: 'Historical Average', data: days.map(d => DATA.DayOfWeekAverages[d] || 0), backgroundColor: '#4ecdc4' }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } } }
+                });
+            }
+        }
+
+        let map = null;
+        function initMap() {
+            if (map || !DATA.ShippingHeatMap?.length) return;
+            map = L.map('shippingMap').setView([39.8, -98.6], 4);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+            
+            const stateCounts = {};
+            DATA.ShippingHeatMap.forEach(loc => {
+                const coords = stateCoords[loc.State];
+                if (coords) {
+                    stateCounts[loc.State] = (stateCounts[loc.State] || 0) + loc.Count;
+                    L.circleMarker([coords[0] + (Math.random()-0.5)*2, coords[1] + (Math.random()-0.5)*2], {
+                        radius: Math.min(Math.max(loc.Count * 2, 4), 25),
+                        fillColor: '#4ecdc4',
+                        color: '#4ecdc4',
+                        weight: 1,
+                        opacity: 0.8,
+                        fillOpacity: 0.4
+                    }).addTo(map).bindPopup(`<b>${loc.City}, ${loc.State}</b><br>${loc.Count} shipments`);
+                }
+            });
+
+            // Top locations list
+            renderList('topLocations', DATA.ShippingHeatMap.slice(0,20).map(l => ({Name: `${l.City}, ${l.State}`, Amount: l.Count})));
+            document.querySelectorAll('#topLocations .amount').forEach(el => el.textContent = el.textContent.replace('$','') + ' shipments');
+
+            // State chart
+            const sorted = Object.entries(stateCounts).sort((a,b) => b[1]-a[1]).slice(0,15);
+            const stateCtx = document.getElementById('stateChart').getContext('2d');
+            charts.state = new Chart(stateCtx, {
+                type: 'bar',
+                data: {
+                    labels: sorted.map(s => s[0]),
+                    datasets: [{ data: sorted.map(s => s[1]), backgroundColor: '#4ecdc4' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9' } } } }
+            });
+        }
+
+        loadData();
+    </script>
+</body>
+</html>
+
