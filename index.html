@@ -382,7 +382,7 @@
         </div>
         
         <!-- All Team Section -->
-        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--warning);">📊 All Team Performance (with Roles)</h3>
+        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--warning);">All Team Performance (with Roles)</h3>
         <div class="dashboard">
             <div class="card span-2">
                 <div class="card-title">All Team - Month to Date</div>
@@ -395,7 +395,7 @@
         </div>
         
         <!-- Sales Reps Section -->
-        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--success);">💼 Sales Reps</h3>
+        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--success);">Sales Reps</h3>
         <div class="dashboard">
             <div class="card span-2">
                 <div class="card-title">Sales Reps - Month to Date</div>
@@ -408,7 +408,7 @@
         </div>
         
         <!-- Service Reps Section -->
-        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid #4ecdc4;">🔧 Service Reps & Territory Coverage</h3>
+        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid #4ecdc4;">Service Reps & Territory Coverage</h3>
         <div class="dashboard">
             <div class="card span-2">
                 <div class="card-title">Service Reps - Revenue by Territory</div>
@@ -421,7 +421,7 @@
         </div>
         
         <!-- Yesterday Section -->
-        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--accent);">📅 Yesterday's Activity</h3>
+        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--accent);">Yesterday's Activity</h3>
         <div class="dashboard">
             <div class="card span-2">
                 <div class="card-title">Yesterday's Sales by Team Member</div>
@@ -2693,7 +2693,7 @@
                     "Days1_30":  617951.15,
                     "Days61_90":  165937.48
                 },
-    "GeneratedAt":  "2026-01-30 16:39:25"
+    "GeneratedAt":  "2026-01-30 16:43:05"
 };
 
         // Load data from file or embedded
@@ -2763,12 +2763,12 @@
                 const role = item.Role ? `<span style="font-size:11px;color:var(--text-secondary);background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:4px;margin-left:8px;">${item.Role}</span>` : '';
                 const breakdown = showBreakdown && (item.ProductAmount || item.ServiceAmount) ? 
                     `<div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">
-                        <span style="color:#4ecdc4;">Product: ${fmt(item.ProductAmount || 0)}</span> · 
+                        <span style="color:#4ecdc4;">Product: ${fmt(item.ProductAmount || 0)}</span> - 
                         <span style="color:#ff6b6b;">Service: ${fmt(item.ServiceAmount || 0)}</span>
                     </div>` : '';
                 const territory = showTerritory && (item.StateCount || item.CityCount) ?
                     `<div style="font-size:11px;color:var(--warning);margin-top:4px;">
-                        📍 ${item.StateCount || 0} states · ${item.CityCount || 0} locations
+                        ${item.StateCount || 0} states - ${item.CityCount || 0} locations
                         ${item.States ? `<div style="font-size:10px;color:var(--text-secondary);margin-top:2px;">${item.States}</div>` : ''}
                     </div>` : '';
                 // Service rep specific metrics
@@ -2776,7 +2776,7 @@
                 const svcPct = item.Amount > 0 ? ((item.ServiceAmount || 0) / item.Amount * 100).toFixed(0) : 0;
                 const serviceMetrics = showTerritory && item.Role === 'Service Rep' && item.InvoiceCount > 0 ?
                     `<div style="font-size:11px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,255,255,0.1);">
-                        <span style="color:var(--success);">Avg/Call: ${fmt(avgTicket)}</span> · 
+                        <span style="color:var(--success);">Avg/Call: ${fmt(avgTicket)}</span> - 
                         <span style="color:#a29bfe;">Labor: ${svcPct}%</span>
                     </div>` : '';
                 return `<div class="salesperson-card">
