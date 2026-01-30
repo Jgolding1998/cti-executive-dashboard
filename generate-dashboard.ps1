@@ -10,12 +10,26 @@ param(
 $ErrorActionPreference = "Stop"
 Add-Type -AssemblyName System.Web
 
-# SyteLine API Configuration
-$SyteLineConfig = @{
-    BaseUrl = "https://csi10g.erpsl.inforcloudsuite.com/IDORequestService/ido"
-    Tenant = "GVNDYXUFKHB5VMB6_PRD_CTI"
-    Username = "gary.phillips@godlan.com"
-    Password = 'Crwthtithing2$'
+# SyteLine API Configuration - Load from config file or environment variables
+$configPath = Join-Path $PSScriptRoot "config.json"
+if (Test-Path $configPath) {
+    $config = Get-Content $configPath | ConvertFrom-Json
+    $SyteLineConfig = @{
+        BaseUrl = $config.syteline.baseUrl
+        Tenant = $config.syteline.tenant
+        Username = $config.syteline.username
+        Password = $config.syteline.password
+    }
+} elseif ($env:SYTELINE_USERNAME -and $env:SYTELINE_PASSWORD) {
+    # Use environment variables (for GitHub Actions)
+    $SyteLineConfig = @{
+        BaseUrl = if ($env:SYTELINE_BASEURL) { $env:SYTELINE_BASEURL } else { "https://csi10g.erpsl.inforcloudsuite.com/IDORequestService/ido" }
+        Tenant = if ($env:SYTELINE_TENANT) { $env:SYTELINE_TENANT } else { "GVNDYXUFKHB5VMB6_PRD_CTI" }
+        Username = $env:SYTELINE_USERNAME
+        Password = $env:SYTELINE_PASSWORD
+    }
+} else {
+    throw "No credentials found. Create config.json or set SYTELINE_USERNAME/SYTELINE_PASSWORD environment variables."
 }
 
 # Service Product Codes (from Alex's definition - see Teams chat 1/16)
@@ -128,9 +142,8 @@ foreach ($line in $coItems) {
 }
 Write-Host "Built breakdown for $($orderBreakdown.Count) orders, $($salesByProduct.Count) products"
 
-# === STEP 3: Get invoice to order mapping ===
+# === STEP 3: Get invoice to order mapping and salesperson data ===
 Write-Host "Fetching AR transactions..."
-# Get AR transactions for aging calculation (Invoice - Payments - Credits = Balance)
 $arTrans = Invoke-SyteLineAPI -Token $token -IDO "SLArTrans" -Properties "InvNum,CoNum,CadName,InvDate,DueDate,Amount,Type,ApplyToInvNum" -RecordCap 10000
 Write-Host "Got $($arTrans.Count) AR transaction records"
 
@@ -182,6 +195,36 @@ foreach ($inv in $invoiceBalances.GetEnumerator()) {
 }
 Write-Host "Found $($openAR.Count) open invoices (after payments), $($invToCustomer.Count) invoice-customer mappings"
 
+# === STEP 3.5: Get Order TakenBy (Salesperson) data with Territory Info ===
+Write-Host "Fetching order entry data for salesperson and territory tracking..."
+$orderFilter = "Invoiced = 1 AND OrderDate >= '$($yearStart.ToString("yyyyMMdd"))'"
+$orders = Invoke-SyteLineAPI -Token $token -IDO "SLCoS" -Properties "CoNum,TakenBy,Price,OrderDate,Invoiced,ShipToCity,ShipToState" -Filter $orderFilter -RecordCap 5000
+Write-Host "Got $($orders.Count) invoiced orders"
+
+# Build order to salesperson mapping AND territory data
+$orderToSalesperson = @{}
+$territoryByPerson = @{}
+foreach ($order in $orders) {
+    if ($order.CoNum -and $order.TakenBy) {
+        $takenBy = $order.TakenBy.Trim()
+        $orderToSalesperson[$order.CoNum.Trim()] = $takenBy
+        
+        # Track territory data
+        if (-not $territoryByPerson.ContainsKey($takenBy)) {
+            $territoryByPerson[$takenBy] = @{ States=@{}; Cities=@{}; Customers=@{}; OrderCount=0 }
+        }
+        if ($order.ShipToState) {
+            $territoryByPerson[$takenBy].States[$order.ShipToState.Trim()] = $true
+            if ($order.ShipToCity) {
+                $city = "$($order.ShipToCity.Trim()), $($order.ShipToState.Trim())"
+                $territoryByPerson[$takenBy].Cities[$city] = $true
+            }
+        }
+        $territoryByPerson[$takenBy].OrderCount++
+    }
+}
+Write-Host "Mapped $($orderToSalesperson.Count) orders to salespeople with territory data"
+
 # === STEP 4: Get GL Ledger and calculate sales by date with proper categorization ===
 Write-Host "Fetching GL ledger data..."
 $filter = "(Acct = '401000' OR Acct = '402000' OR Acct = '495000' OR Acct = '495400') AND ControlYear >= $currentYear"
@@ -190,6 +233,7 @@ Write-Host "Got $($ledgerData.Count) GL ledger records"
 
 $salesByDate = @{}
 $salesByCustomer = @{}
+$salesBySalesperson = @{}  # NEW: Track sales by salesperson
 
 foreach ($gl in $ledgerData) {
     $acct = $gl.Acct.Trim()
@@ -236,6 +280,28 @@ foreach ($gl in $ledgerData) {
                     if ($salesDate -ge $monthStart -and $salesDate -le $today) { $salesByCustomer[$custName].MTD += $amount }
                     if ($salesDate -eq $yesterday) { $salesByCustomer[$custName].Yesterday += $amount }
                 }
+                
+                # Salesperson tracking with Product/Service breakdown
+                $salesperson = if ($orderNum -and $orderToSalesperson.ContainsKey($orderNum)) { $orderToSalesperson[$orderNum] } else { "Unassigned" }
+                if (-not $salesBySalesperson.ContainsKey($salesperson)) {
+                    $salesBySalesperson[$salesperson] = @{ MTD=0; Yesterday=0; YTD=0; InvoiceCount=0; MTDProduct=0; MTDService=0; YesterdayProduct=0; YesterdayService=0 }
+                }
+                # Calculate product/service split for this transaction
+                $txnSvcAmt = $amount * $svcRatio
+                $txnProdAmt = $amount * $prodRatio
+                
+                if ($salesDate -ge $yearStart -and $salesDate -le $today) { $salesBySalesperson[$salesperson].YTD += $amount }
+                if ($salesDate -ge $monthStart -and $salesDate -le $today) { 
+                    $salesBySalesperson[$salesperson].MTD += $amount 
+                    $salesBySalesperson[$salesperson].MTDProduct += $txnProdAmt
+                    $salesBySalesperson[$salesperson].MTDService += $txnSvcAmt
+                    $salesBySalesperson[$salesperson].InvoiceCount++
+                }
+                if ($salesDate -eq $yesterday) { 
+                    $salesBySalesperson[$salesperson].Yesterday += $amount
+                    $salesBySalesperson[$salesperson].YesterdayProduct += $txnProdAmt
+                    $salesBySalesperson[$salesperson].YesterdayService += $txnSvcAmt
+                }
             }
         } catch {}
     }
@@ -264,76 +330,109 @@ $ytdAvg = if ($ytdDays -gt 0) { [math]::Round($ytdSales.Total / $ytdDays, 2) } e
 
 Write-Host "Service/Product split: $([math]::Round($mtdSales.Service / $mtdSales.Total * 100, 1))% Service, $([math]::Round($mtdSales.Product / $mtdSales.Total * 100, 1))% Product"
 
-# === STEP 6: AR Aging (calculated from transactions) ===
-Write-Host "Calculating AR aging from open invoices..."
+# === STEP 5.5: Calculate Day of Week Averages (FIX for empty chart) ===
+Write-Host "Calculating day of week averages..."
+$dowTotals = @{ Monday=@(); Tuesday=@(); Wednesday=@(); Thursday=@(); Friday=@() }
 
-# Include unapplied credits as part of AR (customer credits on account)
-$unappliedCredits = $arTrans | Where-Object { $_.Type -eq "C" -and (!$_.ApplyToInvNum -or $_.ApplyToInvNum -eq "0") }
-$unappliedCreditTotal = ($unappliedCredits | Measure-Object -Property Amount -Sum).Sum
-if (!$unappliedCreditTotal) { $unappliedCreditTotal = 0 }
-
-$arAging = @{ Current=0; Days1_30=0; Days31_60=0; Days61_90=0; Days90Plus=0; Total=0 }
-foreach ($inv in $openAR) {
-    $days = $inv.DaysOverdue
-    if ($days -le 0) { $arAging.Current += $inv.Amount }
-    elseif ($days -le 30) { $arAging.Days1_30 += $inv.Amount }
-    elseif ($days -le 60) { $arAging.Days31_60 += $inv.Amount }
-    elseif ($days -le 90) { $arAging.Days61_90 += $inv.Amount }
-    else { $arAging.Days90Plus += $inv.Amount }
-    $arAging.Total += $inv.Amount
+# Use last 60 days of data for day-of-week patterns
+for ($i = 60; $i -ge 0; $i--) {
+    $date = $today.AddDays(-$i)
+    if ($date.DayOfWeek -in @('Saturday','Sunday')) { continue }
+    $dateKey = $date.ToString("yyyy-MM-dd")
+    $dow = $date.DayOfWeek.ToString()
+    if ($salesByDate.ContainsKey($dateKey) -and $salesByDate[$dateKey].Total -gt 0) {
+        $dowTotals[$dow] += $salesByDate[$dateKey].Total
+    }
 }
 
-# Add back unapplied credits (they weren't subtracted from any invoice, but they reduce future AR)
-# Actually subtract them from current since they're credits on account
-$arAging.Current = [math]::Max(0, $arAging.Current - $unappliedCreditTotal)
-$arAging.Total = $arAging.Current + $arAging.Days1_30 + $arAging.Days31_60 + $arAging.Days61_90 + $arAging.Days90Plus
+$avgByDayOfWeek = @{}
+foreach ($dow in @("Monday","Tuesday","Wednesday","Thursday","Friday")) {
+    $values = $dowTotals[$dow]
+    if ($values.Count -gt 0) {
+        $avgByDayOfWeek[$dow] = [math]::Round(($values | Measure-Object -Sum).Sum / $values.Count, 2)
+    } else {
+        $avgByDayOfWeek[$dow] = $mtdAvg  # Default to MTD average
+    }
+}
+Write-Host "Day of week averages calculated: Mon=$($avgByDayOfWeek['Monday']), Tue=$($avgByDayOfWeek['Tuesday']), Wed=$($avgByDayOfWeek['Wednesday']), Thu=$($avgByDayOfWeek['Thursday']), Fri=$($avgByDayOfWeek['Friday'])"
 
-Write-Host "AR Total: `$$([math]::Round($arAging.Total, 2)) (unapplied credits: `$$([math]::Round($unappliedCreditTotal, 2)))"
-
-# === STEP 7: Smart Cash Flow Prediction ===
-Write-Host "Running smart cash flow prediction..."
-
-# --- COLLECTION PROBABILITY BY AGING BUCKET ---
-# Based on typical B2B collection patterns
-$collectionRates = @{
-    Current = 0.70      # 70% of current AR collects within the week it's due
-    Days1_30 = 0.25     # 25% of 1-30 day AR collects per week
-    Days31_60 = 0.15    # 15% of 31-60 day AR collects per week
-    Days61_90 = 0.08    # 8% of 61-90 day AR collects per week
-    Days90Plus = 0.03   # 3% of 90+ day AR collects per week
+# === STEP 6: AR Aging (use Birst data if available) ===
+Write-Host "Loading AR aging data..."
+$birstArPath = Join-Path $OutputPath "data\birst-ar-aging.json"
+if (Test-Path $birstArPath) {
+    $birstAR = Get-Content $birstArPath | ConvertFrom-Json
+    $arAging = @{
+        Current = [decimal]$birstAR.Current
+        Days1_30 = [decimal]$birstAR.Days1_30
+        Days31_60 = [decimal]$birstAR.Days31_60
+        Days61_90 = [decimal]$birstAR.Days61_90
+        Days90Plus = [decimal]$birstAR.Days90Plus
+        Total = [decimal]$birstAR.Total
+    }
+    Write-Host "Using Birst AR aging data: Total = `$$([math]::Round($arAging.Total, 2))"
+} else {
+    # Calculate from transactions if Birst data not available
+    $arAging = @{ Current=0; Days1_30=0; Days31_60=0; Days61_90=0; Days90Plus=0; Total=0 }
+    foreach ($inv in $openAR) {
+        $days = $inv.DaysOverdue
+        if ($days -le 0) { $arAging.Current += $inv.Amount }
+        elseif ($days -le 30) { $arAging.Days1_30 += $inv.Amount }
+        elseif ($days -le 60) { $arAging.Days31_60 += $inv.Amount }
+        elseif ($days -le 90) { $arAging.Days61_90 += $inv.Amount }
+        else { $arAging.Days90Plus += $inv.Amount }
+        $arAging.Total += $inv.Amount
+    }
+    Write-Host "Calculated AR aging from transactions: Total = `$$([math]::Round($arAging.Total, 2))"
 }
 
-# --- DAY OF WEEK PAYMENT PATTERNS ---
-# Payments typically concentrate on certain days (Tuesday/Wednesday heavy)
+# === STEP 7: IMPROVED Cash Flow Prediction ===
+Write-Host "Running improved cash flow prediction..."
+
+# Historical average daily collections (based on actual GL data)
+# This represents actual revenue posting to GL, which correlates with cash flow
+$historicalDailyAvg = $mtdAvg  # Use MTD average as baseline
+
+# AR-based collection expectations by bucket (more conservative rates)
+# These represent what % of each bucket we expect to COLLECT in a week
+$weeklyCollectionRates = @{
+    Current = 0.20     # 20% of current AR collects each week (5-week cycle)
+    Days1_30 = 0.15    # 15% of 1-30 day AR collects per week
+    Days31_60 = 0.10   # 10% of 31-60 day AR collects per week
+    Days61_90 = 0.05   # 5% of 61-90 day AR collects per week
+    Days90Plus = 0.02  # 2% of 90+ day AR collects per week (mostly write-offs)
+}
+
+# Day of week weight for when collections are received
 $dowWeights = @{
-    Monday = 0.15       # Start of week - some payments
-    Tuesday = 0.28      # Heavy payment day
-    Wednesday = 0.25    # Heavy payment day
-    Thursday = 0.20     # Moderate
-    Friday = 0.12       # Light - people wrap up
+    Monday = 0.15
+    Tuesday = 0.25
+    Wednesday = 0.25
+    Thursday = 0.20
+    Friday = 0.15
 }
 
-# --- HOLIDAYS (reduce collections) ---
+# Holidays reduce collections
 $holidays2026 = @(
-    "2026-01-01", "2026-01-20", "2026-02-17", "2026-05-25", 
+    "2026-01-01", "2026-01-19", "2026-02-16", "2026-05-25", 
     "2026-07-03", "2026-09-07", "2026-11-26", "2026-11-27", "2026-12-25"
 ) | ForEach-Object { [DateTime]::Parse($_) }
 
-# --- BUILD AR PIPELINE BY DUE DATE ---
+# Build AR due by week
 $arByDueWeek = @{}
 foreach ($inv in $openAR) {
     $dueDate = $inv.DueDate
     $weekStart = $dueDate.AddDays(-[int]$dueDate.DayOfWeek + 1)
+    if ($dueDate.DayOfWeek -eq 'Sunday') { $weekStart = $dueDate.AddDays(-6) }
     $weekKey = $weekStart.ToString("yyyy-MM-dd")
     if (-not $arByDueWeek[$weekKey]) { $arByDueWeek[$weekKey] = 0 }
     $arByDueWeek[$weekKey] += $inv.Amount
 }
 
-# --- CALCULATE WEEKLY EXPECTED COLLECTIONS ---
+# Calculate 6-week forecast
 $thisWeek = Get-WeekRange $today
 $cashFlowPrediction = @()
 
-# Track rolling AR for each bucket
+# Rolling AR balance per bucket
 $rollingAR = @{
     Current = $arAging.Current
     Days1_30 = $arAging.Days1_30
@@ -350,16 +449,21 @@ for ($w = 0; $w -lt 6; $w++) {
     
     $predicted = 0; $actual = 0; $dayBreakdown = @()
     
-    # Calculate expected collections from each aging bucket
-    $expectedFromCurrent = $rollingAR.Current * $collectionRates.Current
-    $expectedFrom1_30 = $rollingAR.Days1_30 * $collectionRates.Days1_30
-    $expectedFrom31_60 = $rollingAR.Days31_60 * $collectionRates.Days31_60
-    $expectedFrom61_90 = $rollingAR.Days61_90 * $collectionRates.Days61_90
-    $expectedFrom90Plus = $rollingAR.Days90Plus * $collectionRates.Days90Plus
+    # Expected collections from each aging bucket
+    $expectedFromCurrent = $rollingAR.Current * $weeklyCollectionRates.Current
+    $expectedFrom1_30 = $rollingAR.Days1_30 * $weeklyCollectionRates.Days1_30
+    $expectedFrom31_60 = $rollingAR.Days31_60 * $weeklyCollectionRates.Days31_60
+    $expectedFrom61_90 = $rollingAR.Days61_90 * $weeklyCollectionRates.Days61_90
+    $expectedFrom90Plus = $rollingAR.Days90Plus * $weeklyCollectionRates.Days90Plus
     
-    $weekExpectedCollections = $expectedFromCurrent + $expectedFrom1_30 + $expectedFrom31_60 + $expectedFrom61_90 + $expectedFrom90Plus
+    # Total expected from AR
+    $arBasedExpectation = $expectedFromCurrent + $expectedFrom1_30 + $expectedFrom31_60 + $expectedFrom61_90 + $expectedFrom90Plus
     
-    # New AR coming due this week (adds to current bucket for next week)
+    # Blend AR expectation with historical daily average
+    # Weight: 60% historical pattern, 40% AR-based
+    $weekExpectedCollections = ($historicalDailyAvg * 5 * 0.6) + ($arBasedExpectation * 0.4)
+    
+    # New AR coming due this week
     $newARDue = if ($arByDueWeek[$weekKey]) { $arByDueWeek[$weekKey] } else { 0 }
     
     for ($d = 0; $d -lt 5; $d++) {
@@ -368,7 +472,7 @@ for ($w = 0; $w -lt 6; $w++) {
         $dow = $day.DayOfWeek.ToString()
         
         if ($day -lt $today) {
-            # Actual data
+            # Actual data from GL
             $dayAmount = if ($salesByDate.ContainsKey($dayKey)) { $salesByDate[$dayKey].Total } else { 0 }
             $actual += $dayAmount
             $dayBreakdown += @{ Date=$dayKey; DayOfWeek=$dow; Type="Actual"; Amount=[math]::Round($dayAmount,2) }
@@ -377,31 +481,37 @@ for ($w = 0; $w -lt 6; $w++) {
             $actual += $dayAmount
             $dayBreakdown += @{ Date=$dayKey; DayOfWeek=$dow; Type="Today"; Amount=[math]::Round($dayAmount,2) }
         } else {
-            # Predicted: distribute weekly collections by day-of-week weight
+            # Predicted: use day-of-week weighted distribution
             $dowWeight = if ($dowWeights[$dow]) { $dowWeights[$dow] } else { 0.20 }
             
-            # Check for holiday - reduce by 80%
-            $isHoliday = $holidays2026 | Where-Object { $_.Date -eq $day.Date }
+            # Holiday factor
+            $isHoliday = $day -in $holidays2026
             $holidayFactor = if ($isHoliday) { 0.2 } else { 1.0 }
             
-            $dayPrediction = $weekExpectedCollections * $dowWeight * $holidayFactor
+            # Use actual day-of-week average if available, blended with weekly expectation
+            $dowAvgForDay = if ($avgByDayOfWeek[$dow]) { $avgByDayOfWeek[$dow] } else { $historicalDailyAvg }
+            
+            # Blend: 70% historical DOW average, 30% week-spread
+            $dayPrediction = ($dowAvgForDay * 0.7 + ($weekExpectedCollections * $dowWeight) * 0.3) * $holidayFactor
+            
             $predicted += $dayPrediction
             $dayBreakdown += @{ Date=$dayKey; DayOfWeek=$dow; Type="Predicted"; Amount=[math]::Round($dayPrediction,2) }
         }
     }
     
-    # Update rolling AR for next week (age the buckets)
-    $collected = $predicted
-    $rollingAR.Days90Plus = $rollingAR.Days90Plus - $expectedFrom90Plus + $rollingAR.Days61_90 * 0.3
-    $rollingAR.Days61_90 = $rollingAR.Days61_90 * 0.7 - $expectedFrom61_90 + $rollingAR.Days31_60 * 0.3
-    $rollingAR.Days31_60 = $rollingAR.Days31_60 * 0.7 - $expectedFrom31_60 + $rollingAR.Days1_30 * 0.3
-    $rollingAR.Days1_30 = $rollingAR.Days1_30 * 0.7 - $expectedFrom1_30 + $rollingAR.Current * 0.3
-    $rollingAR.Current = [math]::Max(0, $rollingAR.Current * 0.7 - $expectedFromCurrent + $newARDue)
+    # Age the AR buckets for next week
+    $rollingAR.Days90Plus = [math]::Max(0, $rollingAR.Days90Plus - $expectedFrom90Plus + $rollingAR.Days61_90 * 0.25)
+    $rollingAR.Days61_90 = [math]::Max(0, $rollingAR.Days61_90 * 0.75 - $expectedFrom61_90 + $rollingAR.Days31_60 * 0.25)
+    $rollingAR.Days31_60 = [math]::Max(0, $rollingAR.Days31_60 * 0.75 - $expectedFrom31_60 + $rollingAR.Days1_30 * 0.25)
+    $rollingAR.Days1_30 = [math]::Max(0, $rollingAR.Days1_30 * 0.75 - $expectedFrom1_30 + $rollingAR.Current * 0.2)
+    $rollingAR.Current = [math]::Max(0, $rollingAR.Current * 0.8 - $expectedFromCurrent + $newARDue)
     
     $weekTotal = $actual + $predicted
     
-    # Confidence based on how far out + data quality
-    $confidence = if ($w -eq 0) { 85 } elseif ($w -eq 1) { 70 } elseif ($w -lt 4) { 55 } else { 40 }
+    # Confidence: decreases further out, adjusted by how much is actual vs predicted
+    $actualPct = if ($weekTotal -gt 0) { $actual / $weekTotal } else { 0 }
+    $baseConfidence = if ($w -eq 0) { 90 } elseif ($w -eq 1) { 75 } elseif ($w -lt 4) { 60 } else { 45 }
+    $confidence = [math]::Round($baseConfidence * (0.5 + $actualPct * 0.5))
     
     $cashFlowPrediction += @{
         Week=$weekLabel; WeekNum=$w+1
@@ -421,7 +531,10 @@ for ($w = 0; $w -lt 6; $w++) {
     }
 }
 
-Write-Host "Cash flow prediction complete (AR-based model)"
+Write-Host "Cash flow prediction complete"
+$cf6WeekTotal = 0
+$cashFlowPrediction | ForEach-Object { $cf6WeekTotal += $_.Total }
+Write-Host "6-week forecast total: `$$([math]::Round($cf6WeekTotal, 2))"
 
 # === STEP 8: Shipments ===
 Write-Host "Fetching shipment data..."
@@ -451,6 +564,76 @@ $topCustomersYesterday = $salesByCustomer.GetEnumerator() | Where-Object { $_.Va
 $topProductsMTD = $salesByProduct.GetEnumerator() | Sort-Object { $_.Value.MTD } -Descending | Select-Object -First 15 | ForEach-Object { @{Item=$_.Key; Description=$_.Value.Description; Amount=[math]::Round($_.Value.MTD,2)} }
 $shippingLocations = $locationCounts.Values | Sort-Object -Property Count -Descending | Select-Object -First 100
 
+# Team member roles and labels
+$teamRoles = @{
+    'Joel' = @{ Role='COO'; Type='Executive' }
+    'Allison' = @{ Role='Accounting'; Type='Admin' }
+    'lphil' = @{ Role='Sales Rep'; Type='Sales' }
+    'cjord' = @{ Role='Sales Rep'; Type='Sales' }
+    'mrand' = @{ Role='Sales Rep'; Type='Sales' }
+    'nandy' = @{ Role='Sales Rep'; Type='Sales' }
+    'marissa' = @{ Role='Sales Rep'; Type='Sales' }
+    'seric' = @{ Role='Service Rep'; Type='Service' }
+    'mjaso' = @{ Role='Service Rep'; Type='Service' }
+    'bcoli' = @{ Role='Sales Rep'; Type='Sales' }
+    'tbolt' = @{ Role='Sales Rep'; Type='Sales' }
+    'hnich' = @{ Role='Service Rep'; Type='Service' }
+    'ljami' = @{ Role='Sales Rep'; Type='Sales' }
+    'Greg' = @{ Role='Sales Rep'; Type='Sales' }
+    'Anna' = @{ Role='Sales Rep'; Type='Sales' }
+    'Rachel L' = @{ Role='Sales Rep'; Type='Sales' }
+}
+
+# Build comprehensive team data with Product/Service breakdown AND territory info
+$allTeamMTD = $salesBySalesperson.GetEnumerator() | Where-Object { $_.Value.MTD -gt 0 } | Sort-Object { $_.Value.MTD } -Descending | ForEach-Object { 
+    $roleInfo = if ($teamRoles.ContainsKey($_.Key)) { $teamRoles[$_.Key] } else { @{ Role='Team Member'; Type='Sales' } }
+    $territory = if ($territoryByPerson.ContainsKey($_.Key)) { $territoryByPerson[$_.Key] } else { @{ States=@{}; Cities=@{}; OrderCount=0 } }
+    @{
+        Name=$_.Key
+        Role=$roleInfo.Role
+        Type=$roleInfo.Type
+        Amount=[math]::Round($_.Value.MTD,2)
+        ProductAmount=[math]::Round($_.Value.MTDProduct,2)
+        ServiceAmount=[math]::Round($_.Value.MTDService,2)
+        InvoiceCount=$_.Value.InvoiceCount
+        StateCount=$territory.States.Count
+        CityCount=$territory.Cities.Count
+        States=($territory.States.Keys | Sort-Object) -join ", "
+        TopCities=($territory.Cities.Keys | Select-Object -First 5) -join "; "
+    }
+}
+
+$allTeamYesterday = $salesBySalesperson.GetEnumerator() | Where-Object { $_.Value.Yesterday -gt 0 } | Sort-Object { $_.Value.Yesterday } -Descending | ForEach-Object { 
+    $roleInfo = if ($teamRoles.ContainsKey($_.Key)) { $teamRoles[$_.Key] } else { @{ Role='Team Member'; Type='Sales' } }
+    $territory = if ($territoryByPerson.ContainsKey($_.Key)) { $territoryByPerson[$_.Key] } else { @{ States=@{}; Cities=@{}; OrderCount=0 } }
+    @{
+        Name=$_.Key
+        Role=$roleInfo.Role
+        Type=$roleInfo.Type
+        Amount=[math]::Round($_.Value.Yesterday,2)
+        ProductAmount=[math]::Round($_.Value.YesterdayProduct,2)
+        ServiceAmount=[math]::Round($_.Value.YesterdayService,2)
+        StateCount=$territory.States.Count
+        CityCount=$territory.Cities.Count
+    }
+}
+
+# Filter for sales reps only (excludes Executive, Admin types)
+$salespersonMTD = $allTeamMTD | Where-Object { $_.Type -eq 'Sales' }
+$salespersonYesterday = $allTeamYesterday | Where-Object { $_.Type -eq 'Sales' }
+
+# Filter for service reps only
+$serviceRepMTD = $allTeamMTD | Where-Object { $_.Type -eq 'Service' }
+$serviceRepYesterday = $allTeamYesterday | Where-Object { $_.Type -eq 'Service' }
+
+Write-Host "`n=== TEAM SUMMARY ==="
+Write-Host "All Team MTD (with roles and territories):"
+$allTeamMTD | ForEach-Object { Write-Host "  $($_.Name) ($($_.Role)): `$$($_.Amount) | $($_.StateCount) states, $($_.CityCount) cities" }
+Write-Host "`nSales Reps Only:"
+$salespersonMTD | ForEach-Object { Write-Host "  $($_.Name): `$$($_.Amount)" }
+Write-Host "`nService Reps Only:"
+$serviceRepMTD | ForEach-Object { Write-Host "  $($_.Name): `$$($_.Amount)" }
+
 $dashboardData = @{
     GeneratedAt = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
     DataSource = "SyteLine GL Ledger with ProductCode (LFTR/LGAS/LIHL=Service)"
@@ -465,6 +648,9 @@ $dashboardData = @{
     CashFlowPrediction = $cashFlowPrediction
     TopCustomers = @{ Yesterday=$topCustomersYesterday; MTD=$topCustomersMTD }
     TopProducts = @{ MTD=$topProductsMTD }
+    Salesperson = @{ Yesterday=$salespersonYesterday; MTD=$salespersonMTD }
+    ServiceReps = @{ Yesterday=$serviceRepYesterday; MTD=$serviceRepMTD }
+    AllTeam = @{ Yesterday=$allTeamYesterday; MTD=$allTeamMTD }
     DailyTrend = $dailyTrend
     ShippingHeatMap = $shippingLocations
     DayOfWeekAverages = $avgByDayOfWeek

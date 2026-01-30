@@ -1,0 +1,8 @@
+# Credentials - NEVER commit these
+config.json
+credentials.json
+*.secret
+.env
+
+# Local data backups
+data/backup/

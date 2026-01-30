@@ -15,12 +15,25 @@ if (-not (Test-Path $OutputPath)) {
     New-Item -ItemType Directory -Path $OutputPath -Force | Out-Null
 }
 
-# SyteLine API Configuration
-$SyteLineConfig = @{
-    BaseUrl = "https://csi10g.erpsl.inforcloudsuite.com/IDORequestService/ido"
-    Tenant = "GVNDYXUFKHB5VMB6_PRD_CTI"
-    Username = "gary.phillips@godlan.com"
-    Password = 'Crwthtithing2$'
+# SyteLine API Configuration - Load from config file or environment variables
+$configPath = Join-Path $PSScriptRoot "config.json"
+if (Test-Path $configPath) {
+    $config = Get-Content $configPath | ConvertFrom-Json
+    $SyteLineConfig = @{
+        BaseUrl = $config.syteline.baseUrl
+        Tenant = $config.syteline.tenant
+        Username = $config.syteline.username
+        Password = $config.syteline.password
+    }
+} elseif ($env:SYTELINE_USERNAME -and $env:SYTELINE_PASSWORD) {
+    $SyteLineConfig = @{
+        BaseUrl = if ($env:SYTELINE_BASEURL) { $env:SYTELINE_BASEURL } else { "https://csi10g.erpsl.inforcloudsuite.com/IDORequestService/ido" }
+        Tenant = if ($env:SYTELINE_TENANT) { $env:SYTELINE_TENANT } else { "GVNDYXUFKHB5VMB6_PRD_CTI" }
+        Username = $env:SYTELINE_USERNAME
+        Password = $env:SYTELINE_PASSWORD
+    }
+} else {
+    throw "No credentials found. Create config.json or set SYTELINE_USERNAME/SYTELINE_PASSWORD environment variables."
 }
 
 # GL Account Mapping (SOURCE OF TRUTH)
