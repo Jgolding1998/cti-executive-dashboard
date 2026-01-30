@@ -2674,7 +2674,7 @@
                     "Days1_30":  617951.15,
                     "Days61_90":  165937.48
                 },
-    "GeneratedAt":  "2026-01-30 16:26:16"
+    "GeneratedAt":  "2026-01-30 16:27:31"
 };
 
         // Load data from file or embedded
@@ -2709,6 +2709,11 @@
 
         function fmt(n) { return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0}).format(n||0); }
         function fmtK(n) { return '$' + (n/1000).toFixed(0) + 'k'; }
+        function fmtCompact(n) { 
+            if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
+            if (n >= 1000) return '$' + (n/1000).toFixed(0) + 'K';
+            return '$' + n.toFixed(0);
+        }
 
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -2785,11 +2790,11 @@
 
             // AR Aging
             if (DATA.ARaging) {
-                document.getElementById('arCurrent').textContent = fmt(DATA.ARaging.Current);
-                document.getElementById('ar30').textContent = fmt(DATA.ARaging.Days1_30);
-                document.getElementById('ar60').textContent = fmt(DATA.ARaging.Days31_60);
-                document.getElementById('ar90').textContent = fmt(DATA.ARaging.Days61_90);
-                document.getElementById('ar90plus').textContent = fmt(DATA.ARaging.Days90Plus);
+                document.getElementById('arCurrent').textContent = fmtCompact(DATA.ARaging.Current);
+                document.getElementById('ar30').textContent = fmtCompact(DATA.ARaging.Days1_30);
+                document.getElementById('ar60').textContent = fmtCompact(DATA.ARaging.Days31_60);
+                document.getElementById('ar90').textContent = fmtCompact(DATA.ARaging.Days61_90);
+                document.getElementById('ar90plus').textContent = fmtCompact(DATA.ARaging.Days90Plus);
             }
 
             // Lists
