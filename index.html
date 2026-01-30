@@ -2690,7 +2690,7 @@
                     "Days1_30":  617951.15,
                     "Days61_90":  165937.48
                 },
-    "GeneratedAt":  "2026-01-30 16:47:23"
+    "GeneratedAt":  "2026-01-30 16:49:07"
 };
 
         // Load data from file or embedded
@@ -2986,9 +2986,10 @@
             document.getElementById('spInvoiceCount').textContent = invoiceCount;
             
             // Service-specific KPIs
-            const svcTotal = serviceMTD.reduce((s,p) => s + (p.Amount || 0), 0);
+            const svcTotal = DATA.Summary?.MTD?.Service || 0;  // Total service revenue from GL
+            const svcRepTotal = serviceMTD.reduce((s,p) => s + (p.Amount || 0), 0);  // Service reps' sales
             const svcInvoices = serviceMTD.reduce((s,p) => s + (p.InvoiceCount || 0), 0);
-            const svcAvg = svcInvoices > 0 ? svcTotal / svcInvoices : 0;
+            const svcAvg = svcInvoices > 0 ? svcRepTotal / svcInvoices : 0;
             const allStates = [...new Set(serviceMTD.flatMap(p => (p.States || '').split(', ').filter(s => s)))];
             const topSvcRep = serviceMTD[0]?.Name || '--';
             
