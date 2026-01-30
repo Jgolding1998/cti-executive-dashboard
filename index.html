@@ -179,14 +179,15 @@
         .cash-flow-week .day.today { border-bottom: 2px solid var(--accent); }
         .cash-flow-week .day .day-name { color: var(--text-secondary); margin-bottom: 4px; }
         .cash-flow-week .day .day-amount { font-weight: 600; }
-        .ar-aging { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 15px; }
+        .ar-aging { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-top: 10px; }
         .ar-bucket {
             text-align: center;
-            padding: 15px 10px;
+            padding: 10px 5px;
             background: rgba(255,255,255,0.03);
             border-radius: 8px;
+            overflow: hidden;
         }
-        .ar-bucket .amount { font-size: 18px; font-weight: 700; }
+        .ar-bucket .amount { font-size: 14px; font-weight: 700; white-space: nowrap; }
         .ar-bucket .label { font-size: 10px; color: var(--text-secondary); margin-top: 4px; }
         .ar-bucket.current .amount { color: var(--success); }
         .ar-bucket.days30 .amount { color: #4ecdc4; }
@@ -231,7 +232,9 @@
             .card.span-2, .card.span-3 { grid-column: span 1; }
             .breakdown { grid-template-columns: repeat(2, 1fr); }
             .kpi-row { grid-template-columns: repeat(2, 1fr); }
-            .ar-aging { grid-template-columns: repeat(3, 1fr); }
+            .ar-aging { grid-template-columns: repeat(5, 1fr); gap: 4px; }
+            .ar-bucket { padding: 8px 3px; }
+            .ar-bucket .amount { font-size: 12px; }
         }
     </style>
 </head>
@@ -289,25 +292,25 @@
                 <div class="card-title">MTD Sales Mix</div>
                 <div class="chart-container"><canvas id="categoryPie"></canvas></div>
             </div>
-            <div class="card">
+            <div class="card" style="overflow: hidden;">
                 <div class="card-title">Daily Averages</div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px;">
-                    <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 10px;">
-                        <div class="metric small green" id="mtdAvg">$0</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                    <div style="text-align: center; padding: 15px 8px; background: rgba(255,255,255,0.03); border-radius: 10px; overflow: hidden;">
+                        <div style="font-size: 22px; font-weight: 700; color: var(--success);" id="mtdAvg">$0</div>
                         <div class="metric-label">MTD Daily Avg</div>
                     </div>
-                    <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 10px;">
-                        <div class="metric small" id="ytdAvg">$0</div>
+                    <div style="text-align: center; padding: 15px 8px; background: rgba(255,255,255,0.03); border-radius: 10px; overflow: hidden;">
+                        <div style="font-size: 22px; font-weight: 700; color: var(--text-secondary);" id="ytdAvg">$0</div>
                         <div class="metric-label">YTD Daily Avg</div>
                     </div>
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
-                    <div style="text-align: center; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px;">
-                        <div style="font-size: 20px; font-weight: 600;" id="mtdDays">0</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px;">
+                    <div style="text-align: center; padding: 12px 8px; background: rgba(255,255,255,0.03); border-radius: 10px;">
+                        <div style="font-size: 18px; font-weight: 600;" id="mtdDays">0</div>
                         <div class="metric-label">MTD Business Days</div>
                     </div>
-                    <div style="text-align: center; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px;">
-                        <div style="font-size: 20px; font-weight: 600;" id="ytdDays">0</div>
+                    <div style="text-align: center; padding: 12px 8px; background: rgba(255,255,255,0.03); border-radius: 10px;">
+                        <div style="font-size: 18px; font-weight: 600;" id="ytdDays">0</div>
                         <div class="metric-label">YTD Business Days</div>
                     </div>
                 </div>
@@ -2671,7 +2674,7 @@
                     "Days1_30":  617951.15,
                     "Days61_90":  165937.48
                 },
-    "GeneratedAt":  "2026-01-30 16:17:42"
+    "GeneratedAt":  "2026-01-30 16:26:16"
 };
 
         // Load data from file or embedded
