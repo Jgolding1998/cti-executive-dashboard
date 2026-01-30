@@ -187,7 +187,7 @@
             border-radius: 8px;
             overflow: hidden;
         }
-        .ar-bucket .amount { font-size: 14px; font-weight: 700; white-space: nowrap; }
+        .ar-bucket .amount { font-size: 13px; font-weight: 700; white-space: nowrap; overflow: visible; }
         .ar-bucket .label { font-size: 10px; color: var(--text-secondary); margin-top: 4px; }
         .ar-bucket.current .amount { color: var(--success); }
         .ar-bucket.days30 .amount { color: #4ecdc4; }
@@ -1087,11 +1087,11 @@
                                       },
                                       {
                                           "Amount":  12107.00,
-                                          "StateCount":  29,
+                                          "StateCount":  30,
                                           "Type":  "Admin",
                                           "ProductAmount":  9259.00,
                                           "Name":  "Allison",
-                                          "CityCount":  47,
+                                          "CityCount":  48,
                                           "Role":  "Accounting",
                                           "ServiceAmount":  2848.00
                                       },
@@ -1190,10 +1190,10 @@
                                     "ProductAmount":  135204.80,
                                     "Role":  "Accounting",
                                     "Name":  "Allison",
-                                    "CityCount":  47,
-                                    "States":  "AB-C, BC-C, CA, CT, GA, IA, ID, IL, IN, KS, LA, MA, MD, MI, MN, MO, NC, NH, NY, OK, ON-C, OR, PE-C, RI, TX, VA, WA, WI, WY",
+                                    "CityCount":  48,
+                                    "States":  "AB-C, BC-C, CA, CT, GA, IA, ID, IL, IN, KS, LA, MA, MD, MI, MN, MO, NC, NH, NY, OH, OK, ON-C, OR, PE-C, RI, TX, VA, WA, WI, WY",
                                     "InvoiceCount":  100,
-                                    "StateCount":  29,
+                                    "StateCount":  30,
                                     "Amount":  166778.80
                                 },
                                 {
@@ -1631,57 +1631,57 @@
                                                },
                                    "StartDate":  "2026-02-23",
                                    "Predicted":  736576.65,
-                                   "ARDue":  624882.03,
+                                   "ARDue":  625440.03,
                                    "WeekNum":  5,
                                    "Week":  "Week of Feb 23",
                                    "Confidence":  22
                                },
                                {
-                                   "Total":  733940.71,
+                                   "Total":  733954.10,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-03-02",
-                                                            "Amount":  118645.96,
+                                                            "Amount":  118647.97,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-03",
-                                                            "Amount":  184110.89,
+                                                            "Amount":  184114.23,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-04",
-                                                            "Amount":  166953.28,
+                                                            "Amount":  166956.63,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-05",
-                                                            "Amount":  137329.83,
+                                                            "Amount":  137332.51,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-06",
-                                                            "Amount":  126900.74,
+                                                            "Amount":  126902.75,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-03-06",
-                                   "ExpectedCollections":  671199.49,
+                                   "ExpectedCollections":  671244.13,
                                    "Actual":  0,
                                    "Sources":  {
                                                    "From61_90":  17854.6,
                                                    "From1_30":  147933.3,
-                                                   "FromCurrent":  352011.6,
+                                                   "FromCurrent":  352123.2,
                                                    "From90Plus":  7954.82,
                                                    "From31_60":  65344.7
                                                },
                                    "StartDate":  "2026-03-02",
-                                   "Predicted":  733940.71,
+                                   "Predicted":  733954.10,
                                    "ARDue":  91365.90,
                                    "WeekNum":  6,
                                    "Week":  "Week of Mar 2",
@@ -2674,7 +2674,7 @@
                     "Days1_30":  617951.15,
                     "Days61_90":  165937.48
                 },
-    "GeneratedAt":  "2026-01-30 16:27:31"
+    "GeneratedAt":  "2026-01-30 16:28:22"
 };
 
         // Load data from file or embedded
@@ -2711,8 +2711,9 @@
         function fmtK(n) { return '$' + (n/1000).toFixed(0) + 'k'; }
         function fmtCompact(n) { 
             if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
-            if (n >= 1000) return '$' + (n/1000).toFixed(0) + 'K';
-            return '$' + n.toFixed(0);
+            if (n >= 100000) return '$' + (n/1000).toFixed(0) + 'K';
+            if (n >= 1000) return '$' + Math.round(n/1000) + 'K';
+            return '$' + Math.round(n);
         }
 
         function showPage(pageId) {
