@@ -1424,7 +1424,7 @@
                                  "IsLead":  false
                              }
                          ],
-    "GeneratedAt":  "2026-01-30 19:55:49",
+    "GeneratedAt":  "2026-01-30 20:05:35",
     "Salesperson":  {
                         "Yesterday":  [
                                           {
@@ -3972,39 +3972,61 @@
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9' } } } }
             });
 
-            // Service Team Territory Map
+            // Field Service Tech Territory Map (from Salesforce data)
             const svcMap = L.map('serviceTechMap').setView([39.8, -98.6], 4);
             L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(svcMap);
             
-            const serviceTeamGeo = DATA.ServiceTeam?.MTD || [];
-            const repColors = ['#ff6b6b', '#feca57', '#a29bfe', '#00d2d3', '#ff9ff3']; // Different color per person
+            const fieldTechs = DATA.FieldTechnicians || [];
+            // Filter to top 10 techs by appointments for cleaner map
+            const topTechs = [...fieldTechs].sort((a,b) => (b.AppointmentsMTD || 0) - (a.AppointmentsMTD || 0)).slice(0, 10);
+            const techColors = ['#ff6b6b', '#feca57', '#a29bfe', '#00d2d3', '#ff9ff3', '#54a0ff', '#5f27cd', '#00b894', '#fdcb6e', '#e17055'];
             let legendHtml = '';
             
-            serviceTeamGeo.forEach((rep, idx) => {
-                const color = repColors[idx % repColors.length];
-                const states = (rep.States || '').split(', ').filter(s => s);
+            // Build state -> tech mapping for markers
+            const stateMarkers = {};
+            topTechs.forEach((tech, idx) => {
+                const color = techColors[idx % techColors.length];
+                const statesDetail = tech.StatesDetail || [];
                 
-                states.forEach(state => {
-                    const coords = stateCoords[state];
-                    if (coords) {
-                        L.circleMarker([coords[0], coords[1]], {
-                            radius: 15,
-                            fillColor: color,
-                            color: color,
-                            weight: 2,
-                            opacity: 0.9,
-                            fillOpacity: 0.5
-                        }).addTo(svcMap).bindPopup(`<b>${state}</b><br>${rep.Name} territory<br>${fmt(rep.Amount)} MTD`);
+                statesDetail.forEach(sd => {
+                    const state = sd.State;
+                    if (state && stateCoords[state]) {
+                        if (!stateMarkers[state]) stateMarkers[state] = [];
+                        stateMarkers[state].push({ tech: tech.Name, count: sd.Count, color: color, isLead: tech.IsLead });
                     }
                 });
                 
+                const stateCount = tech.StateCount || 0;
+                const leadIcon = tech.IsLead ? '⭐ ' : '';
                 legendHtml += `<div style="display:flex;align-items:center;gap:5px;">
                     <div style="width:12px;height:12px;border-radius:50%;background:${color};"></div>
-                    <span>${rep.Name}: ${states.length} states</span>
+                    <span>${leadIcon}${tech.Name}: ${tech.AppointmentsMTD || 0} appts, ${stateCount} states</span>
                 </div>`;
             });
             
-            document.getElementById('serviceTechLegend').innerHTML = legendHtml;
+            // Add markers to map - size based on appointment count
+            Object.entries(stateMarkers).forEach(([state, techs]) => {
+                const coords = stateCoords[state];
+                if (!coords) return;
+                
+                const totalAppts = techs.reduce((s, t) => s + t.count, 0);
+                const primaryTech = techs.sort((a,b) => b.count - a.count)[0];
+                const radius = Math.min(25, 8 + totalAppts * 0.5);
+                
+                const popupContent = `<b>${state}</b><br><b>${totalAppts} appointments</b><br>` + 
+                    techs.map(t => `${t.tech}: ${t.count}`).join('<br>');
+                
+                L.circleMarker([coords[0], coords[1]], {
+                    radius: radius,
+                    fillColor: primaryTech.color,
+                    color: primaryTech.color,
+                    weight: 2,
+                    opacity: 0.9,
+                    fillOpacity: 0.5
+                }).addTo(svcMap).bindPopup(popupContent);
+            });
+            
+            document.getElementById('serviceTechLegend').innerHTML = legendHtml || '<span style="color:var(--text-secondary)">No field tech data available</span>';
         }
 
         loadData();
