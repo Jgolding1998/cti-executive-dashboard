@@ -1,44 +1,82 @@
 ﻿{
     "ClientCare":  {
-                       "Yesterday":  {
-                                         "Username":  "cjord",
-                                         "Type":  "ClientCare",
-                                         "ProductAmount":  588.00,
-                                         "Role":  "Client Care",
-                                         "Name":  "Jordan Cline",
-                                         "CityCount":  39,
-                                         "ServiceAmount":  0,
-                                         "StateCount":  23,
-                                         "Amount":  588.00
-                                     },
+                       "Yesterday":  [
+                                         {
+                                             "Username":  "marissa",
+                                             "Type":  "ClientCare",
+                                             "ProductAmount":  4517.00,
+                                             "Role":  "Client Care",
+                                             "Name":  "Marissa King",
+                                             "CityCount":  14,
+                                             "ServiceAmount":  0,
+                                             "StateCount":  13,
+                                             "Amount":  4517.00
+                                         },
+                                         {
+                                             "Username":  "ebrow",
+                                             "Type":  "ClientCare",
+                                             "ProductAmount":  1413.00,
+                                             "Role":  "Client Care",
+                                             "Name":  "Emily Brown",
+                                             "CityCount":  1,
+                                             "ServiceAmount":  0,
+                                             "StateCount":  1,
+                                             "Amount":  1413.00
+                                         },
+                                         {
+                                             "Username":  "cjord",
+                                             "Type":  "ClientCare",
+                                             "ProductAmount":  635.00,
+                                             "Role":  "Client Care",
+                                             "Name":  "Jordan Cline",
+                                             "CityCount":  39,
+                                             "ServiceAmount":  0,
+                                             "StateCount":  23,
+                                             "Amount":  635.00
+                                         }
+                                     ],
                        "MTD":  [
                                    {
                                        "Username":  "cjord",
                                        "Type":  "ClientCare",
                                        "TopCities":  "Berkeley, MO; Clayton, NC; Elk Grove Village, IL; Austin, TX; Woodstock, IL",
-                                       "ProductAmount":  75040.45,
+                                       "ProductAmount":  75675.45,
                                        "Role":  "Client Care",
                                        "Name":  "Jordan Cline",
                                        "CityCount":  39,
                                        "States":  "AL, AR, AZ, CA, DE, FL, GA, IL, IN, KY, MN, MO, MS, NC, NY, OH, PA, SC, TX, VA, WA, WI, WY",
-                                       "InvoiceCount":  69,
+                                       "InvoiceCount":  71,
                                        "ServiceAmount":  980.00,
                                        "StateCount":  23,
-                                       "Amount":  76020.45
+                                       "Amount":  76655.45
                                    },
                                    {
                                        "Username":  "marissa",
                                        "Type":  "ClientCare",
                                        "TopCities":  "Sioux City, IA; Austin, MN; Bloomsdale, MO; Owasso, OK; Deer Park, TX",
-                                       "ProductAmount":  24051.35,
+                                       "ProductAmount":  28568.35,
                                        "Role":  "Client Care",
                                        "Name":  "Marissa King",
                                        "CityCount":  14,
                                        "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, US-PR, WA",
-                                       "InvoiceCount":  20,
+                                       "InvoiceCount":  22,
                                        "ServiceAmount":  386.00,
                                        "StateCount":  13,
-                                       "Amount":  24437.35
+                                       "Amount":  28954.35
+                                   },
+                                   {
+                                       "Username":  "ebrow",
+                                       "Type":  "ClientCare",
+                                       "TopCities":  "Foster City, CA",
+                                       "ProductAmount":  1413.00,
+                                       "Role":  "Client Care",
+                                       "Name":  "Emily Brown",
+                                       "CityCount":  1,
+                                       "States":  "CA",
+                                       "InvoiceCount":  1,
+                                       "ServiceAmount":  0,
+                                       "StateCount":  1,
+                                       "Amount":  1413.00
                                    },
                                    {
                                        "Username":  "Anna",
@@ -57,17 +95,30 @@
                                ]
                    },
     "ServiceTeam":  {
-                        "Yesterday":  {
-                                          "Username":  "hnich",
-                                          "Type":  "ServiceTeam",
-                                          "ProductAmount":  1138.00,
-                                          "Role":  "In-House Service Supervisor",
-                                          "Name":  "Nicholas Hegger",
-                                          "CityCount":  6,
-                                          "ServiceAmount":  0,
-                                          "StateCount":  5,
-                                          "Amount":  1138.00
-                                      },
+                        "Yesterday":  [
+                                          {
+                                              "Username":  "bcoli",
+                                              "Type":  "ServiceTeam",
+                                              "ProductAmount":  0,
+                                              "Role":  "Scheduling Coordinator",
+                                              "Name":  "Colin Bowles",
+                                              "CityCount":  4,
+                                              "ServiceAmount":  4756.00,
+                                              "StateCount":  4,
+                                              "Amount":  4756.00
+                                          },
+                                          {
+                                              "Username":  "hnich",
+                                              "Type":  "ServiceTeam",
+                                              "ProductAmount":  207.40,
+                                              "Role":  "In-House Service Supervisor",
+                                              "Name":  "Nicholas Hegger",
+                                              "CityCount":  6,
+                                              "ServiceAmount":  392.00,
+                                              "StateCount":  5,
+                                              "Amount":  599.40
+                                          }
+                                      ],
                         "MTD":  [
                                     {
                                         "Username":  "seric",
@@ -106,24 +157,24 @@
                                         "Name":  "Colin Bowles",
                                         "CityCount":  4,
                                         "States":  "IL, MA, MO, NJ",
-                                        "InvoiceCount":  7,
-                                        "ServiceAmount":  7439.00,
+                                        "InvoiceCount":  10,
+                                        "ServiceAmount":  12195.00,
                                         "StateCount":  4,
-                                        "Amount":  9973.00
+                                        "Amount":  14729.00
                                     },
                                     {
                                         "Username":  "hnich",
                                         "Type":  "ServiceTeam",
                                         "TopCities":  "Lititz, PA; Faribault, MN; Fairmont, MN; Rush, NY; Othello, WA",
-                                        "ProductAmount":  3365.00,
+                                        "ProductAmount":  3572.40,
                                         "Role":  "In-House Service Supervisor",
                                         "Name":  "Nicholas Hegger",
                                         "CityCount":  6,
                                         "States":  "MN, NH, NY, PA, WA",
-                                        "InvoiceCount":  9,
-                                        "ServiceAmount":  974.00,
+                                        "InvoiceCount":  12,
+                                        "ServiceAmount":  1366.00,
                                         "StateCount":  5,
-                                        "Amount":  4349.00
+                                        "Amount":  4948.40
                                     },
                                     {
                                         "Username":  "ljami",
@@ -143,21 +194,12 @@
                     },
     "Period":  {
                    "MonthStart":  "2026-01-01",
-                   "MTDBusinessDays":  21,
+                   "MTDBusinessDays":  22,
                    "YearStart":  "2026-01-01",
-                   "Yesterday":  "2026-01-29",
-                   "YTDBusinessDays":  21
+                   "Yesterday":  "2026-01-30",
+                   "YTDBusinessDays":  22
                },
     "DailyTrend":  [
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Monday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-01",
-                           "Freight":  0
-                       },
                        {
                            "Miscellaneous":  0,
                            "DayOfWeek":  "Tuesday",
@@ -546,13 +588,13 @@
                            "Freight":  4944.42
                        },
                        {
-                           "Miscellaneous":  0,
+                           "Miscellaneous":  1897.00,
                            "DayOfWeek":  "Friday",
-                           "Total":  18095.90,
-                           "Service":  18095.90,
-                           "Product":  0,
+                           "Total":  145630.69,
+                           "Service":  81358.92,
+                           "Product":  58677.40,
                            "Date":  "2026-01-30",
-                           "Freight":  0
+                           "Freight":  3697.37
                        }
                    ],
     "AllTeam":  {
@@ -560,90 +602,112 @@
                                       {
                                           "Username":  "Joel",
                                           "Type":  "Executive",
-                                          "ProductAmount":  34722.45,
+                                          "ProductAmount":  38486.40,
                                           "Role":  "COO",
                                           "Name":  "Joel EuDaly",
                                           "CityCount":  625,
-                                          "ServiceAmount":  31259.80,
+                                          "ServiceAmount":  68317.92,
                                           "StateCount":  56,
-                                          "Amount":  74371.50
+                                          "Amount":  108210.32
                                       },
                                       {
                                           "Username":  "Allison",
                                           "Type":  "Admin",
-                                          "ProductAmount":  9259.00,
+                                          "ProductAmount":  8886.70,
                                           "Role":  "Accounting",
                                           "Name":  "Allison White",
                                           "CityCount":  52,
-                                          "ServiceAmount":  2848.00,
+                                          "ServiceAmount":  196.00,
                                           "StateCount":  31,
-                                          "Amount":  12107.00
-                                      },
-                                      {
-                                          "Username":  "nandy",
-                                          "Type":  "Sales",
-                                          "ProductAmount":  2191.00,
-                                          "Role":  "Outside Sales",
-                                          "Name":  "Andy Neptune",
-                                          "CityCount":  13,
-                                          "ServiceAmount":  5743.00,
-                                          "StateCount":  10,
-                                          "Amount":  7934.00
-                                      },
-                                      {
-                                          "Username":  "mrand",
-                                          "Type":  "Sales",
-                                          "ProductAmount":  4412.00,
-                                          "Role":  "Inside Sales",
-                                          "Name":  "Randy Mobley",
-                                          "CityCount":  14,
-                                          "ServiceAmount":  0,
-                                          "StateCount":  8,
-                                          "Amount":  4412.00
-                                      },
-                                      {
-                                          "Username":  "Greg",
-                                          "Type":  "Sales",
-                                          "ProductAmount":  3278.00,
-                                          "Role":  "Inside Sales",
-                                          "Name":  "Greg Smith",
-                                          "CityCount":  6,
-                                          "ServiceAmount":  0,
-                                          "StateCount":  6,
-                                          "Amount":  3278.00
+                                          "Amount":  9082.70
                                       },
                                       {
                                           "Username":  "lphil",
                                           "Type":  "Sales",
-                                          "ProductAmount":  1992.20,
+                                          "ProductAmount":  3805.20,
                                           "Role":  "Inside Sales",
                                           "Name":  "Phil Libbert",
                                           "CityCount":  53,
-                                          "ServiceAmount":  0,
+                                          "ServiceAmount":  3502.00,
                                           "StateCount":  28,
-                                          "Amount":  1992.20
+                                          "Amount":  7798.20
                                       },
                                       {
-                                          "Username":  "hnich",
+                                          "Username":  "bcoli",
                                           "Type":  "ServiceTeam",
-                                          "ProductAmount":  1138.00,
-                                          "Role":  "In-House Service Supervisor",
-                                          "Name":  "Nicholas Hegger",
-                                          "CityCount":  6,
+                                          "ProductAmount":  0,
+                                          "Role":  "Scheduling Coordinator",
+                                          "Name":  "Colin Bowles",
+                                          "CityCount":  4,
+                                          "ServiceAmount":  4756.00,
+                                          "StateCount":  4,
+                                          "Amount":  4756.00
+                                      },
+                                      {
+                                          "Username":  "nandy",
+                                          "Type":  "Sales",
+                                          "ProductAmount":  470.00,
+                                          "Role":  "Outside Sales",
+                                          "Name":  "Andy Neptune",
+                                          "CityCount":  13,
+                                          "ServiceAmount":  4195.00,
+                                          "StateCount":  10,
+                                          "Amount":  4665.00
+                                      },
+                                      {
+                                          "Username":  "marissa",
+                                          "Type":  "ClientCare",
+                                          "ProductAmount":  4517.00,
+                                          "Role":  "Client Care",
+                                          "Name":  "Marissa King",
+                                          "CityCount":  14,
                                           "ServiceAmount":  0,
-                                          "StateCount":  5,
-                                          "Amount":  1138.00
+                                          "StateCount":  13,
+                                          "Amount":  4517.00
+                                      },
+                                      {
+                                          "Username":  "ebrow",
+                                          "Type":  "ClientCare",
+                                          "ProductAmount":  1413.00,
+                                          "Role":  "Client Care",
+                                          "Name":  "Emily Brown",
+                                          "CityCount":  1,
+                                          "ServiceAmount":  0,
+                                          "StateCount":  1,
+                                          "Amount":  1413.00
                                       },
                                       {
                                           "Username":  "cjord",
                                           "Type":  "ClientCare",
-                                          "ProductAmount":  588.00,
+                                          "ProductAmount":  635.00,
                                           "Role":  "Client Care",
                                           "Name":  "Jordan Cline",
                                           "CityCount":  39,
                                           "ServiceAmount":  0,
                                           "StateCount":  23,
-                                          "Amount":  588.00
+                                          "Amount":  635.00
+                                      },
+                                      {
+                                          "Username":  "hnich",
+                                          "Type":  "ServiceTeam",
+                                          "ProductAmount":  207.40,
+                                          "Role":  "In-House Service Supervisor",
+                                          "Name":  "Nicholas Hegger",
+                                          "CityCount":  6,
+                                          "ServiceAmount":  392.00,
+                                          "StateCount":  5,
+                                          "Amount":  599.40
+                                      },
+                                      {
+                                          "Username":  "Greg",
+                                          "Type":  "Sales",
+                                          "ProductAmount":  256.70,
+                                          "Role":  "Inside Sales",
+                                          "Name":  "Greg Smith",
+                                          "CityCount":  6,
+                                          "ServiceAmount":  0,
+                                          "StateCount":  6,
+                                          "Amount":  256.70
                                       }
                                   ],
                     "MTD":  [
@@ -651,43 +715,43 @@
                                     "Username":  "Joel",
                                     "Type":  "Executive",
                                     "TopCities":  "Lake Elsinore, CA; Berthoud, CO; Woodridge, IL; Cheyenne, WY; Batesville, AR",
-                                    "ProductAmount":  1421792.69,
+                                    "ProductAmount":  1460279.09,
                                     "Role":  "COO",
                                     "Name":  "Joel EuDaly",
                                     "CityCount":  625,
                                     "States":  "AB-C, AL, AR, AZ, BC-C, CA, CO, CO-VA, CT, DE, FL, GA, GT-M, IA, ID, IL, IN, KS, KY, LA, MA, MB-C, MD, ME, MI, MN, MO, MS, MT, NC, ND, NE, NJ, NM, NS-C, NV, NY, NZ-WG, OH, OK, ON-C, OR, PA, QC-C, SC, SD, SK-C, TN, TX, UT, VA, VT, WA, WI, WV, WY",
-                                    "InvoiceCount":  1521,
-                                    "ServiceAmount":  717660.82,
+                                    "InvoiceCount":  1603,
+                                    "ServiceAmount":  767882.84,
                                     "StateCount":  56,
-                                    "Amount":  2179203.40
+                                    "Amount":  2269317.82
                                 },
                                 {
                                     "Username":  "lphil",
                                     "Type":  "Sales",
                                     "TopCities":  "Commerce City, CO; Houston, TX; Saskatoon, SK-C; Kelso, NSW-A; Chino, CA",
-                                    "ProductAmount":  179821.55,
+                                    "ProductAmount":  183626.75,
                                     "Role":  "Inside Sales",
                                     "Name":  "Phil Libbert",
                                     "CityCount":  53,
                                     "States":  "AB-C, AK, AR, AZ, BC-C, CA, CO, DE, FL, GA, IA, ID, IL, IN, LA, MD, MO, NE, NM, NSW-A, OH, ON-C, OR, QLD-A, SK-C, TX, WA, WI",
-                                    "InvoiceCount":  97,
-                                    "ServiceAmount":  16403.00,
+                                    "InvoiceCount":  102,
+                                    "ServiceAmount":  19905.00,
                                     "StateCount":  28,
-                                    "Amount":  196224.55
+                                    "Amount":  204022.75
                                 },
                                 {
                                     "Username":  "Allison",
                                     "Type":  "Admin",
                                     "TopCities":  "Sheboygan, WI; Rockford, IL; New Britain, CT; Columbia, MO; Fresno, CA",
-                                    "ProductAmount":  132488.80,
+                                    "ProductAmount":  141375.50,
                                     "Role":  "Accounting",
                                     "Name":  "Allison White",
                                     "CityCount":  52,
                                     "States":  "AB-C, BC-C, CA, CT, GA, IA, ID, IL, IN, KS, LA, MA, MD, MI, MN, MO, NC, NH, NY, OH, OK, ON-C, OR, PA, PE-C, RI, TX, VA, WA, WI, WY",
-                                    "InvoiceCount":  100,
-                                    "ServiceAmount":  31574.00,
+                                    "InvoiceCount":  109,
+                                    "ServiceAmount":  31770.00,
                                     "StateCount":  31,
-                                    "Amount":  166778.80
+                                    "Amount":  175861.50
                                 },
                                 {
                                     "Username":  "Unassigned",
@@ -707,15 +771,15 @@
                                     "Username":  "cjord",
                                     "Type":  "ClientCare",
                                     "TopCities":  "Berkeley, MO; Clayton, NC; Elk Grove Village, IL; Austin, TX; Woodstock, IL",
-                                    "ProductAmount":  75040.45,
+                                    "ProductAmount":  75675.45,
                                     "Role":  "Client Care",
                                     "Name":  "Jordan Cline",
                                     "CityCount":  39,
                                     "States":  "AL, AR, AZ, CA, DE, FL, GA, IL, IN, KY, MN, MO, MS, NC, NY, OH, PA, SC, TX, VA, WA, WI, WY",
-                                    "InvoiceCount":  69,
+                                    "InvoiceCount":  71,
                                     "ServiceAmount":  980.00,
                                     "StateCount":  23,
-                                    "Amount":  76020.45
+                                    "Amount":  76655.45
                                 },
                                 {
                                     "Username":  "mrand",
@@ -735,29 +799,29 @@
                                     "Username":  "nandy",
                                     "Type":  "Sales",
                                     "TopCities":  "Washburn, ME; Pembroke Park, FL; Oklahoma City, OK; Amarillo, TX; Piedmont, SC",
-                                    "ProductAmount":  9355.00,
+                                    "ProductAmount":  9825.00,
                                     "Role":  "Outside Sales",
                                     "Name":  "Andy Neptune",
                                     "CityCount":  13,
                                     "States":  "CA, CO, FL, MD, ME, MO, OK, SC, TX, WI",
-                                    "InvoiceCount":  19,
-                                    "ServiceAmount":  20484.00,
+                                    "InvoiceCount":  22,
+                                    "ServiceAmount":  24679.00,
                                     "StateCount":  10,
-                                    "Amount":  31532.00
+                                    "Amount":  36197.00
                                 },
                                 {
                                     "Username":  "marissa",
                                     "Type":  "ClientCare",
                                     "TopCities":  "Sioux City, IA; Austin, MN; Bloomsdale, MO; Owasso, OK; Deer Park, TX",
-                                    "ProductAmount":  24051.35,
+                                    "ProductAmount":  28568.35,
                                     "Role":  "Client Care",
                                     "Name":  "Marissa King",
                                     "CityCount":  14,
                                     "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, US-PR, WA",
-                                    "InvoiceCount":  20,
+                                    "InvoiceCount":  22,
                                     "ServiceAmount":  386.00,
                                     "StateCount":  13,
-                                    "Amount":  24437.35
+                                    "Amount":  28954.35
                                 },
                                 {
                                     "Username":  "seric",
@@ -810,10 +874,10 @@
                                     "Name":  "Colin Bowles",
                                     "CityCount":  4,
                                     "States":  "IL, MA, MO, NJ",
-                                    "InvoiceCount":  7,
-                                    "ServiceAmount":  7439.00,
+                                    "InvoiceCount":  10,
+                                    "ServiceAmount":  12195.00,
                                     "StateCount":  4,
-                                    "Amount":  9973.00
+                                    "Amount":  14729.00
                                 },
                                 {
                                     "Username":  "tbolt",
@@ -833,29 +897,29 @@
                                     "Username":  "Greg",
                                     "Type":  "Sales",
                                     "TopCities":  "Tempe, AZ; Mount Vernon, OH; Westminster, MD; Tukwila, WA; Green Bay, WI",
-                                    "ProductAmount":  5013.60,
+                                    "ProductAmount":  5270.30,
                                     "Role":  "Inside Sales",
                                     "Name":  "Greg Smith",
                                     "CityCount":  6,
                                     "States":  "AZ, MD, OH, SC, WA, WI",
-                                    "InvoiceCount":  6,
+                                    "InvoiceCount":  7,
                                     "ServiceAmount":  0,
                                     "StateCount":  6,
-                                    "Amount":  5013.60
+                                    "Amount":  5270.30
                                 },
                                 {
                                     "Username":  "hnich",
                                     "Type":  "ServiceTeam",
                                     "TopCities":  "Lititz, PA; Faribault, MN; Fairmont, MN; Rush, NY; Othello, WA",
-                                    "ProductAmount":  3365.00,
+                                    "ProductAmount":  3572.40,
                                     "Role":  "In-House Service Supervisor",
                                     "Name":  "Nicholas Hegger",
                                     "CityCount":  6,
                                     "States":  "MN, NH, NY, PA, WA",
-                                    "InvoiceCount":  9,
-                                    "ServiceAmount":  974.00,
+                                    "InvoiceCount":  12,
+                                    "ServiceAmount":  1366.00,
                                     "StateCount":  5,
-                                    "Amount":  4349.00
+                                    "Amount":  4948.40
                                 },
                                 {
                                     "Username":  "ljami",
@@ -870,6 +934,20 @@
                                     "ServiceAmount":  2898.00,
                                     "StateCount":  1,
                                     "Amount":  3368.00
+                                },
+                                {
+                                    "Username":  "ebrow",
+                                    "Type":  "ClientCare",
+                                    "TopCities":  "Foster City, CA",
+                                    "ProductAmount":  1413.00,
+                                    "Role":  "Client Care",
+                                    "Name":  "Emily Brown",
+                                    "CityCount":  1,
+                                    "States":  "CA",
+                                    "InvoiceCount":  1,
+                                    "ServiceAmount":  0,
+                                    "StateCount":  1,
+                                    "Amount":  1413.00
                                 },
                                 {
                                     "Username":  "Anna",
@@ -890,70 +968,70 @@
     "TopCustomers":  {
                          "Yesterday":  [
                                            {
+                                               "Name":  "Tyson - (FM) Logansport",
+                                               "Amount":  12421.40
+                                           },
+                                           {
+                                               "Name":  "SHAMBAUGH \u0026 SON - CORPORATE",
+                                               "Amount":  7654.22
+                                           },
+                                           {
+                                               "Name":  "Wyatt Refrigeration LLC",
+                                               "Amount":  6447.70
+                                           },
+                                           {
                                                "Name":  "JOHNSON CONTROLS FIRE PROTECTION",
-                                               "Amount":  10890.75
+                                               "Amount":  5954.70
                                            },
                                            {
-                                               "Name":  "US Cold Storage #370 - Lake City",
-                                               "Amount":  7248.60
+                                               "Name":  "US Cold Storage #170 - Warsaw",
+                                               "Amount":  5674.50
                                            },
                                            {
-                                               "Name":  "JBS-Pilgrim\u0027s - Greeley",
-                                               "Amount":  5743.00
+                                               "Name":  "Aurora Organic Dairy - Platteville",
+                                               "Amount":  4665.00
                                            },
                                            {
-                                               "Name":  "Americold Logistics - 2115 - Modesto",
-                                               "Amount":  5720.00
+                                               "Name":  "VibrAnalysis, Inc.",
+                                               "Amount":  4517.00
                                            },
                                            {
-                                               "Name":  "JI Landis Welding \u0026 Mechanical",
-                                               "Amount":  5201.00
+                                               "Name":  "OSI Industries - Chicago",
+                                               "Amount":  4481.00
                                            },
                                            {
-                                               "Name":  "Americold Logistics - 8407 - Garden City",
-                                               "Amount":  4380.00
+                                               "Name":  "Amazon (DCH6) - Direct - Romeoville",
+                                               "Amount":  4077.00
                                            },
                                            {
-                                               "Name":  "DFA Dairy Brands - Meadow Gold - Las Vegas",
-                                               "Amount":  4241.00
+                                               "Name":  "80 Acres Urban Agriculture",
+                                               "Amount":  3993.00
                                            },
                                            {
-                                               "Name":  "Cool Air, Inc",
-                                               "Amount":  3822.00
+                                               "Name":  "Coca-Cola Chesterman Company",
+                                               "Amount":  3623.00
                                            },
                                            {
-                                               "Name":  "Mondelez Chicago Bakery",
-                                               "Amount":  3573.00
+                                               "Name":  "Creative Food Ingredients",
+                                               "Amount":  3499.00
                                            },
                                            {
-                                               "Name":  "Murphy Company",
-                                               "Amount":  3290.00
+                                               "Name":  "SIEMENS INDUSTRY - CORPORATE",
+                                               "Amount":  3300.70
                                            },
                                            {
-                                               "Name":  "Wells Enterprises Inc Engineering Center",
-                                               "Amount":  3278.00
+                                               "Name":  "Drennan Refrigeration Inc.",
+                                               "Amount":  3259.20
                                            },
                                            {
-                                               "Name":  "Coca-Cola Consolidated - Indianapolis",
-                                               "Amount":  3132.00
-                                           },
-                                           {
-                                               "Name":  "Coca-Cola SW Beverages - El Paso",
-                                               "Amount":  3116.00
-                                           },
-                                           {
-                                               "Name":  "Smithfield (FM) - Milan",
-                                               "Amount":  3023.00
-                                           },
-                                           {
-                                               "Name":  "Westward Seafoods - Alyeska - Unalaska",
-                                               "Amount":  3002.00
+                                               "Name":  "Independent Refrigeration Services - York",
+                                               "Amount":  3228.40
                                            }
                                        ],
                          "MTD":  [
                                      {
                                          "Name":  "Keep Supply",
-                                         "Amount":  78255.35
+                                         "Amount":  78431.75
                                      },
                                      {
                                          "Name":  "CP\u0026R - Concrete Protection \u0026 Restoration",
@@ -964,12 +1042,12 @@
                                          "Amount":  73549.00
                                      },
                                      {
-                                         "Name":  "Republic Refrigeration - Monroe",
-                                         "Amount":  55951.30
+                                         "Name":  "JOHNSON CONTROLS FIRE PROTECTION",
+                                         "Amount":  59946.59
                                      },
                                      {
-                                         "Name":  "JOHNSON CONTROLS FIRE PROTECTION",
-                                         "Amount":  53991.89
+                                         "Name":  "Republic Refrigeration - Monroe",
+                                         "Amount":  55951.30
                                      },
                                      {
                                          "Name":  "Cimco Refrigeration - CANADA - Burlington",
@@ -977,11 +1055,11 @@
                                      },
                                      {
                                          "Name":  "Cimco Refrigeration - US - Mobile",
-                                         "Amount":  39667.10
+                                         "Amount":  40448.30
                                      },
                                      {
                                          "Name":  "D\u0026H Refrigeration",
-                                         "Amount":  35420.40
+                                         "Amount":  36375.20
                                      },
                                      {
                                          "Name":  "Wagner-Meinert - Fort Wayne",
@@ -992,12 +1070,12 @@
                                          "Amount":  34027.00
                                      },
                                      {
-                                         "Name":  "Coca-Cola Bottling Co United - College Park",
-                                         "Amount":  33249.00
+                                         "Name":  "Clauger USA LLC",
+                                         "Amount":  33686.10
                                      },
                                      {
-                                         "Name":  "Clauger USA LLC",
-                                         "Amount":  31584.70
+                                         "Name":  "Coca-Cola Bottling Co United - College Park",
+                                         "Amount":  33249.00
                                      },
                                      {
                                          "Name":  "Modern Mechanical Ice Systems LLC",
@@ -1016,55 +1094,44 @@
     "DayOfWeekAverages":  {
                               "Tuesday":  191101.32,
                               "Monday":  126345.69,
-                              "Friday":  138138.24,
+                              "Friday":  170021.94,
                               "Wednesday":  166590.46,
                               "Thursday":  138654.09
                           },
     "Salesperson":  {
                         "Yesterday":  [
                                           {
+                                              "Username":  "lphil",
+                                              "Type":  "Sales",
+                                              "ProductAmount":  3805.20,
+                                              "Role":  "Inside Sales",
+                                              "Name":  "Phil Libbert",
+                                              "CityCount":  53,
+                                              "ServiceAmount":  3502.00,
+                                              "StateCount":  28,
+                                              "Amount":  7798.20
+                                          },
+                                          {
                                               "Username":  "nandy",
                                               "Type":  "Sales",
-                                              "ProductAmount":  2191.00,
+                                              "ProductAmount":  470.00,
                                               "Role":  "Outside Sales",
                                               "Name":  "Andy Neptune",
                                               "CityCount":  13,
-                                              "ServiceAmount":  5743.00,
+                                              "ServiceAmount":  4195.00,
                                               "StateCount":  10,
-                                              "Amount":  7934.00
-                                          },
-                                          {
-                                              "Username":  "mrand",
-                                              "Type":  "Sales",
-                                              "ProductAmount":  4412.00,
-                                              "Role":  "Inside Sales",
-                                              "Name":  "Randy Mobley",
-                                              "CityCount":  14,
-                                              "ServiceAmount":  0,
-                                              "StateCount":  8,
-                                              "Amount":  4412.00
+                                              "Amount":  4665.00
                                           },
                                           {
                                               "Username":  "Greg",
                                               "Type":  "Sales",
-                                              "ProductAmount":  3278.00,
+                                              "ProductAmount":  256.70,
                                               "Role":  "Inside Sales",
                                               "Name":  "Greg Smith",
                                               "CityCount":  6,
                                               "ServiceAmount":  0,
                                               "StateCount":  6,
-                                              "Amount":  3278.00
-                                          },
-                                          {
-                                              "Username":  "lphil",
-                                              "Type":  "Sales",
-                                              "ProductAmount":  1992.20,
-                                              "Role":  "Inside Sales",
-                                              "Name":  "Phil Libbert",
-                                              "CityCount":  53,
-                                              "ServiceAmount":  0,
-                                              "StateCount":  28,
-                                              "Amount":  1992.20
+                                              "Amount":  256.70
                                           }
                                       ],
                         "MTD":  [
@@ -1072,15 +1139,15 @@
                                         "Username":  "lphil",
                                         "Type":  "Sales",
                                         "TopCities":  "Commerce City, CO; Houston, TX; Saskatoon, SK-C; Kelso, NSW-A; Chino, CA",
-                                        "ProductAmount":  179821.55,
+                                        "ProductAmount":  183626.75,
                                         "Role":  "Inside Sales",
                                         "Name":  "Phil Libbert",
                                         "CityCount":  53,
                                         "States":  "AB-C, AK, AR, AZ, BC-C, CA, CO, DE, FL, GA, IA, ID, IL, IN, LA, MD, MO, NE, NM, NSW-A, OH, ON-C, OR, QLD-A, SK-C, TX, WA, WI",
-                                        "InvoiceCount":  97,
-                                        "ServiceAmount":  16403.00,
+                                        "InvoiceCount":  102,
+                                        "ServiceAmount":  19905.00,
                                         "StateCount":  28,
-                                        "Amount":  196224.55
+                                        "Amount":  204022.75
                                     },
                                     {
                                         "Username":  "Unassigned",
@@ -1114,15 +1181,15 @@
                                         "Username":  "nandy",
                                         "Type":  "Sales",
                                         "TopCities":  "Washburn, ME; Pembroke Park, FL; Oklahoma City, OK; Amarillo, TX; Piedmont, SC",
-                                        "ProductAmount":  9355.00,
+                                        "ProductAmount":  9825.00,
                                         "Role":  "Outside Sales",
                                         "Name":  "Andy Neptune",
                                         "CityCount":  13,
                                         "States":  "CA, CO, FL, MD, ME, MO, OK, SC, TX, WI",
-                                        "InvoiceCount":  19,
-                                        "ServiceAmount":  20484.00,
+                                        "InvoiceCount":  22,
+                                        "ServiceAmount":  24679.00,
                                         "StateCount":  10,
-                                        "Amount":  31532.00
+                                        "Amount":  36197.00
                                     },
                                     {
                                         "Username":  "tbolt",
@@ -1142,27 +1209,27 @@
                                         "Username":  "Greg",
                                         "Type":  "Sales",
                                         "TopCities":  "Tempe, AZ; Mount Vernon, OH; Westminster, MD; Tukwila, WA; Green Bay, WI",
-                                        "ProductAmount":  5013.60,
+                                        "ProductAmount":  5270.30,
                                         "Role":  "Inside Sales",
                                         "Name":  "Greg Smith",
                                         "CityCount":  6,
                                         "States":  "AZ, MD, OH, SC, WA, WI",
-                                        "InvoiceCount":  6,
+                                        "InvoiceCount":  7,
                                         "ServiceAmount":  0,
                                         "StateCount":  6,
-                                        "Amount":  5013.60
+                                        "Amount":  5270.30
                                     }
                                 ]
                     },
     "ARaging":  {
-                    "Current":  3528836.58,
+                    "Current":  3503065.27,
                     "Days90Plus":  242773.85,
-                    "Days31_60":  132248.69,
-                    "Total":  4645551.04,
-                    "Days1_30":  566814.83,
+                    "Days31_60":  138615.71,
+                    "Total":  4642893.44,
+                    "Days1_30":  583561.52,
                     "Days61_90":  174877.09
                 },
-    "GeneratedAt":  "2026-01-30 20:34:43",
+    "GeneratedAt":  "2026-01-31 10:16:13",
     "FieldTechSummary":  {
                              "TotalAppointmentsMTD":  205,
                              "TopPerformer":  "Travis Mays",
@@ -1250,7 +1317,7 @@
                     },
     "CashFlowPrediction":  [
                                {
-                                   "Total":  628895.82,
+                                   "Total":  756430.61,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-01-26",
@@ -1278,20 +1345,20 @@
                                                         },
                                                         {
                                                             "Date":  "2026-01-30",
-                                                            "Amount":  18095.90,
-                                                            "Type":  "Today",
+                                                            "Amount":  145630.69,
+                                                            "Type":  "Actual",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-01-30",
-                                   "ExpectedCollections":  761805.38,
-                                   "Actual":  628895.82,
+                                   "ExpectedCollections":  758632.46,
+                                   "Actual":  756430.61,
                                    "Sources":  {
                                                    "From61_90":  8743.85,
-                                                   "From1_30":  85022.22,
-                                                   "FromCurrent":  705767.32,
+                                                   "From1_30":  87534.23,
+                                                   "FromCurrent":  700613.05,
                                                    "From90Plus":  4855.48,
-                                                   "From31_60":  13224.87
+                                                   "From31_60":  13861.57
                                                },
                                    "StartDate":  "2026-01-26",
                                    "Predicted":  0,
@@ -1301,255 +1368,255 @@
                                    "Confidence":  90
                                },
                                {
-                                   "Total":  740726.76,
+                                   "Total":  762160.61,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-02",
-                                                            "Amount":  119663.87,
+                                                            "Amount":  119531.16,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-03",
-                                                            "Amount":  185807.40,
+                                                            "Amount":  185586.21,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-04",
-                                                            "Amount":  168649.80,
+                                                            "Amount":  168428.61,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-05",
-                                                            "Amount":  138687.04,
+                                                            "Amount":  138510.10,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-06",
-                                                            "Amount":  127918.65,
+                                                            "Amount":  150104.53,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-06",
-                                   "ExpectedCollections":  693819.66,
+                                   "ExpectedCollections":  690870.53,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  7773.8,
-                                                   "From1_30":  156878.4,
-                                                   "FromCurrent":  454598,
+                                                   "From61_90":  7853.4,
+                                                   "From1_30":  157612.5,
+                                                   "FromCurrent":  451505.6,
                                                    "From90Plus":  5632.76,
-                                                   "From31_60":  22766.5
+                                                   "From31_60":  23599.1
                                                },
                                    "StartDate":  "2026-02-02",
-                                   "Predicted":  740726.76,
+                                   "Predicted":  762160.61,
                                    "ARDue":  329280.05,
                                    "WeekNum":  2,
                                    "Week":  "Week of Feb 2",
                                    "Confidence":  38
                                },
                                {
-                                   "Total":  729784.16,
+                                   "Total":  751265.85,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-09",
-                                                            "Amount":  118022.48,
+                                                            "Amount":  117896.94,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-10",
-                                                            "Amount":  183071.75,
+                                                            "Amount":  182862.52,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-11",
-                                                            "Amount":  165914.15,
+                                                            "Amount":  165704.92,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-12",
-                                                            "Amount":  136498.52,
+                                                            "Amount":  136331.14,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-13",
-                                                            "Amount":  126277.26,
+                                                            "Amount":  148470.32,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-13",
-                                   "ExpectedCollections":  657344.33,
+                                   "ExpectedCollections":  654554.67,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  8287.45,
-                                                   "From1_30":  162316.8,
-                                                   "FromCurrent":  338614.8,
-                                                   "From90Plus":  6297.48,
-                                                   "From31_60":  40944.6
+                                                   "From61_90":  8447.25,
+                                                   "From1_30":  162293.4,
+                                                   "FromCurrent":  336759.4,
+                                                   "From90Plus":  6305.44,
+                                                   "From31_60":  41608.2
                                                },
                                    "StartDate":  "2026-02-09",
-                                   "Predicted":  729784.16,
+                                   "Predicted":  751265.85,
                                    "ARDue":  973596.03,
                                    "WeekNum":  3,
                                    "Week":  "Week of Feb 9",
                                    "Confidence":  30
                                },
                                {
-                                   "Total":  641828.43,
+                                   "Total":  663440.94,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-16",
-                                                            "Amount":  23824.80,
+                                                            "Amount":  23800.73,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-17",
-                                                            "Amount":  184907.62,
+                                                            "Amount":  184707.03,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-18",
-                                                            "Amount":  167750.01,
+                                                            "Amount":  167549.42,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-19",
-                                                            "Amount":  137967.22,
+                                                            "Amount":  137806.75,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-20",
-                                                            "Amount":  127378.78,
+                                                            "Amount":  149577.02,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-20",
-                                   "ExpectedCollections":  681822.55,
+                                   "ExpectedCollections":  679148.03,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  10919.3,
-                                                   "From1_30":  148182.3,
-                                                   "FromCurrent":  397888,
-                                                   "From90Plus":  7000.28,
-                                                   "From31_60":  53666.8
+                                                   "From61_90":  11114.1,
+                                                   "From1_30":  147889.95,
+                                                   "FromCurrent":  396774.8,
+                                                   "From90Plus":  7024.06,
+                                                   "From31_60":  54094.2
                                                },
                                    "StartDate":  "2026-02-16",
-                                   "Predicted":  641828.43,
+                                   "Predicted":  663440.94,
                                    "ARDue":  686765.24,
                                    "WeekNum":  4,
                                    "Week":  "Week of Feb 16",
                                    "Confidence":  30
                                },
                                {
-                                   "Total":  735796.37,
+                                   "Total":  757337.94,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-23",
-                                                            "Amount":  118924.31,
+                                                            "Amount":  118807.76,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-24",
-                                                            "Amount":  184574.80,
+                                                            "Amount":  184380.55,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-25",
-                                                            "Amount":  167417.20,
+                                                            "Amount":  167222.95,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-26",
-                                                            "Amount":  137700.97,
+                                                            "Amount":  137545.56,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-27",
-                                                            "Amount":  127179.09,
+                                                            "Amount":  149381.13,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-27",
-                                   "ExpectedCollections":  677385.04,
+                                   "ExpectedCollections":  674794.98,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  14351.85,
-                                                   "From1_30":  148592.55,
-                                                   "FromCurrent":  376085.8,
-                                                   "From90Plus":  7952.2,
-                                                   "From31_60":  59580.5
+                                                   "From61_90":  14541.65,
+                                                   "From1_30":  148250.25,
+                                                   "FromCurrent":  375418,
+                                                   "From90Plus":  7994.98,
+                                                   "From31_60":  59809.6
                                                },
                                    "StartDate":  "2026-02-23",
-                                   "Predicted":  735796.37,
+                                   "Predicted":  757337.94,
                                    "ARDue":  672510.83,
                                    "WeekNum":  5,
                                    "Week":  "Week of Feb 23",
                                    "Confidence":  22
                                },
                                {
-                                   "Total":  734521.26,
+                                   "Total":  756081.61,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-03-02",
-                                                            "Amount":  118733.04,
+                                                            "Amount":  118619.31,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-03",
-                                                            "Amount":  184256.02,
+                                                            "Amount":  184066.46,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-04",
-                                                            "Amount":  167098.42,
+                                                            "Amount":  166908.86,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-05",
-                                                            "Amount":  137445.94,
+                                                            "Amount":  137294.30,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-06",
-                                                            "Amount":  126987.83,
+                                                            "Amount":  149192.68,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-03-06",
-                                   "ExpectedCollections":  673134.68,
+                                   "ExpectedCollections":  670607.21,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  17493.85,
-                                                   "From1_30":  145568.4,
-                                                   "FromCurrent":  360153.6,
-                                                   "From90Plus":  9228.34,
-                                                   "From31_60":  63492.8
+                                                   "From61_90":  17655.35,
+                                                   "From1_30":  145262.85,
+                                                   "FromCurrent":  359753,
+                                                   "From90Plus":  9289.24,
+                                                   "From31_60":  63584.6
                                                },
                                    "StartDate":  "2026-03-02",
-                                   "Predicted":  734521.26,
+                                   "Predicted":  756081.61,
                                    "ARDue":  91365.90,
                                    "WeekNum":  6,
                                    "Week":  "Week of Mar 2",
@@ -1557,29 +1624,29 @@
                                }
                            ],
     "Summary":  {
-                    "YTDDailyAverage":  144919.96,
+                    "YTDDailyAverage":  144129.73,
                     "YTD":  {
-                                "Total":  3043319.19,
-                                "Freight":  98826.99,
-                                "Service":  830161.97,
-                                "Miscellaneous":  46509.89,
-                                "Product":  2067820.34
+                                "Total":  3170853.98,
+                                "Freight":  102524.36,
+                                "Service":  893424.99,
+                                "Miscellaneous":  48406.89,
+                                "Product":  2126497.74
                             },
                     "MTD":  {
-                                "Total":  3043319.19,
-                                "Freight":  98826.99,
-                                "Service":  830161.97,
-                                "Miscellaneous":  46509.89,
-                                "Product":  2067820.34
+                                "Total":  3170853.98,
+                                "Freight":  102524.36,
+                                "Service":  893424.99,
+                                "Miscellaneous":  48406.89,
+                                "Product":  2126497.74
                             },
                     "Yesterday":  {
-                                      "Total":  110765.12,
-                                      "Freight":  4944.42,
-                                      "Service":  39850.80,
-                                      "Miscellaneous":  8389.25,
-                                      "Product":  57580.65
+                                      "Total":  145630.69,
+                                      "Freight":  3697.37,
+                                      "Service":  81358.92,
+                                      "Miscellaneous":  1897.00,
+                                      "Product":  58677.40
                                   },
-                    "MTDDailyAverage":  144919.96
+                    "MTDDailyAverage":  144129.73
                 },
     "ShippingStats":  {
                           "MTDUSStates":  50,
