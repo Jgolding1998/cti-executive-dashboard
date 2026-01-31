@@ -610,7 +610,7 @@
                                       },
                                       {
                                           "Username":  "hnich",
-                                          "Type":  "Service",
+                                          "Type":  "ServiceTeam",
                                           "ProductAmount":  1138.00,
                                           "Role":  "In-House Service Supervisor",
                                           "Name":  "Nicholas Hegger",
@@ -621,7 +621,7 @@
                                       },
                                       {
                                           "Username":  "cjord",
-                                          "Type":  "Support",
+                                          "Type":  "ClientCare",
                                           "ProductAmount":  588.00,
                                           "Role":  "Client Care",
                                           "Name":  "Jordan Cline",
@@ -690,7 +690,7 @@
                                 },
                                 {
                                     "Username":  "cjord",
-                                    "Type":  "Support",
+                                    "Type":  "ClientCare",
                                     "TopCities":  "Berkeley, MO; Clayton, NC; Elk Grove Village, IL; Austin, TX; Woodstock, IL",
                                     "ProductAmount":  75040.45,
                                     "Role":  "Client Care",
@@ -732,7 +732,7 @@
                                 },
                                 {
                                     "Username":  "marissa",
-                                    "Type":  "Support",
+                                    "Type":  "ClientCare",
                                     "TopCities":  "Sioux City, IA; Austin, MN; Bloomsdale, MO; Owasso, OK; Deer Park, TX",
                                     "ProductAmount":  24051.35,
                                     "Role":  "Client Care",
@@ -746,7 +746,7 @@
                                 },
                                 {
                                     "Username":  "seric",
-                                    "Type":  "Service",
+                                    "Type":  "ServiceTeam",
                                     "TopCities":  "West Sacramento, CA; Columbus, GA; Perry, GA; Stockton, CA; Windsor, CT",
                                     "ProductAmount":  8021.90,
                                     "Role":  "Service Scheduling",
@@ -774,7 +774,7 @@
                                 },
                                 {
                                     "Username":  "Rachel L",
-                                    "Type":  "Service",
+                                    "Type":  "ServiceTeam",
                                     "TopCities":  "Hamilton, OH; Florence, KY; Cincinnati, OH",
                                     "ProductAmount":  3747.00,
                                     "Role":  "Service Support",
@@ -788,10 +788,10 @@
                                 },
                                 {
                                     "Username":  "bcoli",
-                                    "Type":  "Service",
+                                    "Type":  "ServiceTeam",
                                     "TopCities":  "Cicero, IL; Leominster, MA; Wright City, MO; Ridgefield Park, NJ",
                                     "ProductAmount":  2534.00,
-                                    "Role":  "Scheduling",
+                                    "Role":  "Scheduling Coordinator",
                                     "Name":  "Colin Bowles",
                                     "CityCount":  4,
                                     "States":  "IL, MA, MO, NJ",
@@ -830,7 +830,7 @@
                                 },
                                 {
                                     "Username":  "hnich",
-                                    "Type":  "Service",
+                                    "Type":  "ServiceTeam",
                                     "TopCities":  "Lititz, PA; Faribault, MN; Fairmont, MN; Rush, NY; Othello, WA",
                                     "ProductAmount":  3365.00,
                                     "Role":  "In-House Service Supervisor",
@@ -844,7 +844,7 @@
                                 },
                                 {
                                     "Username":  "ljami",
-                                    "Type":  "Service",
+                                    "Type":  "ServiceTeam",
                                     "TopCities":  "Itta Bena, MS",
                                     "ProductAmount":  470.00,
                                     "Role":  "Service Director",
@@ -858,7 +858,7 @@
                                 },
                                 {
                                     "Username":  "Anna",
-                                    "Type":  "Support",
+                                    "Type":  "ClientCare",
                                     "TopCities":  "Lima, OH",
                                     "ProductAmount":  528.50,
                                     "Role":  "Client Care",
@@ -1180,91 +1180,63 @@
                                    "Confidence":  22
                                }
                            ],
-    "ServiceReps":  {
-                        "Yesterday":  {
-                                          "Username":  "hnich",
-                                          "Type":  "Service",
-                                          "ProductAmount":  1138.00,
-                                          "Role":  "In-House Service Supervisor",
-                                          "Name":  "Nicholas Hegger",
-                                          "CityCount":  6,
-                                          "ServiceAmount":  0,
-                                          "StateCount":  5,
-                                          "Amount":  1138.00
-                                      },
-                        "MTD":  [
-                                    {
-                                        "Username":  "seric",
-                                        "Type":  "Service",
-                                        "TopCities":  "West Sacramento, CA; Columbus, GA; Perry, GA; Stockton, CA; Windsor, CT",
-                                        "ProductAmount":  8021.90,
-                                        "Role":  "Service Scheduling",
-                                        "Name":  "Erica Thurmond",
-                                        "CityCount":  7,
-                                        "States":  "AZ, CA, CT, GA",
-                                        "InvoiceCount":  14,
-                                        "ServiceAmount":  10422.35,
-                                        "StateCount":  4,
-                                        "Amount":  18444.25
-                                    },
-                                    {
-                                        "Username":  "Rachel L",
-                                        "Type":  "Service",
-                                        "TopCities":  "Hamilton, OH; Florence, KY; Cincinnati, OH",
-                                        "ProductAmount":  3747.00,
-                                        "Role":  "Service Support",
-                                        "Name":  "Rachel Lively",
-                                        "CityCount":  3,
-                                        "States":  "KY, OH",
-                                        "InvoiceCount":  10,
-                                        "ServiceAmount":  12925.00,
-                                        "StateCount":  2,
-                                        "Amount":  17163.00
-                                    },
-                                    {
-                                        "Username":  "bcoli",
-                                        "Type":  "Service",
-                                        "TopCities":  "Cicero, IL; Leominster, MA; Wright City, MO; Ridgefield Park, NJ",
-                                        "ProductAmount":  2534.00,
-                                        "Role":  "Scheduling",
-                                        "Name":  "Colin Bowles",
-                                        "CityCount":  4,
-                                        "States":  "IL, MA, MO, NJ",
-                                        "InvoiceCount":  7,
-                                        "ServiceAmount":  7439.00,
-                                        "StateCount":  4,
-                                        "Amount":  9973.00
-                                    },
-                                    {
-                                        "Username":  "hnich",
-                                        "Type":  "Service",
-                                        "TopCities":  "Lititz, PA; Faribault, MN; Fairmont, MN; Rush, NY; Othello, WA",
-                                        "ProductAmount":  3365.00,
-                                        "Role":  "In-House Service Supervisor",
-                                        "Name":  "Nicholas Hegger",
-                                        "CityCount":  6,
-                                        "States":  "MN, NH, NY, PA, WA",
-                                        "InvoiceCount":  9,
-                                        "ServiceAmount":  974.00,
-                                        "StateCount":  5,
-                                        "Amount":  4349.00
-                                    },
-                                    {
-                                        "Username":  "ljami",
-                                        "Type":  "Service",
-                                        "TopCities":  "Itta Bena, MS",
-                                        "ProductAmount":  470.00,
-                                        "Role":  "Service Director",
-                                        "Name":  "Jami Lorenz",
-                                        "CityCount":  1,
-                                        "States":  "MS",
-                                        "InvoiceCount":  3,
-                                        "ServiceAmount":  2898.00,
-                                        "StateCount":  1,
-                                        "Amount":  3368.00
-                                    }
-                                ]
-                    },
+    "ClientCare":  {
+                       "Yesterday":  {
+                                         "Username":  "cjord",
+                                         "Type":  "ClientCare",
+                                         "ProductAmount":  588.00,
+                                         "Role":  "Client Care",
+                                         "Name":  "Jordan Cline",
+                                         "CityCount":  39,
+                                         "ServiceAmount":  0,
+                                         "StateCount":  23,
+                                         "Amount":  588.00
+                                     },
+                       "MTD":  [
+                                   {
+                                       "Username":  "cjord",
+                                       "Type":  "ClientCare",
+                                       "TopCities":  "Berkeley, MO; Clayton, NC; Elk Grove Village, IL; Austin, TX; Woodstock, IL",
+                                       "ProductAmount":  75040.45,
+                                       "Role":  "Client Care",
+                                       "Name":  "Jordan Cline",
+                                       "CityCount":  39,
+                                       "States":  "AL, AR, AZ, CA, DE, FL, GA, IL, IN, KY, MN, MO, MS, NC, NY, OH, PA, SC, TX, VA, WA, WI, WY",
+                                       "InvoiceCount":  69,
+                                       "ServiceAmount":  980.00,
+                                       "StateCount":  23,
+                                       "Amount":  76020.45
+                                   },
+                                   {
+                                       "Username":  "marissa",
+                                       "Type":  "ClientCare",
+                                       "TopCities":  "Sioux City, IA; Austin, MN; Bloomsdale, MO; Owasso, OK; Deer Park, TX",
+                                       "ProductAmount":  24051.35,
+                                       "Role":  "Client Care",
+                                       "Name":  "Marissa King",
+                                       "CityCount":  14,
+                                       "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, US-PR, WA",
+                                       "InvoiceCount":  20,
+                                       "ServiceAmount":  386.00,
+                                       "StateCount":  13,
+                                       "Amount":  24437.35
+                                   },
+                                   {
+                                       "Username":  "Anna",
+                                       "Type":  "ClientCare",
+                                       "TopCities":  "Lima, OH",
+                                       "ProductAmount":  528.50,
+                                       "Role":  "Client Care",
+                                       "Name":  "Anna Worthington",
+                                       "CityCount":  1,
+                                       "States":  "OH",
+                                       "InvoiceCount":  1,
+                                       "ServiceAmount":  0,
+                                       "StateCount":  1,
+                                       "Amount":  528.50
+                                   }
+                               ]
+                   },
     "Salesperson":  {
                         "Yesterday":  [
                                           {
@@ -1399,6 +1371,13 @@
                                     }
                                 ]
                     },
+    "DayOfWeekAverages":  {
+                              "Tuesday":  191101.32,
+                              "Monday":  126345.69,
+                              "Friday":  138138.24,
+                              "Wednesday":  166590.46,
+                              "Thursday":  138654.09
+                          },
     "ShippingHeatMap":  [
                             {
                                 "Zip":  "54603",
@@ -2105,13 +2084,208 @@
                                     }
                                 ]
                     },
-    "DayOfWeekAverages":  {
-                              "Tuesday":  191101.32,
-                              "Monday":  126345.69,
-                              "Friday":  138138.24,
-                              "Wednesday":  166590.46,
-                              "Thursday":  138654.09
-                          },
+    "FieldTechnicians":  [
+                             {
+                                 "Name":  "Nathan Glenister",
+                                 "IsLead":  true,
+                                 "Role":  "Field Service Tech Lead"
+                             },
+                             {
+                                 "Name":  "Phillip Forbes",
+                                 "IsLead":  true,
+                                 "Role":  "Field Service Tech Lead"
+                             },
+                             {
+                                 "Name":  "Travis Ratcliffe",
+                                 "IsLead":  true,
+                                 "Role":  "Field Service Tech Lead"
+                             },
+                             {
+                                 "Name":  "Adam Kies",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Andrew Shelley",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Cameron Cofer",
+                                 "IsLead":  false,
+                                 "Role":  "Field Service Technician"
+                             },
+                             {
+                                 "Name":  "Casey Chambers",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Cole Thomas",
+                                 "IsLead":  false,
+                                 "Role":  "Field Service Technician"
+                             },
+                             {
+                                 "Name":  "Damir Livancic",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "David Jubeck",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "David Thomas",
+                                 "IsLead":  false,
+                                 "Role":  "Field Service Technician"
+                             },
+                             {
+                                 "Name":  "Duncan Gepner",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Heriberto Hidalgo",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "JJ McKenna",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Joey Todd",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Joshua Mattingley",
+                                 "IsLead":  false,
+                                 "Role":  "Field Service Technician"
+                             },
+                             {
+                                 "Name":  "Joshua Musmeci",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Kyle Kotraba",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Matthew Plemons",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Sam Atkins",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Travis Mays",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Vadar Ali",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Dane Cross",
+                                 "IsLead":  false,
+                                 "Role":  "In-House Service Technician"
+                             }
+                         ],
+    "ServiceTeam":  {
+                        "Yesterday":  {
+                                          "Username":  "hnich",
+                                          "Type":  "ServiceTeam",
+                                          "ProductAmount":  1138.00,
+                                          "Role":  "In-House Service Supervisor",
+                                          "Name":  "Nicholas Hegger",
+                                          "CityCount":  6,
+                                          "ServiceAmount":  0,
+                                          "StateCount":  5,
+                                          "Amount":  1138.00
+                                      },
+                        "MTD":  [
+                                    {
+                                        "Username":  "seric",
+                                        "Type":  "ServiceTeam",
+                                        "TopCities":  "West Sacramento, CA; Columbus, GA; Perry, GA; Stockton, CA; Windsor, CT",
+                                        "ProductAmount":  8021.90,
+                                        "Role":  "Service Scheduling",
+                                        "Name":  "Erica Thurmond",
+                                        "CityCount":  7,
+                                        "States":  "AZ, CA, CT, GA",
+                                        "InvoiceCount":  14,
+                                        "ServiceAmount":  10422.35,
+                                        "StateCount":  4,
+                                        "Amount":  18444.25
+                                    },
+                                    {
+                                        "Username":  "Rachel L",
+                                        "Type":  "ServiceTeam",
+                                        "TopCities":  "Hamilton, OH; Florence, KY; Cincinnati, OH",
+                                        "ProductAmount":  3747.00,
+                                        "Role":  "Service Support",
+                                        "Name":  "Rachel Lively",
+                                        "CityCount":  3,
+                                        "States":  "KY, OH",
+                                        "InvoiceCount":  10,
+                                        "ServiceAmount":  12925.00,
+                                        "StateCount":  2,
+                                        "Amount":  17163.00
+                                    },
+                                    {
+                                        "Username":  "bcoli",
+                                        "Type":  "ServiceTeam",
+                                        "TopCities":  "Cicero, IL; Leominster, MA; Wright City, MO; Ridgefield Park, NJ",
+                                        "ProductAmount":  2534.00,
+                                        "Role":  "Scheduling Coordinator",
+                                        "Name":  "Colin Bowles",
+                                        "CityCount":  4,
+                                        "States":  "IL, MA, MO, NJ",
+                                        "InvoiceCount":  7,
+                                        "ServiceAmount":  7439.00,
+                                        "StateCount":  4,
+                                        "Amount":  9973.00
+                                    },
+                                    {
+                                        "Username":  "hnich",
+                                        "Type":  "ServiceTeam",
+                                        "TopCities":  "Lititz, PA; Faribault, MN; Fairmont, MN; Rush, NY; Othello, WA",
+                                        "ProductAmount":  3365.00,
+                                        "Role":  "In-House Service Supervisor",
+                                        "Name":  "Nicholas Hegger",
+                                        "CityCount":  6,
+                                        "States":  "MN, NH, NY, PA, WA",
+                                        "InvoiceCount":  9,
+                                        "ServiceAmount":  974.00,
+                                        "StateCount":  5,
+                                        "Amount":  4349.00
+                                    },
+                                    {
+                                        "Username":  "ljami",
+                                        "Type":  "ServiceTeam",
+                                        "TopCities":  "Itta Bena, MS",
+                                        "ProductAmount":  470.00,
+                                        "Role":  "Service Director",
+                                        "Name":  "Jami Lorenz",
+                                        "CityCount":  1,
+                                        "States":  "MS",
+                                        "InvoiceCount":  3,
+                                        "ServiceAmount":  2898.00,
+                                        "StateCount":  1,
+                                        "Amount":  3368.00
+                                    }
+                                ]
+                    },
     "ARaging":  {
                     "Current":  3528836.58,
                     "Days90Plus":  242773.85,
@@ -2120,5 +2294,5 @@
                     "Days1_30":  568387.73,
                     "Days61_90":  181849.09
                 },
-    "GeneratedAt":  "2026-01-30 19:36:01"
+    "GeneratedAt":  "2026-01-30 19:47:58"
 }

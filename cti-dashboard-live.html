@@ -407,16 +407,32 @@
             </div>
         </div>
         
-        <!-- Service Reps Section -->
-        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid #4ecdc4;">Service Reps & Territory Coverage</h3>
+        <!-- Service Team Section (Scheduling/Support Staff) -->
+        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid #4ecdc4;">Service Team (Scheduling & Support)</h3>
         <div class="dashboard">
             <div class="card span-2">
-                <div class="card-title">Service Reps - Revenue by Territory</div>
+                <div class="card-title">Service Team - Revenue by Territory</div>
                 <div class="chart-container tall"><canvas id="serviceRepBarChart"></canvas></div>
             </div>
             <div class="card span-2">
-                <div class="card-title">Service Rep Performance & Territory</div>
+                <div class="card-title">Service Team Performance</div>
                 <div id="serviceRepMTDList" style="max-height: 400px; overflow-y: auto;"></div>
+            </div>
+        </div>
+        
+        <!-- Field Technicians Section -->
+        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid #ff6b6b;">Field Service Technicians</h3>
+        <div class="dashboard">
+            <div class="card span-2">
+                <div class="card-title">Field Technician Roster (from Salesforce)</div>
+                <div id="fieldTechList" style="max-height: 400px; overflow-y: auto;"></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Service States Covered (MTD)</div>
+                <div id="serviceStatesCovered" style="max-height: 400px; overflow-y: auto;"></div>
+                <div style="margin-top: 15px; padding: 12px; background: rgba(255,255,255,0.03); border-radius: 8px; font-size: 12px; color: var(--text-secondary);">
+                    <strong>Note:</strong> Field tech performance data requires Salesforce service dispatch integration. Currently showing roster from Salesforce. States covered are derived from service order shipping addresses.
+                </div>
             </div>
         </div>
         
@@ -1159,7 +1175,7 @@
                                       },
                                       {
                                           "Username":  "hnich",
-                                          "Type":  "Service",
+                                          "Type":  "ServiceTeam",
                                           "ProductAmount":  1138.00,
                                           "Role":  "In-House Service Supervisor",
                                           "Name":  "Nicholas Hegger",
@@ -1170,7 +1186,7 @@
                                       },
                                       {
                                           "Username":  "cjord",
-                                          "Type":  "Support",
+                                          "Type":  "ClientCare",
                                           "ProductAmount":  588.00,
                                           "Role":  "Client Care",
                                           "Name":  "Jordan Cline",
@@ -1239,7 +1255,7 @@
                                 },
                                 {
                                     "Username":  "cjord",
-                                    "Type":  "Support",
+                                    "Type":  "ClientCare",
                                     "TopCities":  "Berkeley, MO; Clayton, NC; Elk Grove Village, IL; Austin, TX; Woodstock, IL",
                                     "ProductAmount":  75040.45,
                                     "Role":  "Client Care",
@@ -1281,7 +1297,7 @@
                                 },
                                 {
                                     "Username":  "marissa",
-                                    "Type":  "Support",
+                                    "Type":  "ClientCare",
                                     "TopCities":  "Sioux City, IA; Austin, MN; Bloomsdale, MO; Owasso, OK; Deer Park, TX",
                                     "ProductAmount":  24051.35,
                                     "Role":  "Client Care",
@@ -1295,7 +1311,7 @@
                                 },
                                 {
                                     "Username":  "seric",
-                                    "Type":  "Service",
+                                    "Type":  "ServiceTeam",
                                     "TopCities":  "West Sacramento, CA; Columbus, GA; Perry, GA; Stockton, CA; Windsor, CT",
                                     "ProductAmount":  8021.90,
                                     "Role":  "Service Scheduling",
@@ -1323,7 +1339,7 @@
                                 },
                                 {
                                     "Username":  "Rachel L",
-                                    "Type":  "Service",
+                                    "Type":  "ServiceTeam",
                                     "TopCities":  "Hamilton, OH; Florence, KY; Cincinnati, OH",
                                     "ProductAmount":  3747.00,
                                     "Role":  "Service Support",
@@ -1337,10 +1353,10 @@
                                 },
                                 {
                                     "Username":  "bcoli",
-                                    "Type":  "Service",
+                                    "Type":  "ServiceTeam",
                                     "TopCities":  "Cicero, IL; Leominster, MA; Wright City, MO; Ridgefield Park, NJ",
                                     "ProductAmount":  2534.00,
-                                    "Role":  "Scheduling",
+                                    "Role":  "Scheduling Coordinator",
                                     "Name":  "Colin Bowles",
                                     "CityCount":  4,
                                     "States":  "IL, MA, MO, NJ",
@@ -1379,7 +1395,7 @@
                                 },
                                 {
                                     "Username":  "hnich",
-                                    "Type":  "Service",
+                                    "Type":  "ServiceTeam",
                                     "TopCities":  "Lititz, PA; Faribault, MN; Fairmont, MN; Rush, NY; Othello, WA",
                                     "ProductAmount":  3365.00,
                                     "Role":  "In-House Service Supervisor",
@@ -1393,7 +1409,7 @@
                                 },
                                 {
                                     "Username":  "ljami",
-                                    "Type":  "Service",
+                                    "Type":  "ServiceTeam",
                                     "TopCities":  "Itta Bena, MS",
                                     "ProductAmount":  470.00,
                                     "Role":  "Service Director",
@@ -1407,7 +1423,7 @@
                                 },
                                 {
                                     "Username":  "Anna",
-                                    "Type":  "Support",
+                                    "Type":  "ClientCare",
                                     "TopCities":  "Lima, OH",
                                     "ProductAmount":  528.50,
                                     "Role":  "Client Care",
@@ -1729,91 +1745,63 @@
                                    "Confidence":  22
                                }
                            ],
-    "ServiceReps":  {
-                        "Yesterday":  {
-                                          "Username":  "hnich",
-                                          "Type":  "Service",
-                                          "ProductAmount":  1138.00,
-                                          "Role":  "In-House Service Supervisor",
-                                          "Name":  "Nicholas Hegger",
-                                          "CityCount":  6,
-                                          "ServiceAmount":  0,
-                                          "StateCount":  5,
-                                          "Amount":  1138.00
-                                      },
-                        "MTD":  [
-                                    {
-                                        "Username":  "seric",
-                                        "Type":  "Service",
-                                        "TopCities":  "West Sacramento, CA; Columbus, GA; Perry, GA; Stockton, CA; Windsor, CT",
-                                        "ProductAmount":  8021.90,
-                                        "Role":  "Service Scheduling",
-                                        "Name":  "Erica Thurmond",
-                                        "CityCount":  7,
-                                        "States":  "AZ, CA, CT, GA",
-                                        "InvoiceCount":  14,
-                                        "ServiceAmount":  10422.35,
-                                        "StateCount":  4,
-                                        "Amount":  18444.25
-                                    },
-                                    {
-                                        "Username":  "Rachel L",
-                                        "Type":  "Service",
-                                        "TopCities":  "Hamilton, OH; Florence, KY; Cincinnati, OH",
-                                        "ProductAmount":  3747.00,
-                                        "Role":  "Service Support",
-                                        "Name":  "Rachel Lively",
-                                        "CityCount":  3,
-                                        "States":  "KY, OH",
-                                        "InvoiceCount":  10,
-                                        "ServiceAmount":  12925.00,
-                                        "StateCount":  2,
-                                        "Amount":  17163.00
-                                    },
-                                    {
-                                        "Username":  "bcoli",
-                                        "Type":  "Service",
-                                        "TopCities":  "Cicero, IL; Leominster, MA; Wright City, MO; Ridgefield Park, NJ",
-                                        "ProductAmount":  2534.00,
-                                        "Role":  "Scheduling",
-                                        "Name":  "Colin Bowles",
-                                        "CityCount":  4,
-                                        "States":  "IL, MA, MO, NJ",
-                                        "InvoiceCount":  7,
-                                        "ServiceAmount":  7439.00,
-                                        "StateCount":  4,
-                                        "Amount":  9973.00
-                                    },
-                                    {
-                                        "Username":  "hnich",
-                                        "Type":  "Service",
-                                        "TopCities":  "Lititz, PA; Faribault, MN; Fairmont, MN; Rush, NY; Othello, WA",
-                                        "ProductAmount":  3365.00,
-                                        "Role":  "In-House Service Supervisor",
-                                        "Name":  "Nicholas Hegger",
-                                        "CityCount":  6,
-                                        "States":  "MN, NH, NY, PA, WA",
-                                        "InvoiceCount":  9,
-                                        "ServiceAmount":  974.00,
-                                        "StateCount":  5,
-                                        "Amount":  4349.00
-                                    },
-                                    {
-                                        "Username":  "ljami",
-                                        "Type":  "Service",
-                                        "TopCities":  "Itta Bena, MS",
-                                        "ProductAmount":  470.00,
-                                        "Role":  "Service Director",
-                                        "Name":  "Jami Lorenz",
-                                        "CityCount":  1,
-                                        "States":  "MS",
-                                        "InvoiceCount":  3,
-                                        "ServiceAmount":  2898.00,
-                                        "StateCount":  1,
-                                        "Amount":  3368.00
-                                    }
-                                ]
-                    },
+    "ClientCare":  {
+                       "Yesterday":  {
+                                         "Username":  "cjord",
+                                         "Type":  "ClientCare",
+                                         "ProductAmount":  588.00,
+                                         "Role":  "Client Care",
+                                         "Name":  "Jordan Cline",
+                                         "CityCount":  39,
+                                         "ServiceAmount":  0,
+                                         "StateCount":  23,
+                                         "Amount":  588.00
+                                     },
+                       "MTD":  [
+                                   {
+                                       "Username":  "cjord",
+                                       "Type":  "ClientCare",
+                                       "TopCities":  "Berkeley, MO; Clayton, NC; Elk Grove Village, IL; Austin, TX; Woodstock, IL",
+                                       "ProductAmount":  75040.45,
+                                       "Role":  "Client Care",
+                                       "Name":  "Jordan Cline",
+                                       "CityCount":  39,
+                                       "States":  "AL, AR, AZ, CA, DE, FL, GA, IL, IN, KY, MN, MO, MS, NC, NY, OH, PA, SC, TX, VA, WA, WI, WY",
+                                       "InvoiceCount":  69,
+                                       "ServiceAmount":  980.00,
+                                       "StateCount":  23,
+                                       "Amount":  76020.45
+                                   },
+                                   {
+                                       "Username":  "marissa",
+                                       "Type":  "ClientCare",
+                                       "TopCities":  "Sioux City, IA; Austin, MN; Bloomsdale, MO; Owasso, OK; Deer Park, TX",
+                                       "ProductAmount":  24051.35,
+                                       "Role":  "Client Care",
+                                       "Name":  "Marissa King",
+                                       "CityCount":  14,
+                                       "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, US-PR, WA",
+                                       "InvoiceCount":  20,
+                                       "ServiceAmount":  386.00,
+                                       "StateCount":  13,
+                                       "Amount":  24437.35
+                                   },
+                                   {
+                                       "Username":  "Anna",
+                                       "Type":  "ClientCare",
+                                       "TopCities":  "Lima, OH",
+                                       "ProductAmount":  528.50,
+                                       "Role":  "Client Care",
+                                       "Name":  "Anna Worthington",
+                                       "CityCount":  1,
+                                       "States":  "OH",
+                                       "InvoiceCount":  1,
+                                       "ServiceAmount":  0,
+                                       "StateCount":  1,
+                                       "Amount":  528.50
+                                   }
+                               ]
+                   },
     "Salesperson":  {
                         "Yesterday":  [
                                           {
@@ -1948,6 +1936,13 @@
                                     }
                                 ]
                     },
+    "DayOfWeekAverages":  {
+                              "Tuesday":  191101.32,
+                              "Monday":  126345.69,
+                              "Friday":  138138.24,
+                              "Wednesday":  166590.46,
+                              "Thursday":  138654.09
+                          },
     "ShippingHeatMap":  [
                             {
                                 "Zip":  "54603",
@@ -2654,13 +2649,208 @@
                                     }
                                 ]
                     },
-    "DayOfWeekAverages":  {
-                              "Tuesday":  191101.32,
-                              "Monday":  126345.69,
-                              "Friday":  138138.24,
-                              "Wednesday":  166590.46,
-                              "Thursday":  138654.09
-                          },
+    "FieldTechnicians":  [
+                             {
+                                 "Name":  "Nathan Glenister",
+                                 "IsLead":  true,
+                                 "Role":  "Field Service Tech Lead"
+                             },
+                             {
+                                 "Name":  "Phillip Forbes",
+                                 "IsLead":  true,
+                                 "Role":  "Field Service Tech Lead"
+                             },
+                             {
+                                 "Name":  "Travis Ratcliffe",
+                                 "IsLead":  true,
+                                 "Role":  "Field Service Tech Lead"
+                             },
+                             {
+                                 "Name":  "Adam Kies",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Andrew Shelley",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Cameron Cofer",
+                                 "IsLead":  false,
+                                 "Role":  "Field Service Technician"
+                             },
+                             {
+                                 "Name":  "Casey Chambers",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Cole Thomas",
+                                 "IsLead":  false,
+                                 "Role":  "Field Service Technician"
+                             },
+                             {
+                                 "Name":  "Damir Livancic",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "David Jubeck",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "David Thomas",
+                                 "IsLead":  false,
+                                 "Role":  "Field Service Technician"
+                             },
+                             {
+                                 "Name":  "Duncan Gepner",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Heriberto Hidalgo",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "JJ McKenna",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Joey Todd",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Joshua Mattingley",
+                                 "IsLead":  false,
+                                 "Role":  "Field Service Technician"
+                             },
+                             {
+                                 "Name":  "Joshua Musmeci",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Kyle Kotraba",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Matthew Plemons",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Sam Atkins",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Travis Mays",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Vadar Ali",
+                                 "IsLead":  false,
+                                 "Role":  "Service Technician"
+                             },
+                             {
+                                 "Name":  "Dane Cross",
+                                 "IsLead":  false,
+                                 "Role":  "In-House Service Technician"
+                             }
+                         ],
+    "ServiceTeam":  {
+                        "Yesterday":  {
+                                          "Username":  "hnich",
+                                          "Type":  "ServiceTeam",
+                                          "ProductAmount":  1138.00,
+                                          "Role":  "In-House Service Supervisor",
+                                          "Name":  "Nicholas Hegger",
+                                          "CityCount":  6,
+                                          "ServiceAmount":  0,
+                                          "StateCount":  5,
+                                          "Amount":  1138.00
+                                      },
+                        "MTD":  [
+                                    {
+                                        "Username":  "seric",
+                                        "Type":  "ServiceTeam",
+                                        "TopCities":  "West Sacramento, CA; Columbus, GA; Perry, GA; Stockton, CA; Windsor, CT",
+                                        "ProductAmount":  8021.90,
+                                        "Role":  "Service Scheduling",
+                                        "Name":  "Erica Thurmond",
+                                        "CityCount":  7,
+                                        "States":  "AZ, CA, CT, GA",
+                                        "InvoiceCount":  14,
+                                        "ServiceAmount":  10422.35,
+                                        "StateCount":  4,
+                                        "Amount":  18444.25
+                                    },
+                                    {
+                                        "Username":  "Rachel L",
+                                        "Type":  "ServiceTeam",
+                                        "TopCities":  "Hamilton, OH; Florence, KY; Cincinnati, OH",
+                                        "ProductAmount":  3747.00,
+                                        "Role":  "Service Support",
+                                        "Name":  "Rachel Lively",
+                                        "CityCount":  3,
+                                        "States":  "KY, OH",
+                                        "InvoiceCount":  10,
+                                        "ServiceAmount":  12925.00,
+                                        "StateCount":  2,
+                                        "Amount":  17163.00
+                                    },
+                                    {
+                                        "Username":  "bcoli",
+                                        "Type":  "ServiceTeam",
+                                        "TopCities":  "Cicero, IL; Leominster, MA; Wright City, MO; Ridgefield Park, NJ",
+                                        "ProductAmount":  2534.00,
+                                        "Role":  "Scheduling Coordinator",
+                                        "Name":  "Colin Bowles",
+                                        "CityCount":  4,
+                                        "States":  "IL, MA, MO, NJ",
+                                        "InvoiceCount":  7,
+                                        "ServiceAmount":  7439.00,
+                                        "StateCount":  4,
+                                        "Amount":  9973.00
+                                    },
+                                    {
+                                        "Username":  "hnich",
+                                        "Type":  "ServiceTeam",
+                                        "TopCities":  "Lititz, PA; Faribault, MN; Fairmont, MN; Rush, NY; Othello, WA",
+                                        "ProductAmount":  3365.00,
+                                        "Role":  "In-House Service Supervisor",
+                                        "Name":  "Nicholas Hegger",
+                                        "CityCount":  6,
+                                        "States":  "MN, NH, NY, PA, WA",
+                                        "InvoiceCount":  9,
+                                        "ServiceAmount":  974.00,
+                                        "StateCount":  5,
+                                        "Amount":  4349.00
+                                    },
+                                    {
+                                        "Username":  "ljami",
+                                        "Type":  "ServiceTeam",
+                                        "TopCities":  "Itta Bena, MS",
+                                        "ProductAmount":  470.00,
+                                        "Role":  "Service Director",
+                                        "Name":  "Jami Lorenz",
+                                        "CityCount":  1,
+                                        "States":  "MS",
+                                        "InvoiceCount":  3,
+                                        "ServiceAmount":  2898.00,
+                                        "StateCount":  1,
+                                        "Amount":  3368.00
+                                    }
+                                ]
+                    },
     "ARaging":  {
                     "Current":  3528836.58,
                     "Days90Plus":  242773.85,
@@ -2669,7 +2859,7 @@
                     "Days1_30":  568387.73,
                     "Days61_90":  181849.09
                 },
-    "GeneratedAt":  "2026-01-30 19:36:01"
+    "GeneratedAt":  "2026-01-30 19:47:58"
 };
 
         // Load data from file or embedded
@@ -2764,6 +2954,70 @@
                         ${serviceMetrics}
                     </div>
                     <div class="amount">${fmt(item.Amount)}</div>
+                </div>`;
+            }).join('');
+        }
+
+        function renderFieldTechList(id, techs) {
+            const el = document.getElementById(id);
+            if (!techs?.length) { el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-secondary)">No data</div>'; return; }
+            
+            const leads = techs.filter(t => t.IsLead);
+            const others = techs.filter(t => !t.IsLead);
+            
+            let html = '<div style="margin-bottom:15px;"><div style="font-weight:600;color:var(--warning);margin-bottom:8px;">Tech Leads (3)</div>';
+            html += leads.map(t => `
+                <div class="top-item" style="border-left:3px solid var(--warning);">
+                    <div class="name">⭐ ${t.Name}</div>
+                    <div class="amount" style="color:var(--warning);">${t.Role}</div>
+                </div>
+            `).join('');
+            html += '</div>';
+            
+            html += '<div><div style="font-weight:600;color:var(--text-secondary);margin-bottom:8px;">Field Technicians (${others.length})</div>';
+            html += others.map(t => `
+                <div class="top-item">
+                    <div class="name">${t.Name}</div>
+                    <div class="amount" style="color:var(--text-secondary);font-size:11px;">${t.Role}</div>
+                </div>
+            `).join('');
+            html += '</div>';
+            
+            el.innerHTML = html;
+        }
+
+        function renderServiceStates(id, teamData) {
+            const el = document.getElementById(id);
+            if (!teamData?.length) { el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-secondary)">No data</div>'; return; }
+            
+            // Aggregate states from all team members who do service work
+            const stateAmounts = {};
+            teamData.forEach(member => {
+                const states = (member.States || '').split(', ').filter(s => s);
+                const svcAmount = member.ServiceAmount || 0;
+                if (svcAmount > 0 && states.length > 0) {
+                    const perState = svcAmount / states.length;
+                    states.forEach(state => {
+                        if (!stateAmounts[state]) stateAmounts[state] = { revenue: 0, count: 0 };
+                        stateAmounts[state].revenue += perState;
+                        stateAmounts[state].count++;
+                    });
+                }
+            });
+            
+            const sorted = Object.entries(stateAmounts).sort((a,b) => b[1].revenue - a[1].revenue).slice(0, 20);
+            
+            if (sorted.length === 0) {
+                el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-secondary)">No service state data available</div>';
+                return;
+            }
+            
+            el.innerHTML = sorted.map(([state, data], i) => {
+                const rank = i < 3 ? ['gold','silver','bronze'][i] : '';
+                return `<div class="top-item">
+                    <div class="rank ${rank}">${i+1}</div>
+                    <div class="name">${state}</div>
+                    <div class="amount">${fmt(data.revenue)}</div>
                 </div>`;
             }).join('');
         }
@@ -2950,8 +3204,9 @@
             const allTeamYesterday = DATA.AllTeam?.Yesterday || [];
             const salesMTD = DATA.Salesperson?.MTD || [];
             const salesYesterday = DATA.Salesperson?.Yesterday || [];
-            const serviceMTD = DATA.ServiceReps?.MTD || [];
-            const serviceYesterday = DATA.ServiceReps?.Yesterday || [];
+            const serviceTeamMTD = DATA.ServiceTeam?.MTD || [];
+            const serviceTeamYesterday = DATA.ServiceTeam?.Yesterday || [];
+            const fieldTechs = DATA.FieldTechnicians || [];
             
             // KPIs (use all team totals)
             const mtdTotal = allTeamMTD.reduce((s,p) => s + p.Amount, 0);
@@ -2966,22 +3221,28 @@
             
             // Service-specific KPIs
             const svcTotal = DATA.Summary?.MTD?.Service || 0;  // Total service revenue from GL
-            const svcRepTotal = serviceMTD.reduce((s,p) => s + (p.Amount || 0), 0);  // Service reps' sales
-            const svcInvoices = serviceMTD.reduce((s,p) => s + (p.InvoiceCount || 0), 0);
-            const svcAvg = svcInvoices > 0 ? svcRepTotal / svcInvoices : 0;
-            const allStates = [...new Set(serviceMTD.flatMap(p => (p.States || '').split(', ').filter(s => s)))];
-            const topSvcRep = serviceMTD[0]?.Name || '--';
+            const svcTeamTotal = serviceTeamMTD.reduce((s,p) => s + (p.Amount || 0), 0);  // Service team's sales
+            const svcInvoices = serviceTeamMTD.reduce((s,p) => s + (p.InvoiceCount || 0), 0);
+            const svcAvg = svcInvoices > 0 ? svcTeamTotal / svcInvoices : 0;
+            const allStates = [...new Set(serviceTeamMTD.flatMap(p => (p.States || '').split(', ').filter(s => s)))];
+            const topSvcTeam = serviceTeamMTD[0]?.Name || '--';
             
             document.getElementById('svcMTDTotal').textContent = fmt(svcTotal);
             document.getElementById('svcAvgTicket').textContent = fmt(svcAvg);
             document.getElementById('svcStates').textContent = allStates.length;
-            document.getElementById('svcTopRep').textContent = topSvcRep;
+            document.getElementById('svcTopRep').textContent = topSvcTeam;
             
             // Lists
             renderSalespersonList('allTeamMTDList', allTeamMTD, true);
             renderSalespersonList('salespersonMTDList', salesMTD, true);
-            renderSalespersonList('serviceRepMTDList', serviceMTD, true, true);  // Show territory for service reps
+            renderSalespersonList('serviceRepMTDList', serviceTeamMTD, true, true);  // Show territory for service team
             renderSalespersonList('salespersonYesterdayList', allTeamYesterday, true);
+            
+            // Field Technicians List
+            renderFieldTechList('fieldTechList', fieldTechs);
+            
+            // Service States Covered
+            renderServiceStates('serviceStatesCovered', allTeamMTD);
             
             // All Team MTD Stacked Bar Chart
             if (allTeamMTD.length) {
@@ -3033,16 +3294,16 @@
                 });
             }
             
-            // Service Reps MTD Bar Chart
-            if (serviceMTD.length) {
+            // Service Team MTD Bar Chart
+            if (serviceTeamMTD.length) {
                 const svcCtx = document.getElementById('serviceRepBarChart').getContext('2d');
                 charts.svcMtd = new Chart(svcCtx, {
                     type: 'bar',
                     data: {
-                        labels: serviceMTD.map(p => p.Name),
+                        labels: serviceTeamMTD.map(p => p.Name),
                         datasets: [
-                            { label: 'Product', data: serviceMTD.map(p => p.ProductAmount || 0), backgroundColor: '#4ecdc4' },
-                            { label: 'Service', data: serviceMTD.map(p => p.ServiceAmount || 0), backgroundColor: '#ff6b6b' }
+                            { label: 'Product', data: serviceTeamMTD.map(p => p.ProductAmount || 0), backgroundColor: '#4ecdc4' },
+                            { label: 'Service', data: serviceTeamMTD.map(p => p.ServiceAmount || 0), backgroundColor: '#ff6b6b' }
                         ]
                     },
                     options: { 
@@ -3190,15 +3451,15 @@
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9' } } } }
             });
 
-            // Service Tech Territory Map
+            // Service Team Territory Map
             const svcMap = L.map('serviceTechMap').setView([39.8, -98.6], 4);
             L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(svcMap);
             
-            const serviceReps = DATA.ServiceReps?.MTD || [];
-            const repColors = ['#ff6b6b', '#feca57', '#a29bfe']; // Different color per rep
+            const serviceTeamGeo = DATA.ServiceTeam?.MTD || [];
+            const repColors = ['#ff6b6b', '#feca57', '#a29bfe', '#00d2d3', '#ff9ff3']; // Different color per person
             let legendHtml = '';
             
-            serviceReps.forEach((rep, idx) => {
+            serviceTeamGeo.forEach((rep, idx) => {
                 const color = repColors[idx % repColors.length];
                 const states = (rep.States || '').split(', ').filter(s => s);
                 
