@@ -1747,7 +1747,7 @@
                     "Days1_30":  566814.83,
                     "Days61_90":  174877.09
                 },
-    "GeneratedAt":  "2026-01-30 20:30:33",
+    "GeneratedAt":  "2026-01-30 20:31:46",
     "FieldTechSummary":  {
                              "TotalAppointmentsMTD":  205,
                              "TopPerformer":  "Travis Mays",
@@ -3809,9 +3809,9 @@
             const yTotal = allTeamYesterday.reduce((s,p) => s + p.Amount, 0);
             const invoiceCount = allTeamMTD.reduce((s,p) => s + (p.InvoiceCount || 0), 0);
             
-            // Top performer = only actual sales reps (exclude Joel, Allison, etc)
-            const salesOnlyMTD = allTeamMTD.filter(p => p.Type === 'Sales');
-            const topPerformer = salesOnlyMTD[0]?.Name || '--';
+            // Top performer = only Outside Sales reps
+            const outsideSalesMTD = allTeamMTD.filter(p => p.Role === 'Outside Sales');
+            const topPerformer = outsideSalesMTD[0]?.Name || '--';
             
             document.getElementById('spYesterdayTotal').textContent = fmt(yTotal);
             document.getElementById('spMTDTotal').textContent = fmt(mtdTotal);
