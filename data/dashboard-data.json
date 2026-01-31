@@ -150,13 +150,13 @@
                },
     "DailyTrend":  [
                        {
-                           "Miscellaneous":  71608.05,
+                           "Miscellaneous":  0,
                            "DayOfWeek":  "Monday",
-                           "Total":  142695.06,
+                           "Total":  0,
                            "Service":  0,
                            "Product":  0,
                            "Date":  "2025-12-01",
-                           "Freight":  71087.01
+                           "Freight":  0
                        },
                        {
                            "Miscellaneous":  0,
@@ -348,13 +348,13 @@
                            "Freight":  0
                        },
                        {
-                           "Miscellaneous":  -535056.81,
+                           "Miscellaneous":  0,
                            "DayOfWeek":  "Wednesday",
-                           "Total":  -1441252.90,
+                           "Total":  0,
                            "Service":  0,
                            "Product":  0,
                            "Date":  "2025-12-31",
-                           "Freight":  -906196.09
+                           "Freight":  0
                        },
                        {
                            "Miscellaneous":  0,
@@ -1015,7 +1015,7 @@
                      },
     "DayOfWeekAverages":  {
                               "Tuesday":  191101.32,
-                              "Monday":  129615.56,
+                              "Monday":  126345.69,
                               "Friday":  138138.24,
                               "Wednesday":  166590.46,
                               "Thursday":  138654.09
@@ -1162,7 +1162,7 @@
                     "Days1_30":  566814.83,
                     "Days61_90":  174877.09
                 },
-    "GeneratedAt":  "2026-01-30 20:20:49",
+    "GeneratedAt":  "2026-01-30 20:30:33",
     "FieldTechSummary":  {
                              "TotalAppointmentsMTD":  205,
                              "TopPerformer":  "Travis Mays",
@@ -1301,11 +1301,11 @@
                                    "Confidence":  90
                                },
                                {
-                                   "Total":  743015.67,
+                                   "Total":  740726.76,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-02",
-                                                            "Amount":  121952.78,
+                                                            "Amount":  119663.87,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
@@ -1345,18 +1345,18 @@
                                                    "From31_60":  22766.5
                                                },
                                    "StartDate":  "2026-02-02",
-                                   "Predicted":  743015.67,
+                                   "Predicted":  740726.76,
                                    "ARDue":  329280.05,
                                    "WeekNum":  2,
                                    "Week":  "Week of Feb 2",
                                    "Confidence":  38
                                },
                                {
-                                   "Total":  732073.07,
+                                   "Total":  729784.16,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-09",
-                                                            "Amount":  120311.39,
+                                                            "Amount":  118022.48,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
@@ -1396,18 +1396,18 @@
                                                    "From31_60":  40944.6
                                                },
                                    "StartDate":  "2026-02-09",
-                                   "Predicted":  732073.07,
+                                   "Predicted":  729784.16,
                                    "ARDue":  973596.03,
                                    "WeekNum":  3,
                                    "Week":  "Week of Feb 9",
                                    "Confidence":  30
                                },
                                {
-                                   "Total":  642286.21,
+                                   "Total":  641828.43,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-16",
-                                                            "Amount":  24282.58,
+                                                            "Amount":  23824.80,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
@@ -1447,18 +1447,18 @@
                                                    "From31_60":  53666.8
                                                },
                                    "StartDate":  "2026-02-16",
-                                   "Predicted":  642286.21,
+                                   "Predicted":  641828.43,
                                    "ARDue":  686765.24,
                                    "WeekNum":  4,
                                    "Week":  "Week of Feb 16",
                                    "Confidence":  30
                                },
                                {
-                                   "Total":  738085.28,
+                                   "Total":  735796.37,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-23",
-                                                            "Amount":  121213.22,
+                                                            "Amount":  118924.31,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
@@ -1498,18 +1498,18 @@
                                                    "From31_60":  59580.5
                                                },
                                    "StartDate":  "2026-02-23",
-                                   "Predicted":  738085.28,
+                                   "Predicted":  735796.37,
                                    "ARDue":  672510.83,
                                    "WeekNum":  5,
                                    "Week":  "Week of Feb 23",
                                    "Confidence":  22
                                },
                                {
-                                   "Total":  736810.17,
+                                   "Total":  734521.26,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-03-02",
-                                                            "Amount":  121021.95,
+                                                            "Amount":  118733.04,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
@@ -1549,7 +1549,7 @@
                                                    "From31_60":  63492.8
                                                },
                                    "StartDate":  "2026-03-02",
-                                   "Predicted":  736810.17,
+                                   "Predicted":  734521.26,
                                    "ARDue":  91365.90,
                                    "WeekNum":  6,
                                    "Week":  "Week of Mar 2",
@@ -1557,34 +1557,7 @@
                                }
                            ],
     "Summary":  {
-                    "MTDBusinessDays":  21,
-                    "MTD":  {
-                                "Total":  3043319.19,
-                                "Freight":  98826.99,
-                                "Service":  830161.97,
-                                "Miscellaneous":  46509.89,
-                                "Product":  2067820.34
-                            },
-                    "YTDChange":  0,
-                    "MTDChange":  0,
-                    "Yesterday":  {
-                                      "Total":  110765.12,
-                                      "Freight":  4944.42,
-                                      "Service":  39850.80,
-                                      "Miscellaneous":  8389.25,
-                                      "Product":  57580.65
-                                  },
-                    "LastYearYTDAverage":  0,
                     "YTDDailyAverage":  144919.96,
-                    "YTDBusinessDays":  21,
-                    "LastYearMTDAverage":  0,
-                    "LastYearMTD":  {
-                                        "Total":  0
-                                    },
-                    "YTDAvgChange":  0,
-                    "LastYearYTD":  {
-                                        "Total":  0
-                                    },
                     "YTD":  {
                                 "Total":  3043319.19,
                                 "Freight":  98826.99,
@@ -1592,9 +1565,78 @@
                                 "Miscellaneous":  46509.89,
                                 "Product":  2067820.34
                             },
-                    "MTDAvgChange":  0,
+                    "MTD":  {
+                                "Total":  3043319.19,
+                                "Freight":  98826.99,
+                                "Service":  830161.97,
+                                "Miscellaneous":  46509.89,
+                                "Product":  2067820.34
+                            },
+                    "Yesterday":  {
+                                      "Total":  110765.12,
+                                      "Freight":  4944.42,
+                                      "Service":  39850.80,
+                                      "Miscellaneous":  8389.25,
+                                      "Product":  57580.65
+                                  },
                     "MTDDailyAverage":  144919.96
                 },
+    "ShippingStats":  {
+                          "MTDUSStates":  50,
+                          "TotalUSStates":  50,
+                          "StateBreakdown":  {
+                                                 "KY":  10,
+                                                 "IA":  43,
+                                                 "VA":  17,
+                                                 "TN":  19,
+                                                 "WY":  3,
+                                                 "SC":  21,
+                                                 "CT":  8,
+                                                 "FL":  32,
+                                                 "GA":  36,
+                                                 "NJ":  7,
+                                                 "AK":  1,
+                                                 "MT":  2,
+                                                 "OR":  22,
+                                                 "WV":  1,
+                                                 "ME":  4,
+                                                 "ND":  1,
+                                                 "DE":  15,
+                                                 "IN":  41,
+                                                 "AR":  19,
+                                                 "NH":  1,
+                                                 "AL":  31,
+                                                 "MA":  14,
+                                                 "PA":  72,
+                                                 "AZ":  10,
+                                                 "OK":  13,
+                                                 "TX":  79,
+                                                 "UT":  15,
+                                                 "CO":  24,
+                                                 "NM":  3,
+                                                 "WI":  75,
+                                                 "SD":  4,
+                                                 "MO":  36,
+                                                 "ID":  7,
+                                                 "NY":  16,
+                                                 "RI":  2,
+                                                 "MI":  36,
+                                                 "NV":  4,
+                                                 "MS":  6,
+                                                 "KS":  12,
+                                                 "MD":  16,
+                                                 "MN":  42,
+                                                 "CA":  162,
+                                                 "NE":  23,
+                                                 "LA":  2,
+                                                 "OH":  42,
+                                                 "NC":  38,
+                                                 "VT":  3,
+                                                 "IL":  44,
+                                                 "HI":  1,
+                                                 "WA":  51
+                                             }
+                      },
     "FieldTechnicians":  [
                              {
                                  "Name":  "Travis Mays",
@@ -2151,9 +2193,6 @@
                                  "IsLead":  false
                              }
                          ],
-    "LastYearDailyTrend":  {
-
-                           },
     "DataSource":  "SyteLine GL Ledger with ProductCode (LFTR/LGAS/LIHL=Service)",
     "ShippingHeatMap":  [
                             {
