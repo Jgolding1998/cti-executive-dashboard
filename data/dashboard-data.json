@@ -54,15 +54,15 @@
                                        "Username":  "marissa",
                                        "Type":  "ClientCare",
                                        "TopCities":  "Sioux City, IA; Austin, MN; Bloomsdale, MO; Owasso, OK; Deer Park, TX",
-                                       "ProductAmount":  28568.35,
+                                       "ProductAmount":  27450.85,
                                        "Role":  "Client Care",
                                        "Name":  "Marissa King",
                                        "CityCount":  14,
                                        "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, US-PR, WA",
-                                       "InvoiceCount":  22,
+                                       "InvoiceCount":  26,
                                        "ServiceAmount":  386.00,
                                        "StateCount":  13,
-                                       "Amount":  28954.35
+                                       "Amount":  27836.85
                                    },
                                    {
                                        "Username":  "ebrow",
@@ -428,18 +428,18 @@
                        {
                            "Miscellaneous":  0,
                            "DayOfWeek":  "Tuesday",
-                           "Total":  25839.77,
+                           "Total":  15028.69,
                            "Service":  9353.00,
-                           "Product":  15938.18,
+                           "Product":  5127.10,
                            "Date":  "2026-01-06",
                            "Freight":  548.59
                        },
                        {
                            "Miscellaneous":  4298.00,
                            "DayOfWeek":  "Wednesday",
-                           "Total":  97452.64,
+                           "Total":  94347.44,
                            "Service":  49069.54,
-                           "Product":  42332.90,
+                           "Product":  39227.70,
                            "Date":  "2026-01-07",
                            "Freight":  1752.20
                        },
@@ -491,9 +491,9 @@
                        {
                            "Miscellaneous":  1932.00,
                            "DayOfWeek":  "Thursday",
-                           "Total":  151953.08,
+                           "Total":  146997.08,
                            "Service":  62171.70,
-                           "Product":  83252.04,
+                           "Product":  78296.04,
                            "Date":  "2026-01-15",
                            "Freight":  4597.34
                        },
@@ -518,9 +518,9 @@
                        {
                            "Miscellaneous":  65.00,
                            "DayOfWeek":  "Tuesday",
-                           "Total":  170100.66,
+                           "Total":  169371.66,
                            "Service":  45962.80,
-                           "Product":  116445.40,
+                           "Product":  115716.40,
                            "Date":  "2026-01-20",
                            "Freight":  7627.46
                        },
@@ -536,36 +536,36 @@
                        {
                            "Miscellaneous":  0,
                            "DayOfWeek":  "Thursday",
-                           "Total":  148364.22,
+                           "Total":  146161.22,
                            "Service":  16099.20,
-                           "Product":  126820.80,
+                           "Product":  124617.80,
                            "Date":  "2026-01-22",
                            "Freight":  5444.22
                        },
                        {
                            "Miscellaneous":  260.67,
                            "DayOfWeek":  "Friday",
-                           "Total":  226716.11,
+                           "Total":  220337.38,
                            "Service":  39107.14,
-                           "Product":  181098.05,
+                           "Product":  174719.32,
                            "Date":  "2026-01-23",
                            "Freight":  6250.25
                        },
                        {
                            "Miscellaneous":  0,
                            "DayOfWeek":  "Monday",
-                           "Total":  117990.48,
+                           "Total":  104569.88,
                            "Service":  47653.35,
-                           "Product":  66816.90,
+                           "Product":  53396.30,
                            "Date":  "2026-01-26",
                            "Freight":  3520.23
                        },
                        {
                            "Miscellaneous":  3132.00,
                            "DayOfWeek":  "Tuesday",
-                           "Total":  195740.27,
+                           "Total":  194963.67,
                            "Service":  56256.60,
-                           "Product":  131239.80,
+                           "Product":  130463.20,
                            "Date":  "2026-01-27",
                            "Freight":  5111.87
                        },
@@ -715,29 +715,29 @@
                                     "Username":  "Joel",
                                     "Type":  "Executive",
                                     "TopCities":  "Lake Elsinore, CA; Berthoud, CO; Woodridge, IL; Cheyenne, WY; Batesville, AR",
-                                    "ProductAmount":  1460279.09,
+                                    "ProductAmount":  1436394.18,
                                     "Role":  "COO",
                                     "Name":  "Joel EuDaly",
                                     "CityCount":  625,
                                     "States":  "AB-C, AL, AR, AZ, BC-C, CA, CO, CO-VA, CT, DE, FL, GA, GT-M, IA, ID, IL, IN, KS, KY, LA, MA, MB-C, MD, ME, MI, MN, MO, MS, MT, NC, ND, NE, NJ, NM, NS-C, NV, NY, NZ-WG, OH, OK, ON-C, OR, PA, QC-C, SC, SD, SK-C, TN, TX, UT, VA, VT, WA, WI, WV, WY",
-                                    "InvoiceCount":  1603,
+                                    "InvoiceCount":  1622,
                                     "ServiceAmount":  767882.84,
                                     "StateCount":  56,
-                                    "Amount":  2269317.82
+                                    "Amount":  2245432.91
                                 },
                                 {
                                     "Username":  "lphil",
                                     "Type":  "Sales",
                                     "TopCities":  "Commerce City, CO; Houston, TX; Saskatoon, SK-C; Kelso, NSW-A; Chino, CA",
-                                    "ProductAmount":  183626.75,
+                                    "ProductAmount":  181102.45,
                                     "Role":  "Inside Sales",
                                     "Name":  "Phil Libbert",
                                     "CityCount":  53,
                                     "States":  "AB-C, AK, AR, AZ, BC-C, CA, CO, DE, FL, GA, IA, ID, IL, IN, LA, MD, MO, NE, NM, NSW-A, OH, ON-C, OR, QLD-A, SK-C, TX, WA, WI",
-                                    "InvoiceCount":  102,
+                                    "InvoiceCount":  105,
                                     "ServiceAmount":  19905.00,
                                     "StateCount":  28,
-                                    "Amount":  204022.75
+                                    "Amount":  201498.45
                                 },
                                 {
                                     "Username":  "Allison",
@@ -757,15 +757,15 @@
                                     "Username":  "Unassigned",
                                     "Type":  "Sales",
                                     "TopCities":  "",
-                                    "ProductAmount":  138448.15,
+                                    "ProductAmount":  127093.95,
                                     "Role":  "Team Member",
                                     "Name":  "Unassigned",
                                     "CityCount":  0,
                                     "States":  "",
-                                    "InvoiceCount":  57,
+                                    "InvoiceCount":  61,
                                     "ServiceAmount":  2852.00,
                                     "StateCount":  0,
-                                    "Amount":  141550.15
+                                    "Amount":  130195.95
                                 },
                                 {
                                     "Username":  "cjord",
@@ -785,15 +785,15 @@
                                     "Username":  "mrand",
                                     "Type":  "Sales",
                                     "TopCities":  "Mesquite, TX; San Antonio, TX; Spring, TX; Blackwood, NJ; Lakewood, CO",
-                                    "ProductAmount":  41744.60,
+                                    "ProductAmount":  38245.30,
                                     "Role":  "Inside Sales",
                                     "Name":  "Randy Mobley",
                                     "CityCount":  14,
                                     "States":  "CA, CO, HI, IL, NJ, SC, TX, UT",
-                                    "InvoiceCount":  25,
+                                    "InvoiceCount":  26,
                                     "ServiceAmount":  190.00,
                                     "StateCount":  8,
-                                    "Amount":  41934.60
+                                    "Amount":  38435.30
                                 },
                                 {
                                     "Username":  "nandy",
@@ -813,15 +813,15 @@
                                     "Username":  "marissa",
                                     "Type":  "ClientCare",
                                     "TopCities":  "Sioux City, IA; Austin, MN; Bloomsdale, MO; Owasso, OK; Deer Park, TX",
-                                    "ProductAmount":  28568.35,
+                                    "ProductAmount":  27450.85,
                                     "Role":  "Client Care",
                                     "Name":  "Marissa King",
                                     "CityCount":  14,
                                     "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, US-PR, WA",
-                                    "InvoiceCount":  22,
+                                    "InvoiceCount":  26,
                                     "ServiceAmount":  386.00,
                                     "StateCount":  13,
-                                    "Amount":  28954.35
+                                    "Amount":  27836.85
                                 },
                                 {
                                     "Username":  "seric",
@@ -1031,7 +1031,7 @@
                          "MTD":  [
                                      {
                                          "Name":  "Keep Supply",
-                                         "Amount":  78431.75
+                                         "Amount":  78270.75
                                      },
                                      {
                                          "Name":  "CP\u0026R - Concrete Protection \u0026 Restoration",
@@ -1050,20 +1050,16 @@
                                          "Amount":  55951.30
                                      },
                                      {
-                                         "Name":  "Cimco Refrigeration - CANADA - Burlington",
-                                         "Amount":  40596.50
-                                     },
-                                     {
                                          "Name":  "Cimco Refrigeration - US - Mobile",
                                          "Amount":  40448.30
                                      },
                                      {
-                                         "Name":  "D\u0026H Refrigeration",
-                                         "Amount":  36375.20
+                                         "Name":  "Cimco Refrigeration - CANADA - Burlington",
+                                         "Amount":  36456.20
                                      },
                                      {
-                                         "Name":  "Wagner-Meinert - Fort Wayne",
-                                         "Amount":  34039.60
+                                         "Name":  "D\u0026H Refrigeration",
+                                         "Amount":  36375.20
                                      },
                                      {
                                          "Name":  "AC\u0026R Specialists",
@@ -1076,6 +1072,10 @@
                                      {
                                          "Name":  "Coca-Cola Bottling Co United - College Park",
                                          "Amount":  33249.00
+                                     },
+                                     {
+                                         "Name":  "Wagner-Meinert - Fort Wayne",
+                                         "Amount":  32512.20
                                      },
                                      {
                                          "Name":  "Modern Mechanical Ice Systems LLC",
@@ -1092,11 +1092,11 @@
                                  ]
                      },
     "DayOfWeekAverages":  {
-                              "Tuesday":  191101.32,
-                              "Monday":  126345.69,
-                              "Friday":  170021.94,
-                              "Wednesday":  166590.46,
-                              "Thursday":  138654.09
+                              "Tuesday":  188022.16,
+                              "Monday":  122990.54,
+                              "Friday":  168427.26,
+                              "Wednesday":  165814.16,
+                              "Thursday":  136864.34
                           },
     "Salesperson":  {
                         "Yesterday":  [
@@ -1139,43 +1139,43 @@
                                         "Username":  "lphil",
                                         "Type":  "Sales",
                                         "TopCities":  "Commerce City, CO; Houston, TX; Saskatoon, SK-C; Kelso, NSW-A; Chino, CA",
-                                        "ProductAmount":  183626.75,
+                                        "ProductAmount":  181102.45,
                                         "Role":  "Inside Sales",
                                         "Name":  "Phil Libbert",
                                         "CityCount":  53,
                                         "States":  "AB-C, AK, AR, AZ, BC-C, CA, CO, DE, FL, GA, IA, ID, IL, IN, LA, MD, MO, NE, NM, NSW-A, OH, ON-C, OR, QLD-A, SK-C, TX, WA, WI",
-                                        "InvoiceCount":  102,
+                                        "InvoiceCount":  105,
                                         "ServiceAmount":  19905.00,
                                         "StateCount":  28,
-                                        "Amount":  204022.75
+                                        "Amount":  201498.45
                                     },
                                     {
                                         "Username":  "Unassigned",
                                         "Type":  "Sales",
                                         "TopCities":  "",
-                                        "ProductAmount":  138448.15,
+                                        "ProductAmount":  127093.95,
                                         "Role":  "Team Member",
                                         "Name":  "Unassigned",
                                         "CityCount":  0,
                                         "States":  "",
-                                        "InvoiceCount":  57,
+                                        "InvoiceCount":  61,
                                         "ServiceAmount":  2852.00,
                                         "StateCount":  0,
-                                        "Amount":  141550.15
+                                        "Amount":  130195.95
                                     },
                                     {
                                         "Username":  "mrand",
                                         "Type":  "Sales",
                                         "TopCities":  "Mesquite, TX; San Antonio, TX; Spring, TX; Blackwood, NJ; Lakewood, CO",
-                                        "ProductAmount":  41744.60,
+                                        "ProductAmount":  38245.30,
                                         "Role":  "Inside Sales",
                                         "Name":  "Randy Mobley",
                                         "CityCount":  14,
                                         "States":  "CA, CO, HI, IL, NJ, SC, TX, UT",
-                                        "InvoiceCount":  25,
+                                        "InvoiceCount":  26,
                                         "ServiceAmount":  190.00,
                                         "StateCount":  8,
-                                        "Amount":  41934.60
+                                        "Amount":  38435.30
                                     },
                                     {
                                         "Username":  "nandy",
@@ -1229,7 +1229,7 @@
                     "Days1_30":  583561.52,
                     "Days61_90":  174877.09
                 },
-    "GeneratedAt":  "2026-01-31 10:16:13",
+    "GeneratedAt":  "2026-01-31 10:34:13",
     "FieldTechSummary":  {
                              "TotalAppointmentsMTD":  205,
                              "TopPerformer":  "Travis Mays",
@@ -1317,17 +1317,17 @@
                     },
     "CashFlowPrediction":  [
                                {
-                                   "Total":  756430.61,
+                                   "Total":  742233.41,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-01-26",
-                                                            "Amount":  117990.48,
+                                                            "Amount":  104569.88,
                                                             "Type":  "Actual",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-01-27",
-                                                            "Amount":  195740.27,
+                                                            "Amount":  194963.67,
                                                             "Type":  "Actual",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
@@ -1351,8 +1351,8 @@
                                                         }
                                                     ],
                                    "EndDate":  "2026-01-30",
-                                   "ExpectedCollections":  758632.46,
-                                   "Actual":  756430.61,
+                                   "ExpectedCollections":  752853.32,
+                                   "Actual":  742233.41,
                                    "Sources":  {
                                                    "From61_90":  8743.85,
                                                    "From1_30":  87534.23,
@@ -1368,41 +1368,41 @@
                                    "Confidence":  90
                                },
                                {
-                                   "Total":  762160.61,
+                                   "Total":  753010.34,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-02",
-                                                            "Amount":  119531.16,
+                                                            "Amount":  116922.49,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-03",
-                                                            "Amount":  185586.21,
+                                                            "Amount":  182997.37,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-04",
-                                                            "Amount":  168428.61,
+                                                            "Amount":  167451.77,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-05",
-                                                            "Amount":  138510.10,
+                                                            "Amount":  136910.52,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-06",
-                                                            "Amount":  150104.53,
+                                                            "Amount":  148728.19,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-06",
-                                   "ExpectedCollections":  690870.53,
+                                   "ExpectedCollections":  685091.39,
                                    "Actual":  0,
                                    "Sources":  {
                                                    "From61_90":  7853.4,
@@ -1412,48 +1412,48 @@
                                                    "From31_60":  23599.1
                                                },
                                    "StartDate":  "2026-02-02",
-                                   "Predicted":  762160.61,
+                                   "Predicted":  753010.34,
                                    "ARDue":  329280.05,
                                    "WeekNum":  2,
                                    "Week":  "Week of Feb 2",
                                    "Confidence":  38
                                },
                                {
-                                   "Total":  751265.85,
+                                   "Total":  742115.58,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-09",
-                                                            "Amount":  117896.94,
+                                                            "Amount":  115288.28,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-10",
-                                                            "Amount":  182862.52,
+                                                            "Amount":  180273.68,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-11",
-                                                            "Amount":  165704.92,
+                                                            "Amount":  164728.08,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-12",
-                                                            "Amount":  136331.14,
+                                                            "Amount":  134731.57,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-13",
-                                                            "Amount":  148470.32,
+                                                            "Amount":  147093.98,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-13",
-                                   "ExpectedCollections":  654554.67,
+                                   "ExpectedCollections":  648775.53,
                                    "Actual":  0,
                                    "Sources":  {
                                                    "From61_90":  8447.25,
@@ -1463,48 +1463,48 @@
                                                    "From31_60":  41608.2
                                                },
                                    "StartDate":  "2026-02-09",
-                                   "Predicted":  751265.85,
+                                   "Predicted":  742115.58,
                                    "ARDue":  973596.03,
                                    "WeekNum":  3,
                                    "Week":  "Week of Feb 9",
                                    "Confidence":  30
                                },
                                {
-                                   "Total":  663440.94,
+                                   "Total":  656377.61,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-16",
-                                                            "Amount":  23800.73,
+                                                            "Amount":  23279.00,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-17",
-                                                            "Amount":  184707.03,
+                                                            "Amount":  182118.18,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-18",
-                                                            "Amount":  167549.42,
+                                                            "Amount":  166572.58,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-19",
-                                                            "Amount":  137806.75,
+                                                            "Amount":  136207.17,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-20",
-                                                            "Amount":  149577.02,
+                                                            "Amount":  148200.68,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-20",
-                                   "ExpectedCollections":  679148.03,
+                                   "ExpectedCollections":  673368.89,
                                    "Actual":  0,
                                    "Sources":  {
                                                    "From61_90":  11114.1,
@@ -1514,48 +1514,48 @@
                                                    "From31_60":  54094.2
                                                },
                                    "StartDate":  "2026-02-16",
-                                   "Predicted":  663440.94,
+                                   "Predicted":  656377.61,
                                    "ARDue":  686765.24,
                                    "WeekNum":  4,
                                    "Week":  "Week of Feb 16",
                                    "Confidence":  30
                                },
                                {
-                                   "Total":  757337.94,
+                                   "Total":  748187.67,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-23",
-                                                            "Amount":  118807.76,
+                                                            "Amount":  116199.09,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-24",
-                                                            "Amount":  184380.55,
+                                                            "Amount":  181791.70,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-25",
-                                                            "Amount":  167222.95,
+                                                            "Amount":  166246.10,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-26",
-                                                            "Amount":  137545.56,
+                                                            "Amount":  135945.99,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-27",
-                                                            "Amount":  149381.13,
+                                                            "Amount":  148004.79,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-27",
-                                   "ExpectedCollections":  674794.98,
+                                   "ExpectedCollections":  669015.84,
                                    "Actual":  0,
                                    "Sources":  {
                                                    "From61_90":  14541.65,
@@ -1565,48 +1565,48 @@
                                                    "From31_60":  59809.6
                                                },
                                    "StartDate":  "2026-02-23",
-                                   "Predicted":  757337.94,
+                                   "Predicted":  748187.67,
                                    "ARDue":  672510.83,
                                    "WeekNum":  5,
                                    "Week":  "Week of Feb 23",
                                    "Confidence":  22
                                },
                                {
-                                   "Total":  756081.61,
+                                   "Total":  746931.34,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-03-02",
-                                                            "Amount":  118619.31,
+                                                            "Amount":  116010.64,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-03",
-                                                            "Amount":  184066.46,
+                                                            "Amount":  181477.62,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-04",
-                                                            "Amount":  166908.86,
+                                                            "Amount":  165932.02,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-05",
-                                                            "Amount":  137294.30,
+                                                            "Amount":  135694.72,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-06",
-                                                            "Amount":  149192.68,
+                                                            "Amount":  147816.34,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-03-06",
-                                   "ExpectedCollections":  670607.21,
+                                   "ExpectedCollections":  664828.07,
                                    "Actual":  0,
                                    "Sources":  {
                                                    "From61_90":  17655.35,
@@ -1616,7 +1616,7 @@
                                                    "From31_60":  63584.6
                                                },
                                    "StartDate":  "2026-03-02",
-                                   "Predicted":  756081.61,
+                                   "Predicted":  746931.34,
                                    "ARDue":  91365.90,
                                    "WeekNum":  6,
                                    "Week":  "Week of Mar 2",
@@ -1624,20 +1624,20 @@
                                }
                            ],
     "Summary":  {
-                    "YTDDailyAverage":  144129.73,
+                    "YTDDailyAverage":  142203.35,
                     "YTD":  {
-                                "Total":  3170853.98,
+                                "Total":  3128473.77,
                                 "Freight":  102524.36,
                                 "Service":  893424.99,
                                 "Miscellaneous":  48406.89,
-                                "Product":  2126497.74
+                                "Product":  2084117.53
                             },
                     "MTD":  {
-                                "Total":  3170853.98,
+                                "Total":  3128473.77,
                                 "Freight":  102524.36,
                                 "Service":  893424.99,
                                 "Miscellaneous":  48406.89,
-                                "Product":  2126497.74
+                                "Product":  2084117.53
                             },
                     "Yesterday":  {
                                       "Total":  145630.69,
@@ -1646,7 +1646,7 @@
                                       "Miscellaneous":  1897.00,
                                       "Product":  58677.40
                                   },
-                    "MTDDailyAverage":  144129.73
+                    "MTDDailyAverage":  142203.35
                 },
     "ShippingStats":  {
                           "MTDUSStates":  50,
