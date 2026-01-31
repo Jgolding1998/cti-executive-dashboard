@@ -1,411 +1,162 @@
 ﻿{
-    "DailyTrend":  [
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Monday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-01",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Tuesday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-02",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Wednesday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-03",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Thursday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-04",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Friday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-05",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Monday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-08",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Tuesday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-09",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Wednesday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-10",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Thursday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-11",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Friday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-12",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Monday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-15",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Tuesday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-16",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Wednesday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-17",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Thursday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-18",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Friday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-19",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Monday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-22",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Tuesday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-23",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Wednesday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-24",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Thursday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-25",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Friday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-26",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Monday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-29",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Tuesday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-30",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Wednesday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2025-12-31",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Thursday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2026-01-01",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Friday",
-                           "Total":  0,
-                           "Service":  0,
-                           "Product":  0,
-                           "Date":  "2026-01-02",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  8330.00,
-                           "DayOfWeek":  "Monday",
-                           "Total":  13472.10,
-                           "Service":  2877.00,
-                           "Product":  2265.10,
-                           "Date":  "2026-01-05",
-                           "Freight":  0
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Tuesday",
-                           "Total":  25839.77,
-                           "Service":  9353.00,
-                           "Product":  15938.18,
-                           "Date":  "2026-01-06",
-                           "Freight":  548.59
-                       },
-                       {
-                           "Miscellaneous":  4298.00,
-                           "DayOfWeek":  "Wednesday",
-                           "Total":  97452.64,
-                           "Service":  49069.54,
-                           "Product":  42332.90,
-                           "Date":  "2026-01-07",
-                           "Freight":  1752.20
-                       },
-                       {
-                           "Miscellaneous":  1202.00,
-                           "DayOfWeek":  "Thursday",
-                           "Total":  143533.93,
-                           "Service":  68662.70,
-                           "Product":  67932.68,
-                           "Date":  "2026-01-08",
-                           "Freight":  5736.55
-                       },
-                       {
-                           "Miscellaneous":  3168.64,
-                           "DayOfWeek":  "Friday",
-                           "Total":  97476.89,
-                           "Service":  47511.40,
-                           "Product":  43917.85,
-                           "Date":  "2026-01-09",
-                           "Freight":  2879.00
-                       },
-                       {
-                           "Miscellaneous":  3413.00,
-                           "DayOfWeek":  "Monday",
-                           "Total":  230666.22,
-                           "Service":  57649.00,
-                           "Product":  160731.10,
-                           "Date":  "2026-01-12",
-                           "Freight":  8873.12
-                       },
-                       {
-                           "Miscellaneous":  4565.00,
-                           "DayOfWeek":  "Tuesday",
-                           "Total":  372724.60,
-                           "Service":  32982.29,
-                           "Product":  320232.35,
-                           "Date":  "2026-01-13",
-                           "Freight":  14944.96
-                       },
-                       {
-                           "Miscellaneous":  110.00,
-                           "DayOfWeek":  "Wednesday",
-                           "Total":  247578.71,
-                           "Service":  36715.35,
-                           "Product":  200708.35,
-                           "Date":  "2026-01-14",
-                           "Freight":  10045.01
-                       },
-                       {
-                           "Miscellaneous":  1932.00,
-                           "DayOfWeek":  "Thursday",
-                           "Total":  151953.08,
-                           "Service":  62171.70,
-                           "Product":  83252.04,
-                           "Date":  "2026-01-15",
-                           "Freight":  4597.34
-                       },
-                       {
-                           "Miscellaneous":  6738.00,
-                           "DayOfWeek":  "Friday",
-                           "Total":  210264.06,
-                           "Service":  89703.15,
-                           "Product":  108836.55,
-                           "Date":  "2026-01-16",
-                           "Freight":  4986.36
-                       },
-                       {
-                           "Miscellaneous":  867.00,
-                           "DayOfWeek":  "Monday",
-                           "Total":  143253.96,
-                           "Service":  40823.77,
-                           "Product":  96687.40,
-                           "Date":  "2026-01-19",
-                           "Freight":  4875.79
-                       },
-                       {
-                           "Miscellaneous":  65.00,
-                           "DayOfWeek":  "Tuesday",
-                           "Total":  170100.66,
-                           "Service":  45962.80,
-                           "Product":  116445.40,
-                           "Date":  "2026-01-20",
-                           "Freight":  7627.46
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Wednesday",
-                           "Total":  135026.42,
-                           "Service":  46135.10,
-                           "Product":  85971.97,
-                           "Date":  "2026-01-21",
-                           "Freight":  2919.35
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Thursday",
-                           "Total":  148364.22,
-                           "Service":  16099.20,
-                           "Product":  126820.80,
-                           "Date":  "2026-01-22",
-                           "Freight":  5444.22
-                       },
-                       {
-                           "Miscellaneous":  260.67,
-                           "DayOfWeek":  "Friday",
-                           "Total":  226716.11,
-                           "Service":  39107.14,
-                           "Product":  181098.05,
-                           "Date":  "2026-01-23",
-                           "Freight":  6250.25
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Monday",
-                           "Total":  117990.48,
-                           "Service":  47653.35,
-                           "Product":  66816.90,
-                           "Date":  "2026-01-26",
-                           "Freight":  3520.23
-                       },
-                       {
-                           "Miscellaneous":  3132.00,
-                           "DayOfWeek":  "Tuesday",
-                           "Total":  195740.27,
-                           "Service":  56256.60,
-                           "Product":  131239.80,
-                           "Date":  "2026-01-27",
-                           "Freight":  5111.87
-                       },
-                       {
-                           "Miscellaneous":  39.33,
-                           "DayOfWeek":  "Wednesday",
-                           "Total":  186304.05,
-                           "Service":  23482.18,
-                           "Product":  159012.27,
-                           "Date":  "2026-01-28",
-                           "Freight":  3770.27
-                       },
-                       {
-                           "Miscellaneous":  8389.25,
-                           "DayOfWeek":  "Thursday",
-                           "Total":  110765.12,
-                           "Service":  39850.80,
-                           "Product":  57580.65,
-                           "Date":  "2026-01-29",
-                           "Freight":  4944.42
-                       },
-                       {
-                           "Miscellaneous":  0,
-                           "DayOfWeek":  "Friday",
-                           "Total":  18095.90,
-                           "Service":  18095.90,
-                           "Product":  0,
-                           "Date":  "2026-01-30",
-                           "Freight":  0
-                       }
-                   ],
+    "TopProducts":  {
+                        "MTD":  [
+                                    {
+                                        "Amount":  358847.30,
+                                        "Description":  "CTI tech on-site for calibration of up t",
+                                        "Item":  "CTI TECH ON SITE"
+                                    },
+                                    {
+                                        "Amount":  354253.76,
+                                        "Description":  "Gas Sensor, Ammonia 0-100 ppm, 4/20 mA o",
+                                        "Item":  "GG-NH3-100"
+                                    },
+                                    {
+                                        "Amount":  157780.70,
+                                        "Description":  "Replacement Electrochemical Cell, NH3, r",
+                                        "Item":  "GG-NH3-RC"
+                                    },
+                                    {
+                                        "Amount":  143184.30,
+                                        "Description":  "Additional Sensor (above 12) onsite cali",
+                                        "Item":  "CAL ADD"
+                                    },
+                                    {
+                                        "Amount":  97279.58,
+                                        "Description":  "Gas Sensor, Vent Line, catalytic-bead, A",
+                                        "Item":  "GG-VL2-NH3"
+                                    },
+                                    {
+                                        "Amount":  95428.80,
+                                        "Description":  "Gas Sensor, Ammonia 0-250 ppm, 4/20 mA o",
+                                        "Item":  "GG-NH3-250"
+                                    },
+                                    {
+                                        "Amount":  85187.72,
+                                        "Description":  "Americold 3 year SA.  Flat rate per site",
+                                        "Item":  "AMERICOLD SA 2024-2026"
+                                    },
+                                    {
+                                        "Amount":  85078.07,
+                                        "Description":  "Certified Calibration Gas, 17L Cylinder,",
+                                        "Item":  "TB17L CAL GAS"
+                                    },
+                                    {
+                                        "Amount":  78329.00,
+                                        "Description":  "CTI tech on-site for calibration of up t",
+                                        "Item":  "CTI TECH ON SITE - WEEKEND"
+                                    },
+                                    {
+                                        "Amount":  68135.75,
+                                        "Description":  "Wingman F1 portable gas detector, Ammoni",
+                                        "Item":  "F1-NH3"
+                                    },
+                                    {
+                                        "Amount":  66665.50,
+                                        "Description":  "Gas Sensor, Carbon Monoxide (0-200 ppm),",
+                                        "Item":  "DUOSENSE-M"
+                                    },
+                                    {
+                                        "Amount":  66494.05,
+                                        "Description":  "Gas Detection Entrance Monitor, White, L",
+                                        "Item":  "EM2-24"
+                                    },
+                                    {
+                                        "Amount":  55271.60,
+                                        "Description":  "Certified Calibration Gas, 34L Cylinder,",
+                                        "Item":  "RB34L-NH3/100"
+                                    },
+                                    {
+                                        "Amount":  53572.60,
+                                        "Description":  "Gas Sensor, Ammonia 0-100 ppm, 4/20 mA o",
+                                        "Item":  "GG-NH3-100-ST"
+                                    },
+                                    {
+                                        "Amount":  51147.30,
+                                        "Description":  "Certified Calibration Gas, 17L Cylinder,",
+                                        "Item":  "RB17L-NH3/100"
+                                    }
+                                ]
+                    },
+    "ClientCare":  {
+                       "Yesterday":  {
+                                         "Username":  "cjord",
+                                         "Type":  "ClientCare",
+                                         "ProductAmount":  588.00,
+                                         "Role":  "Client Care",
+                                         "Name":  "Jordan Cline",
+                                         "CityCount":  39,
+                                         "ServiceAmount":  0,
+                                         "StateCount":  23,
+                                         "Amount":  588.00
+                                     },
+                       "MTD":  [
+                                   {
+                                       "Username":  "cjord",
+                                       "Type":  "ClientCare",
+                                       "TopCities":  "Berkeley, MO; Clayton, NC; Elk Grove Village, IL; Austin, TX; Woodstock, IL",
+                                       "ProductAmount":  75040.45,
+                                       "Role":  "Client Care",
+                                       "Name":  "Jordan Cline",
+                                       "CityCount":  39,
+                                       "States":  "AL, AR, AZ, CA, DE, FL, GA, IL, IN, KY, MN, MO, MS, NC, NY, OH, PA, SC, TX, VA, WA, WI, WY",
+                                       "InvoiceCount":  69,
+                                       "ServiceAmount":  980.00,
+                                       "StateCount":  23,
+                                       "Amount":  76020.45
+                                   },
+                                   {
+                                       "Username":  "marissa",
+                                       "Type":  "ClientCare",
+                                       "TopCities":  "Sioux City, IA; Austin, MN; Bloomsdale, MO; Owasso, OK; Deer Park, TX",
+                                       "ProductAmount":  24051.35,
+                                       "Role":  "Client Care",
+                                       "Name":  "Marissa King",
+                                       "CityCount":  14,
+                                       "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, US-PR, WA",
+                                       "InvoiceCount":  20,
+                                       "ServiceAmount":  386.00,
+                                       "StateCount":  13,
+                                       "Amount":  24437.35
+                                   },
+                                   {
+                                       "Username":  "Anna",
+                                       "Type":  "ClientCare",
+                                       "TopCities":  "Lima, OH",
+                                       "ProductAmount":  528.50,
+                                       "Role":  "Client Care",
+                                       "Name":  "Anna Worthington",
+                                       "CityCount":  1,
+                                       "States":  "OH",
+                                       "InvoiceCount":  1,
+                                       "ServiceAmount":  0,
+                                       "StateCount":  1,
+                                       "Amount":  528.50
+                                   }
+                               ]
+                   },
+    "DataSource":  "SyteLine GL Ledger with ProductCode (LFTR/LGAS/LIHL=Service)",
+    "ARaging":  {
+                    "Current":  3528836.58,
+                    "Days90Plus":  242773.85,
+                    "Days31_60":  132248.69,
+                    "Total":  4654095.94,
+                    "Days1_30":  568387.73,
+                    "Days61_90":  181849.09
+                },
+    "FieldTechSummary":  {
+                             "TotalAppointmentsMTD":  205,
+                             "TopPerformer":  "Travis Mays",
+                             "TotalStatesCovered":  37,
+                             "TotalTechs":  23
+                         },
+    "Period":  {
+                   "MonthStart":  "2026-01-01",
+                   "MTDBusinessDays":  21,
+                   "YearStart":  "2026-01-01",
+                   "Yesterday":  "2026-01-29",
+                   "YTDBusinessDays":  21
+               },
     "TopCustomers":  {
                          "Yesterday":  [
                                            {
@@ -532,711 +283,563 @@
                                      }
                                  ]
                      },
-    "Period":  {
-                   "MonthStart":  "2026-01-01",
-                   "MTDBusinessDays":  21,
-                   "YearStart":  "2026-01-01",
-                   "Yesterday":  "2026-01-29",
-                   "YTDBusinessDays":  21
-               },
-    "DataSource":  "SyteLine GL Ledger with ProductCode (LFTR/LGAS/LIHL=Service)",
-    "AllTeam":  {
-                    "Yesterday":  [
-                                      {
-                                          "Username":  "Joel",
-                                          "Type":  "Executive",
-                                          "ProductAmount":  34722.45,
-                                          "Role":  "COO",
-                                          "Name":  "Joel EuDaly",
-                                          "CityCount":  625,
-                                          "ServiceAmount":  31259.80,
-                                          "StateCount":  56,
-                                          "Amount":  74371.50
-                                      },
-                                      {
-                                          "Username":  "Allison",
-                                          "Type":  "Admin",
-                                          "ProductAmount":  9259.00,
-                                          "Role":  "Accounting",
-                                          "Name":  "Allison White",
-                                          "CityCount":  52,
-                                          "ServiceAmount":  2848.00,
-                                          "StateCount":  31,
-                                          "Amount":  12107.00
-                                      },
-                                      {
-                                          "Username":  "nandy",
-                                          "Type":  "Sales",
-                                          "ProductAmount":  2191.00,
-                                          "Role":  "Outside Sales",
-                                          "Name":  "Andy Neptune",
-                                          "CityCount":  13,
-                                          "ServiceAmount":  5743.00,
-                                          "StateCount":  10,
-                                          "Amount":  7934.00
-                                      },
-                                      {
-                                          "Username":  "mrand",
-                                          "Type":  "Sales",
-                                          "ProductAmount":  4412.00,
-                                          "Role":  "Inside Sales",
-                                          "Name":  "Randy Mobley",
-                                          "CityCount":  14,
-                                          "ServiceAmount":  0,
-                                          "StateCount":  8,
-                                          "Amount":  4412.00
-                                      },
-                                      {
-                                          "Username":  "Greg",
-                                          "Type":  "Sales",
-                                          "ProductAmount":  3278.00,
-                                          "Role":  "Inside Sales",
-                                          "Name":  "Greg Smith",
-                                          "CityCount":  6,
-                                          "ServiceAmount":  0,
-                                          "StateCount":  6,
-                                          "Amount":  3278.00
-                                      },
-                                      {
-                                          "Username":  "lphil",
-                                          "Type":  "Sales",
-                                          "ProductAmount":  1992.20,
-                                          "Role":  "Inside Sales",
-                                          "Name":  "Phil Libbert",
-                                          "CityCount":  53,
-                                          "ServiceAmount":  0,
-                                          "StateCount":  28,
-                                          "Amount":  1992.20
-                                      },
-                                      {
-                                          "Username":  "hnich",
-                                          "Type":  "ServiceTeam",
-                                          "ProductAmount":  1138.00,
-                                          "Role":  "In-House Service Supervisor",
-                                          "Name":  "Nicholas Hegger",
-                                          "CityCount":  6,
-                                          "ServiceAmount":  0,
-                                          "StateCount":  5,
-                                          "Amount":  1138.00
-                                      },
-                                      {
-                                          "Username":  "cjord",
-                                          "Type":  "ClientCare",
-                                          "ProductAmount":  588.00,
-                                          "Role":  "Client Care",
-                                          "Name":  "Jordan Cline",
-                                          "CityCount":  39,
-                                          "ServiceAmount":  0,
-                                          "StateCount":  23,
-                                          "Amount":  588.00
-                                      }
-                                  ],
-                    "MTD":  [
-                                {
-                                    "Username":  "Joel",
-                                    "Type":  "Executive",
-                                    "TopCities":  "Lake Elsinore, CA; Berthoud, CO; Woodridge, IL; Cheyenne, WY; Batesville, AR",
-                                    "ProductAmount":  1421792.69,
-                                    "Role":  "COO",
-                                    "Name":  "Joel EuDaly",
-                                    "CityCount":  625,
-                                    "States":  "AB-C, AL, AR, AZ, BC-C, CA, CO, CO-VA, CT, DE, FL, GA, GT-M, IA, ID, IL, IN, KS, KY, LA, MA, MB-C, MD, ME, MI, MN, MO, MS, MT, NC, ND, NE, NJ, NM, NS-C, NV, NY, NZ-WG, OH, OK, ON-C, OR, PA, QC-C, SC, SD, SK-C, TN, TX, UT, VA, VT, WA, WI, WV, WY",
-                                    "InvoiceCount":  1521,
-                                    "ServiceAmount":  717660.82,
-                                    "StateCount":  56,
-                                    "Amount":  2179203.40
-                                },
-                                {
-                                    "Username":  "lphil",
-                                    "Type":  "Sales",
-                                    "TopCities":  "Commerce City, CO; Houston, TX; Saskatoon, SK-C; Kelso, NSW-A; Chino, CA",
-                                    "ProductAmount":  179821.55,
-                                    "Role":  "Inside Sales",
-                                    "Name":  "Phil Libbert",
-                                    "CityCount":  53,
-                                    "States":  "AB-C, AK, AR, AZ, BC-C, CA, CO, DE, FL, GA, IA, ID, IL, IN, LA, MD, MO, NE, NM, NSW-A, OH, ON-C, OR, QLD-A, SK-C, TX, WA, WI",
-                                    "InvoiceCount":  97,
-                                    "ServiceAmount":  16403.00,
-                                    "StateCount":  28,
-                                    "Amount":  196224.55
-                                },
-                                {
-                                    "Username":  "Allison",
-                                    "Type":  "Admin",
-                                    "TopCities":  "Sheboygan, WI; Rockford, IL; New Britain, CT; Columbia, MO; Fresno, CA",
-                                    "ProductAmount":  132488.80,
-                                    "Role":  "Accounting",
-                                    "Name":  "Allison White",
-                                    "CityCount":  52,
-                                    "States":  "AB-C, BC-C, CA, CT, GA, IA, ID, IL, IN, KS, LA, MA, MD, MI, MN, MO, NC, NH, NY, OH, OK, ON-C, OR, PA, PE-C, RI, TX, VA, WA, WI, WY",
-                                    "InvoiceCount":  100,
-                                    "ServiceAmount":  31574.00,
-                                    "StateCount":  31,
-                                    "Amount":  166778.80
-                                },
-                                {
-                                    "Username":  "Unassigned",
-                                    "Type":  "Sales",
-                                    "TopCities":  "",
-                                    "ProductAmount":  138448.15,
-                                    "Role":  "Team Member",
-                                    "Name":  "Unassigned",
-                                    "CityCount":  0,
-                                    "States":  "",
-                                    "InvoiceCount":  57,
-                                    "ServiceAmount":  2852.00,
-                                    "StateCount":  0,
-                                    "Amount":  141550.15
-                                },
-                                {
-                                    "Username":  "cjord",
-                                    "Type":  "ClientCare",
-                                    "TopCities":  "Berkeley, MO; Clayton, NC; Elk Grove Village, IL; Austin, TX; Woodstock, IL",
-                                    "ProductAmount":  75040.45,
-                                    "Role":  "Client Care",
-                                    "Name":  "Jordan Cline",
-                                    "CityCount":  39,
-                                    "States":  "AL, AR, AZ, CA, DE, FL, GA, IL, IN, KY, MN, MO, MS, NC, NY, OH, PA, SC, TX, VA, WA, WI, WY",
-                                    "InvoiceCount":  69,
-                                    "ServiceAmount":  980.00,
-                                    "StateCount":  23,
-                                    "Amount":  76020.45
-                                },
-                                {
-                                    "Username":  "mrand",
-                                    "Type":  "Sales",
-                                    "TopCities":  "Mesquite, TX; San Antonio, TX; Spring, TX; Blackwood, NJ; Lakewood, CO",
-                                    "ProductAmount":  41744.60,
-                                    "Role":  "Inside Sales",
-                                    "Name":  "Randy Mobley",
-                                    "CityCount":  14,
-                                    "States":  "CA, CO, HI, IL, NJ, SC, TX, UT",
-                                    "InvoiceCount":  25,
-                                    "ServiceAmount":  190.00,
-                                    "StateCount":  8,
-                                    "Amount":  41934.60
-                                },
-                                {
-                                    "Username":  "nandy",
-                                    "Type":  "Sales",
-                                    "TopCities":  "Washburn, ME; Pembroke Park, FL; Oklahoma City, OK; Amarillo, TX; Piedmont, SC",
-                                    "ProductAmount":  9355.00,
-                                    "Role":  "Outside Sales",
-                                    "Name":  "Andy Neptune",
-                                    "CityCount":  13,
-                                    "States":  "CA, CO, FL, MD, ME, MO, OK, SC, TX, WI",
-                                    "InvoiceCount":  19,
-                                    "ServiceAmount":  20484.00,
-                                    "StateCount":  10,
-                                    "Amount":  31532.00
-                                },
-                                {
-                                    "Username":  "marissa",
-                                    "Type":  "ClientCare",
-                                    "TopCities":  "Sioux City, IA; Austin, MN; Bloomsdale, MO; Owasso, OK; Deer Park, TX",
-                                    "ProductAmount":  24051.35,
-                                    "Role":  "Client Care",
-                                    "Name":  "Marissa King",
-                                    "CityCount":  14,
-                                    "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, US-PR, WA",
-                                    "InvoiceCount":  20,
-                                    "ServiceAmount":  386.00,
-                                    "StateCount":  13,
-                                    "Amount":  24437.35
-                                },
-                                {
-                                    "Username":  "seric",
-                                    "Type":  "ServiceTeam",
-                                    "TopCities":  "West Sacramento, CA; Columbus, GA; Perry, GA; Stockton, CA; Windsor, CT",
-                                    "ProductAmount":  8021.90,
-                                    "Role":  "Service Scheduling",
-                                    "Name":  "Erica Thurmond",
-                                    "CityCount":  7,
-                                    "States":  "AZ, CA, CT, GA",
-                                    "InvoiceCount":  14,
-                                    "ServiceAmount":  10422.35,
-                                    "StateCount":  4,
-                                    "Amount":  18444.25
-                                },
-                                {
-                                    "Username":  "mjaso",
-                                    "Type":  "Admin",
-                                    "TopCities":  "Luverne, AL; South Hutchinson, KS; Regina, SK-C; Lafayette, IN; Westfield, WI",
-                                    "ProductAmount":  11723.90,
-                                    "Role":  "Sales Director (Retired)",
-                                    "Name":  "Jason Mueske",
-                                    "CityCount":  8,
-                                    "States":  "AL, IN, KS, SK-C, TX, WI",
-                                    "InvoiceCount":  19,
-                                    "ServiceAmount":  4973.80,
-                                    "StateCount":  6,
-                                    "Amount":  18297.70
-                                },
-                                {
-                                    "Username":  "Rachel L",
-                                    "Type":  "ServiceTeam",
-                                    "TopCities":  "Hamilton, OH; Florence, KY; Cincinnati, OH",
-                                    "ProductAmount":  3747.00,
-                                    "Role":  "Service Support",
-                                    "Name":  "Rachel Lively",
-                                    "CityCount":  3,
-                                    "States":  "KY, OH",
-                                    "InvoiceCount":  10,
-                                    "ServiceAmount":  12925.00,
-                                    "StateCount":  2,
-                                    "Amount":  17163.00
-                                },
-                                {
-                                    "Username":  "bcoli",
-                                    "Type":  "ServiceTeam",
-                                    "TopCities":  "Cicero, IL; Leominster, MA; Wright City, MO; Ridgefield Park, NJ",
-                                    "ProductAmount":  2534.00,
-                                    "Role":  "Scheduling Coordinator",
-                                    "Name":  "Colin Bowles",
-                                    "CityCount":  4,
-                                    "States":  "IL, MA, MO, NJ",
-                                    "InvoiceCount":  7,
-                                    "ServiceAmount":  7439.00,
-                                    "StateCount":  4,
-                                    "Amount":  9973.00
-                                },
-                                {
-                                    "Username":  "tbolt",
-                                    "Type":  "Sales",
-                                    "TopCities":  "Gilroy, CA",
-                                    "ProductAmount":  9673.85,
-                                    "Role":  "Inside Sales",
-                                    "Name":  "Trevor Bolte",
-                                    "CityCount":  1,
-                                    "States":  "CA",
-                                    "InvoiceCount":  2,
-                                    "ServiceAmount":  0,
-                                    "StateCount":  1,
-                                    "Amount":  9673.85
-                                },
-                                {
-                                    "Username":  "Greg",
-                                    "Type":  "Sales",
-                                    "TopCities":  "Tempe, AZ; Mount Vernon, OH; Westminster, MD; Tukwila, WA; Green Bay, WI",
-                                    "ProductAmount":  5013.60,
-                                    "Role":  "Inside Sales",
-                                    "Name":  "Greg Smith",
-                                    "CityCount":  6,
-                                    "States":  "AZ, MD, OH, SC, WA, WI",
-                                    "InvoiceCount":  6,
-                                    "ServiceAmount":  0,
-                                    "StateCount":  6,
-                                    "Amount":  5013.60
-                                },
-                                {
-                                    "Username":  "hnich",
-                                    "Type":  "ServiceTeam",
-                                    "TopCities":  "Lititz, PA; Faribault, MN; Fairmont, MN; Rush, NY; Othello, WA",
-                                    "ProductAmount":  3365.00,
-                                    "Role":  "In-House Service Supervisor",
-                                    "Name":  "Nicholas Hegger",
-                                    "CityCount":  6,
-                                    "States":  "MN, NH, NY, PA, WA",
-                                    "InvoiceCount":  9,
-                                    "ServiceAmount":  974.00,
-                                    "StateCount":  5,
-                                    "Amount":  4349.00
-                                },
-                                {
-                                    "Username":  "ljami",
-                                    "Type":  "ServiceTeam",
-                                    "TopCities":  "Itta Bena, MS",
-                                    "ProductAmount":  470.00,
-                                    "Role":  "Service Director",
-                                    "Name":  "Jami Lorenz",
-                                    "CityCount":  1,
-                                    "States":  "MS",
-                                    "InvoiceCount":  3,
-                                    "ServiceAmount":  2898.00,
-                                    "StateCount":  1,
-                                    "Amount":  3368.00
-                                },
-                                {
-                                    "Username":  "Anna",
-                                    "Type":  "ClientCare",
-                                    "TopCities":  "Lima, OH",
-                                    "ProductAmount":  528.50,
-                                    "Role":  "Client Care",
-                                    "Name":  "Anna Worthington",
-                                    "CityCount":  1,
-                                    "States":  "OH",
-                                    "InvoiceCount":  1,
-                                    "ServiceAmount":  0,
-                                    "StateCount":  1,
-                                    "Amount":  528.50
-                                }
-                            ]
-                },
-    "CashFlowPrediction":  [
-                               {
-                                   "Total":  628895.82,
-                                   "DayBreakdown":  [
-                                                        {
-                                                            "Date":  "2026-01-26",
-                                                            "Amount":  117990.48,
-                                                            "Type":  "Actual",
-                                                            "DayOfWeek":  "Monday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-01-27",
-                                                            "Amount":  195740.27,
-                                                            "Type":  "Actual",
-                                                            "DayOfWeek":  "Tuesday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-01-28",
-                                                            "Amount":  186304.05,
-                                                            "Type":  "Actual",
-                                                            "DayOfWeek":  "Wednesday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-01-29",
-                                                            "Amount":  110765.12,
-                                                            "Type":  "Actual",
-                                                            "DayOfWeek":  "Thursday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-01-30",
-                                                            "Amount":  18095.90,
-                                                            "Type":  "Today",
-                                                            "DayOfWeek":  "Friday"
-                                                        }
-                                                    ],
-                                   "EndDate":  "2026-01-30",
-                                   "ExpectedCollections":  762039.19,
-                                   "Actual":  628895.82,
-                                   "Sources":  {
-                                                   "From61_90":  9092.45,
-                                                   "From1_30":  85258.16,
-                                                   "FromCurrent":  705767.32,
-                                                   "From90Plus":  4855.48,
-                                                   "From31_60":  13224.87
-                                               },
-                                   "StartDate":  "2026-01-26",
-                                   "Predicted":  0,
-                                   "ARDue":  156886.13,
-                                   "WeekNum":  1,
-                                   "Week":  "Week of Jan 26",
-                                   "Confidence":  90
-                               },
-                               {
-                                   "Total":  740810.70,
-                                   "DayBreakdown":  [
-                                                        {
-                                                            "Date":  "2026-02-02",
-                                                            "Amount":  119676.46,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Monday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-02-03",
-                                                            "Amount":  185828.38,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Tuesday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-02-04",
-                                                            "Amount":  168670.78,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Wednesday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-02-05",
-                                                            "Amount":  138703.83,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Thursday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-02-06",
-                                                            "Amount":  127931.24,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Friday"
-                                                        }
-                                                    ],
-                                   "EndDate":  "2026-02-06",
-                                   "ExpectedCollections":  694099.47,
-                                   "Actual":  0,
-                                   "Sources":  {
-                                                   "From61_90":  8017.85,
-                                                   "From1_30":  157020,
-                                                   "FromCurrent":  454837.6,
-                                                   "From90Plus":  5667.62,
-                                                   "From31_60":  22805.9
-                                               },
-                                   "StartDate":  "2026-02-02",
-                                   "Predicted":  740810.70,
-                                   "ARDue":  329280.05,
-                                   "WeekNum":  2,
-                                   "Week":  "Week of Feb 2",
-                                   "Confidence":  38
-                               },
-                               {
-                                   "Total":  729849.95,
-                                   "DayBreakdown":  [
-                                                        {
-                                                            "Date":  "2026-02-09",
-                                                            "Amount":  118032.35,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Monday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-02-10",
-                                                            "Amount":  183088.20,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Tuesday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-02-11",
-                                                            "Amount":  165930.60,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Wednesday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-02-12",
-                                                            "Amount":  136511.68,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Thursday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-02-13",
-                                                            "Amount":  126287.13,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Friday"
-                                                        }
-                                                    ],
-                                   "EndDate":  "2026-02-13",
-                                   "ExpectedCollections":  657563.64,
-                                   "Actual":  0,
-                                   "Sources":  {
-                                                   "From61_90":  8463.25,
-                                                   "From1_30":  162437.7,
-                                                   "FromCurrent":  338758.6,
-                                                   "From90Plus":  6356.06,
-                                                   "From31_60":  40993.8
-                                               },
-                                   "StartDate":  "2026-02-09",
-                                   "Predicted":  729849.95,
-                                   "ARDue":  973596.03,
-                                   "WeekNum":  3,
-                                   "Week":  "Week of Feb 9",
-                                   "Confidence":  30
-                               },
-                               {
-                                   "Total":  641874.55,
-                                   "DayBreakdown":  [
-                                                        {
-                                                            "Date":  "2026-02-16",
-                                                            "Amount":  23826.37,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Monday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-02-17",
-                                                            "Amount":  184920.72,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Tuesday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-02-18",
-                                                            "Amount":  167763.12,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Wednesday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-02-19",
-                                                            "Amount":  137977.70,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Thursday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-02-20",
-                                                            "Amount":  127386.64,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Friday"
-                                                        }
-                                                    ],
-                                   "EndDate":  "2026-02-20",
-                                   "ExpectedCollections":  681997.24,
-                                   "Actual":  0,
-                                   "Sources":  {
-                                                   "From61_90":  11048.5,
-                                                   "From1_30":  148276.35,
-                                                   "FromCurrent":  397974.4,
-                                                   "From90Plus":  7075.26,
-                                                   "From31_60":  53718.9
-                                               },
-                                   "StartDate":  "2026-02-16",
-                                   "Predicted":  641874.55,
-                                   "ARDue":  686765.24,
-                                   "WeekNum":  4,
-                                   "Week":  "Week of Feb 16",
-                                   "Confidence":  30
-                               },
-                               {
-                                   "Total":  735838.86,
-                                   "DayBreakdown":  [
-                                                        {
-                                                            "Date":  "2026-02-23",
-                                                            "Amount":  118930.68,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Monday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-02-24",
-                                                            "Amount":  184585.42,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Tuesday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-02-25",
-                                                            "Amount":  167427.82,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Wednesday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-02-26",
-                                                            "Amount":  137709.46,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Thursday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-02-27",
-                                                            "Amount":  127185.47,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Friday"
-                                                        }
-                                                    ],
-                                   "EndDate":  "2026-02-27",
-                                   "ExpectedCollections":  677526.68,
-                                   "Actual":  0,
-                                   "Sources":  {
-                                                   "From61_90":  14448.8,
-                                                   "From1_30":  148662,
-                                                   "FromCurrent":  376137.6,
-                                                   "From90Plus":  8038.6,
-                                                   "From31_60":  59630
-                                               },
-                                   "StartDate":  "2026-02-23",
-                                   "Predicted":  735838.86,
-                                   "ARDue":  672510.83,
-                                   "WeekNum":  5,
-                                   "Week":  "Week of Feb 23",
-                                   "Confidence":  22
-                               },
-                               {
-                                   "Total":  734556.40,
-                                   "DayBreakdown":  [
-                                                        {
-                                                            "Date":  "2026-03-02",
-                                                            "Amount":  118738.31,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Monday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-03-03",
-                                                            "Amount":  184264.81,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Tuesday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-03-04",
-                                                            "Amount":  167107.21,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Wednesday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-03-05",
-                                                            "Amount":  137452.97,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Thursday"
-                                                        },
-                                                        {
-                                                            "Date":  "2026-03-06",
-                                                            "Amount":  126993.10,
-                                                            "Type":  "Predicted",
-                                                            "DayOfWeek":  "Friday"
-                                                        }
-                                                    ],
-                                   "EndDate":  "2026-03-06",
-                                   "ExpectedCollections":  673251.80,
-                                   "Actual":  0,
-                                   "Sources":  {
-                                                   "From61_90":  17567.9,
-                                                   "From1_30":  145617.9,
-                                                   "FromCurrent":  360184.8,
-                                                   "From90Plus":  9322.7,
-                                                   "From31_60":  63536.5
-                                               },
-                                   "StartDate":  "2026-03-02",
-                                   "Predicted":  734556.40,
-                                   "ARDue":  91365.90,
-                                   "WeekNum":  6,
-                                   "Week":  "Week of Mar 2",
-                                   "Confidence":  22
-                               }
-                           ],
-    "ClientCare":  {
-                       "Yesterday":  {
-                                         "Username":  "cjord",
-                                         "Type":  "ClientCare",
-                                         "ProductAmount":  588.00,
-                                         "Role":  "Client Care",
-                                         "Name":  "Jordan Cline",
-                                         "CityCount":  39,
-                                         "ServiceAmount":  0,
-                                         "StateCount":  23,
-                                         "Amount":  588.00
-                                     },
-                       "MTD":  [
-                                   {
-                                       "Username":  "cjord",
-                                       "Type":  "ClientCare",
-                                       "TopCities":  "Berkeley, MO; Clayton, NC; Elk Grove Village, IL; Austin, TX; Woodstock, IL",
-                                       "ProductAmount":  75040.45,
-                                       "Role":  "Client Care",
-                                       "Name":  "Jordan Cline",
-                                       "CityCount":  39,
-                                       "States":  "AL, AR, AZ, CA, DE, FL, GA, IL, IN, KY, MN, MO, MS, NC, NY, OH, PA, SC, TX, VA, WA, WI, WY",
-                                       "InvoiceCount":  69,
-                                       "ServiceAmount":  980.00,
-                                       "StateCount":  23,
-                                       "Amount":  76020.45
-                                   },
-                                   {
-                                       "Username":  "marissa",
-                                       "Type":  "ClientCare",
-                                       "TopCities":  "Sioux City, IA; Austin, MN; Bloomsdale, MO; Owasso, OK; Deer Park, TX",
-                                       "ProductAmount":  24051.35,
-                                       "Role":  "Client Care",
-                                       "Name":  "Marissa King",
-                                       "CityCount":  14,
-                                       "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, US-PR, WA",
-                                       "InvoiceCount":  20,
-                                       "ServiceAmount":  386.00,
-                                       "StateCount":  13,
-                                       "Amount":  24437.35
-                                   },
-                                   {
-                                       "Username":  "Anna",
-                                       "Type":  "ClientCare",
-                                       "TopCities":  "Lima, OH",
-                                       "ProductAmount":  528.50,
-                                       "Role":  "Client Care",
-                                       "Name":  "Anna Worthington",
-                                       "CityCount":  1,
-                                       "States":  "OH",
-                                       "InvoiceCount":  1,
-                                       "ServiceAmount":  0,
-                                       "StateCount":  1,
-                                       "Amount":  528.50
-                                   }
-                               ]
-                   },
+    "FieldTechnicians":  [
+                             {
+                                 "Name":  "Travis Mays",
+                                 "StateCount":  5,
+                                 "AppointmentsMTD":  20,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Illinois",
+                                                          "Count":  9
+                                                      },
+                                                      {
+                                                          "State":  "Ohio",
+                                                          "Count":  5
+                                                      },
+                                                      {
+                                                          "State":  "Wisconsin",
+                                                          "Count":  2
+                                                      },
+                                                      {
+                                                          "State":  "Indiana",
+                                                          "Count":  2
+                                                      },
+                                                      {
+                                                          "State":  "Kentucky",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Illinois, Ohio, Wisconsin, Indiana, Kentucky",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Kyle Kotraba",
+                                 "StateCount":  4,
+                                 "AppointmentsMTD":  18,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Illinois",
+                                                          "Count":  14
+                                                      },
+                                                      {
+                                                          "State":  "Missouri",
+                                                          "Count":  2
+                                                      },
+                                                      {
+                                                          "State":  "Kentucky",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Tennessee",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Illinois, Missouri, Kentucky, Tennessee",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Andrew Shelley",
+                                 "StateCount":  5,
+                                 "AppointmentsMTD":  14,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Oklahoma",
+                                                          "Count":  6
+                                                      },
+                                                      {
+                                                          "State":  "Colorado",
+                                                          "Count":  3
+                                                      },
+                                                      {
+                                                          "State":  "Kansas",
+                                                          "Count":  3
+                                                      },
+                                                      {
+                                                          "State":  "Arkansas",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Nebraska",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Oklahoma, Colorado, Kansas, Arkansas, Nebraska",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Nathan Glenister",
+                                 "StateCount":  6,
+                                 "AppointmentsMTD":  12,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Pennsylvania",
+                                                          "Count":  4
+                                                      },
+                                                      {
+                                                          "State":  "New York",
+                                                          "Count":  3
+                                                      },
+                                                      {
+                                                          "State":  "Virginia",
+                                                          "Count":  2
+                                                      },
+                                                      {
+                                                          "State":  "New Jersey",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Maryland",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Massachusetts",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Pennsylvania, New York, Virginia, New Jersey, Maryland, Massachusetts",
+                                 "Role":  "Field Service Tech Lead",
+                                 "IsLead":  true
+                             },
+                             {
+                                 "Name":  "David Jubeck",
+                                 "StateCount":  4,
+                                 "AppointmentsMTD":  12,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Massachusetts",
+                                                          "Count":  5
+                                                      },
+                                                      {
+                                                          "State":  "New York",
+                                                          "Count":  3
+                                                      },
+                                                      {
+                                                          "State":  "New Jersey",
+                                                          "Count":  3
+                                                      },
+                                                      {
+                                                          "State":  "New Hampshire",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Massachusetts, New York, New Jersey, New Hampshire",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Vadar Ali",
+                                 "StateCount":  5,
+                                 "AppointmentsMTD":  11,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Ohio",
+                                                          "Count":  6
+                                                      },
+                                                      {
+                                                          "State":  "Pennsylvania",
+                                                          "Count":  2
+                                                      },
+                                                      {
+                                                          "State":  "New Jersey",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Virginia",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Maryland",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Ohio, Pennsylvania, New Jersey, Virginia, Maryland",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "David Thomas",
+                                 "StateCount":  3,
+                                 "AppointmentsMTD":  11,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "South Carolina",
+                                                          "Count":  5
+                                                      },
+                                                      {
+                                                          "State":  "North Carolina",
+                                                          "Count":  4
+                                                      },
+                                                      {
+                                                          "State":  "Georgia",
+                                                          "Count":  2
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "South Carolina, North Carolina, Georgia",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Cole Thomas",
+                                 "StateCount":  3,
+                                 "AppointmentsMTD":  10,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "South Carolina",
+                                                          "Count":  5
+                                                      },
+                                                      {
+                                                          "State":  "Pennsylvania",
+                                                          "Count":  3
+                                                      },
+                                                      {
+                                                          "State":  "North Carolina",
+                                                          "Count":  2
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "South Carolina, Pennsylvania, North Carolina",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Damir Livancic",
+                                 "StateCount":  3,
+                                 "AppointmentsMTD":  10,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Georgia",
+                                                          "Count":  5
+                                                      },
+                                                      {
+                                                          "State":  "Alabama",
+                                                          "Count":  3
+                                                      },
+                                                      {
+                                                          "State":  "Tennessee",
+                                                          "Count":  2
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Georgia, Alabama, Tennessee",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Sammy Atkins",
+                                 "StateCount":  2,
+                                 "AppointmentsMTD":  10,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "CA",
+                                                          "Count":  9
+                                                      },
+                                                      {
+                                                          "State":  "Nevada",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "CA, Nevada",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Phillip Forbes",
+                                 "StateCount":  7,
+                                 "AppointmentsMTD":  10,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Arkansas",
+                                                          "Count":  2
+                                                      },
+                                                      {
+                                                          "State":  "Illinois",
+                                                          "Count":  2
+                                                      },
+                                                      {
+                                                          "State":  "Nebraska",
+                                                          "Count":  2
+                                                      },
+                                                      {
+                                                          "State":  "Iowa",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Missouri",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Kentucky",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Tennessee",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Arkansas, Illinois, Nebraska, Iowa, Missouri, Kentucky, Tennessee",
+                                 "Role":  "Field Service Tech Lead",
+                                 "IsLead":  true
+                             },
+                             {
+                                 "Name":  "Joey Todd",
+                                 "StateCount":  5,
+                                 "AppointmentsMTD":  9,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Ohio",
+                                                          "Count":  3
+                                                      },
+                                                      {
+                                                          "State":  "North Dakota",
+                                                          "Count":  3
+                                                      },
+                                                      {
+                                                          "State":  "Indiana",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Wisconsin",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Michigan",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Ohio, North Dakota, Indiana, Wisconsin, Michigan",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Duncan Gepner",
+                                 "StateCount":  4,
+                                 "AppointmentsMTD":  9,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Missouri",
+                                                          "Count":  4
+                                                      },
+                                                      {
+                                                          "State":  "Arkansas",
+                                                          "Count":  3
+                                                      },
+                                                      {
+                                                          "State":  "Oklahoma",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Iowa",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Missouri, Arkansas, Oklahoma, Iowa",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "JJ McKenna",
+                                 "StateCount":  1,
+                                 "AppointmentsMTD":  8,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Florida",
+                                                          "Count":  8
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Florida",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Adam Kies",
+                                 "StateCount":  4,
+                                 "AppointmentsMTD":  7,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "CA",
+                                                          "Count":  3
+                                                      },
+                                                      {
+                                                          "State":  "Washington",
+                                                          "Count":  2
+                                                      },
+                                                      {
+                                                          "State":  "Oregon",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Montana",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "CA, Washington, Oregon, Montana",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Joshua Musmeci",
+                                 "StateCount":  4,
+                                 "AppointmentsMTD":  6,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Mississippi",
+                                                          "Count":  2
+                                                      },
+                                                      {
+                                                          "State":  "Florida",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Texas",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Louisiana",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Mississippi, Florida, Texas, Louisiana",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Eddie Hidalgo",
+                                 "StateCount":  1,
+                                 "AppointmentsMTD":  6,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Texas",
+                                                          "Count":  6
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Texas",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Cameron Cofer",
+                                 "StateCount":  3,
+                                 "AppointmentsMTD":  5,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Washington",
+                                                          "Count":  3
+                                                      },
+                                                      {
+                                                          "State":  "Montana",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Oregon",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Washington, Montana, Oregon",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Matthew Plemons",
+                                 "StateCount":  3,
+                                 "AppointmentsMTD":  5,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Texas",
+                                                          "Count":  3
+                                                      },
+                                                      {
+                                                          "State":  "New Mexico",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Kansas",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Texas, New Mexico, Kansas",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Casey Chambers",
+                                 "StateCount":  2,
+                                 "AppointmentsMTD":  5,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Texas",
+                                                          "Count":  4
+                                                      },
+                                                      {
+                                                          "State":  "Arkansas",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Texas, Arkansas",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Travis Ratcliffe",
+                                 "StateCount":  3,
+                                 "AppointmentsMTD":  3,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Texas",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Arizona",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "CA",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Texas, Arizona, CA",
+                                 "Role":  "Field Service Tech Lead",
+                                 "IsLead":  true
+                             },
+                             {
+                                 "Name":  "Mike Cusanno",
+                                 "StateCount":  2,
+                                 "AppointmentsMTD":  2,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Arkansas",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Kansas",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Arkansas, Kansas",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             },
+                             {
+                                 "Name":  "Joshua Mattingley",
+                                 "StateCount":  2,
+                                 "AppointmentsMTD":  2,
+                                 "StatesDetail":  [
+                                                      {
+                                                          "State":  "Oklahoma",
+                                                          "Count":  1
+                                                      },
+                                                      {
+                                                          "State":  "Missouri",
+                                                          "Count":  1
+                                                      }
+                                                  ],
+                                 "StatesCovered":  "Oklahoma, Missouri",
+                                 "Role":  "Service Technician",
+                                 "IsLead":  false
+                             }
+                         ],
+    "GeneratedAt":  "2026-01-30 19:55:49",
     "Salesperson":  {
                         "Yesterday":  [
                                           {
@@ -1371,13 +974,6 @@
                                     }
                                 ]
                     },
-    "DayOfWeekAverages":  {
-                              "Tuesday":  191101.32,
-                              "Monday":  126345.69,
-                              "Friday":  138138.24,
-                              "Wednesday":  166590.46,
-                              "Thursday":  138654.09
-                          },
     "ShippingHeatMap":  [
                             {
                                 "Zip":  "54603",
@@ -1980,6 +1576,338 @@
                                 "City":  "Phoenix"
                             }
                         ],
+    "AllTeam":  {
+                    "Yesterday":  [
+                                      {
+                                          "Username":  "Joel",
+                                          "Type":  "Executive",
+                                          "ProductAmount":  34722.45,
+                                          "Role":  "COO",
+                                          "Name":  "Joel EuDaly",
+                                          "CityCount":  625,
+                                          "ServiceAmount":  31259.80,
+                                          "StateCount":  56,
+                                          "Amount":  74371.50
+                                      },
+                                      {
+                                          "Username":  "Allison",
+                                          "Type":  "Admin",
+                                          "ProductAmount":  9259.00,
+                                          "Role":  "Accounting",
+                                          "Name":  "Allison White",
+                                          "CityCount":  52,
+                                          "ServiceAmount":  2848.00,
+                                          "StateCount":  31,
+                                          "Amount":  12107.00
+                                      },
+                                      {
+                                          "Username":  "nandy",
+                                          "Type":  "Sales",
+                                          "ProductAmount":  2191.00,
+                                          "Role":  "Outside Sales",
+                                          "Name":  "Andy Neptune",
+                                          "CityCount":  13,
+                                          "ServiceAmount":  5743.00,
+                                          "StateCount":  10,
+                                          "Amount":  7934.00
+                                      },
+                                      {
+                                          "Username":  "mrand",
+                                          "Type":  "Sales",
+                                          "ProductAmount":  4412.00,
+                                          "Role":  "Inside Sales",
+                                          "Name":  "Randy Mobley",
+                                          "CityCount":  14,
+                                          "ServiceAmount":  0,
+                                          "StateCount":  8,
+                                          "Amount":  4412.00
+                                      },
+                                      {
+                                          "Username":  "Greg",
+                                          "Type":  "Sales",
+                                          "ProductAmount":  3278.00,
+                                          "Role":  "Inside Sales",
+                                          "Name":  "Greg Smith",
+                                          "CityCount":  6,
+                                          "ServiceAmount":  0,
+                                          "StateCount":  6,
+                                          "Amount":  3278.00
+                                      },
+                                      {
+                                          "Username":  "lphil",
+                                          "Type":  "Sales",
+                                          "ProductAmount":  1992.20,
+                                          "Role":  "Inside Sales",
+                                          "Name":  "Phil Libbert",
+                                          "CityCount":  53,
+                                          "ServiceAmount":  0,
+                                          "StateCount":  28,
+                                          "Amount":  1992.20
+                                      },
+                                      {
+                                          "Username":  "hnich",
+                                          "Type":  "ServiceTeam",
+                                          "ProductAmount":  1138.00,
+                                          "Role":  "In-House Service Supervisor",
+                                          "Name":  "Nicholas Hegger",
+                                          "CityCount":  6,
+                                          "ServiceAmount":  0,
+                                          "StateCount":  5,
+                                          "Amount":  1138.00
+                                      },
+                                      {
+                                          "Username":  "cjord",
+                                          "Type":  "ClientCare",
+                                          "ProductAmount":  588.00,
+                                          "Role":  "Client Care",
+                                          "Name":  "Jordan Cline",
+                                          "CityCount":  39,
+                                          "ServiceAmount":  0,
+                                          "StateCount":  23,
+                                          "Amount":  588.00
+                                      }
+                                  ],
+                    "MTD":  [
+                                {
+                                    "Username":  "Joel",
+                                    "Type":  "Executive",
+                                    "TopCities":  "Lake Elsinore, CA; Berthoud, CO; Woodridge, IL; Cheyenne, WY; Batesville, AR",
+                                    "ProductAmount":  1421792.69,
+                                    "Role":  "COO",
+                                    "Name":  "Joel EuDaly",
+                                    "CityCount":  625,
+                                    "States":  "AB-C, AL, AR, AZ, BC-C, CA, CO, CO-VA, CT, DE, FL, GA, GT-M, IA, ID, IL, IN, KS, KY, LA, MA, MB-C, MD, ME, MI, MN, MO, MS, MT, NC, ND, NE, NJ, NM, NS-C, NV, NY, NZ-WG, OH, OK, ON-C, OR, PA, QC-C, SC, SD, SK-C, TN, TX, UT, VA, VT, WA, WI, WV, WY",
+                                    "InvoiceCount":  1521,
+                                    "ServiceAmount":  717660.82,
+                                    "StateCount":  56,
+                                    "Amount":  2179203.40
+                                },
+                                {
+                                    "Username":  "lphil",
+                                    "Type":  "Sales",
+                                    "TopCities":  "Commerce City, CO; Houston, TX; Saskatoon, SK-C; Kelso, NSW-A; Chino, CA",
+                                    "ProductAmount":  179821.55,
+                                    "Role":  "Inside Sales",
+                                    "Name":  "Phil Libbert",
+                                    "CityCount":  53,
+                                    "States":  "AB-C, AK, AR, AZ, BC-C, CA, CO, DE, FL, GA, IA, ID, IL, IN, LA, MD, MO, NE, NM, NSW-A, OH, ON-C, OR, QLD-A, SK-C, TX, WA, WI",
+                                    "InvoiceCount":  97,
+                                    "ServiceAmount":  16403.00,
+                                    "StateCount":  28,
+                                    "Amount":  196224.55
+                                },
+                                {
+                                    "Username":  "Allison",
+                                    "Type":  "Admin",
+                                    "TopCities":  "Sheboygan, WI; Rockford, IL; New Britain, CT; Columbia, MO; Fresno, CA",
+                                    "ProductAmount":  132488.80,
+                                    "Role":  "Accounting",
+                                    "Name":  "Allison White",
+                                    "CityCount":  52,
+                                    "States":  "AB-C, BC-C, CA, CT, GA, IA, ID, IL, IN, KS, LA, MA, MD, MI, MN, MO, NC, NH, NY, OH, OK, ON-C, OR, PA, PE-C, RI, TX, VA, WA, WI, WY",
+                                    "InvoiceCount":  100,
+                                    "ServiceAmount":  31574.00,
+                                    "StateCount":  31,
+                                    "Amount":  166778.80
+                                },
+                                {
+                                    "Username":  "Unassigned",
+                                    "Type":  "Sales",
+                                    "TopCities":  "",
+                                    "ProductAmount":  138448.15,
+                                    "Role":  "Team Member",
+                                    "Name":  "Unassigned",
+                                    "CityCount":  0,
+                                    "States":  "",
+                                    "InvoiceCount":  57,
+                                    "ServiceAmount":  2852.00,
+                                    "StateCount":  0,
+                                    "Amount":  141550.15
+                                },
+                                {
+                                    "Username":  "cjord",
+                                    "Type":  "ClientCare",
+                                    "TopCities":  "Berkeley, MO; Clayton, NC; Elk Grove Village, IL; Austin, TX; Woodstock, IL",
+                                    "ProductAmount":  75040.45,
+                                    "Role":  "Client Care",
+                                    "Name":  "Jordan Cline",
+                                    "CityCount":  39,
+                                    "States":  "AL, AR, AZ, CA, DE, FL, GA, IL, IN, KY, MN, MO, MS, NC, NY, OH, PA, SC, TX, VA, WA, WI, WY",
+                                    "InvoiceCount":  69,
+                                    "ServiceAmount":  980.00,
+                                    "StateCount":  23,
+                                    "Amount":  76020.45
+                                },
+                                {
+                                    "Username":  "mrand",
+                                    "Type":  "Sales",
+                                    "TopCities":  "Mesquite, TX; San Antonio, TX; Spring, TX; Blackwood, NJ; Lakewood, CO",
+                                    "ProductAmount":  41744.60,
+                                    "Role":  "Inside Sales",
+                                    "Name":  "Randy Mobley",
+                                    "CityCount":  14,
+                                    "States":  "CA, CO, HI, IL, NJ, SC, TX, UT",
+                                    "InvoiceCount":  25,
+                                    "ServiceAmount":  190.00,
+                                    "StateCount":  8,
+                                    "Amount":  41934.60
+                                },
+                                {
+                                    "Username":  "nandy",
+                                    "Type":  "Sales",
+                                    "TopCities":  "Washburn, ME; Pembroke Park, FL; Oklahoma City, OK; Amarillo, TX; Piedmont, SC",
+                                    "ProductAmount":  9355.00,
+                                    "Role":  "Outside Sales",
+                                    "Name":  "Andy Neptune",
+                                    "CityCount":  13,
+                                    "States":  "CA, CO, FL, MD, ME, MO, OK, SC, TX, WI",
+                                    "InvoiceCount":  19,
+                                    "ServiceAmount":  20484.00,
+                                    "StateCount":  10,
+                                    "Amount":  31532.00
+                                },
+                                {
+                                    "Username":  "marissa",
+                                    "Type":  "ClientCare",
+                                    "TopCities":  "Sioux City, IA; Austin, MN; Bloomsdale, MO; Owasso, OK; Deer Park, TX",
+                                    "ProductAmount":  24051.35,
+                                    "Role":  "Client Care",
+                                    "Name":  "Marissa King",
+                                    "CityCount":  14,
+                                    "States":  "BC, CA, CO, IA, IL, MI, MN, MO, OK, SC, TX, US-PR, WA",
+                                    "InvoiceCount":  20,
+                                    "ServiceAmount":  386.00,
+                                    "StateCount":  13,
+                                    "Amount":  24437.35
+                                },
+                                {
+                                    "Username":  "seric",
+                                    "Type":  "ServiceTeam",
+                                    "TopCities":  "West Sacramento, CA; Columbus, GA; Perry, GA; Stockton, CA; Windsor, CT",
+                                    "ProductAmount":  8021.90,
+                                    "Role":  "Service Scheduling",
+                                    "Name":  "Erica Thurmond",
+                                    "CityCount":  7,
+                                    "States":  "AZ, CA, CT, GA",
+                                    "InvoiceCount":  14,
+                                    "ServiceAmount":  10422.35,
+                                    "StateCount":  4,
+                                    "Amount":  18444.25
+                                },
+                                {
+                                    "Username":  "mjaso",
+                                    "Type":  "Admin",
+                                    "TopCities":  "Luverne, AL; South Hutchinson, KS; Regina, SK-C; Lafayette, IN; Westfield, WI",
+                                    "ProductAmount":  11723.90,
+                                    "Role":  "Sales Director (Retired)",
+                                    "Name":  "Jason Mueske",
+                                    "CityCount":  8,
+                                    "States":  "AL, IN, KS, SK-C, TX, WI",
+                                    "InvoiceCount":  19,
+                                    "ServiceAmount":  4973.80,
+                                    "StateCount":  6,
+                                    "Amount":  18297.70
+                                },
+                                {
+                                    "Username":  "Rachel L",
+                                    "Type":  "ServiceTeam",
+                                    "TopCities":  "Hamilton, OH; Florence, KY; Cincinnati, OH",
+                                    "ProductAmount":  3747.00,
+                                    "Role":  "Service Support",
+                                    "Name":  "Rachel Lively",
+                                    "CityCount":  3,
+                                    "States":  "KY, OH",
+                                    "InvoiceCount":  10,
+                                    "ServiceAmount":  12925.00,
+                                    "StateCount":  2,
+                                    "Amount":  17163.00
+                                },
+                                {
+                                    "Username":  "bcoli",
+                                    "Type":  "ServiceTeam",
+                                    "TopCities":  "Cicero, IL; Leominster, MA; Wright City, MO; Ridgefield Park, NJ",
+                                    "ProductAmount":  2534.00,
+                                    "Role":  "Scheduling Coordinator",
+                                    "Name":  "Colin Bowles",
+                                    "CityCount":  4,
+                                    "States":  "IL, MA, MO, NJ",
+                                    "InvoiceCount":  7,
+                                    "ServiceAmount":  7439.00,
+                                    "StateCount":  4,
+                                    "Amount":  9973.00
+                                },
+                                {
+                                    "Username":  "tbolt",
+                                    "Type":  "Sales",
+                                    "TopCities":  "Gilroy, CA",
+                                    "ProductAmount":  9673.85,
+                                    "Role":  "Inside Sales",
+                                    "Name":  "Trevor Bolte",
+                                    "CityCount":  1,
+                                    "States":  "CA",
+                                    "InvoiceCount":  2,
+                                    "ServiceAmount":  0,
+                                    "StateCount":  1,
+                                    "Amount":  9673.85
+                                },
+                                {
+                                    "Username":  "Greg",
+                                    "Type":  "Sales",
+                                    "TopCities":  "Tempe, AZ; Mount Vernon, OH; Westminster, MD; Tukwila, WA; Green Bay, WI",
+                                    "ProductAmount":  5013.60,
+                                    "Role":  "Inside Sales",
+                                    "Name":  "Greg Smith",
+                                    "CityCount":  6,
+                                    "States":  "AZ, MD, OH, SC, WA, WI",
+                                    "InvoiceCount":  6,
+                                    "ServiceAmount":  0,
+                                    "StateCount":  6,
+                                    "Amount":  5013.60
+                                },
+                                {
+                                    "Username":  "hnich",
+                                    "Type":  "ServiceTeam",
+                                    "TopCities":  "Lititz, PA; Faribault, MN; Fairmont, MN; Rush, NY; Othello, WA",
+                                    "ProductAmount":  3365.00,
+                                    "Role":  "In-House Service Supervisor",
+                                    "Name":  "Nicholas Hegger",
+                                    "CityCount":  6,
+                                    "States":  "MN, NH, NY, PA, WA",
+                                    "InvoiceCount":  9,
+                                    "ServiceAmount":  974.00,
+                                    "StateCount":  5,
+                                    "Amount":  4349.00
+                                },
+                                {
+                                    "Username":  "ljami",
+                                    "Type":  "ServiceTeam",
+                                    "TopCities":  "Itta Bena, MS",
+                                    "ProductAmount":  470.00,
+                                    "Role":  "Service Director",
+                                    "Name":  "Jami Lorenz",
+                                    "CityCount":  1,
+                                    "States":  "MS",
+                                    "InvoiceCount":  3,
+                                    "ServiceAmount":  2898.00,
+                                    "StateCount":  1,
+                                    "Amount":  3368.00
+                                },
+                                {
+                                    "Username":  "Anna",
+                                    "Type":  "ClientCare",
+                                    "TopCities":  "Lima, OH",
+                                    "ProductAmount":  528.50,
+                                    "Role":  "Client Care",
+                                    "Name":  "Anna Worthington",
+                                    "CityCount":  1,
+                                    "States":  "OH",
+                                    "InvoiceCount":  1,
+                                    "ServiceAmount":  0,
+                                    "StateCount":  1,
+                                    "Amount":  528.50
+                                }
+                            ]
+                },
     "Summary":  {
                     "YTDDailyAverage":  144919.96,
                     "YTD":  {
@@ -2005,202 +1933,420 @@
                                   },
                     "MTDDailyAverage":  144919.96
                 },
-    "TopProducts":  {
-                        "MTD":  [
-                                    {
-                                        "Amount":  358847.30,
-                                        "Description":  "CTI tech on-site for calibration of up t",
-                                        "Item":  "CTI TECH ON SITE"
-                                    },
-                                    {
-                                        "Amount":  354253.76,
-                                        "Description":  "Gas Sensor, Ammonia 0-100 ppm, 4/20 mA o",
-                                        "Item":  "GG-NH3-100"
-                                    },
-                                    {
-                                        "Amount":  157780.70,
-                                        "Description":  "Replacement Electrochemical Cell, NH3, r",
-                                        "Item":  "GG-NH3-RC"
-                                    },
-                                    {
-                                        "Amount":  143184.30,
-                                        "Description":  "Additional Sensor (above 12) onsite cali",
-                                        "Item":  "CAL ADD"
-                                    },
-                                    {
-                                        "Amount":  97279.58,
-                                        "Description":  "Gas Sensor, Vent Line, catalytic-bead, A",
-                                        "Item":  "GG-VL2-NH3"
-                                    },
-                                    {
-                                        "Amount":  95428.80,
-                                        "Description":  "Gas Sensor, Ammonia 0-250 ppm, 4/20 mA o",
-                                        "Item":  "GG-NH3-250"
-                                    },
-                                    {
-                                        "Amount":  85187.72,
-                                        "Description":  "Americold 3 year SA.  Flat rate per site",
-                                        "Item":  "AMERICOLD SA 2024-2026"
-                                    },
-                                    {
-                                        "Amount":  85078.07,
-                                        "Description":  "Certified Calibration Gas, 17L Cylinder,",
-                                        "Item":  "TB17L CAL GAS"
-                                    },
-                                    {
-                                        "Amount":  78329.00,
-                                        "Description":  "CTI tech on-site for calibration of up t",
-                                        "Item":  "CTI TECH ON SITE - WEEKEND"
-                                    },
-                                    {
-                                        "Amount":  68135.75,
-                                        "Description":  "Wingman F1 portable gas detector, Ammoni",
-                                        "Item":  "F1-NH3"
-                                    },
-                                    {
-                                        "Amount":  66665.50,
-                                        "Description":  "Gas Sensor, Carbon Monoxide (0-200 ppm),",
-                                        "Item":  "DUOSENSE-M"
-                                    },
-                                    {
-                                        "Amount":  66494.05,
-                                        "Description":  "Gas Detection Entrance Monitor, White, L",
-                                        "Item":  "EM2-24"
-                                    },
-                                    {
-                                        "Amount":  55271.60,
-                                        "Description":  "Certified Calibration Gas, 34L Cylinder,",
-                                        "Item":  "RB34L-NH3/100"
-                                    },
-                                    {
-                                        "Amount":  53572.60,
-                                        "Description":  "Gas Sensor, Ammonia 0-100 ppm, 4/20 mA o",
-                                        "Item":  "GG-NH3-100-ST"
-                                    },
-                                    {
-                                        "Amount":  51147.30,
-                                        "Description":  "Certified Calibration Gas, 17L Cylinder,",
-                                        "Item":  "RB17L-NH3/100"
-                                    }
-                                ]
-                    },
-    "FieldTechnicians":  [
-                             {
-                                 "Name":  "Nathan Glenister",
-                                 "IsLead":  true,
-                                 "Role":  "Field Service Tech Lead"
-                             },
-                             {
-                                 "Name":  "Phillip Forbes",
-                                 "IsLead":  true,
-                                 "Role":  "Field Service Tech Lead"
-                             },
-                             {
-                                 "Name":  "Travis Ratcliffe",
-                                 "IsLead":  true,
-                                 "Role":  "Field Service Tech Lead"
-                             },
-                             {
-                                 "Name":  "Adam Kies",
-                                 "IsLead":  false,
-                                 "Role":  "Service Technician"
-                             },
-                             {
-                                 "Name":  "Andrew Shelley",
-                                 "IsLead":  false,
-                                 "Role":  "Service Technician"
-                             },
-                             {
-                                 "Name":  "Cameron Cofer",
-                                 "IsLead":  false,
-                                 "Role":  "Field Service Technician"
-                             },
-                             {
-                                 "Name":  "Casey Chambers",
-                                 "IsLead":  false,
-                                 "Role":  "Service Technician"
-                             },
-                             {
-                                 "Name":  "Cole Thomas",
-                                 "IsLead":  false,
-                                 "Role":  "Field Service Technician"
-                             },
-                             {
-                                 "Name":  "Damir Livancic",
-                                 "IsLead":  false,
-                                 "Role":  "Service Technician"
-                             },
-                             {
-                                 "Name":  "David Jubeck",
-                                 "IsLead":  false,
-                                 "Role":  "Service Technician"
-                             },
-                             {
-                                 "Name":  "David Thomas",
-                                 "IsLead":  false,
-                                 "Role":  "Field Service Technician"
-                             },
-                             {
-                                 "Name":  "Duncan Gepner",
-                                 "IsLead":  false,
-                                 "Role":  "Service Technician"
-                             },
-                             {
-                                 "Name":  "Heriberto Hidalgo",
-                                 "IsLead":  false,
-                                 "Role":  "Service Technician"
-                             },
-                             {
-                                 "Name":  "JJ McKenna",
-                                 "IsLead":  false,
-                                 "Role":  "Service Technician"
-                             },
-                             {
-                                 "Name":  "Joey Todd",
-                                 "IsLead":  false,
-                                 "Role":  "Service Technician"
-                             },
-                             {
-                                 "Name":  "Joshua Mattingley",
-                                 "IsLead":  false,
-                                 "Role":  "Field Service Technician"
-                             },
-                             {
-                                 "Name":  "Joshua Musmeci",
-                                 "IsLead":  false,
-                                 "Role":  "Service Technician"
-                             },
-                             {
-                                 "Name":  "Kyle Kotraba",
-                                 "IsLead":  false,
-                                 "Role":  "Service Technician"
-                             },
-                             {
-                                 "Name":  "Matthew Plemons",
-                                 "IsLead":  false,
-                                 "Role":  "Service Technician"
-                             },
-                             {
-                                 "Name":  "Sam Atkins",
-                                 "IsLead":  false,
-                                 "Role":  "Service Technician"
-                             },
-                             {
-                                 "Name":  "Travis Mays",
-                                 "IsLead":  false,
-                                 "Role":  "Service Technician"
-                             },
-                             {
-                                 "Name":  "Vadar Ali",
-                                 "IsLead":  false,
-                                 "Role":  "Service Technician"
-                             },
-                             {
-                                 "Name":  "Dane Cross",
-                                 "IsLead":  false,
-                                 "Role":  "In-House Service Technician"
-                             }
-                         ],
+    "DayOfWeekAverages":  {
+                              "Tuesday":  191101.32,
+                              "Monday":  126345.69,
+                              "Friday":  138138.24,
+                              "Wednesday":  166590.46,
+                              "Thursday":  138654.09
+                          },
+    "DailyTrend":  [
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-01",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-02",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-03",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-04",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-05",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-08",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-09",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-10",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-11",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-12",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-15",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-16",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-17",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-18",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-19",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-22",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-23",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-24",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-25",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-26",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-29",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-30",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2025-12-31",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2026-01-01",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  0,
+                           "Service":  0,
+                           "Product":  0,
+                           "Date":  "2026-01-02",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  8330.00,
+                           "DayOfWeek":  "Monday",
+                           "Total":  13472.10,
+                           "Service":  2877.00,
+                           "Product":  2265.10,
+                           "Date":  "2026-01-05",
+                           "Freight":  0
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  25839.77,
+                           "Service":  9353.00,
+                           "Product":  15938.18,
+                           "Date":  "2026-01-06",
+                           "Freight":  548.59
+                       },
+                       {
+                           "Miscellaneous":  4298.00,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  97452.64,
+                           "Service":  49069.54,
+                           "Product":  42332.90,
+                           "Date":  "2026-01-07",
+                           "Freight":  1752.20
+                       },
+                       {
+                           "Miscellaneous":  1202.00,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  143533.93,
+                           "Service":  68662.70,
+                           "Product":  67932.68,
+                           "Date":  "2026-01-08",
+                           "Freight":  5736.55
+                       },
+                       {
+                           "Miscellaneous":  3168.64,
+                           "DayOfWeek":  "Friday",
+                           "Total":  97476.89,
+                           "Service":  47511.40,
+                           "Product":  43917.85,
+                           "Date":  "2026-01-09",
+                           "Freight":  2879.00
+                       },
+                       {
+                           "Miscellaneous":  3413.00,
+                           "DayOfWeek":  "Monday",
+                           "Total":  230666.22,
+                           "Service":  57649.00,
+                           "Product":  160731.10,
+                           "Date":  "2026-01-12",
+                           "Freight":  8873.12
+                       },
+                       {
+                           "Miscellaneous":  4565.00,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  372724.60,
+                           "Service":  32982.29,
+                           "Product":  320232.35,
+                           "Date":  "2026-01-13",
+                           "Freight":  14944.96
+                       },
+                       {
+                           "Miscellaneous":  110.00,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  247578.71,
+                           "Service":  36715.35,
+                           "Product":  200708.35,
+                           "Date":  "2026-01-14",
+                           "Freight":  10045.01
+                       },
+                       {
+                           "Miscellaneous":  1932.00,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  151953.08,
+                           "Service":  62171.70,
+                           "Product":  83252.04,
+                           "Date":  "2026-01-15",
+                           "Freight":  4597.34
+                       },
+                       {
+                           "Miscellaneous":  6738.00,
+                           "DayOfWeek":  "Friday",
+                           "Total":  210264.06,
+                           "Service":  89703.15,
+                           "Product":  108836.55,
+                           "Date":  "2026-01-16",
+                           "Freight":  4986.36
+                       },
+                       {
+                           "Miscellaneous":  867.00,
+                           "DayOfWeek":  "Monday",
+                           "Total":  143253.96,
+                           "Service":  40823.77,
+                           "Product":  96687.40,
+                           "Date":  "2026-01-19",
+                           "Freight":  4875.79
+                       },
+                       {
+                           "Miscellaneous":  65.00,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  170100.66,
+                           "Service":  45962.80,
+                           "Product":  116445.40,
+                           "Date":  "2026-01-20",
+                           "Freight":  7627.46
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  135026.42,
+                           "Service":  46135.10,
+                           "Product":  85971.97,
+                           "Date":  "2026-01-21",
+                           "Freight":  2919.35
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  148364.22,
+                           "Service":  16099.20,
+                           "Product":  126820.80,
+                           "Date":  "2026-01-22",
+                           "Freight":  5444.22
+                       },
+                       {
+                           "Miscellaneous":  260.67,
+                           "DayOfWeek":  "Friday",
+                           "Total":  226716.11,
+                           "Service":  39107.14,
+                           "Product":  181098.05,
+                           "Date":  "2026-01-23",
+                           "Freight":  6250.25
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Monday",
+                           "Total":  117990.48,
+                           "Service":  47653.35,
+                           "Product":  66816.90,
+                           "Date":  "2026-01-26",
+                           "Freight":  3520.23
+                       },
+                       {
+                           "Miscellaneous":  3132.00,
+                           "DayOfWeek":  "Tuesday",
+                           "Total":  195740.27,
+                           "Service":  56256.60,
+                           "Product":  131239.80,
+                           "Date":  "2026-01-27",
+                           "Freight":  5111.87
+                       },
+                       {
+                           "Miscellaneous":  39.33,
+                           "DayOfWeek":  "Wednesday",
+                           "Total":  186304.05,
+                           "Service":  23482.18,
+                           "Product":  159012.27,
+                           "Date":  "2026-01-28",
+                           "Freight":  3770.27
+                       },
+                       {
+                           "Miscellaneous":  8389.25,
+                           "DayOfWeek":  "Thursday",
+                           "Total":  110765.12,
+                           "Service":  39850.80,
+                           "Product":  57580.65,
+                           "Date":  "2026-01-29",
+                           "Freight":  4944.42
+                       },
+                       {
+                           "Miscellaneous":  0,
+                           "DayOfWeek":  "Friday",
+                           "Total":  18095.90,
+                           "Service":  18095.90,
+                           "Product":  0,
+                           "Date":  "2026-01-30",
+                           "Freight":  0
+                       }
+                   ],
     "ServiceTeam":  {
                         "Yesterday":  {
                                           "Username":  "hnich",
@@ -2286,13 +2432,312 @@
                                     }
                                 ]
                     },
-    "ARaging":  {
-                    "Current":  3528836.58,
-                    "Days90Plus":  242773.85,
-                    "Days31_60":  132248.69,
-                    "Total":  4654095.94,
-                    "Days1_30":  568387.73,
-                    "Days61_90":  181849.09
-                },
-    "GeneratedAt":  "2026-01-30 19:47:58"
+    "CashFlowPrediction":  [
+                               {
+                                   "Total":  628895.82,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-01-26",
+                                                            "Amount":  117990.48,
+                                                            "Type":  "Actual",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-01-27",
+                                                            "Amount":  195740.27,
+                                                            "Type":  "Actual",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-01-28",
+                                                            "Amount":  186304.05,
+                                                            "Type":  "Actual",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-01-29",
+                                                            "Amount":  110765.12,
+                                                            "Type":  "Actual",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-01-30",
+                                                            "Amount":  18095.90,
+                                                            "Type":  "Today",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-01-30",
+                                   "ExpectedCollections":  762039.19,
+                                   "Actual":  628895.82,
+                                   "Sources":  {
+                                                   "From61_90":  9092.45,
+                                                   "From1_30":  85258.16,
+                                                   "FromCurrent":  705767.32,
+                                                   "From90Plus":  4855.48,
+                                                   "From31_60":  13224.87
+                                               },
+                                   "StartDate":  "2026-01-26",
+                                   "Predicted":  0,
+                                   "ARDue":  156886.13,
+                                   "WeekNum":  1,
+                                   "Week":  "Week of Jan 26",
+                                   "Confidence":  90
+                               },
+                               {
+                                   "Total":  740810.70,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-02-02",
+                                                            "Amount":  119676.46,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-03",
+                                                            "Amount":  185828.38,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-04",
+                                                            "Amount":  168670.78,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-05",
+                                                            "Amount":  138703.83,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-06",
+                                                            "Amount":  127931.24,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-02-06",
+                                   "ExpectedCollections":  694099.47,
+                                   "Actual":  0,
+                                   "Sources":  {
+                                                   "From61_90":  8017.85,
+                                                   "From1_30":  157020,
+                                                   "FromCurrent":  454837.6,
+                                                   "From90Plus":  5667.62,
+                                                   "From31_60":  22805.9
+                                               },
+                                   "StartDate":  "2026-02-02",
+                                   "Predicted":  740810.70,
+                                   "ARDue":  329280.05,
+                                   "WeekNum":  2,
+                                   "Week":  "Week of Feb 2",
+                                   "Confidence":  38
+                               },
+                               {
+                                   "Total":  729849.95,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-02-09",
+                                                            "Amount":  118032.35,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-10",
+                                                            "Amount":  183088.20,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-11",
+                                                            "Amount":  165930.60,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-12",
+                                                            "Amount":  136511.68,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-13",
+                                                            "Amount":  126287.13,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-02-13",
+                                   "ExpectedCollections":  657563.64,
+                                   "Actual":  0,
+                                   "Sources":  {
+                                                   "From61_90":  8463.25,
+                                                   "From1_30":  162437.7,
+                                                   "FromCurrent":  338758.6,
+                                                   "From90Plus":  6356.06,
+                                                   "From31_60":  40993.8
+                                               },
+                                   "StartDate":  "2026-02-09",
+                                   "Predicted":  729849.95,
+                                   "ARDue":  973596.03,
+                                   "WeekNum":  3,
+                                   "Week":  "Week of Feb 9",
+                                   "Confidence":  30
+                               },
+                               {
+                                   "Total":  641874.55,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-02-16",
+                                                            "Amount":  23826.37,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-17",
+                                                            "Amount":  184920.72,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-18",
+                                                            "Amount":  167763.12,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-19",
+                                                            "Amount":  137977.70,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-20",
+                                                            "Amount":  127386.64,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-02-20",
+                                   "ExpectedCollections":  681997.24,
+                                   "Actual":  0,
+                                   "Sources":  {
+                                                   "From61_90":  11048.5,
+                                                   "From1_30":  148276.35,
+                                                   "FromCurrent":  397974.4,
+                                                   "From90Plus":  7075.26,
+                                                   "From31_60":  53718.9
+                                               },
+                                   "StartDate":  "2026-02-16",
+                                   "Predicted":  641874.55,
+                                   "ARDue":  686765.24,
+                                   "WeekNum":  4,
+                                   "Week":  "Week of Feb 16",
+                                   "Confidence":  30
+                               },
+                               {
+                                   "Total":  735838.86,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-02-23",
+                                                            "Amount":  118930.68,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-24",
+                                                            "Amount":  184585.42,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-25",
+                                                            "Amount":  167427.82,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-26",
+                                                            "Amount":  137709.46,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-02-27",
+                                                            "Amount":  127185.47,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-02-27",
+                                   "ExpectedCollections":  677526.68,
+                                   "Actual":  0,
+                                   "Sources":  {
+                                                   "From61_90":  14448.8,
+                                                   "From1_30":  148662,
+                                                   "FromCurrent":  376137.6,
+                                                   "From90Plus":  8038.6,
+                                                   "From31_60":  59630
+                                               },
+                                   "StartDate":  "2026-02-23",
+                                   "Predicted":  735838.86,
+                                   "ARDue":  672510.83,
+                                   "WeekNum":  5,
+                                   "Week":  "Week of Feb 23",
+                                   "Confidence":  22
+                               },
+                               {
+                                   "Total":  734556.40,
+                                   "DayBreakdown":  [
+                                                        {
+                                                            "Date":  "2026-03-02",
+                                                            "Amount":  118738.31,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Monday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-03-03",
+                                                            "Amount":  184264.81,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Tuesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-03-04",
+                                                            "Amount":  167107.21,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Wednesday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-03-05",
+                                                            "Amount":  137452.97,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Thursday"
+                                                        },
+                                                        {
+                                                            "Date":  "2026-03-06",
+                                                            "Amount":  126993.10,
+                                                            "Type":  "Predicted",
+                                                            "DayOfWeek":  "Friday"
+                                                        }
+                                                    ],
+                                   "EndDate":  "2026-03-06",
+                                   "ExpectedCollections":  673251.80,
+                                   "Actual":  0,
+                                   "Sources":  {
+                                                   "From61_90":  17567.9,
+                                                   "From1_30":  145617.9,
+                                                   "FromCurrent":  360184.8,
+                                                   "From90Plus":  9322.7,
+                                                   "From31_60":  63536.5
+                                               },
+                                   "StartDate":  "2026-03-02",
+                                   "Predicted":  734556.40,
+                                   "ARDue":  91365.90,
+                                   "WeekNum":  6,
+                                   "Week":  "Week of Mar 2",
+                                   "Confidence":  22
+                               }
+                           ]
 }
