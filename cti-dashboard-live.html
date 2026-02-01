@@ -236,6 +236,36 @@
             .ar-bucket { padding: 8px 3px; }
             .ar-bucket .amount { font-size: 12px; }
         }
+        /* AR Details Table */
+        .ar-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        .ar-table th, .ar-table td { padding: 10px 12px; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .ar-table th { background: rgba(255,255,255,0.05); color: var(--text-secondary); font-weight: 600; text-transform: uppercase; font-size: 11px; }
+        .ar-table th:first-child, .ar-table td:first-child { text-align: left; }
+        .ar-table tr:hover { background: rgba(255,255,255,0.03); }
+        .ar-table .total-row { font-weight: 700; background: rgba(255,255,255,0.05); }
+        .ar-table .overdue { color: var(--danger); }
+        .ar-table .current { color: var(--success); }
+        
+        /* AR Detail Grid */
+        .ar-detail-grid { display: flex; flex-direction: column; gap: 8px; }
+        .ar-detail-row { display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 12px 15px; background: rgba(255,255,255,0.03); border-radius: 8px; }
+        .ar-detail-row.header { background: rgba(255,255,255,0.08); font-weight: 600; color: var(--text-secondary); font-size: 11px; text-transform: uppercase; }
+        .ar-detail-row span:not(:first-child) { text-align: right; }
+        .ar-detail-row.current span:nth-child(2) { color: var(--success); font-weight: 600; }
+        .ar-detail-row.days30 span:nth-child(2) { color: #4ecdc4; font-weight: 600; }
+        .ar-detail-row.days60 span:nth-child(2) { color: var(--warning); font-weight: 600; }
+        .ar-detail-row.days90 span:nth-child(2) { color: #ff9f43; font-weight: 600; }
+        .ar-detail-row.over90 span:nth-child(2) { color: var(--danger); font-weight: 600; }
+        .ar-detail-row.total { background: rgba(255,255,255,0.08); font-weight: 700; }
+        
+        /* P&L Grid */
+        .pnl-grid { display: flex; flex-direction: column; gap: 15px; }
+        .pnl-section { background: rgba(255,255,255,0.03); border-radius: 10px; overflow: hidden; }
+        .pnl-header { padding: 12px 15px; background: rgba(255,255,255,0.05); font-weight: 600; color: var(--text-secondary); text-transform: uppercase; font-size: 12px; }
+        .pnl-row { display: flex; justify-content: space-between; padding: 12px 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .pnl-row:last-child { border-bottom: none; }
+        .pnl-row.total { background: rgba(255,255,255,0.05); }
+        .pnl-row .amount { font-weight: 600; color: var(--success); }
     </style>
 </head>
 <body>
@@ -244,6 +274,8 @@
         <div class="nav">
             <a href="#" class="active" onclick="showPage('overview')">Overview</a>
             <a href="#" onclick="showPage('sales')">Sales Team</a>
+            <a href="#" onclick="showPage('ar')">AR Aging</a>
+            <a href="#" onclick="showPage('pnl')">P&L</a>
             <a href="#" onclick="showPage('cashflow')">Cash Flow</a>
             <a href="#" onclick="showPage('customers')">Customers</a>
             <a href="#" onclick="showPage('products')">Products</a>
@@ -466,6 +498,162 @@
             <div class="card span-2">
                 <div class="card-title">Yesterday Performance</div>
                 <div id="salespersonYesterdayList" style="max-height: 400px; overflow-y: auto;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AR AGING PAGE -->
+    <div id="ar" class="page">
+        <div class="kpi-row">
+            <div class="kpi-card">
+                <div class="value" style="color: var(--success);" id="arKpiTotal">$0</div>
+                <div class="label">Total AR Outstanding</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: #4ecdc4;" id="arKpiCurrent">$0</div>
+                <div class="label">Current (Not Due)</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: var(--warning);" id="arKpiOverdue">$0</div>
+                <div class="label">Total Overdue</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: var(--danger);" id="arKpi90Plus">$0</div>
+                <div class="label">90+ Days Overdue</div>
+            </div>
+        </div>
+        <div class="dashboard">
+            <div class="card span-2">
+                <div class="card-title">AR Aging Breakdown</div>
+                <div class="chart-container tall"><canvas id="arAgingDetailChart"></canvas></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Aging Distribution</div>
+                <div class="chart-container tall"><canvas id="arAgingPieChart"></canvas></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">AR Aging Summary</div>
+                <div style="padding: 15px;">
+                    <div class="ar-detail-grid" id="arAgingGrid">
+                        <div class="ar-detail-row header">
+                            <span>Bucket</span>
+                            <span>Amount</span>
+                            <span>% of Total</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Top 20 Customers by AR Balance</div>
+                <div class="top-list" id="arTopCustomers" style="max-height: 500px;"></div>
+            </div>
+        </div>
+        <div class="dashboard" style="margin-top: 20px;">
+            <div class="card span-4">
+                <div class="card-title">AR Aging Details by Customer</div>
+                <div style="overflow-x: auto;">
+                    <table class="ar-table" id="arCustomerTable">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Current</th>
+                                <th>1-30 Days</th>
+                                <th>31-60 Days</th>
+                                <th>61-90 Days</th>
+                                <th>90+ Days</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- P&L / INCOME STATEMENT PAGE -->
+    <div id="pnl" class="page">
+        <div class="kpi-row">
+            <div class="kpi-card">
+                <div class="value" style="color: var(--success);" id="pnlRevenue">$0</div>
+                <div class="label">MTD Total Revenue</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: #4ecdc4;" id="pnlProductRev">$0</div>
+                <div class="label">Product Revenue</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: #ff6b6b;" id="pnlServiceRev">$0</div>
+                <div class="label">Service Revenue</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: var(--warning);" id="pnlOtherRev">$0</div>
+                <div class="label">Other Revenue</div>
+            </div>
+        </div>
+        <div class="dashboard">
+            <div class="card span-2">
+                <div class="card-title">Revenue by Category (MTD)</div>
+                <div class="chart-container tall"><canvas id="pnlCategoryChart"></canvas></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Revenue Mix</div>
+                <div class="chart-container tall"><canvas id="pnlMixPieChart"></canvas></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Monthly Revenue Trend</div>
+                <div class="chart-container tall"><canvas id="pnlMonthlyTrendChart"></canvas></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Revenue Breakdown</div>
+                <div style="padding: 15px;">
+                    <div class="pnl-grid" id="pnlGrid">
+                        <div class="pnl-section">
+                            <div class="pnl-header">Revenue</div>
+                            <div class="pnl-row" id="pnlProductRow">
+                                <span>Product Sales (401000)</span>
+                                <span class="amount">$0</span>
+                            </div>
+                            <div class="pnl-row" id="pnlServiceRow">
+                                <span>Service Sales (402000)</span>
+                                <span class="amount">$0</span>
+                            </div>
+                            <div class="pnl-row" id="pnlFreightRow">
+                                <span>Freight Revenue (495400)</span>
+                                <span class="amount">$0</span>
+                            </div>
+                            <div class="pnl-row" id="pnlMiscRow">
+                                <span>Miscellaneous (495000)</span>
+                                <span class="amount">$0</span>
+                            </div>
+                            <div class="pnl-row total" id="pnlTotalRow">
+                                <span><strong>Total Revenue</strong></span>
+                                <span class="amount"><strong>$0</strong></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="dashboard" style="margin-top: 20px;">
+            <div class="card span-2">
+                <div class="card-title">YTD vs Prior Year (Coming Soon)</div>
+                <div style="padding: 40px; text-align: center; color: var(--text-secondary);">
+                    <div style="font-size: 48px; margin-bottom: 15px;">📊</div>
+                    <div>Year-over-year comparison will be available once we have prior year data in the GL.</div>
+                </div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Revenue Performance Notes</div>
+                <div style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 8px; font-size: 13px; line-height: 1.8;">
+                    <strong>Data Source:</strong> SyteLine GL Ledger<br>
+                    <strong>Revenue Accounts:</strong><br>
+                    • 401000 = Product Sales (consolidated)<br>
+                    • 402000 = Service Sales<br>
+                    • 495000 = Miscellaneous Revenue<br>
+                    • 495400 = Freight Revenue<br><br>
+                    <strong>Classification:</strong> Product/Service split uses <code>itmuf_cti_product_category</code> field from item master applied per invoice line item.
+                </div>
             </div>
         </div>
     </div>
@@ -1288,7 +1476,7 @@
                     "Days1_30":  589533.62,
                     "Days61_90":  170107.29
                 },
-    "GeneratedAt":  "2026-02-01 06:29:23",
+    "GeneratedAt":  "2026-02-01 10:08:12",
     "FieldTechSummary":  {
                              "TotalAppointmentsMTD":  0,
                              "TopPerformer":  "--",
@@ -5905,6 +6093,8 @@
             event.target.classList.add('active');
             if (pageId === 'geography') setTimeout(initMap, 100);
             if (pageId === 'sales') setTimeout(initSalesPage, 100);
+            if (pageId === 'ar') setTimeout(initARPage, 100);
+            if (pageId === 'pnl') setTimeout(initPnLPage, 100);
         }
 
         function renderList(id, items, nameField='Name') {
@@ -6401,6 +6591,226 @@
                     }
                 });
             }
+        }
+
+        let arPageInit = false;
+        function initARPage() {
+            if (arPageInit || !DATA.ARaging) return;
+            arPageInit = true;
+            
+            const ar = DATA.ARaging;
+            const total = ar.Total || 0;
+            const overdue = (ar.Days1_30 || 0) + (ar.Days31_60 || 0) + (ar.Days61_90 || 0) + (ar.Days90Plus || 0);
+            
+            // KPIs
+            document.getElementById('arKpiTotal').textContent = fmt(total);
+            document.getElementById('arKpiCurrent').textContent = fmt(ar.Current || 0);
+            document.getElementById('arKpiOverdue').textContent = fmt(overdue);
+            document.getElementById('arKpi90Plus').textContent = fmt(ar.Days90Plus || 0);
+            
+            // AR Aging Detail Grid
+            const grid = document.getElementById('arAgingGrid');
+            const buckets = [
+                { name: 'Current (Not Due)', amount: ar.Current || 0, class: 'current' },
+                { name: '1-30 Days Overdue', amount: ar.Days1_30 || 0, class: 'days30' },
+                { name: '31-60 Days Overdue', amount: ar.Days31_60 || 0, class: 'days60' },
+                { name: '61-90 Days Overdue', amount: ar.Days61_90 || 0, class: 'days90' },
+                { name: '90+ Days Overdue', amount: ar.Days90Plus || 0, class: 'over90' },
+                { name: 'Total', amount: total, class: 'total' }
+            ];
+            
+            grid.innerHTML = `<div class="ar-detail-row header"><span>Bucket</span><span>Amount</span><span>% of Total</span></div>` +
+                buckets.map(b => {
+                    const pct = total > 0 ? ((b.amount / total) * 100).toFixed(1) : 0;
+                    return `<div class="ar-detail-row ${b.class}"><span>${b.name}</span><span>${fmt(b.amount)}</span><span>${pct}%</span></div>`;
+                }).join('');
+            
+            // AR Aging Bar Chart
+            const arCtx = document.getElementById('arAgingDetailChart').getContext('2d');
+            charts.arDetail = new Chart(arCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Current', '1-30 Days', '31-60 Days', '61-90 Days', '90+ Days'],
+                    datasets: [{
+                        label: 'AR Balance',
+                        data: [ar.Current || 0, ar.Days1_30 || 0, ar.Days31_60 || 0, ar.Days61_90 || 0, ar.Days90Plus || 0],
+                        backgroundColor: ['#06d6a0', '#4ecdc4', '#ffd166', '#ff9f43', '#ef476f']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#98c1d9' } },
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }
+                    }
+                }
+            });
+            
+            // AR Aging Pie Chart
+            const pieCtx = document.getElementById('arAgingPieChart').getContext('2d');
+            charts.arPie = new Chart(pieCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Current', '1-30 Days', '31-60 Days', '61-90 Days', '90+ Days'],
+                    datasets: [{
+                        data: [ar.Current || 0, ar.Days1_30 || 0, ar.Days31_60 || 0, ar.Days61_90 || 0, ar.Days90Plus || 0],
+                        backgroundColor: ['#06d6a0', '#4ecdc4', '#ffd166', '#ff9f43', '#ef476f'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right', labels: { color: '#98c1d9', padding: 12 } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const pct = total > 0 ? ((context.raw / total) * 100).toFixed(1) : 0;
+                                    return `${context.label}: ${fmt(context.raw)} (${pct}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Top Customers by AR (using customer data if available, otherwise show note)
+            const arTopList = document.getElementById('arTopCustomers');
+            if (DATA.TopCustomers?.MTD?.length) {
+                // Use customer list as proxy - actual AR by customer would need more data
+                arTopList.innerHTML = `<div style="padding:15px;color:var(--text-secondary);font-size:13px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:10px;">
+                    <strong>Note:</strong> Showing top customers by MTD sales. Customer-level AR aging requires additional data integration.
+                </div>` + DATA.TopCustomers.MTD.slice(0,20).map((c, i) => {
+                    const rank = i < 3 ? ['gold', 'silver', 'bronze'][i] : '';
+                    return `<div class="top-item"><div class="rank ${rank}">${i + 1}</div><div class="name" title="${c.Name}">${c.Name.substring(0, 35)}</div><div class="amount">${fmt(c.Amount)}</div></div>`;
+                }).join('');
+            } else {
+                arTopList.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-secondary)">Customer AR data requires additional integration</div>';
+            }
+        }
+
+        let pnlPageInit = false;
+        function initPnLPage() {
+            if (pnlPageInit || !DATA.Summary) return;
+            pnlPageInit = true;
+            
+            const mtd = DATA.Summary.MTD;
+            const total = mtd.Total || 0;
+            const product = mtd.Product || 0;
+            const service = mtd.Service || 0;
+            const freight = mtd.Freight || 0;
+            const misc = mtd.Miscellaneous || 0;
+            const other = freight + misc;
+            
+            // KPIs
+            document.getElementById('pnlRevenue').textContent = fmt(total);
+            document.getElementById('pnlProductRev').textContent = fmt(product);
+            document.getElementById('pnlServiceRev').textContent = fmt(service);
+            document.getElementById('pnlOtherRev').textContent = fmt(other);
+            
+            // P&L Grid
+            document.querySelector('#pnlProductRow .amount').textContent = fmt(product);
+            document.querySelector('#pnlServiceRow .amount').textContent = fmt(service);
+            document.querySelector('#pnlFreightRow .amount').textContent = fmt(freight);
+            document.querySelector('#pnlMiscRow .amount').textContent = fmt(misc);
+            document.querySelector('#pnlTotalRow .amount').innerHTML = `<strong>${fmt(total)}</strong>`;
+            
+            // Category Bar Chart
+            const catCtx = document.getElementById('pnlCategoryChart').getContext('2d');
+            charts.pnlCat = new Chart(catCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Product Sales', 'Service Sales', 'Freight', 'Miscellaneous'],
+                    datasets: [{
+                        label: 'MTD Revenue',
+                        data: [product, service, freight, misc],
+                        backgroundColor: ['#4ecdc4', '#ff6b6b', '#feca57', '#a29bfe']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#98c1d9' } },
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }
+                    }
+                }
+            });
+            
+            // Mix Pie Chart
+            const mixCtx = document.getElementById('pnlMixPieChart').getContext('2d');
+            charts.pnlMix = new Chart(mixCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Product', 'Service', 'Freight', 'Miscellaneous'],
+                    datasets: [{
+                        data: [product, service, freight, misc],
+                        backgroundColor: ['#4ecdc4', '#ff6b6b', '#feca57', '#a29bfe'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'right', labels: { color: '#98c1d9', padding: 12 } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const pct = total > 0 ? ((context.raw / total) * 100).toFixed(1) : 0;
+                                    return `${context.label}: ${fmt(context.raw)} (${pct}%)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Monthly Trend Chart (using daily trend data, grouped by month)
+            const dailyData = DATA.DailyTrend || [];
+            const monthlyData = {};
+            dailyData.forEach(d => {
+                const month = d.Date.substring(0, 7); // YYYY-MM
+                if (!monthlyData[month]) {
+                    monthlyData[month] = { Product: 0, Service: 0, Freight: 0, Misc: 0, Total: 0 };
+                }
+                monthlyData[month].Product += d.Product || 0;
+                monthlyData[month].Service += d.Service || 0;
+                monthlyData[month].Freight += d.Freight || 0;
+                monthlyData[month].Misc += d.Miscellaneous || 0;
+                monthlyData[month].Total += d.Total || 0;
+            });
+            
+            const months = Object.keys(monthlyData).sort();
+            const trendCtx = document.getElementById('pnlMonthlyTrendChart').getContext('2d');
+            charts.pnlTrend = new Chart(trendCtx, {
+                type: 'bar',
+                data: {
+                    labels: months.map(m => {
+                        const [y, mo] = m.split('-');
+                        return new Date(y, parseInt(mo) - 1).toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+                    }),
+                    datasets: [
+                        { label: 'Product', data: months.map(m => monthlyData[m].Product), backgroundColor: '#4ecdc4' },
+                        { label: 'Service', data: months.map(m => monthlyData[m].Service), backgroundColor: '#ff6b6b' },
+                        { label: 'Freight', data: months.map(m => monthlyData[m].Freight), backgroundColor: '#feca57' },
+                        { label: 'Misc', data: months.map(m => monthlyData[m].Misc), backgroundColor: '#a29bfe' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: '#98c1d9' } } },
+                    scales: {
+                        x: { stacked: true, grid: { display: false }, ticks: { color: '#98c1d9' } },
+                        y: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }
+                    }
+                }
+            });
         }
 
         function initCashFlow() {
