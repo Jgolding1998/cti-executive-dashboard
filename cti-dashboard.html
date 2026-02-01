@@ -40,7 +40,7 @@
         }
         .header h1 { font-size: 24px; font-weight: 300; }
         .header h1 span { font-weight: 700; color: var(--accent); }
-        .header .nav { display: flex; gap: 15px; }
+        .header .nav { display: flex; gap: 15px; flex-wrap: wrap; }
         .header .nav a {
             color: var(--text-secondary);
             text-decoration: none;
@@ -89,8 +89,9 @@
             background: linear-gradient(135deg, #fff, var(--text-secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .metric.green { background: linear-gradient(135deg, var(--success), #00ff88); -webkit-background-clip: text; }
+        .metric.green { background: linear-gradient(135deg, var(--success), #00ff88); -webkit-background-clip: text; background-clip: text; }
         .metric.small { font-size: 26px; }
         .metric-label { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
         .breakdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
@@ -133,12 +134,14 @@
             font-size: 11px;
             font-weight: 700;
             margin-right: 12px;
+            flex-shrink: 0;
         }
         .top-item .rank.gold { background: linear-gradient(135deg, #ffd700, #ff8c00); }
         .top-item .rank.silver { background: linear-gradient(135deg, #c0c0c0, #808080); }
         .top-item .rank.bronze { background: linear-gradient(135deg, #cd7f32, #8b4513); }
         .top-item .name { flex: 1; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .top-item .amount { font-weight: 600; color: var(--success); font-size: 13px; }
+        .top-item .amount { font-weight: 600; color: var(--success); font-size: 13px; white-space: nowrap; }
+        .top-item .meta { font-size: 11px; color: var(--text-secondary); margin-left: 10px; white-space: nowrap; }
         .cash-flow-week {
             background: rgba(255,255,255,0.03);
             border-radius: 10px;
@@ -212,10 +215,23 @@
         .tab-btn.active { background: var(--accent); color: white; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
+        .salesperson-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .salesperson-card .name { font-weight: 600; font-size: 16px; }
+        .salesperson-card .amount { font-size: 24px; font-weight: 700; color: var(--success); }
+        .salesperson-card .invoices { font-size: 12px; color: var(--text-secondary); }
         @media (max-width: 1200px) {
             .card.span-2, .card.span-3 { grid-column: span 1; }
             .breakdown { grid-template-columns: repeat(2, 1fr); }
             .kpi-row { grid-template-columns: repeat(2, 1fr); }
+            .ar-aging { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
@@ -224,6 +240,7 @@
         <h1><span>CTI</span> Executive Dashboard</h1>
         <div class="nav">
             <a href="#" class="active" onclick="showPage('overview')">Overview</a>
+            <a href="#" onclick="showPage('sales')">Sales Team</a>
             <a href="#" onclick="showPage('cashflow')">Cash Flow</a>
             <a href="#" onclick="showPage('customers')">Customers</a>
             <a href="#" onclick="showPage('products')">Products</a>
@@ -321,6 +338,80 @@
         </div>
     </div>
 
+    <!-- SALES TEAM PAGE (NEW) -->
+    <div id="sales" class="page">
+        <div class="kpi-row">
+            <div class="kpi-card">
+                <div class="value" style="color: var(--success);" id="spYesterdayTotal">$0</div>
+                <div class="label">Yesterday Total (All)</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: #4ecdc4;" id="spMTDTotal">$0</div>
+                <div class="label">MTD Total (All)</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: var(--warning);" id="spTopPerformer">--</div>
+                <div class="label">Top Performer MTD</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: var(--accent);" id="spInvoiceCount">0</div>
+                <div class="label">MTD Invoices</div>
+            </div>
+        </div>
+        
+        <!-- All Team Section -->
+        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--warning);">📊 All Team Performance (with Roles)</h3>
+        <div class="dashboard">
+            <div class="card span-2">
+                <div class="card-title">All Team - Month to Date</div>
+                <div class="chart-container tall"><canvas id="allTeamBarChart"></canvas></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">MTD Breakdown by Role</div>
+                <div id="allTeamMTDList" style="max-height: 400px; overflow-y: auto;"></div>
+            </div>
+        </div>
+        
+        <!-- Sales Reps Section -->
+        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--success);">💼 Sales Reps</h3>
+        <div class="dashboard">
+            <div class="card span-2">
+                <div class="card-title">Sales Reps - Month to Date</div>
+                <div class="chart-container tall"><canvas id="salespersonBarChart"></canvas></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Sales Rep Performance</div>
+                <div id="salespersonMTDList" style="max-height: 400px; overflow-y: auto;"></div>
+            </div>
+        </div>
+        
+        <!-- Service Reps Section -->
+        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid #4ecdc4;">🔧 Service Reps & Territory Coverage</h3>
+        <div class="dashboard">
+            <div class="card span-2">
+                <div class="card-title">Service Reps - Revenue by Territory</div>
+                <div class="chart-container tall"><canvas id="serviceRepBarChart"></canvas></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Service Rep Performance & Territory</div>
+                <div id="serviceRepMTDList" style="max-height: 400px; overflow-y: auto;"></div>
+            </div>
+        </div>
+        
+        <!-- Yesterday Section -->
+        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--accent);">📅 Yesterday's Activity</h3>
+        <div class="dashboard">
+            <div class="card span-2">
+                <div class="card-title">Yesterday's Sales by Team Member</div>
+                <div class="chart-container tall"><canvas id="salespersonYesterdayChart"></canvas></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Yesterday Performance</div>
+                <div id="salespersonYesterdayList" style="max-height: 400px; overflow-y: auto;"></div>
+            </div>
+        </div>
+    </div>
+
     <!-- CASH FLOW PAGE -->
     <div id="cashflow" class="page">
         <div class="kpi-row">
@@ -356,13 +447,14 @@
                 <div class="card-title">Prediction Algorithm Details</div>
                 <div style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 8px; font-size: 13px; line-height: 1.8;">
                     <strong>How the forecast is calculated:</strong><br>
-                    • <strong>Historical Patterns:</strong> Weighted average of sales by day of week (Mon-Fri)<br>
-                    • <strong>AR Expectations:</strong> Invoices due within the forecast period (15% expected collection rate)<br>
+                    • <strong>Historical Patterns:</strong> Weighted average of sales by day of week (60%)<br>
+                    • <strong>AR Expectations:</strong> Expected collections from aging buckets (40%)<br>
+                    • <strong>Collection Rates:</strong> Current 20%/wk, 1-30d 15%/wk, 31-60d 10%/wk<br>
                     • <strong>Actual Data:</strong> Days already passed use actual GL data<br>
                     • <strong>Weekend Rule:</strong> Saturday/Sunday sales roll into Monday<br>
-                    • <strong>Confidence:</strong> Decreases with forecast distance (90% → 45%)<br>
+                    • <strong>Confidence:</strong> Decreases with forecast distance<br>
                     <br>
-                    <em style="color: var(--text-secondary);">Formula: (DayOfWeek Avg × 0.85) + (AR Due × 0.15)</em>
+                    <em style="color: var(--text-secondary);">Formula: (Historical DOW Avg × 0.70) + (AR Collection Expectation × 0.30)</em>
                 </div>
             </div>
             <div class="card span-2">
@@ -477,6 +569,7 @@
             document.getElementById(pageId).classList.add('active');
             event.target.classList.add('active');
             if (pageId === 'geography') setTimeout(initMap, 100);
+            if (pageId === 'sales') setTimeout(initSalesPage, 100);
         }
 
         function renderList(id, items, nameField='Name') {
@@ -486,6 +579,35 @@
                 const rank = i<3 ? ['gold','silver','bronze'][i] : '';
                 const name = item[nameField] || item.Name || item.Item || '?';
                 return `<div class="top-item"><div class="rank ${rank}">${i+1}</div><div class="name" title="${name}">${name.substring(0,40)}</div><div class="amount">${fmt(item.Amount)}</div></div>`;
+            }).join('');
+        }
+
+        function renderSalespersonList(id, items, showBreakdown = false, showTerritory = false) {
+            const el = document.getElementById(id);
+            if (!items?.length) { el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-secondary)">No data</div>'; return; }
+            el.innerHTML = items.map((item,i) => {
+                const rank = i<3 ? ['gold','silver','bronze'][i] : '';
+                const invoices = item.InvoiceCount ? ` (${item.InvoiceCount} inv)` : '';
+                const role = item.Role ? `<span style="font-size:11px;color:var(--text-secondary);background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:4px;margin-left:8px;">${item.Role}</span>` : '';
+                const breakdown = showBreakdown && (item.ProductAmount || item.ServiceAmount) ? 
+                    `<div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">
+                        <span style="color:#4ecdc4;">Product: ${fmt(item.ProductAmount || 0)}</span> · 
+                        <span style="color:#ff6b6b;">Service: ${fmt(item.ServiceAmount || 0)}</span>
+                    </div>` : '';
+                const territory = showTerritory && (item.StateCount || item.CityCount) ?
+                    `<div style="font-size:11px;color:var(--warning);margin-top:4px;">
+                        📍 ${item.StateCount || 0} states · ${item.CityCount || 0} locations
+                        ${item.States ? `<div style="font-size:10px;color:var(--text-secondary);margin-top:2px;">${item.States}</div>` : ''}
+                    </div>` : '';
+                return `<div class="salesperson-card">
+                    <div>
+                        <div class="name">${item.Name || 'Unknown'}${role}</div>
+                        <div class="invoices">${invoices}</div>
+                        ${breakdown}
+                        ${territory}
+                    </div>
+                    <div class="amount">${fmt(item.Amount)}</div>
+                </div>`;
             }).join('');
         }
 
@@ -536,15 +658,21 @@
         }
 
         function initCharts() {
-            // Trend Chart
+            // Trend Chart - filter out zero days at the beginning
+            const trendData = DATA.DailyTrend.filter((d,i,arr) => {
+                // Find first non-zero day and include all days from there
+                const firstNonZero = arr.findIndex(x => x.Total > 0);
+                return i >= firstNonZero;
+            });
+            
             const trendCtx = document.getElementById('trendChart').getContext('2d');
             charts.trend = new Chart(trendCtx, {
                 type: 'line',
                 data: {
-                    labels: DATA.DailyTrend.map(d => new Date(d.Date).toLocaleDateString('en-US',{month:'short',day:'numeric'})),
+                    labels: trendData.map(d => new Date(d.Date).toLocaleDateString('en-US',{month:'short',day:'numeric'})),
                     datasets: [{
                         label: 'Total Sales',
-                        data: DATA.DailyTrend.map(d => d.Total),
+                        data: trendData.map(d => d.Total),
                         borderColor: '#4ecdc4',
                         backgroundColor: 'rgba(78,205,196,0.1)',
                         fill: true,
@@ -587,18 +715,17 @@
             }
 
             // Day of Week Chart
-            if (DATA.DayOfWeekAverages) {
-                const dowCtx = document.getElementById('dowChart').getContext('2d');
-                const days = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
-                charts.dow = new Chart(dowCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: days.map(d => d.substring(0,3)),
-                        datasets: [{ data: days.map(d => DATA.DayOfWeekAverages[d] || 0), backgroundColor: '#4ecdc4' }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } } }
-                });
-            }
+            const dowCtx = document.getElementById('dowChart').getContext('2d');
+            const days = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
+            const dowData = DATA.DayOfWeekAverages ? days.map(d => DATA.DayOfWeekAverages[d] || 0) : days.map(() => DATA.Summary.MTDDailyAverage || 0);
+            charts.dow = new Chart(dowCtx, {
+                type: 'bar',
+                data: {
+                    labels: days.map(d => d.substring(0,3)),
+                    datasets: [{ data: dowData, backgroundColor: '#4ecdc4' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } } }
+            });
 
             // Customer Bar Chart
             if (DATA.TopCustomers.MTD?.length) {
@@ -623,6 +750,166 @@
                         datasets: [{ data: DATA.TopProducts.MTD.slice(0,15).map(p => p.Amount), backgroundColor: '#feca57' }]
                     },
                     options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }, y: { grid: { display: false }, ticks: { color: '#98c1d9' } } } }
+                });
+            }
+
+            // Product Pie Chart (MTD category breakdown)
+            const prodPieCtx = document.getElementById('productPieChart').getContext('2d');
+            charts.prodPie = new Chart(prodPieCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Product', 'Service', 'Freight', 'Miscellaneous'],
+                    datasets: [{ 
+                        data: [DATA.Summary.MTD.Product, DATA.Summary.MTD.Service, DATA.Summary.MTD.Freight, DATA.Summary.MTD.Miscellaneous], 
+                        backgroundColor: ['#4ecdc4','#ff6b6b','#feca57','#a29bfe'], 
+                        borderWidth: 0 
+                    }]
+                },
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    plugins: { 
+                        legend: { position: 'right', labels: { color: '#98c1d9', padding: 15 } },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const total = context.dataset.data.reduce((a,b) => a+b, 0);
+                                    const pct = ((context.raw / total) * 100).toFixed(1);
+                                    return `${context.label}: ${fmt(context.raw)} (${pct}%)`;
+                                }
+                            }
+                        }
+                    } 
+                }
+            });
+        }
+
+        let salesChartsInit = false;
+        function initSalesPage() {
+            if (salesChartsInit || !DATA.AllTeam) return;
+            salesChartsInit = true;
+            
+            const allTeamMTD = DATA.AllTeam?.MTD || [];
+            const allTeamYesterday = DATA.AllTeam?.Yesterday || [];
+            const salesMTD = DATA.Salesperson?.MTD || [];
+            const salesYesterday = DATA.Salesperson?.Yesterday || [];
+            const serviceMTD = DATA.ServiceReps?.MTD || [];
+            const serviceYesterday = DATA.ServiceReps?.Yesterday || [];
+            
+            // KPIs (use all team totals)
+            const mtdTotal = allTeamMTD.reduce((s,p) => s + p.Amount, 0);
+            const yTotal = allTeamYesterday.reduce((s,p) => s + p.Amount, 0);
+            const invoiceCount = allTeamMTD.reduce((s,p) => s + (p.InvoiceCount || 0), 0);
+            const topPerformer = allTeamMTD[0]?.Name || '--';
+            
+            document.getElementById('spYesterdayTotal').textContent = fmt(yTotal);
+            document.getElementById('spMTDTotal').textContent = fmt(mtdTotal);
+            document.getElementById('spTopPerformer').textContent = topPerformer;
+            document.getElementById('spInvoiceCount').textContent = invoiceCount;
+            
+            // Lists
+            renderSalespersonList('allTeamMTDList', allTeamMTD, true);
+            renderSalespersonList('salespersonMTDList', salesMTD, true);
+            renderSalespersonList('serviceRepMTDList', serviceMTD, true, true);  // Show territory for service reps
+            renderSalespersonList('salespersonYesterdayList', allTeamYesterday, true);
+            
+            // All Team MTD Stacked Bar Chart
+            if (allTeamMTD.length) {
+                const allCtx = document.getElementById('allTeamBarChart').getContext('2d');
+                charts.allTeam = new Chart(allCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: allTeamMTD.map(p => `${p.Name} (${p.Role || 'Team'})`),
+                        datasets: [
+                            { label: 'Product', data: allTeamMTD.map(p => p.ProductAmount || 0), backgroundColor: '#4ecdc4' },
+                            { label: 'Service', data: allTeamMTD.map(p => p.ServiceAmount || 0), backgroundColor: '#ff6b6b' }
+                        ]
+                    },
+                    options: { 
+                        indexAxis: 'y', 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { legend: { display: true, position: 'top', labels: { color: '#98c1d9' } } }, 
+                        scales: { 
+                            x: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }, 
+                            y: { stacked: true, grid: { display: false }, ticks: { color: '#98c1d9', font: { size: 11 } } } 
+                        } 
+                    }
+                });
+            }
+            
+            // Sales Reps MTD Bar Chart
+            if (salesMTD.length) {
+                const spCtx = document.getElementById('salespersonBarChart').getContext('2d');
+                charts.spMtd = new Chart(spCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: salesMTD.map(p => p.Name),
+                        datasets: [
+                            { label: 'Product', data: salesMTD.map(p => p.ProductAmount || 0), backgroundColor: '#4ecdc4' },
+                            { label: 'Service', data: salesMTD.map(p => p.ServiceAmount || 0), backgroundColor: '#ff6b6b' }
+                        ]
+                    },
+                    options: { 
+                        indexAxis: 'y', 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { legend: { display: true, position: 'top', labels: { color: '#98c1d9' } } }, 
+                        scales: { 
+                            x: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }, 
+                            y: { stacked: true, grid: { display: false }, ticks: { color: '#98c1d9' } } 
+                        } 
+                    }
+                });
+            }
+            
+            // Service Reps MTD Bar Chart
+            if (serviceMTD.length) {
+                const svcCtx = document.getElementById('serviceRepBarChart').getContext('2d');
+                charts.svcMtd = new Chart(svcCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: serviceMTD.map(p => p.Name),
+                        datasets: [
+                            { label: 'Product', data: serviceMTD.map(p => p.ProductAmount || 0), backgroundColor: '#4ecdc4' },
+                            { label: 'Service', data: serviceMTD.map(p => p.ServiceAmount || 0), backgroundColor: '#ff6b6b' }
+                        ]
+                    },
+                    options: { 
+                        indexAxis: 'y', 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { legend: { display: true, position: 'top', labels: { color: '#98c1d9' } } }, 
+                        scales: { 
+                            x: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }, 
+                            y: { stacked: true, grid: { display: false }, ticks: { color: '#98c1d9' } } 
+                        } 
+                    }
+                });
+            }
+            
+            // Yesterday Bar Chart
+            if (allTeamYesterday.length) {
+                const spYCtx = document.getElementById('salespersonYesterdayChart').getContext('2d');
+                charts.spYesterday = new Chart(spYCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: allTeamYesterday.map(p => `${p.Name} (${p.Role || 'Team'})`),
+                        datasets: [
+                            { label: 'Product', data: allTeamYesterday.map(p => p.ProductAmount || 0), backgroundColor: '#4ecdc4' },
+                            { label: 'Service', data: allTeamYesterday.map(p => p.ServiceAmount || 0), backgroundColor: '#ff6b6b' }
+                        ]
+                    },
+                    options: { 
+                        indexAxis: 'y', 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { legend: { display: true, position: 'top', labels: { color: '#98c1d9' } } }, 
+                        scales: { 
+                            x: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }, 
+                            y: { stacked: true, grid: { display: false }, ticks: { color: '#98c1d9' } } 
+                        } 
+                    }
                 });
             }
         }
@@ -682,18 +969,17 @@
             });
 
             // DOW Avg Chart
-            if (DATA.DayOfWeekAverages) {
-                const dowCtx = document.getElementById('dowAvgChart').getContext('2d');
-                const days = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
-                charts.dowAvg = new Chart(dowCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: days,
-                        datasets: [{ label: 'Historical Average', data: days.map(d => DATA.DayOfWeekAverages[d] || 0), backgroundColor: '#4ecdc4' }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } } }
-                });
-            }
+            const dowCtx = document.getElementById('dowAvgChart').getContext('2d');
+            const days = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
+            const dowData = DATA.DayOfWeekAverages ? days.map(d => DATA.DayOfWeekAverages[d] || 0) : days.map(() => DATA.Summary.MTDDailyAverage || 0);
+            charts.dowAvg = new Chart(dowCtx, {
+                type: 'bar',
+                data: {
+                    labels: days,
+                    datasets: [{ label: 'Historical Average', data: dowData, backgroundColor: '#4ecdc4' }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } } }
+            });
         }
 
         let map = null;
