@@ -555,7 +555,7 @@ Write-Host "6-week forecast total: `$$([math]::Round($cf6WeekTotal, 2))"
 
 # === STEP 8: Shipments ===
 Write-Host "Fetching shipment data..."
-$shipments = Invoke-SyteLineAPI -Token $token -IDO "SLShipments" -Properties "ConsigneeCity,ConsigneeState,ConsigneeZip" -RecordCap 3000
+$shipments = Invoke-SyteLineAPI -Token $token -IDO "SLShipments" -Properties "ConsigneeCity,ConsigneeState,ConsigneeZip" -RecordCap 10000
 $locationCounts = @{}
 foreach ($ship in $shipments) {
     if ($ship.ConsigneeCity -and $ship.ConsigneeState) {
@@ -564,6 +564,38 @@ foreach ($ship in $shipments) {
         $locationCounts[$locKey].Count++
     }
 }
+Write-Host "Total shipping locations: $($locationCounts.Count)"
+
+# === STEP 8.5: Service Tech Locations ===
+Write-Host "Building service tech location data..."
+# Get service items (LFTR, LGAS, LIHL = Field/Gas/In-house Labor)
+$serviceItemFilter = "ProductCode IN ('LFTR','LGAS','LIHL')"
+$serviceItemsData = Invoke-SyteLineAPI -Token $token -IDO "SLItems" -Properties "Item" -Filter $serviceItemFilter -RecordCap 500
+$serviceItemSet = @{}
+foreach ($si in $serviceItemsData) { if ($si.Item) { $serviceItemSet[$si.Item.Trim()] = $true } }
+Write-Host "Service items: $($serviceItemSet.Count)"
+
+# Find orders with service items using existing $coItems data
+$serviceOrderNums = @{}
+foreach ($line in $coItems) {
+    if ($line.Item -and $serviceItemSet.ContainsKey($line.Item.Trim()) -and $line.CoNum) {
+        $serviceOrderNums[$line.CoNum.Trim()] = $true
+    }
+}
+Write-Host "Orders with service items: $($serviceOrderNums.Count)"
+
+# Get service locations from orders
+$serviceLocationCounts = @{}
+foreach ($order in $orders) {
+    if ($order.CoNum -and $serviceOrderNums.ContainsKey($order.CoNum.Trim()) -and $order.ShipToCity -and $order.ShipToState) {
+        $locKey = "$($order.ShipToCity.Trim()), $($order.ShipToState.Trim())"
+        if (-not $serviceLocationCounts.ContainsKey($locKey)) { 
+            $serviceLocationCounts[$locKey] = @{City=$order.ShipToCity.Trim(); State=$order.ShipToState.Trim(); Count=0} 
+        }
+        $serviceLocationCounts[$locKey].Count++
+    }
+}
+Write-Host "Service tech locations: $($serviceLocationCounts.Count)"
 
 # === STEP 9: Build output ===
 $dailyTrend = @()
@@ -579,7 +611,10 @@ for ($i = 60; $i -ge 0; $i--) {
 $topCustomersMTD = $salesByCustomer.GetEnumerator() | Where-Object { $_.Value.MTD -gt 0 } | Sort-Object { $_.Value.MTD } -Descending | Select-Object -First 15 | ForEach-Object { @{Name=$_.Key; Amount=[math]::Round($_.Value.MTD,2)} }
 $topCustomersYesterday = $salesByCustomer.GetEnumerator() | Where-Object { $_.Value.Yesterday -gt 0 } | Sort-Object { $_.Value.Yesterday } -Descending | Select-Object -First 15 | ForEach-Object { @{Name=$_.Key; Amount=[math]::Round($_.Value.Yesterday,2)} }
 $topProductsMTD = $salesByProduct.GetEnumerator() | Sort-Object { $_.Value.MTD } -Descending | Select-Object -First 15 | ForEach-Object { @{Item=$_.Key; Description=$_.Value.Description; Amount=[math]::Round($_.Value.MTD,2)} }
-$shippingLocations = $locationCounts.Values | Sort-Object -Property Count -Descending | Select-Object -First 100
+# All shipping locations (no limit)
+$shippingLocations = $locationCounts.Values | Sort-Object -Property Count -Descending
+# All service tech locations (no limit)
+$serviceTechLocations = $serviceLocationCounts.Values | Sort-Object -Property Count -Descending
 
 # Team member roles and labels
 $teamRoles = @{
@@ -682,6 +717,7 @@ $dashboardData = @{
     AllTeam = @{ Yesterday=$allTeamYesterday; MTD=$allTeamMTD }
     DailyTrend = $dailyTrend
     ShippingHeatMap = $shippingLocations
+    ServiceTechLocations = $serviceTechLocations
     DayOfWeekAverages = $avgByDayOfWeek
     SalesforceTerritory = $salesforceTerritory
 }

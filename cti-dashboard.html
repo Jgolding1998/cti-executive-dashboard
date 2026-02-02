@@ -611,15 +611,35 @@
 
     <!-- GEOGRAPHY PAGE -->
     <div id="geography" class="page">
+        <!-- Shipping Destinations Section -->
+        <h3 style="color: var(--text-primary); margin: 0 0 15px 0; padding-left: 10px; border-left: 4px solid #4ecdc4;">📦 Product Shipping Destinations</h3>
         <div class="dashboard">
             <div class="card span-3">
-                <div class="card-title">Shipping Destinations Heat Map</div>
+                <div class="card-title">All Shipping Destinations</div>
                 <div id="shippingMap"></div>
             </div>
             <div class="card">
                 <div class="card-title">Top Shipping Locations</div>
                 <div class="top-list" id="topLocations" style="max-height: 400px;"></div>
             </div>
+        </div>
+        
+        <!-- Service Tech Locations Section -->
+        <h3 style="color: var(--text-primary); margin: 25px 0 15px 0; padding-left: 10px; border-left: 4px solid #ff6b6b;">🔧 Service Tech Visit Locations</h3>
+        <div class="dashboard">
+            <div class="card span-3">
+                <div class="card-title">Service Tech Destinations (On-Site Calibration & Service)</div>
+                <div id="serviceMap" style="height: 320px; border-radius: 10px;"></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Top Service Locations</div>
+                <div class="top-list" id="topServiceLocations" style="max-height: 400px;"></div>
+            </div>
+        </div>
+        
+        <!-- State Breakdown -->
+        <h3 style="color: var(--text-primary); margin: 25px 0 15px 0; padding-left: 10px; border-left: 4px solid var(--warning);">📊 State Breakdown</h3>
+        <div class="dashboard">
             <div class="card span-2">
                 <div class="card-title">Shipments by State</div>
                 <div class="chart-container tall"><canvas id="stateChart"></canvas></div>
@@ -1195,6 +1215,30 @@
             // Top locations list
             renderList('topLocations', DATA.ShippingHeatMap.slice(0,20).map(l => ({Name: `${l.City}, ${l.State}`, Amount: l.Count})));
             document.querySelectorAll('#topLocations .amount').forEach(el => el.textContent = el.textContent.replace('$','') + ' shipments');
+            
+            // Service Tech Map
+            if (DATA.ServiceTechLocations?.length) {
+                const serviceMap = L.map('serviceMap').setView([39.8, -98.6], 4);
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(serviceMap);
+                
+                DATA.ServiceTechLocations.forEach(loc => {
+                    const coords = stateCoords[loc.State];
+                    if (coords) {
+                        L.circleMarker([coords[0] + (Math.random()-0.5)*2, coords[1] + (Math.random()-0.5)*2], {
+                            radius: Math.min(Math.max(loc.Count * 3, 5), 30),
+                            fillColor: '#ff6b6b',
+                            color: '#ff6b6b',
+                            weight: 1,
+                            opacity: 0.8,
+                            fillOpacity: 0.5
+                        }).addTo(serviceMap).bindPopup(`<b>${loc.City}, ${loc.State}</b><br>${loc.Count} service visits`);
+                    }
+                });
+                
+                // Top service locations list
+                renderList('topServiceLocations', DATA.ServiceTechLocations.slice(0,20).map(l => ({Name: `${l.City}, ${l.State}`, Amount: l.Count})));
+                document.querySelectorAll('#topServiceLocations .amount').forEach(el => el.textContent = el.textContent.replace('$','') + ' visits');
+            }
 
             // State chart
             const sorted = Object.entries(stateCounts).sort((a,b) => b[1]-a[1]).slice(0,15);
