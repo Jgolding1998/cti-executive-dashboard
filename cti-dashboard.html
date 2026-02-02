@@ -845,17 +845,64 @@
                 });
             }
 
-            // Day of Week Chart
+            // Day of Week Chart - This Week (blue) vs Last Week (orange)
             const dowCtx = document.getElementById('dowChart').getContext('2d');
             const days = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
-            const dowData = DATA.DayOfWeekAverages ? days.map(d => DATA.DayOfWeekAverages[d] || 0) : days.map(() => DATA.Summary.MTDDailyAverage || 0);
+            const dayIndex = { 'Monday': 0, 'Tuesday': 1, 'Wednesday': 2, 'Thursday': 3, 'Friday': 4 };
+            
+            // Get today's day of week (0=Sun, 1=Mon, etc) and calculate dates
+            const today = new Date();
+            const todayDOW = today.getDay(); // 0=Sun, 1=Mon, ... 5=Fri, 6=Sat
+            
+            // Calculate this week's Monday
+            let thisMonday = new Date(today);
+            const daysFromMonday = todayDOW === 0 ? 6 : todayDOW - 1;
+            thisMonday.setDate(today.getDate() - daysFromMonday);
+            thisMonday.setHours(0,0,0,0);
+            
+            // Calculate last week's Monday
+            let lastMonday = new Date(thisMonday);
+            lastMonday.setDate(lastMonday.getDate() - 7);
+            
+            // Build this week and last week data from DailyTrend
+            const thisWeekData = [0, 0, 0, 0, 0];
+            const lastWeekData = [0, 0, 0, 0, 0];
+            
+            if (DATA.DailyTrend) {
+                DATA.DailyTrend.forEach(d => {
+                    const date = new Date(d.Date + 'T12:00:00');
+                    const dow = d.DayOfWeek;
+                    if (dayIndex[dow] !== undefined) {
+                        // Check if it's this week
+                        if (date >= thisMonday && date < new Date(thisMonday.getTime() + 7*24*60*60*1000)) {
+                            thisWeekData[dayIndex[dow]] = d.Total || 0;
+                        }
+                        // Check if it's last week
+                        else if (date >= lastMonday && date < thisMonday) {
+                            lastWeekData[dayIndex[dow]] = d.Total || 0;
+                        }
+                    }
+                });
+            }
+            
             charts.dow = new Chart(dowCtx, {
                 type: 'bar',
                 data: {
                     labels: days.map(d => d.substring(0,3)),
-                    datasets: [{ data: dowData, backgroundColor: '#4ecdc4' }]
+                    datasets: [
+                        { label: 'This Week', data: thisWeekData, backgroundColor: '#4ecdc4' },
+                        { label: 'Last Week', data: lastWeekData, backgroundColor: '#ff9f43' }
+                    ]
                 },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } } }
+                options: { 
+                    responsive: true, 
+                    maintainAspectRatio: false, 
+                    plugins: { legend: { display: true, position: 'top', labels: { color: '#98c1d9' } } }, 
+                    scales: { 
+                        x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, 
+                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } 
+                    } 
+                }
             });
 
             // Customer Bar Chart
