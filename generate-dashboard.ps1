@@ -254,9 +254,22 @@ foreach ($gl in $ledgerData) {
             } elseif ($acct -eq "495000") {
                 $salesByDate[$dateKey].Miscellaneous += $amount
                 $salesByDate[$dateKey].Total += $amount
-            } elseif ($acct -in @("401000", "402000") -and $gl.Ref -match "ARI\s+(\d+)") {
-                $invNum = $matches[1].Trim()
-                $orderNum = $invToOrder[$invNum]
+            } elseif ($acct -in @("401000", "402000")) {
+                # Handle both invoices (ARI) and credit memos (ARC)
+                $invNum = $null
+                $orderNum = $null
+                $svcRatio = 0
+                $prodRatio = 1  # Default to product
+                
+                if ($gl.Ref -match "ARI\s+(\d+)") {
+                    $invNum = $matches[1].Trim()
+                    $orderNum = $invToOrder[$invNum]
+                } elseif ($gl.Ref -match "ARC") {
+                    # AR Credit - reduces revenue (amount is already handled by * -1)
+                    # These don't have order linkage, so default to product
+                    $invNum = $null
+                    $orderNum = $null
+                }
                 
                 if ($orderNum -and $orderBreakdown.ContainsKey($orderNum) -and $orderBreakdown[$orderNum].Total -gt 0) {
                     $breakdown = $orderBreakdown[$orderNum]
@@ -266,7 +279,7 @@ foreach ($gl in $ledgerData) {
                     $salesByDate[$dateKey].Service += $amount * $svcRatio
                     $salesByDate[$dateKey].Product += $amount * $prodRatio
                 } else {
-                    $salesByDate[$dateKey].Product += $amount  # Default to product
+                    $salesByDate[$dateKey].Product += $amount  # Default to product (includes ARC credits)
                 }
                 $salesByDate[$dateKey].Total += $amount
                 
