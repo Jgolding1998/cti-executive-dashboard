@@ -360,20 +360,20 @@ foreach ($dow in @("Monday","Tuesday","Wednesday","Thursday","Friday")) {
 }
 Write-Host "Day of week averages calculated: Mon=$($avgByDayOfWeek['Monday']), Tue=$($avgByDayOfWeek['Tuesday']), Wed=$($avgByDayOfWeek['Wednesday']), Thu=$($avgByDayOfWeek['Thursday']), Fri=$($avgByDayOfWeek['Friday'])"
 
-# === STEP 6: AR Aging (use Birst data if available) ===
+# === STEP 6: AR Aging (use SyteLine calculated data - Invoice minus Payments) ===
 Write-Host "Loading AR aging data..."
-$birstArPath = Join-Path $OutputPath "data\birst-ar-aging.json"
-if (Test-Path $birstArPath) {
-    $birstAR = Get-Content $birstArPath | ConvertFrom-Json
+$sytelineArPath = Join-Path $OutputPath "data\ar-aging-net.json"
+if (Test-Path $sytelineArPath) {
+    $sytelineAR = Get-Content $sytelineArPath | ConvertFrom-Json
     $arAging = @{
-        Current = [decimal]$birstAR.Current
-        Days1_30 = [decimal]$birstAR.Days1_30
-        Days31_60 = [decimal]$birstAR.Days31_60
-        Days61_90 = [decimal]$birstAR.Days61_90
-        Days90Plus = [decimal]$birstAR.Days90Plus
-        Total = [decimal]$birstAR.Total
+        Current = [decimal]$sytelineAR.summary.buckets.current
+        Days1_30 = [decimal]$sytelineAR.summary.buckets.'1-30'
+        Days31_60 = [decimal]$sytelineAR.summary.buckets.'31-60'
+        Days61_90 = [decimal]$sytelineAR.summary.buckets.'61-90'
+        Days90Plus = [decimal]$sytelineAR.summary.buckets.'91+'
+        Total = [decimal]$sytelineAR.summary.totalAR
     }
-    Write-Host "Using Birst AR aging data: Total = `$$([math]::Round($arAging.Total, 2))"
+    Write-Host "Using SyteLine AR aging (Invoice-Payments): Total = `$$([math]::Round($arAging.Total, 2))"
 } else {
     # Calculate from transactions if Birst data not available
     $arAging = @{ Current=0; Days1_30=0; Days31_60=0; Days61_90=0; Days90Plus=0; Total=0 }
@@ -638,6 +638,18 @@ $salespersonMTD | ForEach-Object { Write-Host "  $($_.Name): `$$($_.Amount)" }
 Write-Host "`nService Reps Only:"
 $serviceRepMTD | ForEach-Object { Write-Host "  $($_.Name): `$$($_.Amount)" }
 
+# Load Salesforce territory data if available
+$salesforceTerritoryPath = Join-Path $OutputPath "data\salesforce-territory.json"
+$salesforceTerritory = $null
+if (Test-Path $salesforceTerritoryPath) {
+    try {
+        $salesforceTerritory = Get-Content $salesforceTerritoryPath | ConvertFrom-Json
+        Write-Host "Loaded Salesforce territory data: $($salesforceTerritory.salesTeam.Count) sales reps"
+    } catch {
+        Write-Host "Warning: Could not load Salesforce territory data"
+    }
+}
+
 $dashboardData = @{
     GeneratedAt = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
     DataSource = "SyteLine GL Ledger with ProductCode (LFTR/LGAS/LIHL=Service)"
@@ -658,6 +670,7 @@ $dashboardData = @{
     DailyTrend = $dailyTrend
     ShippingHeatMap = $shippingLocations
     DayOfWeekAverages = $avgByDayOfWeek
+    SalesforceTerritory = $salesforceTerritory
 }
 
 # Save JSON
@@ -675,6 +688,7 @@ $cashFlowPrediction | ForEach-Object { Write-Host "  $($_.Week): `$$($_.Total) (
 
 # Create self-contained HTML
 Write-Host "`nCreating self-contained dashboard..."
+# Use cti-dashboard.html as template (has latest AllTeam, ServiceReps, Salesforce features)
 $htmlTemplatePath = Join-Path $OutputPath "cti-dashboard.html"
 if (Test-Path $htmlTemplatePath) {
     $htmlTemplate = Get-Content $htmlTemplatePath -Raw

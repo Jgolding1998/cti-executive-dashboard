@@ -572,7 +572,7 @@
                 },
     "CashFlowPrediction":  [
                                {
-                                   "Total":  552286.77,
+                                   "Total":  549073.17,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-02",
@@ -582,296 +582,296 @@
                                                         },
                                                         {
                                                             "Date":  "2026-02-03",
-                                                            "Amount":  159014.84,
+                                                            "Amount":  158069.66,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-04",
-                                                            "Amount":  141857.24,
+                                                            "Amount":  140912.06,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-05",
-                                                            "Amount":  117252.99,
+                                                            "Amount":  116496.85,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-06",
-                                                            "Amount":  134161.71,
+                                                            "Amount":  133594.60,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-06",
-                                   "ExpectedCollections":  336585.51,
+                                   "ExpectedCollections":  323983.13,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  8296.87,
-                                                   "From1_30":  92692.67,
-                                                   "FromCurrent":  725559.41,
-                                                   "From90Plus":  3583.12,
-                                                   "From31_60":  11331.70
+                                                   "From61_90":  8672.10,
+                                                   "From1_30":  88087.96,
+                                                   "FromCurrent":  693927.16,
+                                                   "From90Plus":  4950.87,
+                                                   "From31_60":  14319.74
                                                },
                                    "StartDate":  "2026-02-02",
-                                   "Predicted":  552286.77,
-                                   "ARDue":  329280.05,
+                                   "Predicted":  549073.17,
+                                   "ARDue":  321093.91,
                                    "WeekNum":  1,
                                    "Week":  "Week of Feb 2",
                                    "Confidence":  45
                                },
                                {
-                                   "Total":  638901.96,
+                                   "Total":  635909.72,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-09",
-                                                            "Amount":  101042.36,
+                                                            "Amount":  100593.52,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-10",
-                                                            "Amount":  154771.55,
+                                                            "Amount":  154023.49,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-11",
-                                                            "Amount":  137613.95,
+                                                            "Amount":  136865.89,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-12",
-                                                            "Amount":  113858.36,
+                                                            "Amount":  113259.92,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-13",
-                                                            "Amount":  131615.73,
+                                                            "Amount":  131166.9,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-13",
-                                   "ExpectedCollections":  280008.36,
+                                   "ExpectedCollections":  270034.22,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  7224.25,
-                                                   "From1_30":  164449.5,
-                                                   "FromCurrent":  501191.6,
-                                                   "From90Plus":  4341.14,
-                                                   "From31_60":  22814.4
+                                                   "From61_90":  7860.45,
+                                                   "From1_30":  156941.85,
+                                                   "FromCurrent":  480575,
+                                                   "From90Plus":  5719.06,
+                                                   "From31_60":  23989.2
                                                },
                                    "StartDate":  "2026-02-09",
-                                   "Predicted":  638901.96,
+                                   "Predicted":  635909.72,
                                    "ARDue":  973596.03,
                                    "WeekNum":  2,
                                    "Week":  "Week of Feb 9",
                                    "Confidence":  38
                                },
                                {
-                                   "Total":  560643.12,
+                                   "Total":  558694.94,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-16",
-                                                            "Amount":  20296.26,
+                                                            "Amount":  20229.84,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-17",
-                                                            "Amount":  155503.1,
+                                                            "Amount":  154949.64,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-18",
-                                                            "Amount":  138345.5,
+                                                            "Amount":  137792.04,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-19",
-                                                            "Amount":  114443.6,
+                                                            "Amount":  114000.84,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-20",
-                                                            "Amount":  132054.66,
+                                                            "Amount":  131722.59,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-20",
-                                   "ExpectedCollections":  289762.34,
+                                   "ExpectedCollections":  282382.87,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  7908.8,
-                                                   "From1_30":  173848.5,
-                                                   "FromCurrent":  495434.2,
-                                                   "From90Plus":  4976.74,
-                                                   "From31_60":  42237.6
+                                                   "From61_90":  8500.95,
+                                                   "From1_30":  166251.3,
+                                                   "FromCurrent":  483064.2,
+                                                   "From90Plus":  6390.72,
+                                                   "From31_60":  41750
                                                },
                                    "StartDate":  "2026-02-16",
-                                   "Predicted":  560643.12,
+                                   "Predicted":  558694.94,
                                    "ARDue":  686765.24,
                                    "WeekNum":  3,
                                    "Week":  "Week of Feb 16",
                                    "Confidence":  30
                                },
                                {
-                                   "Total":  637237.56,
+                                   "Total":  635603.09,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-23",
-                                                            "Amount":  100792.7,
+                                                            "Amount":  100547.53,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-24",
-                                                            "Amount":  154355.45,
+                                                            "Amount":  153946.83,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-25",
-                                                            "Amount":  137197.85,
+                                                            "Amount":  136789.23,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-26",
-                                                            "Amount":  113525.49,
+                                                            "Amount":  113198.59,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-27",
-                                                            "Amount":  131366.07,
+                                                            "Amount":  131120.9,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-27",
-                                   "ExpectedCollections":  274460.37,
+                                   "ExpectedCollections":  269012.14,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  10815.85,
-                                                   "From1_30":  178624.2,
-                                                   "FromCurrent":  434613.6,
-                                                   "From90Plus":  5668.08,
-                                                   "From31_60":  56429.2
+                                                   "From61_90":  11169.4,
+                                                   "From1_30":  172210.35,
+                                                   "FromCurrent":  427191.6,
+                                                   "From90Plus":  7113,
+                                                   "From31_60":  54846
                                                },
                                    "StartDate":  "2026-02-23",
-                                   "Predicted":  637237.56,
+                                   "Predicted":  635603.09,
                                    "ARDue":  672510.83,
                                    "WeekNum":  4,
                                    "Week":  "Week of Feb 23",
                                    "Confidence":  30
                                },
                                {
-                                   "Total":  633541.17,
+                                   "Total":  632339.74,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-03-02",
-                                                            "Amount":  100238.24,
+                                                            "Amount":  100058.03,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-03",
-                                                            "Amount":  153431.35,
+                                                            "Amount":  153131,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-04",
-                                                            "Amount":  136273.75,
+                                                            "Amount":  135973.4,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-05",
-                                                            "Amount":  112786.21,
+                                                            "Amount":  112545.92,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-06",
-                                                            "Amount":  130811.62,
+                                                            "Amount":  130631.4,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-03-06",
-                                   "ExpectedCollections":  262139.06,
+                                   "ExpectedCollections":  258134.31,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  14624.75,
-                                                   "From1_30":  172366.5,
-                                                   "FromCurrent":  395270.4,
-                                                   "From90Plus":  6636.3,
-                                                   "From31_60":  66449.7
+                                                   "From61_90":  14674.35,
+                                                   "From1_30":  167404.95,
+                                                   "FromCurrent":  390817.2,
+                                                   "From90Plus":  8087.68,
+                                                   "From31_60":  64351.6
                                                },
                                    "StartDate":  "2026-03-02",
-                                   "Predicted":  633541.17,
+                                   "Predicted":  632339.74,
                                    "ARDue":  91365.90,
                                    "WeekNum":  5,
                                    "Week":  "Week of Mar 2",
                                    "Confidence":  22
                                },
                                {
-                                   "Total":  616888.51,
+                                   "Total":  616011.6,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-03-09",
-                                                            "Amount":  97740.34,
+                                                            "Amount":  97608.81,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-10",
-                                                            "Amount":  149268.19,
+                                                            "Amount":  149048.96,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-11",
-                                                            "Amount":  132110.59,
+                                                            "Amount":  131891.36,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-12",
-                                                            "Amount":  109455.67,
+                                                            "Amount":  109280.29,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-13",
-                                                            "Amount":  128313.72,
+                                                            "Amount":  128182.18,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-03-13",
-                                   "ExpectedCollections":  206630.2,
+                                   "ExpectedCollections":  203707.16,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  18543.55,
-                                                   "From1_30":  162710.4,
-                                                   "FromCurrent":  255435.4,
-                                                   "From90Plus":  7966.04,
-                                                   "From31_60":  71920.1
+                                                   "From61_90":  18316,
+                                                   "From1_30":  159065.55,
+                                                   "FromCurrent":  252763.6,
+                                                   "From90Plus":  9393.36,
+                                                   "From31_60":  69729.4
                                                },
                                    "StartDate":  "2026-03-09",
-                                   "Predicted":  616888.51,
+                                   "Predicted":  616011.6,
                                    "ARDue":  86037.11,
                                    "WeekNum":  6,
                                    "Week":  "Week of Mar 9",
@@ -972,52 +972,10 @@
                     },
     "ShippingHeatMap":  [
                             {
-                                "Zip":  "54603",
-                                "State":  "WI",
-                                "Count":  1,
-                                "City":  "La Crosse"
-                            },
-                            {
                                 "Zip":  "29006",
                                 "State":  "SC",
                                 "Count":  1,
                                 "City":  "Batesburg"
-                            },
-                            {
-                                "Zip":  "31408",
-                                "State":  "GA",
-                                "Count":  4,
-                                "City":  "Savannah"
-                            },
-                            {
-                                "Zip":  "83338",
-                                "State":  "ID",
-                                "Count":  2,
-                                "City":  "Jerome"
-                            },
-                            {
-                                "Zip":  "52501",
-                                "State":  "IA",
-                                "Count":  1,
-                                "City":  "Ottumwa"
-                            },
-                            {
-                                "Zip":  "56031",
-                                "State":  "MN",
-                                "Count":  1,
-                                "City":  "Fairmont"
-                            },
-                            {
-                                "Zip":  "24153",
-                                "State":  "VA",
-                                "Count":  1,
-                                "City":  "Salem"
-                            },
-                            {
-                                "Zip":  "02760",
-                                "State":  "MA",
-                                "Count":  1,
-                                "City":  "North Attleborough"
                             },
                             {
                                 "Zip":  "49426",
@@ -1026,160 +984,28 @@
                                 "City":  "Hudsonville"
                             },
                             {
-                                "Zip":  "14787",
-                                "State":  "NY",
+                                "Zip":  "54603",
+                                "State":  "WI",
                                 "Count":  1,
-                                "City":  "Westfield"
+                                "City":  "La Crosse"
                             },
                             {
-                                "Zip":  "51012",
+                                "Zip":  "52501",
                                 "State":  "IA",
                                 "Count":  1,
-                                "City":  "Cherokee"
+                                "City":  "Ottumwa"
                             },
                             {
-                                "Zip":  "75052",
-                                "State":  "TX",
-                                "Count":  1,
-                                "City":  "Grand Prairie"
+                                "Zip":  "31408",
+                                "State":  "GA",
+                                "Count":  4,
+                                "City":  "Savannah"
                             },
                             {
-                                "Zip":  "17543",
-                                "State":  "PA",
-                                "Count":  2,
-                                "City":  "Lititz"
-                            },
-                            {
-                                "Zip":  "75141",
-                                "State":  "TX",
-                                "Count":  1,
-                                "City":  "Hutchins"
-                            },
-                            {
-                                "Zip":  "72701",
-                                "State":  "AR",
-                                "Count":  2,
-                                "City":  "Fayetteville"
-                            },
-                            {
-                                "Zip":  "17901",
-                                "State":  "PA",
-                                "Count":  3,
-                                "City":  "Pottsville"
-                            },
-                            {
-                                "Zip":  "98199",
-                                "State":  "WA",
-                                "Count":  11,
-                                "City":  "Seattle"
-                            },
-                            {
-                                "Zip":  "68137",
-                                "State":  "NE",
-                                "Count":  10,
-                                "City":  "Omaha"
-                            },
-                            {
-                                "Zip":  "64804",
-                                "State":  "MO",
-                                "Count":  3,
-                                "City":  "Joplin"
-                            },
-                            {
-                                "Zip":  "35957",
-                                "State":  "AL",
-                                "Count":  1,
-                                "City":  "Boaz"
-                            },
-                            {
-                                "Zip":  "60467",
-                                "State":  "IL",
-                                "Count":  1,
-                                "City":  "Orland Park"
-                            },
-                            {
-                                "Zip":  "23666",
+                                "Zip":  "24153",
                                 "State":  "VA",
                                 "Count":  1,
-                                "City":  "Hampton"
-                            },
-                            {
-                                "Zip":  "49735",
-                                "State":  "MI",
-                                "Count":  1,
-                                "City":  "Gaylord"
-                            },
-                            {
-                                "Zip":  "26003",
-                                "State":  "WV",
-                                "Count":  1,
-                                "City":  "Wheeling"
-                            },
-                            {
-                                "Zip":  "08037",
-                                "State":  "NJ",
-                                "Count":  1,
-                                "City":  "Hammonton"
-                            },
-                            {
-                                "Zip":  "52641",
-                                "State":  "IA",
-                                "Count":  1,
-                                "City":  "Mount Pleasant"
-                            },
-                            {
-                                "Zip":  "V4W 2W8",
-                                "State":  "BC-C",
-                                "Count":  1,
-                                "City":  "Aldergrove"
-                            },
-                            {
-                                "Zip":  "61008",
-                                "State":  "IL",
-                                "Count":  1,
-                                "City":  "Belvidere"
-                            },
-                            {
-                                "Zip":  "60957",
-                                "State":  "IL",
-                                "Count":  4,
-                                "City":  "Paxton"
-                            },
-                            {
-                                "Zip":  "27529",
-                                "State":  "NC",
-                                "Count":  2,
-                                "City":  "Garner"
-                            },
-                            {
-                                "Zip":  "44870",
-                                "State":  "OH",
-                                "Count":  1,
-                                "City":  "Sandusky"
-                            },
-                            {
-                                "Zip":  "60484",
-                                "State":  "IL",
-                                "Count":  2,
-                                "City":  "University Park"
-                            },
-                            {
-                                "Zip":  "51031",
-                                "State":  "IA",
-                                "Count":  2,
-                                "City":  "Le Mars"
-                            },
-                            {
-                                "Zip":  "29847",
-                                "State":  "SC",
-                                "Count":  1,
-                                "City":  "Trenton"
-                            },
-                            {
-                                "Zip":  "49646",
-                                "State":  "MI",
-                                "Count":  1,
-                                "City":  "Kalkaska"
+                                "City":  "Salem"
                             },
                             {
                                 "Zip":  "21220",
@@ -1188,292 +1014,124 @@
                                 "City":  "Baltimore"
                             },
                             {
-                                "Zip":  "96819",
-                                "State":  "HI",
-                                "Count":  1,
-                                "City":  "Honolulu"
-                            },
-                            {
-                                "Zip":  "04740",
-                                "State":  "ME",
-                                "Count":  1,
-                                "City":  "Easton"
-                            },
-                            {
-                                "Zip":  "68766",
-                                "State":  "NE",
-                                "Count":  1,
-                                "City":  "South Sioux City"
-                            },
-                            {
-                                "Zip":  "98264",
-                                "State":  "WA",
-                                "Count":  1,
-                                "City":  "Lynden"
-                            },
-                            {
-                                "Zip":  "54130",
-                                "State":  "WI",
-                                "Count":  5,
-                                "City":  "Kaukauna"
-                            },
-                            {
-                                "Zip":  "70806",
-                                "State":  "LA",
-                                "Count":  1,
-                                "City":  "Baton Rouge"
-                            },
-                            {
-                                "Zip":  "45385",
-                                "State":  "OH",
-                                "Count":  1,
-                                "City":  "Xenia"
-                            },
-                            {
-                                "Zip":  "17331",
-                                "State":  "PA",
-                                "Count":  1,
-                                "City":  "HANOVER"
-                            },
-                            {
-                                "Zip":  "42101",
-                                "State":  "KY",
-                                "Count":  1,
-                                "City":  "Bowling Green"
-                            },
-                            {
-                                "Zip":  "44146",
-                                "State":  "OH",
-                                "Count":  2,
-                                "City":  "Bedford Heights"
-                            },
-                            {
-                                "Zip":  "55309",
-                                "State":  "MN",
-                                "Count":  2,
-                                "City":  "Big Lake"
-                            },
-                            {
-                                "Zip":  "56156",
+                                "Zip":  "56031",
                                 "State":  "MN",
                                 "Count":  1,
-                                "City":  "Luverne"
+                                "City":  "Fairmont"
                             },
                             {
-                                "Zip":  "52806",
-                                "State":  "IA",
-                                "Count":  1,
-                                "City":  "Davenport"
-                            },
-                            {
-                                "Zip":  "31730-7432",
-                                "State":  "GA",
-                                "Count":  2,
-                                "City":  "Camilla"
-                            },
-                            {
-                                "Zip":  "48849",
-                                "State":  "MI",
-                                "Count":  2,
-                                "City":  "Lake Odessa"
-                            },
-                            {
-                                "Zip":  "82604",
-                                "State":  "WY",
-                                "Count":  1,
-                                "City":  "Casper"
-                            },
-                            {
-                                "Zip":  "43402",
-                                "State":  "OH",
-                                "Count":  1,
-                                "City":  "Bowling Green"
-                            },
-                            {
-                                "Zip":  "17019",
-                                "State":  "PA",
-                                "Count":  2,
-                                "City":  "Dillsburg"
-                            },
-                            {
-                                "Zip":  "30643",
-                                "State":  "GA",
-                                "Count":  1,
-                                "City":  "Hartwell"
-                            },
-                            {
-                                "Zip":  "14543",
+                                "Zip":  "14787",
                                 "State":  "NY",
                                 "Count":  1,
-                                "City":  "Rush"
+                                "City":  "Westfield"
                             },
                             {
-                                "Zip":  "44104",
-                                "State":  "OH",
+                                "Zip":  "02760",
+                                "State":  "MA",
                                 "Count":  1,
-                                "City":  "Cleveland"
+                                "City":  "North Attleborough"
                             },
                             {
-                                "Zip":  "17801",
+                                "Zip":  "83338",
+                                "State":  "ID",
+                                "Count":  2,
+                                "City":  "Jerome"
+                            },
+                            {
+                                "Zip":  "17543",
                                 "State":  "PA",
-                                "Count":  1,
-                                "City":  "Sunbury"
+                                "Count":  2,
+                                "City":  "Lititz"
                             },
                             {
-                                "Zip":  "54401",
-                                "State":  "WI",
+                                "Zip":  "35957",
+                                "State":  "AL",
+                                "Count":  1,
+                                "City":  "Boaz"
+                            },
+                            {
+                                "Zip":  "75052",
+                                "State":  "TX",
+                                "Count":  1,
+                                "City":  "Grand Prairie"
+                            },
+                            {
+                                "Zip":  "17901",
+                                "State":  "PA",
                                 "Count":  3,
-                                "City":  "Wausau"
-                            },
-                            {
-                                "Zip":  "91761",
-                                "State":  "CA",
-                                "Count":  1,
-                                "City":  "Ontario"
-                            },
-                            {
-                                "Zip":  "80640",
-                                "State":  "CO",
-                                "Count":  1,
-                                "City":  "Henderson"
-                            },
-                            {
-                                "Zip":  "73401",
-                                "State":  "OK",
-                                "Count":  2,
-                                "City":  "Ardmore"
-                            },
-                            {
-                                "Zip":  "95301",
-                                "State":  "CA",
-                                "Count":  1,
-                                "City":  "Atwater"
-                            },
-                            {
-                                "Zip":  "74055",
-                                "State":  "OK",
-                                "Count":  2,
-                                "City":  "Owasso"
-                            },
-                            {
-                                "Zip":  "51101",
-                                "State":  "IA",
-                                "Count":  8,
-                                "City":  "Sioux City"
-                            },
-                            {
-                                "Zip":  "63134",
-                                "State":  "MO",
-                                "Count":  1,
-                                "City":  "Berkeley"
-                            },
-                            {
-                                "Zip":  "44647",
-                                "State":  "OH",
-                                "Count":  3,
-                                "City":  "Massillon"
-                            },
-                            {
-                                "Zip":  "91733",
-                                "State":  "CA",
-                                "Count":  5,
-                                "City":  "South El Monte"
-                            },
-                            {
-                                "Zip":  "39601",
-                                "State":  "MS",
-                                "Count":  1,
-                                "City":  "Brookhaven"
-                            },
-                            {
-                                "Zip":  "56232",
-                                "State":  "MN",
-                                "Count":  1,
-                                "City":  "Dawson"
-                            },
-                            {
-                                "Zip":  "5010",
-                                "State":  "NZ-WG",
-                                "Count":  1,
-                                "City":  "Lower Hutt"
-                            },
-                            {
-                                "Zip":  "29506",
-                                "State":  "SC",
-                                "Count":  2,
-                                "City":  "Florence"
-                            },
-                            {
-                                "Zip":  "90631",
-                                "State":  "CA",
-                                "Count":  4,
-                                "City":  "La Habra"
-                            },
-                            {
-                                "Zip":  "84088",
-                                "State":  "UT",
-                                "Count":  2,
-                                "City":  "West Jordan"
-                            },
-                            {
-                                "Zip":  "53959",
-                                "State":  "WI",
-                                "Count":  1,
-                                "City":  "Reedsburg"
-                            },
-                            {
-                                "Zip":  "37408",
-                                "State":  "TN",
-                                "Count":  1,
-                                "City":  "Chattanooga"
-                            },
-                            {
-                                "Zip":  "99301",
-                                "State":  "WA",
-                                "Count":  6,
-                                "City":  "Pasco"
-                            },
-                            {
-                                "Zip":  "7570027",
-                                "State":  "RM",
-                                "Count":  1,
-                                "City":  "Las Condes"
-                            },
-                            {
-                                "Zip":  "91356",
-                                "State":  "CA",
-                                "Count":  1,
-                                "City":  "Los Angeles"
-                            },
-                            {
-                                "Zip":  "49321",
-                                "State":  "MI",
-                                "Count":  2,
-                                "City":  "Comstock Park"
-                            },
-                            {
-                                "Zip":  "97210",
-                                "State":  "OR",
-                                "Count":  6,
-                                "City":  "Portland"
-                            },
-                            {
-                                "Zip":  "54603",
-                                "State":  "WI",
-                                "Count":  1,
-                                "City":  "LaCrosse"
-                            },
-                            {
-                                "Zip":  "21830",
-                                "State":  "MD",
-                                "Count":  1,
-                                "City":  "Hebron"
+                                "City":  "Pottsville"
                             },
                             {
                                 "Zip":  "75141",
                                 "State":  "TX",
                                 "Count":  1,
-                                "City":  "Hutchens"
+                                "City":  "Hutchins"
+                            },
+                            {
+                                "Zip":  "68137",
+                                "State":  "NE",
+                                "Count":  10,
+                                "City":  "Omaha"
+                            },
+                            {
+                                "Zip":  "51012",
+                                "State":  "IA",
+                                "Count":  1,
+                                "City":  "Cherokee"
+                            },
+                            {
+                                "Zip":  "98199",
+                                "State":  "WA",
+                                "Count":  11,
+                                "City":  "Seattle"
+                            },
+                            {
+                                "Zip":  "60467",
+                                "State":  "IL",
+                                "Count":  1,
+                                "City":  "Orland Park"
+                            },
+                            {
+                                "Zip":  "64804",
+                                "State":  "MO",
+                                "Count":  3,
+                                "City":  "Joplin"
+                            },
+                            {
+                                "Zip":  "49735",
+                                "State":  "MI",
+                                "Count":  1,
+                                "City":  "Gaylord"
+                            },
+                            {
+                                "Zip":  "27529",
+                                "State":  "NC",
+                                "Count":  2,
+                                "City":  "Garner"
+                            },
+                            {
+                                "Zip":  "23666",
+                                "State":  "VA",
+                                "Count":  1,
+                                "City":  "Hampton"
+                            },
+                            {
+                                "Zip":  "52641",
+                                "State":  "IA",
+                                "Count":  1,
+                                "City":  "Mount Pleasant"
+                            },
+                            {
+                                "Zip":  "26003",
+                                "State":  "WV",
+                                "Count":  1,
+                                "City":  "Wheeling"
+                            },
+                            {
+                                "Zip":  "61008",
+                                "State":  "IL",
+                                "Count":  1,
+                                "City":  "Belvidere"
                             },
                             {
                                 "Zip":  "85213",
@@ -1482,10 +1140,346 @@
                                 "City":  "Mesa"
                             },
                             {
-                                "Zip":  "44512",
+                                "Zip":  "V4W 2W8",
+                                "State":  "BC-C",
+                                "Count":  1,
+                                "City":  "Aldergrove"
+                            },
+                            {
+                                "Zip":  "44870",
                                 "State":  "OH",
                                 "Count":  1,
-                                "City":  "Youngstown"
+                                "City":  "Sandusky"
+                            },
+                            {
+                                "Zip":  "60957",
+                                "State":  "IL",
+                                "Count":  4,
+                                "City":  "Paxton"
+                            },
+                            {
+                                "Zip":  "08037",
+                                "State":  "NJ",
+                                "Count":  1,
+                                "City":  "Hammonton"
+                            },
+                            {
+                                "Zip":  "29847",
+                                "State":  "SC",
+                                "Count":  1,
+                                "City":  "Trenton"
+                            },
+                            {
+                                "Zip":  "54130",
+                                "State":  "WI",
+                                "Count":  5,
+                                "City":  "Kaukauna"
+                            },
+                            {
+                                "Zip":  "51031",
+                                "State":  "IA",
+                                "Count":  2,
+                                "City":  "Le Mars"
+                            },
+                            {
+                                "Zip":  "96819",
+                                "State":  "HI",
+                                "Count":  1,
+                                "City":  "Honolulu"
+                            },
+                            {
+                                "Zip":  "49646",
+                                "State":  "MI",
+                                "Count":  1,
+                                "City":  "Kalkaska"
+                            },
+                            {
+                                "Zip":  "68766",
+                                "State":  "NE",
+                                "Count":  1,
+                                "City":  "South Sioux City"
+                            },
+                            {
+                                "Zip":  "60484",
+                                "State":  "IL",
+                                "Count":  2,
+                                "City":  "University Park"
+                            },
+                            {
+                                "Zip":  "04740",
+                                "State":  "ME",
+                                "Count":  1,
+                                "City":  "Easton"
+                            },
+                            {
+                                "Zip":  "70806",
+                                "State":  "LA",
+                                "Count":  1,
+                                "City":  "Baton Rouge"
+                            },
+                            {
+                                "Zip":  "98264",
+                                "State":  "WA",
+                                "Count":  1,
+                                "City":  "Lynden"
+                            },
+                            {
+                                "Zip":  "17331",
+                                "State":  "PA",
+                                "Count":  1,
+                                "City":  "HANOVER"
+                            },
+                            {
+                                "Zip":  "48849",
+                                "State":  "MI",
+                                "Count":  2,
+                                "City":  "Lake Odessa"
+                            },
+                            {
+                                "Zip":  "45385",
+                                "State":  "OH",
+                                "Count":  1,
+                                "City":  "Xenia"
+                            },
+                            {
+                                "Zip":  "55309",
+                                "State":  "MN",
+                                "Count":  2,
+                                "City":  "Big Lake"
+                            },
+                            {
+                                "Zip":  "42101",
+                                "State":  "KY",
+                                "Count":  1,
+                                "City":  "Bowling Green"
+                            },
+                            {
+                                "Zip":  "52806",
+                                "State":  "IA",
+                                "Count":  1,
+                                "City":  "Davenport"
+                            },
+                            {
+                                "Zip":  "7570027",
+                                "State":  "RM",
+                                "Count":  1,
+                                "City":  "Las Condes"
+                            },
+                            {
+                                "Zip":  "56156",
+                                "State":  "MN",
+                                "Count":  1,
+                                "City":  "Luverne"
+                            },
+                            {
+                                "Zip":  "82604",
+                                "State":  "WY",
+                                "Count":  1,
+                                "City":  "Casper"
+                            },
+                            {
+                                "Zip":  "31730-7432",
+                                "State":  "GA",
+                                "Count":  2,
+                                "City":  "Camilla"
+                            },
+                            {
+                                "Zip":  "44146",
+                                "State":  "OH",
+                                "Count":  2,
+                                "City":  "Bedford Heights"
+                            },
+                            {
+                                "Zip":  "30643",
+                                "State":  "GA",
+                                "Count":  1,
+                                "City":  "Hartwell"
+                            },
+                            {
+                                "Zip":  "73401",
+                                "State":  "OK",
+                                "Count":  2,
+                                "City":  "Ardmore"
+                            },
+                            {
+                                "Zip":  "17019",
+                                "State":  "PA",
+                                "Count":  2,
+                                "City":  "Dillsburg"
+                            },
+                            {
+                                "Zip":  "17801",
+                                "State":  "PA",
+                                "Count":  1,
+                                "City":  "Sunbury"
+                            },
+                            {
+                                "Zip":  "14543",
+                                "State":  "NY",
+                                "Count":  1,
+                                "City":  "Rush"
+                            },
+                            {
+                                "Zip":  "91761",
+                                "State":  "CA",
+                                "Count":  1,
+                                "City":  "Ontario"
+                            },
+                            {
+                                "Zip":  "43402",
+                                "State":  "OH",
+                                "Count":  1,
+                                "City":  "Bowling Green"
+                            },
+                            {
+                                "Zip":  "54401",
+                                "State":  "WI",
+                                "Count":  3,
+                                "City":  "Wausau"
+                            },
+                            {
+                                "Zip":  "95301",
+                                "State":  "CA",
+                                "Count":  1,
+                                "City":  "Atwater"
+                            },
+                            {
+                                "Zip":  "80640",
+                                "State":  "CO",
+                                "Count":  1,
+                                "City":  "Henderson"
+                            },
+                            {
+                                "Zip":  "51101",
+                                "State":  "IA",
+                                "Count":  8,
+                                "City":  "Sioux City"
+                            },
+                            {
+                                "Zip":  "29506",
+                                "State":  "SC",
+                                "Count":  2,
+                                "City":  "Florence"
+                            },
+                            {
+                                "Zip":  "74055",
+                                "State":  "OK",
+                                "Count":  2,
+                                "City":  "Owasso"
+                            },
+                            {
+                                "Zip":  "91733",
+                                "State":  "CA",
+                                "Count":  5,
+                                "City":  "South El Monte"
+                            },
+                            {
+                                "Zip":  "63134",
+                                "State":  "MO",
+                                "Count":  1,
+                                "City":  "Berkeley"
+                            },
+                            {
+                                "Zip":  "56232",
+                                "State":  "MN",
+                                "Count":  1,
+                                "City":  "Dawson"
+                            },
+                            {
+                                "Zip":  "72701",
+                                "State":  "AR",
+                                "Count":  2,
+                                "City":  "Fayetteville"
+                            },
+                            {
+                                "Zip":  "39601",
+                                "State":  "MS",
+                                "Count":  1,
+                                "City":  "Brookhaven"
+                            },
+                            {
+                                "Zip":  "90631",
+                                "State":  "CA",
+                                "Count":  4,
+                                "City":  "La Habra"
+                            },
+                            {
+                                "Zip":  "5010",
+                                "State":  "NZ-WG",
+                                "Count":  1,
+                                "City":  "Lower Hutt"
+                            },
+                            {
+                                "Zip":  "44647",
+                                "State":  "OH",
+                                "Count":  3,
+                                "City":  "Massillon"
+                            },
+                            {
+                                "Zip":  "37408",
+                                "State":  "TN",
+                                "Count":  1,
+                                "City":  "Chattanooga"
+                            },
+                            {
+                                "Zip":  "21830",
+                                "State":  "MD",
+                                "Count":  1,
+                                "City":  "Hebron"
+                            },
+                            {
+                                "Zip":  "53959",
+                                "State":  "WI",
+                                "Count":  1,
+                                "City":  "Reedsburg"
+                            },
+                            {
+                                "Zip":  "91356",
+                                "State":  "CA",
+                                "Count":  1,
+                                "City":  "Los Angeles"
+                            },
+                            {
+                                "Zip":  "99301",
+                                "State":  "WA",
+                                "Count":  6,
+                                "City":  "Pasco"
+                            },
+                            {
+                                "Zip":  "97210",
+                                "State":  "OR",
+                                "Count":  6,
+                                "City":  "Portland"
+                            },
+                            {
+                                "Zip":  "84088",
+                                "State":  "UT",
+                                "Count":  2,
+                                "City":  "West Jordan"
+                            },
+                            {
+                                "Zip":  "49321",
+                                "State":  "MI",
+                                "Count":  2,
+                                "City":  "Comstock Park"
+                            },
+                            {
+                                "Zip":  "75141",
+                                "State":  "TX",
+                                "Count":  1,
+                                "City":  "Hutchens"
+                            },
+                            {
+                                "Zip":  "54603",
+                                "State":  "WI",
+                                "Count":  1,
+                                "City":  "LaCrosse"
+                            },
+                            {
+                                "Zip":  "28078",
+                                "State":  "NC",
+                                "Count":  1,
+                                "City":  "Huntersville"
                             },
                             {
                                 "Zip":  "97317",
@@ -1494,16 +1488,16 @@
                                 "City":  "Salem"
                             },
                             {
-                                "Zip":  "97322",
-                                "State":  "OR",
-                                "Count":  2,
-                                "City":  "Albany"
-                            },
-                            {
-                                "Zip":  "28103",
+                                "Zip":  "28655",
                                 "State":  "NC",
                                 "Count":  1,
-                                "City":  "Marshville"
+                                "City":  "Morganton"
+                            },
+                            {
+                                "Zip":  "44512",
+                                "State":  "OH",
+                                "Count":  1,
+                                "City":  "Youngstown"
                             },
                             {
                                 "Zip":  "57103",
@@ -1512,10 +1506,10 @@
                                 "City":  "Sioux Falls"
                             },
                             {
-                                "Zip":  "57252",
-                                "State":  "SD",
-                                "Count":  1,
-                                "City":  "Milbank"
+                                "Zip":  "97322",
+                                "State":  "OR",
+                                "Count":  2,
+                                "City":  "Albany"
                             },
                             {
                                 "Zip":  "45869",
@@ -1524,16 +1518,16 @@
                                 "City":  "New Bremen"
                             },
                             {
-                                "Zip":  "76903",
+                                "Zip":  "76137",
                                 "State":  "TX",
-                                "Count":  1,
-                                "City":  "San Angelo"
+                                "Count":  4,
+                                "City":  "Fort Worth"
                             },
                             {
-                                "Zip":  "28655",
-                                "State":  "NC",
+                                "Zip":  "57252",
+                                "State":  "SD",
                                 "Count":  1,
-                                "City":  "Morganton"
+                                "City":  "Milbank"
                             },
                             {
                                 "Zip":  "95633",
@@ -1542,16 +1536,16 @@
                                 "City":  "Garden Valley"
                             },
                             {
-                                "Zip":  "78163",
+                                "Zip":  "76903",
                                 "State":  "TX",
                                 "Count":  1,
-                                "City":  "Bulverde"
+                                "City":  "San Angelo"
                             },
                             {
-                                "Zip":  "35752",
-                                "State":  "AL",
+                                "Zip":  "28103",
+                                "State":  "NC",
                                 "Count":  1,
-                                "City":  "Hollywood"
+                                "City":  "Marshville"
                             },
                             {
                                 "Zip":  "76705",
@@ -1560,16 +1554,22 @@
                                 "City":  "Waco"
                             },
                             {
-                                "Zip":  "17201",
-                                "State":  "PA",
+                                "Zip":  "76262",
+                                "State":  "TX",
                                 "Count":  1,
-                                "City":  "Chambersburg"
+                                "City":  "Roanoke"
                             },
                             {
-                                "Zip":  "85034",
-                                "State":  "AZ",
+                                "Zip":  "35752",
+                                "State":  "AL",
                                 "Count":  1,
-                                "City":  "Phoenix"
+                                "City":  "Hollywood"
+                            },
+                            {
+                                "Zip":  "38751",
+                                "State":  "MS",
+                                "Count":  1,
+                                "City":  "Indianola"
                             }
                         ],
     "Summary":  {
@@ -1684,12 +1684,260 @@
                               "Thursday":  138654.09
                           },
     "ARaging":  {
-                    "Current":  3627797.03,
-                    "Days90Plus":  179156.16,
-                    "Days31_60":  113316.98,
-                    "Total":  4704158.80,
-                    "Days1_30":  617951.15,
-                    "Days61_90":  165937.48
+                    "Current":  3469635.78,
+                    "Days90Plus":  247543.65,
+                    "Days31_60":  143197.42,
+                    "Total":  4621071.87,
+                    "Days1_30":  587253.04,
+                    "Days61_90":  173441.98
                 },
-    "GeneratedAt":  "2026-02-02 07:21:36"
+    "SalesforceTerritory":  {
+                                "generatedAt":  "2026-02-02T15:05:26.608Z",
+                                "salesTeam":  [
+                                                  {
+                                                      "name":  "Phil Libbert",
+                                                      "role":  "Inside Sales",
+                                                      "totalAccounts":  61,
+                                                      "revenue":  1529128.5,
+                                                      "wonOpps":  49,
+                                                      "stateCount":  25,
+                                                      "topStates":  [
+                                                                        {
+                                                                            "state":  "TX",
+                                                                            "count":  8
+                                                                        },
+                                                                        {
+                                                                            "state":  "CA",
+                                                                            "count":  6
+                                                                        },
+                                                                        {
+                                                                            "state":  "IA",
+                                                                            "count":  5
+                                                                        },
+                                                                        {
+                                                                            "state":  "PA",
+                                                                            "count":  4
+                                                                        },
+                                                                        {
+                                                                            "state":  "GA",
+                                                                            "count":  3
+                                                                        }
+                                                                    ],
+                                                      "cityCount":  56
+                                                  },
+                                                  {
+                                                      "name":  "Miguel Lopez",
+                                                      "role":  "Outside Sales",
+                                                      "totalAccounts":  2,
+                                                      "revenue":  414729.24,
+                                                      "wonOpps":  12,
+                                                      "stateCount":  2,
+                                                      "topStates":  [
+                                                                        {
+                                                                            "state":  "FL",
+                                                                            "count":  1
+                                                                        },
+                                                                        {
+                                                                            "state":  "MZ",
+                                                                            "count":  1
+                                                                        }
+                                                                    ],
+                                                      "cityCount":  2
+                                                  },
+                                                  {
+                                                      "name":  "Andy Neptune",
+                                                      "role":  "Outside Sales",
+                                                      "totalAccounts":  27,
+                                                      "revenue":  386660,
+                                                      "wonOpps":  15,
+                                                      "stateCount":  9,
+                                                      "topStates":  [
+                                                                        {
+                                                                            "state":  "NH",
+                                                                            "count":  9
+                                                                        },
+                                                                        {
+                                                                            "state":  "TX",
+                                                                            "count":  6
+                                                                        },
+                                                                        {
+                                                                            "state":  "WA",
+                                                                            "count":  5
+                                                                        },
+                                                                        {
+                                                                            "state":  "NY",
+                                                                            "count":  2
+                                                                        },
+                                                                        {
+                                                                            "state":  "GA",
+                                                                            "count":  1
+                                                                        }
+                                                                    ],
+                                                      "cityCount":  11
+                                                  },
+                                                  {
+                                                      "name":  "Richard Hatcher",
+                                                      "role":  "Sales Director",
+                                                      "totalAccounts":  1,
+                                                      "revenue":  85930,
+                                                      "wonOpps":  3,
+                                                      "stateCount":  1,
+                                                      "topStates":  [
+                                                                        {
+                                                                            "state":  "MO",
+                                                                            "count":  1
+                                                                        }
+                                                                    ],
+                                                      "cityCount":  1
+                                                  }
+                                              ],
+                                "stateHeatMap":  [
+                                                     {
+                                                         "state":  "TX",
+                                                         "total":  14,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "NH",
+                                                         "total":  9,
+                                                         "topRep":  "Andy Neptune"
+                                                     },
+                                                     {
+                                                         "state":  "CA",
+                                                         "total":  6,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "IA",
+                                                         "total":  6,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "WA",
+                                                         "total":  6,
+                                                         "topRep":  "Andy Neptune"
+                                                     },
+                                                     {
+                                                         "state":  "NY",
+                                                         "total":  5,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "PA",
+                                                         "total":  5,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "GA",
+                                                         "total":  4,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "FL",
+                                                         "total":  3,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "OH",
+                                                         "total":  3,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "WI",
+                                                         "total":  3,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "MI",
+                                                         "total":  3,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "OR",
+                                                         "total":  2,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "IL",
+                                                         "total":  2,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "NV",
+                                                         "total":  2,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "UT",
+                                                         "total":  2,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "NJ",
+                                                         "total":  2,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "KY",
+                                                         "total":  2,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "MA",
+                                                         "total":  2,
+                                                         "topRep":  "Andy Neptune"
+                                                     },
+                                                     {
+                                                         "state":  "MO",
+                                                         "total":  2,
+                                                         "topRep":  "Andy Neptune"
+                                                     },
+                                                     {
+                                                         "state":  "MZ",
+                                                         "total":  1,
+                                                         "topRep":  "Miguel Lopez"
+                                                     },
+                                                     {
+                                                         "state":  "AR",
+                                                         "total":  1,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "MS",
+                                                         "total":  1,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "NC",
+                                                         "total":  1,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "IN",
+                                                         "total":  1,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "VA",
+                                                         "total":  1,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "NE",
+                                                         "total":  1,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "CO",
+                                                         "total":  1,
+                                                         "topRep":  "Phil Libbert"
+                                                     }
+                                                 ],
+                                "summary":  {
+                                                "totalSalesReps":  4,
+                                                "totalAccountsCovered":  6102,
+                                                "totalStates":  28
+                                            }
+                            },
+    "GeneratedAt":  "2026-02-02 08:18:43"
 }

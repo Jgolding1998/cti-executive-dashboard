@@ -179,14 +179,16 @@
         .cash-flow-week .day.today { border-bottom: 2px solid var(--accent); }
         .cash-flow-week .day .day-name { color: var(--text-secondary); margin-bottom: 4px; }
         .cash-flow-week .day .day-amount { font-weight: 600; }
-        .ar-aging { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 15px; }
+        .ar-aging { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
         .ar-bucket {
             text-align: center;
-            padding: 15px 10px;
+            padding: 12px 6px;
             background: rgba(255,255,255,0.03);
             border-radius: 8px;
+            min-width: 0;
+            overflow: hidden;
         }
-        .ar-bucket .amount { font-size: 18px; font-weight: 700; }
+        .ar-bucket .amount { font-size: 14px; font-weight: 700; white-space: nowrap; }
         .ar-bucket .label { font-size: 10px; color: var(--text-secondary); margin-top: 4px; }
         .ar-bucket.current .amount { color: var(--success); }
         .ar-bucket.days30 .amount { color: #4ecdc4; }
@@ -233,6 +235,28 @@
             .kpi-row { grid-template-columns: repeat(2, 1fr); }
             .ar-aging { grid-template-columns: repeat(3, 1fr); }
         }
+        /* Drill-down Modal */
+        .drilldown-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); z-index: 1000; backdrop-filter: blur(4px);
+        }
+        .drilldown-overlay.active { display: flex; align-items: center; justify-content: center; }
+        .drilldown-modal {
+            background: var(--bg-card); border-radius: 16px; max-width: 700px; width: 90%; max-height: 80vh;
+            overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);
+        }
+        .drilldown-header {
+            padding: 20px 25px; border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03);
+        }
+        .drilldown-header h3 { margin: 0; font-size: 18px; }
+        .drilldown-header .close-btn { background: none; border: none; color: var(--text-secondary); font-size: 24px; cursor: pointer; }
+        .drilldown-header .close-btn:hover { color: white; }
+        .drilldown-body { padding: 25px; overflow-y: auto; max-height: calc(80vh - 80px); }
+        .drilldown-total { font-size: 36px; font-weight: 700; color: var(--success); margin-bottom: 20px; }
+        .drilldown-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .drilldown-row:last-child { border-bottom: none; }
+        .drilldown-row .value { font-weight: 600; }
     </style>
 </head>
 <body>
@@ -241,6 +265,7 @@
         <div class="nav">
             <a href="#" class="active" onclick="showPage('overview')">Overview</a>
             <a href="#" onclick="showPage('sales')">Sales Team</a>
+            <a href="#" onclick="showPage('pnl')">P&L</a>
             <a href="#" onclick="showPage('cashflow')">Cash Flow</a>
             <a href="#" onclick="showPage('customers')">Customers</a>
             <a href="#" onclick="showPage('products')">Products</a>
@@ -252,13 +277,13 @@
     <!-- OVERVIEW PAGE -->
     <div id="overview" class="page active">
         <div class="kpi-row">
-            <div class="kpi-card">
+            <div class="kpi-card" style="cursor:pointer" onclick="showDrilldown('yesterday')">
                 <div class="value" style="color: var(--success);" id="kpiYesterday">$0</div>
-                <div class="label">Yesterday's Sales</div>
+                <div class="label">Yesterday's Sales â–¼</div>
             </div>
-            <div class="kpi-card">
+            <div class="kpi-card" style="cursor:pointer" onclick="showDrilldown('mtd')">
                 <div class="value" style="color: #4ecdc4;" id="kpiMTD">$0</div>
-                <div class="label">Month-to-Date</div>
+                <div class="label">Month-to-Date â–¼</div>
             </div>
             <div class="kpi-card">
                 <div class="value" style="color: var(--warning);" id="kpiYTD">$0</div>
@@ -412,6 +437,67 @@
         </div>
     </div>
 
+    <!-- P&L / INCOME STATEMENT PAGE -->
+    <div id="pnl" class="page">
+        <div class="kpi-row">
+            <div class="kpi-card" style="cursor:pointer;" onclick="showDrilldown('mtd')">
+                <div class="value" style="color: var(--success);" id="pnlRevenue">$0</div>
+                <div class="label">MTD Total Revenue</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: #4ecdc4;" id="pnlProductRev">$0</div>
+                <div class="label">Product Revenue</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: #ff6b6b;" id="pnlServiceRev">$0</div>
+                <div class="label">Service Revenue</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: var(--warning);" id="pnlOtherRev">$0</div>
+                <div class="label">Other (Freight + Misc)</div>
+            </div>
+        </div>
+        <div class="dashboard">
+            <div class="card span-2">
+                <div class="card-title">Revenue by Category (MTD)</div>
+                <div class="chart-container tall"><canvas id="pnlCategoryChart"></canvas></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Revenue Mix</div>
+                <div class="chart-container tall"><canvas id="pnlMixPieChart"></canvas></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Revenue Breakdown</div>
+                <div style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px;">
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <span style="color: var(--text-secondary);">Product Sales (401000)</span>
+                        <span id="pnlProductRow" style="font-weight: 600; color: #4ecdc4;">$0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <span style="color: var(--text-secondary);">Service Sales (402000)</span>
+                        <span id="pnlServiceRow" style="font-weight: 600; color: #ff6b6b;">$0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <span style="color: var(--text-secondary);">Freight Revenue (495400)</span>
+                        <span id="pnlFreightRow" style="font-weight: 600; color: #feca57;">$0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <span style="color: var(--text-secondary);">Miscellaneous (495000)</span>
+                        <span id="pnlMiscRow" style="font-weight: 600; color: #a29bfe;">$0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; margin-top: 8px; border-top: 2px solid var(--accent);">
+                        <span style="font-weight: 700;">TOTAL REVENUE</span>
+                        <span id="pnlTotalRow" style="font-weight: 700; color: var(--success);">$0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Daily Revenue Trend (MTD)</div>
+                <div class="chart-container tall"><canvas id="pnlDailyChart"></canvas></div>
+            </div>
+        </div>
+    </div>
+
     <!-- CASH FLOW PAGE -->
     <div id="cashflow" class="page">
         <div class="kpi-row">
@@ -516,12 +602,8 @@
                 <div class="chart-container tall"><canvas id="stateChart"></canvas></div>
             </div>
             <div class="card span-2">
-                <div class="card-title">Service Tech Locations</div>
-                <div style="padding: 40px; text-align: center; color: var(--text-secondary);">
-                    <div style="font-size: 48px; margin-bottom: 15px;">ðŸ”§</div>
-                    <div>Salesforce integration coming soon</div>
-                    <div style="font-size: 12px; margin-top: 10px;">Will show real-time service technician locations</div>
-                </div>
+                <div class="card-title">Sales Rep Territories (Salesforce)</div>
+                <div id="salesTerritoryList" class="top-list" style="max-height: 400px;"></div>
             </div>
         </div>
     </div>
@@ -1102,7 +1184,7 @@
                 },
     "CashFlowPrediction":  [
                                {
-                                   "Total":  552286.77,
+                                   "Total":  549073.17,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-02",
@@ -1112,296 +1194,296 @@
                                                         },
                                                         {
                                                             "Date":  "2026-02-03",
-                                                            "Amount":  159014.84,
+                                                            "Amount":  158069.66,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-04",
-                                                            "Amount":  141857.24,
+                                                            "Amount":  140912.06,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-05",
-                                                            "Amount":  117252.99,
+                                                            "Amount":  116496.85,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-06",
-                                                            "Amount":  134161.71,
+                                                            "Amount":  133594.60,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-06",
-                                   "ExpectedCollections":  336585.51,
+                                   "ExpectedCollections":  323983.13,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  8296.87,
-                                                   "From1_30":  92692.67,
-                                                   "FromCurrent":  725559.41,
-                                                   "From90Plus":  3583.12,
-                                                   "From31_60":  11331.70
+                                                   "From61_90":  8672.10,
+                                                   "From1_30":  88087.96,
+                                                   "FromCurrent":  693927.16,
+                                                   "From90Plus":  4950.87,
+                                                   "From31_60":  14319.74
                                                },
                                    "StartDate":  "2026-02-02",
-                                   "Predicted":  552286.77,
-                                   "ARDue":  329280.05,
+                                   "Predicted":  549073.17,
+                                   "ARDue":  321093.91,
                                    "WeekNum":  1,
                                    "Week":  "Week of Feb 2",
                                    "Confidence":  45
                                },
                                {
-                                   "Total":  638901.96,
+                                   "Total":  635909.72,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-09",
-                                                            "Amount":  101042.36,
+                                                            "Amount":  100593.52,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-10",
-                                                            "Amount":  154771.55,
+                                                            "Amount":  154023.49,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-11",
-                                                            "Amount":  137613.95,
+                                                            "Amount":  136865.89,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-12",
-                                                            "Amount":  113858.36,
+                                                            "Amount":  113259.92,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-13",
-                                                            "Amount":  131615.73,
+                                                            "Amount":  131166.9,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-13",
-                                   "ExpectedCollections":  280008.36,
+                                   "ExpectedCollections":  270034.22,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  7224.25,
-                                                   "From1_30":  164449.5,
-                                                   "FromCurrent":  501191.6,
-                                                   "From90Plus":  4341.14,
-                                                   "From31_60":  22814.4
+                                                   "From61_90":  7860.45,
+                                                   "From1_30":  156941.85,
+                                                   "FromCurrent":  480575,
+                                                   "From90Plus":  5719.06,
+                                                   "From31_60":  23989.2
                                                },
                                    "StartDate":  "2026-02-09",
-                                   "Predicted":  638901.96,
+                                   "Predicted":  635909.72,
                                    "ARDue":  973596.03,
                                    "WeekNum":  2,
                                    "Week":  "Week of Feb 9",
                                    "Confidence":  38
                                },
                                {
-                                   "Total":  560643.12,
+                                   "Total":  558694.94,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-16",
-                                                            "Amount":  20296.26,
+                                                            "Amount":  20229.84,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-17",
-                                                            "Amount":  155503.1,
+                                                            "Amount":  154949.64,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-18",
-                                                            "Amount":  138345.5,
+                                                            "Amount":  137792.04,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-19",
-                                                            "Amount":  114443.6,
+                                                            "Amount":  114000.84,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-20",
-                                                            "Amount":  132054.66,
+                                                            "Amount":  131722.59,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-20",
-                                   "ExpectedCollections":  289762.34,
+                                   "ExpectedCollections":  282382.87,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  7908.8,
-                                                   "From1_30":  173848.5,
-                                                   "FromCurrent":  495434.2,
-                                                   "From90Plus":  4976.74,
-                                                   "From31_60":  42237.6
+                                                   "From61_90":  8500.95,
+                                                   "From1_30":  166251.3,
+                                                   "FromCurrent":  483064.2,
+                                                   "From90Plus":  6390.72,
+                                                   "From31_60":  41750
                                                },
                                    "StartDate":  "2026-02-16",
-                                   "Predicted":  560643.12,
+                                   "Predicted":  558694.94,
                                    "ARDue":  686765.24,
                                    "WeekNum":  3,
                                    "Week":  "Week of Feb 16",
                                    "Confidence":  30
                                },
                                {
-                                   "Total":  637237.56,
+                                   "Total":  635603.09,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-23",
-                                                            "Amount":  100792.7,
+                                                            "Amount":  100547.53,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-24",
-                                                            "Amount":  154355.45,
+                                                            "Amount":  153946.83,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-25",
-                                                            "Amount":  137197.85,
+                                                            "Amount":  136789.23,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-26",
-                                                            "Amount":  113525.49,
+                                                            "Amount":  113198.59,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-27",
-                                                            "Amount":  131366.07,
+                                                            "Amount":  131120.9,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-27",
-                                   "ExpectedCollections":  274460.37,
+                                   "ExpectedCollections":  269012.14,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  10815.85,
-                                                   "From1_30":  178624.2,
-                                                   "FromCurrent":  434613.6,
-                                                   "From90Plus":  5668.08,
-                                                   "From31_60":  56429.2
+                                                   "From61_90":  11169.4,
+                                                   "From1_30":  172210.35,
+                                                   "FromCurrent":  427191.6,
+                                                   "From90Plus":  7113,
+                                                   "From31_60":  54846
                                                },
                                    "StartDate":  "2026-02-23",
-                                   "Predicted":  637237.56,
+                                   "Predicted":  635603.09,
                                    "ARDue":  672510.83,
                                    "WeekNum":  4,
                                    "Week":  "Week of Feb 23",
                                    "Confidence":  30
                                },
                                {
-                                   "Total":  633541.17,
+                                   "Total":  632339.74,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-03-02",
-                                                            "Amount":  100238.24,
+                                                            "Amount":  100058.03,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-03",
-                                                            "Amount":  153431.35,
+                                                            "Amount":  153131,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-04",
-                                                            "Amount":  136273.75,
+                                                            "Amount":  135973.4,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-05",
-                                                            "Amount":  112786.21,
+                                                            "Amount":  112545.92,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-06",
-                                                            "Amount":  130811.62,
+                                                            "Amount":  130631.4,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-03-06",
-                                   "ExpectedCollections":  262139.06,
+                                   "ExpectedCollections":  258134.31,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  14624.75,
-                                                   "From1_30":  172366.5,
-                                                   "FromCurrent":  395270.4,
-                                                   "From90Plus":  6636.3,
-                                                   "From31_60":  66449.7
+                                                   "From61_90":  14674.35,
+                                                   "From1_30":  167404.95,
+                                                   "FromCurrent":  390817.2,
+                                                   "From90Plus":  8087.68,
+                                                   "From31_60":  64351.6
                                                },
                                    "StartDate":  "2026-03-02",
-                                   "Predicted":  633541.17,
+                                   "Predicted":  632339.74,
                                    "ARDue":  91365.90,
                                    "WeekNum":  5,
                                    "Week":  "Week of Mar 2",
                                    "Confidence":  22
                                },
                                {
-                                   "Total":  616888.51,
+                                   "Total":  616011.6,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-03-09",
-                                                            "Amount":  97740.34,
+                                                            "Amount":  97608.81,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-10",
-                                                            "Amount":  149268.19,
+                                                            "Amount":  149048.96,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-11",
-                                                            "Amount":  132110.59,
+                                                            "Amount":  131891.36,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-12",
-                                                            "Amount":  109455.67,
+                                                            "Amount":  109280.29,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-13",
-                                                            "Amount":  128313.72,
+                                                            "Amount":  128182.18,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-03-13",
-                                   "ExpectedCollections":  206630.2,
+                                   "ExpectedCollections":  203707.16,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  18543.55,
-                                                   "From1_30":  162710.4,
-                                                   "FromCurrent":  255435.4,
-                                                   "From90Plus":  7966.04,
-                                                   "From31_60":  71920.1
+                                                   "From61_90":  18316,
+                                                   "From1_30":  159065.55,
+                                                   "FromCurrent":  252763.6,
+                                                   "From90Plus":  9393.36,
+                                                   "From31_60":  69729.4
                                                },
                                    "StartDate":  "2026-03-09",
-                                   "Predicted":  616888.51,
+                                   "Predicted":  616011.6,
                                    "ARDue":  86037.11,
                                    "WeekNum":  6,
                                    "Week":  "Week of Mar 9",
@@ -1502,52 +1584,10 @@
                     },
     "ShippingHeatMap":  [
                             {
-                                "Zip":  "54603",
-                                "State":  "WI",
-                                "Count":  1,
-                                "City":  "La Crosse"
-                            },
-                            {
                                 "Zip":  "29006",
                                 "State":  "SC",
                                 "Count":  1,
                                 "City":  "Batesburg"
-                            },
-                            {
-                                "Zip":  "31408",
-                                "State":  "GA",
-                                "Count":  4,
-                                "City":  "Savannah"
-                            },
-                            {
-                                "Zip":  "83338",
-                                "State":  "ID",
-                                "Count":  2,
-                                "City":  "Jerome"
-                            },
-                            {
-                                "Zip":  "52501",
-                                "State":  "IA",
-                                "Count":  1,
-                                "City":  "Ottumwa"
-                            },
-                            {
-                                "Zip":  "56031",
-                                "State":  "MN",
-                                "Count":  1,
-                                "City":  "Fairmont"
-                            },
-                            {
-                                "Zip":  "24153",
-                                "State":  "VA",
-                                "Count":  1,
-                                "City":  "Salem"
-                            },
-                            {
-                                "Zip":  "02760",
-                                "State":  "MA",
-                                "Count":  1,
-                                "City":  "North Attleborough"
                             },
                             {
                                 "Zip":  "49426",
@@ -1556,160 +1596,28 @@
                                 "City":  "Hudsonville"
                             },
                             {
-                                "Zip":  "14787",
-                                "State":  "NY",
+                                "Zip":  "54603",
+                                "State":  "WI",
                                 "Count":  1,
-                                "City":  "Westfield"
+                                "City":  "La Crosse"
                             },
                             {
-                                "Zip":  "51012",
+                                "Zip":  "52501",
                                 "State":  "IA",
                                 "Count":  1,
-                                "City":  "Cherokee"
+                                "City":  "Ottumwa"
                             },
                             {
-                                "Zip":  "75052",
-                                "State":  "TX",
-                                "Count":  1,
-                                "City":  "Grand Prairie"
+                                "Zip":  "31408",
+                                "State":  "GA",
+                                "Count":  4,
+                                "City":  "Savannah"
                             },
                             {
-                                "Zip":  "17543",
-                                "State":  "PA",
-                                "Count":  2,
-                                "City":  "Lititz"
-                            },
-                            {
-                                "Zip":  "75141",
-                                "State":  "TX",
-                                "Count":  1,
-                                "City":  "Hutchins"
-                            },
-                            {
-                                "Zip":  "72701",
-                                "State":  "AR",
-                                "Count":  2,
-                                "City":  "Fayetteville"
-                            },
-                            {
-                                "Zip":  "17901",
-                                "State":  "PA",
-                                "Count":  3,
-                                "City":  "Pottsville"
-                            },
-                            {
-                                "Zip":  "98199",
-                                "State":  "WA",
-                                "Count":  11,
-                                "City":  "Seattle"
-                            },
-                            {
-                                "Zip":  "68137",
-                                "State":  "NE",
-                                "Count":  10,
-                                "City":  "Omaha"
-                            },
-                            {
-                                "Zip":  "64804",
-                                "State":  "MO",
-                                "Count":  3,
-                                "City":  "Joplin"
-                            },
-                            {
-                                "Zip":  "35957",
-                                "State":  "AL",
-                                "Count":  1,
-                                "City":  "Boaz"
-                            },
-                            {
-                                "Zip":  "60467",
-                                "State":  "IL",
-                                "Count":  1,
-                                "City":  "Orland Park"
-                            },
-                            {
-                                "Zip":  "23666",
+                                "Zip":  "24153",
                                 "State":  "VA",
                                 "Count":  1,
-                                "City":  "Hampton"
-                            },
-                            {
-                                "Zip":  "49735",
-                                "State":  "MI",
-                                "Count":  1,
-                                "City":  "Gaylord"
-                            },
-                            {
-                                "Zip":  "26003",
-                                "State":  "WV",
-                                "Count":  1,
-                                "City":  "Wheeling"
-                            },
-                            {
-                                "Zip":  "08037",
-                                "State":  "NJ",
-                                "Count":  1,
-                                "City":  "Hammonton"
-                            },
-                            {
-                                "Zip":  "52641",
-                                "State":  "IA",
-                                "Count":  1,
-                                "City":  "Mount Pleasant"
-                            },
-                            {
-                                "Zip":  "V4W 2W8",
-                                "State":  "BC-C",
-                                "Count":  1,
-                                "City":  "Aldergrove"
-                            },
-                            {
-                                "Zip":  "61008",
-                                "State":  "IL",
-                                "Count":  1,
-                                "City":  "Belvidere"
-                            },
-                            {
-                                "Zip":  "60957",
-                                "State":  "IL",
-                                "Count":  4,
-                                "City":  "Paxton"
-                            },
-                            {
-                                "Zip":  "27529",
-                                "State":  "NC",
-                                "Count":  2,
-                                "City":  "Garner"
-                            },
-                            {
-                                "Zip":  "44870",
-                                "State":  "OH",
-                                "Count":  1,
-                                "City":  "Sandusky"
-                            },
-                            {
-                                "Zip":  "60484",
-                                "State":  "IL",
-                                "Count":  2,
-                                "City":  "University Park"
-                            },
-                            {
-                                "Zip":  "51031",
-                                "State":  "IA",
-                                "Count":  2,
-                                "City":  "Le Mars"
-                            },
-                            {
-                                "Zip":  "29847",
-                                "State":  "SC",
-                                "Count":  1,
-                                "City":  "Trenton"
-                            },
-                            {
-                                "Zip":  "49646",
-                                "State":  "MI",
-                                "Count":  1,
-                                "City":  "Kalkaska"
+                                "City":  "Salem"
                             },
                             {
                                 "Zip":  "21220",
@@ -1718,292 +1626,124 @@
                                 "City":  "Baltimore"
                             },
                             {
-                                "Zip":  "96819",
-                                "State":  "HI",
-                                "Count":  1,
-                                "City":  "Honolulu"
-                            },
-                            {
-                                "Zip":  "04740",
-                                "State":  "ME",
-                                "Count":  1,
-                                "City":  "Easton"
-                            },
-                            {
-                                "Zip":  "68766",
-                                "State":  "NE",
-                                "Count":  1,
-                                "City":  "South Sioux City"
-                            },
-                            {
-                                "Zip":  "98264",
-                                "State":  "WA",
-                                "Count":  1,
-                                "City":  "Lynden"
-                            },
-                            {
-                                "Zip":  "54130",
-                                "State":  "WI",
-                                "Count":  5,
-                                "City":  "Kaukauna"
-                            },
-                            {
-                                "Zip":  "70806",
-                                "State":  "LA",
-                                "Count":  1,
-                                "City":  "Baton Rouge"
-                            },
-                            {
-                                "Zip":  "45385",
-                                "State":  "OH",
-                                "Count":  1,
-                                "City":  "Xenia"
-                            },
-                            {
-                                "Zip":  "17331",
-                                "State":  "PA",
-                                "Count":  1,
-                                "City":  "HANOVER"
-                            },
-                            {
-                                "Zip":  "42101",
-                                "State":  "KY",
-                                "Count":  1,
-                                "City":  "Bowling Green"
-                            },
-                            {
-                                "Zip":  "44146",
-                                "State":  "OH",
-                                "Count":  2,
-                                "City":  "Bedford Heights"
-                            },
-                            {
-                                "Zip":  "55309",
-                                "State":  "MN",
-                                "Count":  2,
-                                "City":  "Big Lake"
-                            },
-                            {
-                                "Zip":  "56156",
+                                "Zip":  "56031",
                                 "State":  "MN",
                                 "Count":  1,
-                                "City":  "Luverne"
+                                "City":  "Fairmont"
                             },
                             {
-                                "Zip":  "52806",
-                                "State":  "IA",
-                                "Count":  1,
-                                "City":  "Davenport"
-                            },
-                            {
-                                "Zip":  "31730-7432",
-                                "State":  "GA",
-                                "Count":  2,
-                                "City":  "Camilla"
-                            },
-                            {
-                                "Zip":  "48849",
-                                "State":  "MI",
-                                "Count":  2,
-                                "City":  "Lake Odessa"
-                            },
-                            {
-                                "Zip":  "82604",
-                                "State":  "WY",
-                                "Count":  1,
-                                "City":  "Casper"
-                            },
-                            {
-                                "Zip":  "43402",
-                                "State":  "OH",
-                                "Count":  1,
-                                "City":  "Bowling Green"
-                            },
-                            {
-                                "Zip":  "17019",
-                                "State":  "PA",
-                                "Count":  2,
-                                "City":  "Dillsburg"
-                            },
-                            {
-                                "Zip":  "30643",
-                                "State":  "GA",
-                                "Count":  1,
-                                "City":  "Hartwell"
-                            },
-                            {
-                                "Zip":  "14543",
+                                "Zip":  "14787",
                                 "State":  "NY",
                                 "Count":  1,
-                                "City":  "Rush"
+                                "City":  "Westfield"
                             },
                             {
-                                "Zip":  "44104",
-                                "State":  "OH",
+                                "Zip":  "02760",
+                                "State":  "MA",
                                 "Count":  1,
-                                "City":  "Cleveland"
+                                "City":  "North Attleborough"
                             },
                             {
-                                "Zip":  "17801",
+                                "Zip":  "83338",
+                                "State":  "ID",
+                                "Count":  2,
+                                "City":  "Jerome"
+                            },
+                            {
+                                "Zip":  "17543",
                                 "State":  "PA",
-                                "Count":  1,
-                                "City":  "Sunbury"
+                                "Count":  2,
+                                "City":  "Lititz"
                             },
                             {
-                                "Zip":  "54401",
-                                "State":  "WI",
+                                "Zip":  "35957",
+                                "State":  "AL",
+                                "Count":  1,
+                                "City":  "Boaz"
+                            },
+                            {
+                                "Zip":  "75052",
+                                "State":  "TX",
+                                "Count":  1,
+                                "City":  "Grand Prairie"
+                            },
+                            {
+                                "Zip":  "17901",
+                                "State":  "PA",
                                 "Count":  3,
-                                "City":  "Wausau"
-                            },
-                            {
-                                "Zip":  "91761",
-                                "State":  "CA",
-                                "Count":  1,
-                                "City":  "Ontario"
-                            },
-                            {
-                                "Zip":  "80640",
-                                "State":  "CO",
-                                "Count":  1,
-                                "City":  "Henderson"
-                            },
-                            {
-                                "Zip":  "73401",
-                                "State":  "OK",
-                                "Count":  2,
-                                "City":  "Ardmore"
-                            },
-                            {
-                                "Zip":  "95301",
-                                "State":  "CA",
-                                "Count":  1,
-                                "City":  "Atwater"
-                            },
-                            {
-                                "Zip":  "74055",
-                                "State":  "OK",
-                                "Count":  2,
-                                "City":  "Owasso"
-                            },
-                            {
-                                "Zip":  "51101",
-                                "State":  "IA",
-                                "Count":  8,
-                                "City":  "Sioux City"
-                            },
-                            {
-                                "Zip":  "63134",
-                                "State":  "MO",
-                                "Count":  1,
-                                "City":  "Berkeley"
-                            },
-                            {
-                                "Zip":  "44647",
-                                "State":  "OH",
-                                "Count":  3,
-                                "City":  "Massillon"
-                            },
-                            {
-                                "Zip":  "91733",
-                                "State":  "CA",
-                                "Count":  5,
-                                "City":  "South El Monte"
-                            },
-                            {
-                                "Zip":  "39601",
-                                "State":  "MS",
-                                "Count":  1,
-                                "City":  "Brookhaven"
-                            },
-                            {
-                                "Zip":  "56232",
-                                "State":  "MN",
-                                "Count":  1,
-                                "City":  "Dawson"
-                            },
-                            {
-                                "Zip":  "5010",
-                                "State":  "NZ-WG",
-                                "Count":  1,
-                                "City":  "Lower Hutt"
-                            },
-                            {
-                                "Zip":  "29506",
-                                "State":  "SC",
-                                "Count":  2,
-                                "City":  "Florence"
-                            },
-                            {
-                                "Zip":  "90631",
-                                "State":  "CA",
-                                "Count":  4,
-                                "City":  "La Habra"
-                            },
-                            {
-                                "Zip":  "84088",
-                                "State":  "UT",
-                                "Count":  2,
-                                "City":  "West Jordan"
-                            },
-                            {
-                                "Zip":  "53959",
-                                "State":  "WI",
-                                "Count":  1,
-                                "City":  "Reedsburg"
-                            },
-                            {
-                                "Zip":  "37408",
-                                "State":  "TN",
-                                "Count":  1,
-                                "City":  "Chattanooga"
-                            },
-                            {
-                                "Zip":  "99301",
-                                "State":  "WA",
-                                "Count":  6,
-                                "City":  "Pasco"
-                            },
-                            {
-                                "Zip":  "7570027",
-                                "State":  "RM",
-                                "Count":  1,
-                                "City":  "Las Condes"
-                            },
-                            {
-                                "Zip":  "91356",
-                                "State":  "CA",
-                                "Count":  1,
-                                "City":  "Los Angeles"
-                            },
-                            {
-                                "Zip":  "49321",
-                                "State":  "MI",
-                                "Count":  2,
-                                "City":  "Comstock Park"
-                            },
-                            {
-                                "Zip":  "97210",
-                                "State":  "OR",
-                                "Count":  6,
-                                "City":  "Portland"
-                            },
-                            {
-                                "Zip":  "54603",
-                                "State":  "WI",
-                                "Count":  1,
-                                "City":  "LaCrosse"
-                            },
-                            {
-                                "Zip":  "21830",
-                                "State":  "MD",
-                                "Count":  1,
-                                "City":  "Hebron"
+                                "City":  "Pottsville"
                             },
                             {
                                 "Zip":  "75141",
                                 "State":  "TX",
                                 "Count":  1,
-                                "City":  "Hutchens"
+                                "City":  "Hutchins"
+                            },
+                            {
+                                "Zip":  "68137",
+                                "State":  "NE",
+                                "Count":  10,
+                                "City":  "Omaha"
+                            },
+                            {
+                                "Zip":  "51012",
+                                "State":  "IA",
+                                "Count":  1,
+                                "City":  "Cherokee"
+                            },
+                            {
+                                "Zip":  "98199",
+                                "State":  "WA",
+                                "Count":  11,
+                                "City":  "Seattle"
+                            },
+                            {
+                                "Zip":  "60467",
+                                "State":  "IL",
+                                "Count":  1,
+                                "City":  "Orland Park"
+                            },
+                            {
+                                "Zip":  "64804",
+                                "State":  "MO",
+                                "Count":  3,
+                                "City":  "Joplin"
+                            },
+                            {
+                                "Zip":  "49735",
+                                "State":  "MI",
+                                "Count":  1,
+                                "City":  "Gaylord"
+                            },
+                            {
+                                "Zip":  "27529",
+                                "State":  "NC",
+                                "Count":  2,
+                                "City":  "Garner"
+                            },
+                            {
+                                "Zip":  "23666",
+                                "State":  "VA",
+                                "Count":  1,
+                                "City":  "Hampton"
+                            },
+                            {
+                                "Zip":  "52641",
+                                "State":  "IA",
+                                "Count":  1,
+                                "City":  "Mount Pleasant"
+                            },
+                            {
+                                "Zip":  "26003",
+                                "State":  "WV",
+                                "Count":  1,
+                                "City":  "Wheeling"
+                            },
+                            {
+                                "Zip":  "61008",
+                                "State":  "IL",
+                                "Count":  1,
+                                "City":  "Belvidere"
                             },
                             {
                                 "Zip":  "85213",
@@ -2012,10 +1752,346 @@
                                 "City":  "Mesa"
                             },
                             {
-                                "Zip":  "44512",
+                                "Zip":  "V4W 2W8",
+                                "State":  "BC-C",
+                                "Count":  1,
+                                "City":  "Aldergrove"
+                            },
+                            {
+                                "Zip":  "44870",
                                 "State":  "OH",
                                 "Count":  1,
-                                "City":  "Youngstown"
+                                "City":  "Sandusky"
+                            },
+                            {
+                                "Zip":  "60957",
+                                "State":  "IL",
+                                "Count":  4,
+                                "City":  "Paxton"
+                            },
+                            {
+                                "Zip":  "08037",
+                                "State":  "NJ",
+                                "Count":  1,
+                                "City":  "Hammonton"
+                            },
+                            {
+                                "Zip":  "29847",
+                                "State":  "SC",
+                                "Count":  1,
+                                "City":  "Trenton"
+                            },
+                            {
+                                "Zip":  "54130",
+                                "State":  "WI",
+                                "Count":  5,
+                                "City":  "Kaukauna"
+                            },
+                            {
+                                "Zip":  "51031",
+                                "State":  "IA",
+                                "Count":  2,
+                                "City":  "Le Mars"
+                            },
+                            {
+                                "Zip":  "96819",
+                                "State":  "HI",
+                                "Count":  1,
+                                "City":  "Honolulu"
+                            },
+                            {
+                                "Zip":  "49646",
+                                "State":  "MI",
+                                "Count":  1,
+                                "City":  "Kalkaska"
+                            },
+                            {
+                                "Zip":  "68766",
+                                "State":  "NE",
+                                "Count":  1,
+                                "City":  "South Sioux City"
+                            },
+                            {
+                                "Zip":  "60484",
+                                "State":  "IL",
+                                "Count":  2,
+                                "City":  "University Park"
+                            },
+                            {
+                                "Zip":  "04740",
+                                "State":  "ME",
+                                "Count":  1,
+                                "City":  "Easton"
+                            },
+                            {
+                                "Zip":  "70806",
+                                "State":  "LA",
+                                "Count":  1,
+                                "City":  "Baton Rouge"
+                            },
+                            {
+                                "Zip":  "98264",
+                                "State":  "WA",
+                                "Count":  1,
+                                "City":  "Lynden"
+                            },
+                            {
+                                "Zip":  "17331",
+                                "State":  "PA",
+                                "Count":  1,
+                                "City":  "HANOVER"
+                            },
+                            {
+                                "Zip":  "48849",
+                                "State":  "MI",
+                                "Count":  2,
+                                "City":  "Lake Odessa"
+                            },
+                            {
+                                "Zip":  "45385",
+                                "State":  "OH",
+                                "Count":  1,
+                                "City":  "Xenia"
+                            },
+                            {
+                                "Zip":  "55309",
+                                "State":  "MN",
+                                "Count":  2,
+                                "City":  "Big Lake"
+                            },
+                            {
+                                "Zip":  "42101",
+                                "State":  "KY",
+                                "Count":  1,
+                                "City":  "Bowling Green"
+                            },
+                            {
+                                "Zip":  "52806",
+                                "State":  "IA",
+                                "Count":  1,
+                                "City":  "Davenport"
+                            },
+                            {
+                                "Zip":  "7570027",
+                                "State":  "RM",
+                                "Count":  1,
+                                "City":  "Las Condes"
+                            },
+                            {
+                                "Zip":  "56156",
+                                "State":  "MN",
+                                "Count":  1,
+                                "City":  "Luverne"
+                            },
+                            {
+                                "Zip":  "82604",
+                                "State":  "WY",
+                                "Count":  1,
+                                "City":  "Casper"
+                            },
+                            {
+                                "Zip":  "31730-7432",
+                                "State":  "GA",
+                                "Count":  2,
+                                "City":  "Camilla"
+                            },
+                            {
+                                "Zip":  "44146",
+                                "State":  "OH",
+                                "Count":  2,
+                                "City":  "Bedford Heights"
+                            },
+                            {
+                                "Zip":  "30643",
+                                "State":  "GA",
+                                "Count":  1,
+                                "City":  "Hartwell"
+                            },
+                            {
+                                "Zip":  "73401",
+                                "State":  "OK",
+                                "Count":  2,
+                                "City":  "Ardmore"
+                            },
+                            {
+                                "Zip":  "17019",
+                                "State":  "PA",
+                                "Count":  2,
+                                "City":  "Dillsburg"
+                            },
+                            {
+                                "Zip":  "17801",
+                                "State":  "PA",
+                                "Count":  1,
+                                "City":  "Sunbury"
+                            },
+                            {
+                                "Zip":  "14543",
+                                "State":  "NY",
+                                "Count":  1,
+                                "City":  "Rush"
+                            },
+                            {
+                                "Zip":  "91761",
+                                "State":  "CA",
+                                "Count":  1,
+                                "City":  "Ontario"
+                            },
+                            {
+                                "Zip":  "43402",
+                                "State":  "OH",
+                                "Count":  1,
+                                "City":  "Bowling Green"
+                            },
+                            {
+                                "Zip":  "54401",
+                                "State":  "WI",
+                                "Count":  3,
+                                "City":  "Wausau"
+                            },
+                            {
+                                "Zip":  "95301",
+                                "State":  "CA",
+                                "Count":  1,
+                                "City":  "Atwater"
+                            },
+                            {
+                                "Zip":  "80640",
+                                "State":  "CO",
+                                "Count":  1,
+                                "City":  "Henderson"
+                            },
+                            {
+                                "Zip":  "51101",
+                                "State":  "IA",
+                                "Count":  8,
+                                "City":  "Sioux City"
+                            },
+                            {
+                                "Zip":  "29506",
+                                "State":  "SC",
+                                "Count":  2,
+                                "City":  "Florence"
+                            },
+                            {
+                                "Zip":  "74055",
+                                "State":  "OK",
+                                "Count":  2,
+                                "City":  "Owasso"
+                            },
+                            {
+                                "Zip":  "91733",
+                                "State":  "CA",
+                                "Count":  5,
+                                "City":  "South El Monte"
+                            },
+                            {
+                                "Zip":  "63134",
+                                "State":  "MO",
+                                "Count":  1,
+                                "City":  "Berkeley"
+                            },
+                            {
+                                "Zip":  "56232",
+                                "State":  "MN",
+                                "Count":  1,
+                                "City":  "Dawson"
+                            },
+                            {
+                                "Zip":  "72701",
+                                "State":  "AR",
+                                "Count":  2,
+                                "City":  "Fayetteville"
+                            },
+                            {
+                                "Zip":  "39601",
+                                "State":  "MS",
+                                "Count":  1,
+                                "City":  "Brookhaven"
+                            },
+                            {
+                                "Zip":  "90631",
+                                "State":  "CA",
+                                "Count":  4,
+                                "City":  "La Habra"
+                            },
+                            {
+                                "Zip":  "5010",
+                                "State":  "NZ-WG",
+                                "Count":  1,
+                                "City":  "Lower Hutt"
+                            },
+                            {
+                                "Zip":  "44647",
+                                "State":  "OH",
+                                "Count":  3,
+                                "City":  "Massillon"
+                            },
+                            {
+                                "Zip":  "37408",
+                                "State":  "TN",
+                                "Count":  1,
+                                "City":  "Chattanooga"
+                            },
+                            {
+                                "Zip":  "21830",
+                                "State":  "MD",
+                                "Count":  1,
+                                "City":  "Hebron"
+                            },
+                            {
+                                "Zip":  "53959",
+                                "State":  "WI",
+                                "Count":  1,
+                                "City":  "Reedsburg"
+                            },
+                            {
+                                "Zip":  "91356",
+                                "State":  "CA",
+                                "Count":  1,
+                                "City":  "Los Angeles"
+                            },
+                            {
+                                "Zip":  "99301",
+                                "State":  "WA",
+                                "Count":  6,
+                                "City":  "Pasco"
+                            },
+                            {
+                                "Zip":  "97210",
+                                "State":  "OR",
+                                "Count":  6,
+                                "City":  "Portland"
+                            },
+                            {
+                                "Zip":  "84088",
+                                "State":  "UT",
+                                "Count":  2,
+                                "City":  "West Jordan"
+                            },
+                            {
+                                "Zip":  "49321",
+                                "State":  "MI",
+                                "Count":  2,
+                                "City":  "Comstock Park"
+                            },
+                            {
+                                "Zip":  "75141",
+                                "State":  "TX",
+                                "Count":  1,
+                                "City":  "Hutchens"
+                            },
+                            {
+                                "Zip":  "54603",
+                                "State":  "WI",
+                                "Count":  1,
+                                "City":  "LaCrosse"
+                            },
+                            {
+                                "Zip":  "28078",
+                                "State":  "NC",
+                                "Count":  1,
+                                "City":  "Huntersville"
                             },
                             {
                                 "Zip":  "97317",
@@ -2024,16 +2100,16 @@
                                 "City":  "Salem"
                             },
                             {
-                                "Zip":  "97322",
-                                "State":  "OR",
-                                "Count":  2,
-                                "City":  "Albany"
-                            },
-                            {
-                                "Zip":  "28103",
+                                "Zip":  "28655",
                                 "State":  "NC",
                                 "Count":  1,
-                                "City":  "Marshville"
+                                "City":  "Morganton"
+                            },
+                            {
+                                "Zip":  "44512",
+                                "State":  "OH",
+                                "Count":  1,
+                                "City":  "Youngstown"
                             },
                             {
                                 "Zip":  "57103",
@@ -2042,10 +2118,10 @@
                                 "City":  "Sioux Falls"
                             },
                             {
-                                "Zip":  "57252",
-                                "State":  "SD",
-                                "Count":  1,
-                                "City":  "Milbank"
+                                "Zip":  "97322",
+                                "State":  "OR",
+                                "Count":  2,
+                                "City":  "Albany"
                             },
                             {
                                 "Zip":  "45869",
@@ -2054,16 +2130,16 @@
                                 "City":  "New Bremen"
                             },
                             {
-                                "Zip":  "76903",
+                                "Zip":  "76137",
                                 "State":  "TX",
-                                "Count":  1,
-                                "City":  "San Angelo"
+                                "Count":  4,
+                                "City":  "Fort Worth"
                             },
                             {
-                                "Zip":  "28655",
-                                "State":  "NC",
+                                "Zip":  "57252",
+                                "State":  "SD",
                                 "Count":  1,
-                                "City":  "Morganton"
+                                "City":  "Milbank"
                             },
                             {
                                 "Zip":  "95633",
@@ -2072,16 +2148,16 @@
                                 "City":  "Garden Valley"
                             },
                             {
-                                "Zip":  "78163",
+                                "Zip":  "76903",
                                 "State":  "TX",
                                 "Count":  1,
-                                "City":  "Bulverde"
+                                "City":  "San Angelo"
                             },
                             {
-                                "Zip":  "35752",
-                                "State":  "AL",
+                                "Zip":  "28103",
+                                "State":  "NC",
                                 "Count":  1,
-                                "City":  "Hollywood"
+                                "City":  "Marshville"
                             },
                             {
                                 "Zip":  "76705",
@@ -2090,16 +2166,22 @@
                                 "City":  "Waco"
                             },
                             {
-                                "Zip":  "17201",
-                                "State":  "PA",
+                                "Zip":  "76262",
+                                "State":  "TX",
                                 "Count":  1,
-                                "City":  "Chambersburg"
+                                "City":  "Roanoke"
                             },
                             {
-                                "Zip":  "85034",
-                                "State":  "AZ",
+                                "Zip":  "35752",
+                                "State":  "AL",
                                 "Count":  1,
-                                "City":  "Phoenix"
+                                "City":  "Hollywood"
+                            },
+                            {
+                                "Zip":  "38751",
+                                "State":  "MS",
+                                "Count":  1,
+                                "City":  "Indianola"
                             }
                         ],
     "Summary":  {
@@ -2214,14 +2296,262 @@
                               "Thursday":  138654.09
                           },
     "ARaging":  {
-                    "Current":  3627797.03,
-                    "Days90Plus":  179156.16,
-                    "Days31_60":  113316.98,
-                    "Total":  4704158.80,
-                    "Days1_30":  617951.15,
-                    "Days61_90":  165937.48
+                    "Current":  3469635.78,
+                    "Days90Plus":  247543.65,
+                    "Days31_60":  143197.42,
+                    "Total":  4621071.87,
+                    "Days1_30":  587253.04,
+                    "Days61_90":  173441.98
                 },
-    "GeneratedAt":  "2026-02-02 07:21:36"
+    "SalesforceTerritory":  {
+                                "generatedAt":  "2026-02-02T15:05:26.608Z",
+                                "salesTeam":  [
+                                                  {
+                                                      "name":  "Phil Libbert",
+                                                      "role":  "Inside Sales",
+                                                      "totalAccounts":  61,
+                                                      "revenue":  1529128.5,
+                                                      "wonOpps":  49,
+                                                      "stateCount":  25,
+                                                      "topStates":  [
+                                                                        {
+                                                                            "state":  "TX",
+                                                                            "count":  8
+                                                                        },
+                                                                        {
+                                                                            "state":  "CA",
+                                                                            "count":  6
+                                                                        },
+                                                                        {
+                                                                            "state":  "IA",
+                                                                            "count":  5
+                                                                        },
+                                                                        {
+                                                                            "state":  "PA",
+                                                                            "count":  4
+                                                                        },
+                                                                        {
+                                                                            "state":  "GA",
+                                                                            "count":  3
+                                                                        }
+                                                                    ],
+                                                      "cityCount":  56
+                                                  },
+                                                  {
+                                                      "name":  "Miguel Lopez",
+                                                      "role":  "Outside Sales",
+                                                      "totalAccounts":  2,
+                                                      "revenue":  414729.24,
+                                                      "wonOpps":  12,
+                                                      "stateCount":  2,
+                                                      "topStates":  [
+                                                                        {
+                                                                            "state":  "FL",
+                                                                            "count":  1
+                                                                        },
+                                                                        {
+                                                                            "state":  "MZ",
+                                                                            "count":  1
+                                                                        }
+                                                                    ],
+                                                      "cityCount":  2
+                                                  },
+                                                  {
+                                                      "name":  "Andy Neptune",
+                                                      "role":  "Outside Sales",
+                                                      "totalAccounts":  27,
+                                                      "revenue":  386660,
+                                                      "wonOpps":  15,
+                                                      "stateCount":  9,
+                                                      "topStates":  [
+                                                                        {
+                                                                            "state":  "NH",
+                                                                            "count":  9
+                                                                        },
+                                                                        {
+                                                                            "state":  "TX",
+                                                                            "count":  6
+                                                                        },
+                                                                        {
+                                                                            "state":  "WA",
+                                                                            "count":  5
+                                                                        },
+                                                                        {
+                                                                            "state":  "NY",
+                                                                            "count":  2
+                                                                        },
+                                                                        {
+                                                                            "state":  "GA",
+                                                                            "count":  1
+                                                                        }
+                                                                    ],
+                                                      "cityCount":  11
+                                                  },
+                                                  {
+                                                      "name":  "Richard Hatcher",
+                                                      "role":  "Sales Director",
+                                                      "totalAccounts":  1,
+                                                      "revenue":  85930,
+                                                      "wonOpps":  3,
+                                                      "stateCount":  1,
+                                                      "topStates":  [
+                                                                        {
+                                                                            "state":  "MO",
+                                                                            "count":  1
+                                                                        }
+                                                                    ],
+                                                      "cityCount":  1
+                                                  }
+                                              ],
+                                "stateHeatMap":  [
+                                                     {
+                                                         "state":  "TX",
+                                                         "total":  14,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "NH",
+                                                         "total":  9,
+                                                         "topRep":  "Andy Neptune"
+                                                     },
+                                                     {
+                                                         "state":  "CA",
+                                                         "total":  6,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "IA",
+                                                         "total":  6,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "WA",
+                                                         "total":  6,
+                                                         "topRep":  "Andy Neptune"
+                                                     },
+                                                     {
+                                                         "state":  "NY",
+                                                         "total":  5,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "PA",
+                                                         "total":  5,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "GA",
+                                                         "total":  4,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "FL",
+                                                         "total":  3,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "OH",
+                                                         "total":  3,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "WI",
+                                                         "total":  3,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "MI",
+                                                         "total":  3,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "OR",
+                                                         "total":  2,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "IL",
+                                                         "total":  2,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "NV",
+                                                         "total":  2,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "UT",
+                                                         "total":  2,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "NJ",
+                                                         "total":  2,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "KY",
+                                                         "total":  2,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "MA",
+                                                         "total":  2,
+                                                         "topRep":  "Andy Neptune"
+                                                     },
+                                                     {
+                                                         "state":  "MO",
+                                                         "total":  2,
+                                                         "topRep":  "Andy Neptune"
+                                                     },
+                                                     {
+                                                         "state":  "MZ",
+                                                         "total":  1,
+                                                         "topRep":  "Miguel Lopez"
+                                                     },
+                                                     {
+                                                         "state":  "AR",
+                                                         "total":  1,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "MS",
+                                                         "total":  1,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "NC",
+                                                         "total":  1,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "IN",
+                                                         "total":  1,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "VA",
+                                                         "total":  1,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "NE",
+                                                         "total":  1,
+                                                         "topRep":  "Phil Libbert"
+                                                     },
+                                                     {
+                                                         "state":  "CO",
+                                                         "total":  1,
+                                                         "topRep":  "Phil Libbert"
+                                                     }
+                                                 ],
+                                "summary":  {
+                                                "totalSalesReps":  4,
+                                                "totalAccountsCovered":  6102,
+                                                "totalStates":  28
+                                            }
+                            },
+    "GeneratedAt":  "2026-02-02 08:18:43"
 };
 
         // Load data from file or embedded
@@ -2256,6 +2586,11 @@
 
         function fmt(n) { return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0}).format(n||0); }
         function fmtK(n) { return '$' + (n/1000).toFixed(0) + 'k'; }
+        function fmtCompact(n) { 
+            if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
+            if (n >= 1000) return '$' + (n/1000).toFixed(0) + 'K';
+            return '$' + Math.round(n);
+        }
 
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -2330,13 +2665,13 @@
             document.getElementById('mtdDays').textContent = DATA.Period.MTDBusinessDays;
             document.getElementById('ytdDays').textContent = DATA.Period.YTDBusinessDays;
 
-            // AR Aging
+            // AR Aging - use compact format to fit in boxes
             if (DATA.ARaging) {
-                document.getElementById('arCurrent').textContent = fmt(DATA.ARaging.Current);
-                document.getElementById('ar30').textContent = fmt(DATA.ARaging.Days1_30);
-                document.getElementById('ar60').textContent = fmt(DATA.ARaging.Days31_60);
-                document.getElementById('ar90').textContent = fmt(DATA.ARaging.Days61_90);
-                document.getElementById('ar90plus').textContent = fmt(DATA.ARaging.Days90Plus);
+                document.getElementById('arCurrent').textContent = fmtCompact(DATA.ARaging.Current);
+                document.getElementById('ar30').textContent = fmtCompact(DATA.ARaging.Days1_30);
+                document.getElementById('ar60').textContent = fmtCompact(DATA.ARaging.Days31_60);
+                document.getElementById('ar90').textContent = fmtCompact(DATA.ARaging.Days61_90);
+                document.getElementById('ar90plus').textContent = fmtCompact(DATA.ARaging.Days90Plus);
             }
 
             // Lists
@@ -2349,6 +2684,7 @@
             // Charts
             initCharts();
             initCashFlow();
+            initPnL();
         }
 
         function initCharts() {
@@ -2608,6 +2944,76 @@
             }
         }
 
+        function initPnL() {
+            // P&L KPIs
+            const mtd = DATA.Summary?.MTD || {};
+            document.getElementById('pnlRevenue').textContent = fmt(mtd.Total);
+            document.getElementById('pnlProductRev').textContent = fmt(mtd.Product);
+            document.getElementById('pnlServiceRev').textContent = fmt(mtd.Service);
+            document.getElementById('pnlOtherRev').textContent = fmt((mtd.Freight || 0) + (mtd.Miscellaneous || 0));
+            
+            // Breakdown rows
+            document.getElementById('pnlProductRow').textContent = fmt(mtd.Product);
+            document.getElementById('pnlServiceRow').textContent = fmt(mtd.Service);
+            document.getElementById('pnlFreightRow').textContent = fmt(mtd.Freight);
+            document.getElementById('pnlMiscRow').textContent = fmt(mtd.Miscellaneous);
+            document.getElementById('pnlTotalRow').textContent = fmt(mtd.Total);
+            
+            // Category chart (bar)
+            const catCtx = document.getElementById('pnlCategoryChart')?.getContext('2d');
+            if (catCtx) {
+                new Chart(catCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Product', 'Service', 'Freight', 'Misc'],
+                        datasets: [{
+                            data: [mtd.Product || 0, mtd.Service || 0, mtd.Freight || 0, mtd.Miscellaneous || 0],
+                            backgroundColor: ['#4ecdc4', '#ff6b6b', '#feca57', '#a29bfe']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } } }
+                });
+            }
+            
+            // Mix pie chart
+            const mixCtx = document.getElementById('pnlMixPieChart')?.getContext('2d');
+            if (mixCtx) {
+                new Chart(mixCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Product', 'Service', 'Freight', 'Misc'],
+                        datasets: [{
+                            data: [mtd.Product || 0, mtd.Service || 0, mtd.Freight || 0, mtd.Miscellaneous || 0],
+                            backgroundColor: ['#4ecdc4', '#ff6b6b', '#feca57', '#a29bfe'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#98c1d9' } } } }
+                });
+            }
+            
+            // Daily trend chart
+            const dailyCtx = document.getElementById('pnlDailyChart')?.getContext('2d');
+            if (dailyCtx && DATA.DailyTrend) {
+                const mtdTrend = DATA.DailyTrend.filter(d => {
+                    const date = new Date(d.Date);
+                    const monthStart = new Date(DATA.Period.MonthStart);
+                    return date >= monthStart && d.Total > 0;
+                });
+                new Chart(dailyCtx, {
+                    type: 'line',
+                    data: {
+                        labels: mtdTrend.map(d => new Date(d.Date).toLocaleDateString('en-US', {month:'short', day:'numeric'})),
+                        datasets: [
+                            { label: 'Product', data: mtdTrend.map(d => d.Product), borderColor: '#4ecdc4', tension: 0.4, fill: false },
+                            { label: 'Service', data: mtdTrend.map(d => d.Service), borderColor: '#ff6b6b', tension: 0.4, fill: false }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#98c1d9' } } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } } }
+                });
+            }
+        }
+
         function initCashFlow() {
             if (!DATA.CashFlowPrediction?.length) return;
 
@@ -2713,10 +3119,101 @@
                 },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9' } } } }
             });
+            
+            // Salesforce Territory Data
+            renderSalesTerritory();
+        }
+        
+        function renderSalesTerritory() {
+            const el = document.getElementById('salesTerritoryList');
+            if (!DATA.SalesforceTerritory?.salesTeam?.length) {
+                el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-secondary)">No Salesforce data available. Run salesforce-territory-data.js to generate.</div>';
+                return;
+            }
+            
+            el.innerHTML = DATA.SalesforceTerritory.salesTeam.map((rep, i) => {
+                const rank = i < 3 ? ['gold', 'silver', 'bronze'][i] : '';
+                const states = rep.topStates?.map(s => s.state).join(', ') || 'N/A';
+                return `<div class="top-item" style="flex-direction:column;align-items:stretch;padding:12px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <div class="rank ${rank}">${i+1}</div>
+                            <div>
+                                <div style="font-weight:600;">${rep.name}</div>
+                                <div style="font-size:11px;color:var(--text-secondary);">${rep.role}</div>
+                            </div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="color:var(--success);font-weight:600;">${fmt(rep.revenue)}</div>
+                            <div style="font-size:11px;color:var(--text-secondary);">${rep.wonOpps || 0} won opps</div>
+                        </div>
+                    </div>
+                    <div style="margin-top:8px;font-size:11px;color:var(--text-secondary);display:flex;gap:15px;">
+                        <span>ðŸ“ ${rep.stateCount} states</span>
+                        <span>ðŸ¢ ${rep.totalAccounts} accounts</span>
+                    </div>
+                    <div style="margin-top:4px;font-size:10px;color:var(--warning);">Top: ${states}</div>
+                </div>`;
+            }).join('');
+        }
+
+        // Drill-down functionality
+        function showDrilldown(type) {
+            const overlay = document.getElementById('drilldownOverlay');
+            const title = document.getElementById('drilldownTitle');
+            const total = document.getElementById('drilldownTotal');
+            const body = document.getElementById('drilldownBody');
+            
+            let data, titleText;
+            if (type === 'mtd') {
+                data = DATA.Summary?.MTD || {};
+                titleText = 'MTD Revenue Breakdown';
+            } else if (type === 'yesterday') {
+                data = DATA.Summary?.Yesterday || {};
+                titleText = 'Yesterday\'s Revenue Breakdown';
+            } else {
+                return;
+            }
+            
+            title.textContent = titleText;
+            total.textContent = fmt(data.Total);
+            
+            body.innerHTML = `
+                <div class="drilldown-row"><span>Product Sales</span><span class="value" style="color:#4ecdc4">${fmt(data.Product)}</span></div>
+                <div class="drilldown-row"><span>Service Sales</span><span class="value" style="color:#ff6b6b">${fmt(data.Service)}</span></div>
+                <div class="drilldown-row"><span>Freight Revenue</span><span class="value" style="color:#feca57">${fmt(data.Freight)}</span></div>
+                <div class="drilldown-row"><span>Miscellaneous</span><span class="value" style="color:#a29bfe">${fmt(data.Miscellaneous)}</span></div>
+                <div class="drilldown-row" style="margin-top:15px;padding-top:15px;border-top:2px solid var(--accent);">
+                    <span style="font-weight:700;">TOTAL</span>
+                    <span class="value" style="color:var(--success);font-weight:700;">${fmt(data.Total)}</span>
+                </div>
+            `;
+            
+            overlay.classList.add('active');
+        }
+        
+        function closeDrilldown(e) {
+            if (e.target.classList.contains('drilldown-overlay') || e.target.classList.contains('close-btn')) {
+                document.getElementById('drilldownOverlay').classList.remove('active');
+            }
         }
 
         loadData();
     </script>
+    
+    <!-- Drill-down Modal -->
+    <div class="drilldown-overlay" id="drilldownOverlay" onclick="closeDrilldown(event)">
+        <div class="drilldown-modal" onclick="event.stopPropagation()">
+            <div class="drilldown-header">
+                <h3 id="drilldownTitle">Details</h3>
+                <button class="close-btn" onclick="closeDrilldown(event)">&times;</button>
+            </div>
+            <div class="drilldown-body">
+                <div class="drilldown-total" id="drilldownTotal">$0</div>
+                <div id="drilldownBody"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 

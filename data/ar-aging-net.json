@@ -1,0 +1,18 @@
+{
+  "generatedAt": "2026-02-02T15:18:17.196Z",
+  "method": "Invoice Amount - Applied Payments",
+  "stats": {
+    "totalInvoices": 3345,
+    "openInvoices": 2008
+  },
+  "summary": {
+    "totalAR": 4621071.870000009,
+    "buckets": {
+      "current": 3469635.779999999,
+      "1-30": 587253.0399999998,
+      "31-60": 143197.42000000004,
+      "61-90": 173441.98,
+      "91+": 247543.65
+    }
+  }
+}

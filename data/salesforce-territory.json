@@ -1,0 +1,248 @@
+{
+  "generatedAt": "2026-02-02T15:05:26.608Z",
+  "salesTeam": [
+    {
+      "name": "Phil Libbert",
+      "role": "Inside Sales",
+      "totalAccounts": 61,
+      "revenue": 1529128.5,
+      "wonOpps": 49,
+      "stateCount": 25,
+      "topStates": [
+        {
+          "state": "TX",
+          "count": 8
+        },
+        {
+          "state": "CA",
+          "count": 6
+        },
+        {
+          "state": "IA",
+          "count": 5
+        },
+        {
+          "state": "PA",
+          "count": 4
+        },
+        {
+          "state": "GA",
+          "count": 3
+        }
+      ],
+      "cityCount": 56
+    },
+    {
+      "name": "Miguel Lopez",
+      "role": "Outside Sales",
+      "totalAccounts": 2,
+      "revenue": 414729.24,
+      "wonOpps": 12,
+      "stateCount": 2,
+      "topStates": [
+        {
+          "state": "FL",
+          "count": 1
+        },
+        {
+          "state": "MZ",
+          "count": 1
+        }
+      ],
+      "cityCount": 2
+    },
+    {
+      "name": "Andy Neptune",
+      "role": "Outside Sales",
+      "totalAccounts": 27,
+      "revenue": 386660,
+      "wonOpps": 15,
+      "stateCount": 9,
+      "topStates": [
+        {
+          "state": "NH",
+          "count": 9
+        },
+        {
+          "state": "TX",
+          "count": 6
+        },
+        {
+          "state": "WA",
+          "count": 5
+        },
+        {
+          "state": "NY",
+          "count": 2
+        },
+        {
+          "state": "GA",
+          "count": 1
+        }
+      ],
+      "cityCount": 11
+    },
+    {
+      "name": "Richard Hatcher",
+      "role": "Sales Director",
+      "totalAccounts": 1,
+      "revenue": 85930,
+      "wonOpps": 3,
+      "stateCount": 1,
+      "topStates": [
+        {
+          "state": "MO",
+          "count": 1
+        }
+      ],
+      "cityCount": 1
+    }
+  ],
+  "stateHeatMap": [
+    {
+      "state": "TX",
+      "total": 14,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "NH",
+      "total": 9,
+      "topRep": "Andy Neptune"
+    },
+    {
+      "state": "CA",
+      "total": 6,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "IA",
+      "total": 6,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "WA",
+      "total": 6,
+      "topRep": "Andy Neptune"
+    },
+    {
+      "state": "NY",
+      "total": 5,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "PA",
+      "total": 5,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "GA",
+      "total": 4,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "FL",
+      "total": 3,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "OH",
+      "total": 3,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "WI",
+      "total": 3,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "MI",
+      "total": 3,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "OR",
+      "total": 2,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "IL",
+      "total": 2,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "NV",
+      "total": 2,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "UT",
+      "total": 2,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "NJ",
+      "total": 2,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "KY",
+      "total": 2,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "MA",
+      "total": 2,
+      "topRep": "Andy Neptune"
+    },
+    {
+      "state": "MO",
+      "total": 2,
+      "topRep": "Andy Neptune"
+    },
+    {
+      "state": "MZ",
+      "total": 1,
+      "topRep": "Miguel Lopez"
+    },
+    {
+      "state": "AR",
+      "total": 1,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "MS",
+      "total": 1,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "NC",
+      "total": 1,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "IN",
+      "total": 1,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "VA",
+      "total": 1,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "NE",
+      "total": 1,
+      "topRep": "Phil Libbert"
+    },
+    {
+      "state": "CO",
+      "total": 1,
+      "topRep": "Phil Libbert"
+    }
+  ],
+  "summary": {
+    "totalSalesReps": 4,
+    "totalAccountsCovered": 6102,
+    "totalStates": 28
+  }
+}

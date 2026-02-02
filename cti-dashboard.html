@@ -179,14 +179,16 @@
         .cash-flow-week .day.today { border-bottom: 2px solid var(--accent); }
         .cash-flow-week .day .day-name { color: var(--text-secondary); margin-bottom: 4px; }
         .cash-flow-week .day .day-amount { font-weight: 600; }
-        .ar-aging { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-top: 15px; }
+        .ar-aging { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
         .ar-bucket {
             text-align: center;
-            padding: 15px 10px;
+            padding: 12px 6px;
             background: rgba(255,255,255,0.03);
             border-radius: 8px;
+            min-width: 0;
+            overflow: hidden;
         }
-        .ar-bucket .amount { font-size: 18px; font-weight: 700; }
+        .ar-bucket .amount { font-size: 14px; font-weight: 700; white-space: nowrap; }
         .ar-bucket .label { font-size: 10px; color: var(--text-secondary); margin-top: 4px; }
         .ar-bucket.current .amount { color: var(--success); }
         .ar-bucket.days30 .amount { color: #4ecdc4; }
@@ -233,6 +235,28 @@
             .kpi-row { grid-template-columns: repeat(2, 1fr); }
             .ar-aging { grid-template-columns: repeat(3, 1fr); }
         }
+        /* Drill-down Modal */
+        .drilldown-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7); z-index: 1000; backdrop-filter: blur(4px);
+        }
+        .drilldown-overlay.active { display: flex; align-items: center; justify-content: center; }
+        .drilldown-modal {
+            background: var(--bg-card); border-radius: 16px; max-width: 700px; width: 90%; max-height: 80vh;
+            overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);
+        }
+        .drilldown-header {
+            padding: 20px 25px; border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03);
+        }
+        .drilldown-header h3 { margin: 0; font-size: 18px; }
+        .drilldown-header .close-btn { background: none; border: none; color: var(--text-secondary); font-size: 24px; cursor: pointer; }
+        .drilldown-header .close-btn:hover { color: white; }
+        .drilldown-body { padding: 25px; overflow-y: auto; max-height: calc(80vh - 80px); }
+        .drilldown-total { font-size: 36px; font-weight: 700; color: var(--success); margin-bottom: 20px; }
+        .drilldown-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .drilldown-row:last-child { border-bottom: none; }
+        .drilldown-row .value { font-weight: 600; }
     </style>
 </head>
 <body>
@@ -241,6 +265,7 @@
         <div class="nav">
             <a href="#" class="active" onclick="showPage('overview')">Overview</a>
             <a href="#" onclick="showPage('sales')">Sales Team</a>
+            <a href="#" onclick="showPage('pnl')">P&L</a>
             <a href="#" onclick="showPage('cashflow')">Cash Flow</a>
             <a href="#" onclick="showPage('customers')">Customers</a>
             <a href="#" onclick="showPage('products')">Products</a>
@@ -252,13 +277,13 @@
     <!-- OVERVIEW PAGE -->
     <div id="overview" class="page active">
         <div class="kpi-row">
-            <div class="kpi-card">
+            <div class="kpi-card" style="cursor:pointer" onclick="showDrilldown('yesterday')">
                 <div class="value" style="color: var(--success);" id="kpiYesterday">$0</div>
-                <div class="label">Yesterday's Sales</div>
+                <div class="label">Yesterday's Sales ▼</div>
             </div>
-            <div class="kpi-card">
+            <div class="kpi-card" style="cursor:pointer" onclick="showDrilldown('mtd')">
                 <div class="value" style="color: #4ecdc4;" id="kpiMTD">$0</div>
-                <div class="label">Month-to-Date</div>
+                <div class="label">Month-to-Date ▼</div>
             </div>
             <div class="kpi-card">
                 <div class="value" style="color: var(--warning);" id="kpiYTD">$0</div>
@@ -412,6 +437,67 @@
         </div>
     </div>
 
+    <!-- P&L / INCOME STATEMENT PAGE -->
+    <div id="pnl" class="page">
+        <div class="kpi-row">
+            <div class="kpi-card" style="cursor:pointer;" onclick="showDrilldown('mtd')">
+                <div class="value" style="color: var(--success);" id="pnlRevenue">$0</div>
+                <div class="label">MTD Total Revenue</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: #4ecdc4;" id="pnlProductRev">$0</div>
+                <div class="label">Product Revenue</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: #ff6b6b;" id="pnlServiceRev">$0</div>
+                <div class="label">Service Revenue</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: var(--warning);" id="pnlOtherRev">$0</div>
+                <div class="label">Other (Freight + Misc)</div>
+            </div>
+        </div>
+        <div class="dashboard">
+            <div class="card span-2">
+                <div class="card-title">Revenue by Category (MTD)</div>
+                <div class="chart-container tall"><canvas id="pnlCategoryChart"></canvas></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Revenue Mix</div>
+                <div class="chart-container tall"><canvas id="pnlMixPieChart"></canvas></div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Revenue Breakdown</div>
+                <div style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px;">
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <span style="color: var(--text-secondary);">Product Sales (401000)</span>
+                        <span id="pnlProductRow" style="font-weight: 600; color: #4ecdc4;">$0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <span style="color: var(--text-secondary);">Service Sales (402000)</span>
+                        <span id="pnlServiceRow" style="font-weight: 600; color: #ff6b6b;">$0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <span style="color: var(--text-secondary);">Freight Revenue (495400)</span>
+                        <span id="pnlFreightRow" style="font-weight: 600; color: #feca57;">$0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <span style="color: var(--text-secondary);">Miscellaneous (495000)</span>
+                        <span id="pnlMiscRow" style="font-weight: 600; color: #a29bfe;">$0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; padding: 12px 0; margin-top: 8px; border-top: 2px solid var(--accent);">
+                        <span style="font-weight: 700;">TOTAL REVENUE</span>
+                        <span id="pnlTotalRow" style="font-weight: 700; color: var(--success);">$0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card span-2">
+                <div class="card-title">Daily Revenue Trend (MTD)</div>
+                <div class="chart-container tall"><canvas id="pnlDailyChart"></canvas></div>
+            </div>
+        </div>
+    </div>
+
     <!-- CASH FLOW PAGE -->
     <div id="cashflow" class="page">
         <div class="kpi-row">
@@ -516,12 +602,8 @@
                 <div class="chart-container tall"><canvas id="stateChart"></canvas></div>
             </div>
             <div class="card span-2">
-                <div class="card-title">Service Tech Locations</div>
-                <div style="padding: 40px; text-align: center; color: var(--text-secondary);">
-                    <div style="font-size: 48px; margin-bottom: 15px;">🔧</div>
-                    <div>Salesforce integration coming soon</div>
-                    <div style="font-size: 12px; margin-top: 10px;">Will show real-time service technician locations</div>
-                </div>
+                <div class="card-title">Sales Rep Territories (Salesforce)</div>
+                <div id="salesTerritoryList" class="top-list" style="max-height: 400px;"></div>
             </div>
         </div>
     </div>
@@ -562,6 +644,11 @@
 
         function fmt(n) { return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0}).format(n||0); }
         function fmtK(n) { return '$' + (n/1000).toFixed(0) + 'k'; }
+        function fmtCompact(n) { 
+            if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
+            if (n >= 1000) return '$' + (n/1000).toFixed(0) + 'K';
+            return '$' + Math.round(n);
+        }
 
         function showPage(pageId) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -636,13 +723,13 @@
             document.getElementById('mtdDays').textContent = DATA.Period.MTDBusinessDays;
             document.getElementById('ytdDays').textContent = DATA.Period.YTDBusinessDays;
 
-            // AR Aging
+            // AR Aging - use compact format to fit in boxes
             if (DATA.ARaging) {
-                document.getElementById('arCurrent').textContent = fmt(DATA.ARaging.Current);
-                document.getElementById('ar30').textContent = fmt(DATA.ARaging.Days1_30);
-                document.getElementById('ar60').textContent = fmt(DATA.ARaging.Days31_60);
-                document.getElementById('ar90').textContent = fmt(DATA.ARaging.Days61_90);
-                document.getElementById('ar90plus').textContent = fmt(DATA.ARaging.Days90Plus);
+                document.getElementById('arCurrent').textContent = fmtCompact(DATA.ARaging.Current);
+                document.getElementById('ar30').textContent = fmtCompact(DATA.ARaging.Days1_30);
+                document.getElementById('ar60').textContent = fmtCompact(DATA.ARaging.Days31_60);
+                document.getElementById('ar90').textContent = fmtCompact(DATA.ARaging.Days61_90);
+                document.getElementById('ar90plus').textContent = fmtCompact(DATA.ARaging.Days90Plus);
             }
 
             // Lists
@@ -655,6 +742,7 @@
             // Charts
             initCharts();
             initCashFlow();
+            initPnL();
         }
 
         function initCharts() {
@@ -914,6 +1002,76 @@
             }
         }
 
+        function initPnL() {
+            // P&L KPIs
+            const mtd = DATA.Summary?.MTD || {};
+            document.getElementById('pnlRevenue').textContent = fmt(mtd.Total);
+            document.getElementById('pnlProductRev').textContent = fmt(mtd.Product);
+            document.getElementById('pnlServiceRev').textContent = fmt(mtd.Service);
+            document.getElementById('pnlOtherRev').textContent = fmt((mtd.Freight || 0) + (mtd.Miscellaneous || 0));
+            
+            // Breakdown rows
+            document.getElementById('pnlProductRow').textContent = fmt(mtd.Product);
+            document.getElementById('pnlServiceRow').textContent = fmt(mtd.Service);
+            document.getElementById('pnlFreightRow').textContent = fmt(mtd.Freight);
+            document.getElementById('pnlMiscRow').textContent = fmt(mtd.Miscellaneous);
+            document.getElementById('pnlTotalRow').textContent = fmt(mtd.Total);
+            
+            // Category chart (bar)
+            const catCtx = document.getElementById('pnlCategoryChart')?.getContext('2d');
+            if (catCtx) {
+                new Chart(catCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Product', 'Service', 'Freight', 'Misc'],
+                        datasets: [{
+                            data: [mtd.Product || 0, mtd.Service || 0, mtd.Freight || 0, mtd.Miscellaneous || 0],
+                            backgroundColor: ['#4ecdc4', '#ff6b6b', '#feca57', '#a29bfe']
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } } }
+                });
+            }
+            
+            // Mix pie chart
+            const mixCtx = document.getElementById('pnlMixPieChart')?.getContext('2d');
+            if (mixCtx) {
+                new Chart(mixCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Product', 'Service', 'Freight', 'Misc'],
+                        datasets: [{
+                            data: [mtd.Product || 0, mtd.Service || 0, mtd.Freight || 0, mtd.Miscellaneous || 0],
+                            backgroundColor: ['#4ecdc4', '#ff6b6b', '#feca57', '#a29bfe'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#98c1d9' } } } }
+                });
+            }
+            
+            // Daily trend chart
+            const dailyCtx = document.getElementById('pnlDailyChart')?.getContext('2d');
+            if (dailyCtx && DATA.DailyTrend) {
+                const mtdTrend = DATA.DailyTrend.filter(d => {
+                    const date = new Date(d.Date);
+                    const monthStart = new Date(DATA.Period.MonthStart);
+                    return date >= monthStart && d.Total > 0;
+                });
+                new Chart(dailyCtx, {
+                    type: 'line',
+                    data: {
+                        labels: mtdTrend.map(d => new Date(d.Date).toLocaleDateString('en-US', {month:'short', day:'numeric'})),
+                        datasets: [
+                            { label: 'Product', data: mtdTrend.map(d => d.Product), borderColor: '#4ecdc4', tension: 0.4, fill: false },
+                            { label: 'Service', data: mtdTrend.map(d => d.Service), borderColor: '#ff6b6b', tension: 0.4, fill: false }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#98c1d9' } } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } } }
+                });
+            }
+        }
+
         function initCashFlow() {
             if (!DATA.CashFlowPrediction?.length) return;
 
@@ -1019,9 +1177,100 @@
                 },
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9' } } } }
             });
+            
+            // Salesforce Territory Data
+            renderSalesTerritory();
+        }
+        
+        function renderSalesTerritory() {
+            const el = document.getElementById('salesTerritoryList');
+            if (!DATA.SalesforceTerritory?.salesTeam?.length) {
+                el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-secondary)">No Salesforce data available. Run salesforce-territory-data.js to generate.</div>';
+                return;
+            }
+            
+            el.innerHTML = DATA.SalesforceTerritory.salesTeam.map((rep, i) => {
+                const rank = i < 3 ? ['gold', 'silver', 'bronze'][i] : '';
+                const states = rep.topStates?.map(s => s.state).join(', ') || 'N/A';
+                return `<div class="top-item" style="flex-direction:column;align-items:stretch;padding:12px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div style="display:flex;align-items:center;gap:10px;">
+                            <div class="rank ${rank}">${i+1}</div>
+                            <div>
+                                <div style="font-weight:600;">${rep.name}</div>
+                                <div style="font-size:11px;color:var(--text-secondary);">${rep.role}</div>
+                            </div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="color:var(--success);font-weight:600;">${fmt(rep.revenue)}</div>
+                            <div style="font-size:11px;color:var(--text-secondary);">${rep.wonOpps || 0} won opps</div>
+                        </div>
+                    </div>
+                    <div style="margin-top:8px;font-size:11px;color:var(--text-secondary);display:flex;gap:15px;">
+                        <span>📍 ${rep.stateCount} states</span>
+                        <span>🏢 ${rep.totalAccounts} accounts</span>
+                    </div>
+                    <div style="margin-top:4px;font-size:10px;color:var(--warning);">Top: ${states}</div>
+                </div>`;
+            }).join('');
+        }
+
+        // Drill-down functionality
+        function showDrilldown(type) {
+            const overlay = document.getElementById('drilldownOverlay');
+            const title = document.getElementById('drilldownTitle');
+            const total = document.getElementById('drilldownTotal');
+            const body = document.getElementById('drilldownBody');
+            
+            let data, titleText;
+            if (type === 'mtd') {
+                data = DATA.Summary?.MTD || {};
+                titleText = 'MTD Revenue Breakdown';
+            } else if (type === 'yesterday') {
+                data = DATA.Summary?.Yesterday || {};
+                titleText = 'Yesterday\'s Revenue Breakdown';
+            } else {
+                return;
+            }
+            
+            title.textContent = titleText;
+            total.textContent = fmt(data.Total);
+            
+            body.innerHTML = `
+                <div class="drilldown-row"><span>Product Sales</span><span class="value" style="color:#4ecdc4">${fmt(data.Product)}</span></div>
+                <div class="drilldown-row"><span>Service Sales</span><span class="value" style="color:#ff6b6b">${fmt(data.Service)}</span></div>
+                <div class="drilldown-row"><span>Freight Revenue</span><span class="value" style="color:#feca57">${fmt(data.Freight)}</span></div>
+                <div class="drilldown-row"><span>Miscellaneous</span><span class="value" style="color:#a29bfe">${fmt(data.Miscellaneous)}</span></div>
+                <div class="drilldown-row" style="margin-top:15px;padding-top:15px;border-top:2px solid var(--accent);">
+                    <span style="font-weight:700;">TOTAL</span>
+                    <span class="value" style="color:var(--success);font-weight:700;">${fmt(data.Total)}</span>
+                </div>
+            `;
+            
+            overlay.classList.add('active');
+        }
+        
+        function closeDrilldown(e) {
+            if (e.target.classList.contains('drilldown-overlay') || e.target.classList.contains('close-btn')) {
+                document.getElementById('drilldownOverlay').classList.remove('active');
+            }
         }
 
         loadData();
     </script>
+    
+    <!-- Drill-down Modal -->
+    <div class="drilldown-overlay" id="drilldownOverlay" onclick="closeDrilldown(event)">
+        <div class="drilldown-modal" onclick="event.stopPropagation()">
+            <div class="drilldown-header">
+                <h3 id="drilldownTitle">Details</h3>
+                <button class="close-btn" onclick="closeDrilldown(event)">&times;</button>
+            </div>
+            <div class="drilldown-body">
+                <div class="drilldown-total" id="drilldownTotal">$0</div>
+                <div id="drilldownBody"></div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
