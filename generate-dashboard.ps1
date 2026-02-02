@@ -328,7 +328,11 @@ $ytdDays = Get-BusinessDays $yearStart $today
 $mtdAvg = if ($mtdDays -gt 0) { [math]::Round($mtdSales.Total / $mtdDays, 2) } else { 0 }
 $ytdAvg = if ($ytdDays -gt 0) { [math]::Round($ytdSales.Total / $ytdDays, 2) } else { 0 }
 
-Write-Host "Service/Product split: $([math]::Round($mtdSales.Service / $mtdSales.Total * 100, 1))% Service, $([math]::Round($mtdSales.Product / $mtdSales.Total * 100, 1))% Product"
+if ($mtdSales.Total -gt 0) {
+    Write-Host "Service/Product split: $([math]::Round($mtdSales.Service / $mtdSales.Total * 100, 1))% Service, $([math]::Round($mtdSales.Product / $mtdSales.Total * 100, 1))% Product"
+} else {
+    Write-Host "No MTD sales yet (month just started)"
+}
 
 # === STEP 5.5: Calculate Day of Week Averages (FIX for empty chart) ===
 Write-Host "Calculating day of week averages..."

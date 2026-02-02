@@ -1,0 +1,162 @@
+{
+    "OpenInvoiceCount":  2024,
+    "Difference":  -47789.06,
+    "TopOldestInvoices":  [
+                              {
+                                  "InvNum":  "122211",
+                                  "DaysOverdue":  -9,
+                                  "Customer":  "Americold Logistics - 5571 - Tomah",
+                                  "DueDate":  "2026-02-08",
+                                  "Balance":  380.00000000
+                              },
+                              {
+                                  "InvNum":  "123094",
+                                  "DaysOverdue":  -22,
+                                  "Customer":  "Janssen Refrigeration",
+                                  "DueDate":  "2026-02-21",
+                                  "Balance":  211.40000000
+                              },
+                              {
+                                  "InvNum":  "122505",
+                                  "DaysOverdue":  -13,
+                                  "Customer":  "National Beef Packing - Liberal",
+                                  "DueDate":  "2026-02-12",
+                                  "Balance":  5190.00000000
+                              },
+                              {
+                                  "InvNum":  "123269",
+                                  "DaysOverdue":  -26,
+                                  "Customer":  "AC\u0026R Specialists",
+                                  "DueDate":  "2026-02-25",
+                                  "Balance":  1953.00000000
+                              },
+                              {
+                                  "InvNum":  "123261",
+                                  "DaysOverdue":  -26,
+                                  "Customer":  "AC\u0026R Specialists",
+                                  "DueDate":  "2026-02-25",
+                                  "Balance":  618.80000000
+                              },
+                              {
+                                  "InvNum":  "120996",
+                                  "DaysOverdue":  27,
+                                  "Customer":  "IPM Panama",
+                                  "DueDate":  "2026-01-03",
+                                  "Balance":  4053.12000000
+                              },
+                              {
+                                  "InvNum":  "122219",
+                                  "DaysOverdue":  -9,
+                                  "Customer":  "Lineage Logistics - Seattle",
+                                  "DueDate":  "2026-02-08",
+                                  "Balance":  190.00000000
+                              },
+                              {
+                                  "InvNum":  "122177",
+                                  "DaysOverdue":  -9,
+                                  "Customer":  "Sugar Bowl Bakery (Ly Brothers Corp)",
+                                  "DueDate":  "2026-02-08",
+                                  "Balance":  470.00000000
+                              },
+                              {
+                                  "InvNum":  "122038",
+                                  "DaysOverdue":  -89,
+                                  "Customer":  "Kraft Heinz - Cedar Rapids",
+                                  "DueDate":  "2026-04-29",
+                                  "Balance":  2225.00000000
+                              },
+                              {
+                                  "InvNum":  "122882",
+                                  "DaysOverdue":  -19,
+                                  "Customer":  "Uni-Temp Refrigeration",
+                                  "DueDate":  "2026-02-18",
+                                  "Balance":  317.10000000
+                              },
+                              {
+                                  "InvNum":  "122334",
+                                  "DaysOverdue":  -12,
+                                  "Customer":  "Jost Chemical",
+                                  "DueDate":  "2026-02-11",
+                                  "Balance":  2355.00000000
+                              },
+                              {
+                                  "InvNum":  "122564",
+                                  "DaysOverdue":  -13,
+                                  "Customer":  "AC\u0026R Specialists",
+                                  "DueDate":  "2026-02-12",
+                                  "Balance":  658.00000000
+                              },
+                              {
+                                  "InvNum":  "123332",
+                                  "DaysOverdue":  -27,
+                                  "Customer":  "Arkansas Refrigerated Services",
+                                  "DueDate":  "2026-02-26",
+                                  "Balance":  279.00000000
+                              },
+                              {
+                                  "InvNum":  "123039",
+                                  "DaysOverdue":  -21,
+                                  "Customer":  "Sterling Industrial Refrigeration",
+                                  "DueDate":  "2026-02-20",
+                                  "Balance":  658.00000000
+                              },
+                              {
+                                  "InvNum":  "122095",
+                                  "DaysOverdue":  -22,
+                                  "Customer":  "Reyes Coca-Cola Bottling - Great Lakes Coca-Cola - Downey",
+                                  "DueDate":  "2026-02-21",
+                                  "Balance":  1966.00000000
+                              },
+                              {
+                                  "InvNum":  "122793",
+                                  "DaysOverdue":  -76,
+                                  "Customer":  "Tyson - (FM) Madison",
+                                  "DueDate":  "2026-04-16",
+                                  "Balance":  1424.00000000
+                              },
+                              {
+                                  "InvNum":  "122701",
+                                  "DaysOverdue":  -45,
+                                  "Customer":  "US Cold Storage #810 - Hazleton",
+                                  "DueDate":  "2026-03-16",
+                                  "Balance":  1836.90000000
+                              },
+                              {
+                                  "InvNum":  "123287",
+                                  "DaysOverdue":  -26,
+                                  "Customer":  "Wagner-Meinert - Fort Wayne",
+                                  "DueDate":  "2026-02-25",
+                                  "Balance":  195.30000000
+                              },
+                              {
+                                  "InvNum":  "122956",
+                                  "DaysOverdue":  -20,
+                                  "Customer":  "Independent Refrigeration Services - York",
+                                  "DueDate":  "2026-02-19",
+                                  "Balance":  317.10000000
+                              },
+                              {
+                                  "InvNum":  "123072",
+                                  "DaysOverdue":  -22,
+                                  "Customer":  "Keep Supply",
+                                  "DueDate":  "2026-02-21",
+                                  "Balance":  476.00000000
+                              }
+                          ],
+    "SyteLine":  {
+                     "Current":  3528836.58000000,
+                     "Days90Plus":  242773.85000000,
+                     "Days31_60":  132248.69000000,
+                     "Total":  4656369.74000000,
+                     "Days1_30":  570661.53000000,
+                     "Days61_90":  181849.09000000
+                 },
+    "Birst":  {
+                  "Current":  3627797.03,
+                  "Days90Plus":  179156.16,
+                  "Days31_60":  113316.98,
+                  "Total":  4704158.80,
+                  "Days1_30":  617951.15,
+                  "Days61_90":  165937.48
+              }
+}
