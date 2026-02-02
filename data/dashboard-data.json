@@ -617,261 +617,261 @@
                                                },
                                    "StartDate":  "2026-02-02",
                                    "Predicted":  549073.17,
-                                   "ARDue":  321093.91,
+                                   "ARDue":  320497.51,
                                    "WeekNum":  1,
                                    "Week":  "Week of Feb 2",
                                    "Confidence":  45
                                },
                                {
-                                   "Total":  635909.72,
+                                   "Total":  635895.41,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-09",
-                                                            "Amount":  100593.52,
+                                                            "Amount":  100591.38,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-10",
-                                                            "Amount":  154023.49,
+                                                            "Amount":  154019.91,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-11",
-                                                            "Amount":  136865.89,
+                                                            "Amount":  136862.31,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-12",
-                                                            "Amount":  113259.92,
+                                                            "Amount":  113257.06,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-13",
-                                                            "Amount":  131166.9,
+                                                            "Amount":  131164.75,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-13",
-                                   "ExpectedCollections":  270034.22,
+                                   "ExpectedCollections":  269986.54,
                                    "Actual":  0,
                                    "Sources":  {
                                                    "From61_90":  7860.45,
                                                    "From1_30":  156941.85,
-                                                   "FromCurrent":  480575,
+                                                   "FromCurrent":  480455.8,
                                                    "From90Plus":  5719.06,
                                                    "From31_60":  23989.2
                                                },
                                    "StartDate":  "2026-02-09",
-                                   "Predicted":  635909.72,
+                                   "Predicted":  635895.41,
                                    "ARDue":  973596.03,
                                    "WeekNum":  2,
                                    "Week":  "Week of Feb 9",
                                    "Confidence":  38
                                },
                                {
-                                   "Total":  558694.94,
+                                   "Total":  558685.49,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-16",
-                                                            "Amount":  20229.84,
+                                                            "Amount":  20229.52,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-17",
-                                                            "Amount":  154949.64,
+                                                            "Amount":  154946.96,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-18",
-                                                            "Amount":  137792.04,
+                                                            "Amount":  137789.35,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-19",
-                                                            "Amount":  114000.84,
+                                                            "Amount":  113998.69,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-20",
-                                                            "Amount":  131722.59,
+                                                            "Amount":  131720.98,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-20",
-                                   "ExpectedCollections":  282382.87,
+                                   "ExpectedCollections":  282347.09,
                                    "Actual":  0,
                                    "Sources":  {
                                                    "From61_90":  8500.95,
-                                                   "From1_30":  166251.3,
-                                                   "FromCurrent":  483064.2,
+                                                   "From1_30":  166233.45,
+                                                   "FromCurrent":  482992.6,
                                                    "From90Plus":  6390.72,
                                                    "From31_60":  41750
                                                },
                                    "StartDate":  "2026-02-16",
-                                   "Predicted":  558694.94,
+                                   "Predicted":  558685.49,
                                    "ARDue":  686765.24,
                                    "WeekNum":  3,
                                    "Week":  "Week of Feb 16",
                                    "Confidence":  30
                                },
                                {
-                                   "Total":  635603.09,
+                                   "Total":  635595.01,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-02-23",
-                                                            "Amount":  100547.53,
+                                                            "Amount":  100546.32,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-24",
-                                                            "Amount":  153946.83,
+                                                            "Amount":  153944.81,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-25",
-                                                            "Amount":  136789.23,
+                                                            "Amount":  136787.21,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-26",
-                                                            "Amount":  113198.59,
+                                                            "Amount":  113196.98,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-02-27",
-                                                            "Amount":  131120.9,
+                                                            "Amount":  131119.69,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-02-27",
-                                   "ExpectedCollections":  269012.14,
+                                   "ExpectedCollections":  268985.2,
                                    "Actual":  0,
                                    "Sources":  {
                                                    "From61_90":  11169.4,
-                                                   "From1_30":  172210.35,
-                                                   "FromCurrent":  427191.6,
+                                                   "From1_30":  172188.9,
+                                                   "FromCurrent":  427148.6,
                                                    "From90Plus":  7113,
-                                                   "From31_60":  54846
+                                                   "From31_60":  54843.1
                                                },
                                    "StartDate":  "2026-02-23",
-                                   "Predicted":  635603.09,
+                                   "Predicted":  635595.01,
                                    "ARDue":  672510.83,
                                    "WeekNum":  4,
                                    "Week":  "Week of Feb 23",
                                    "Confidence":  30
                                },
                                {
-                                   "Total":  632339.74,
+                                   "Total":  632333.63,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-03-02",
-                                                            "Amount":  100058.03,
+                                                            "Amount":  100057.11,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-03",
-                                                            "Amount":  153131,
+                                                            "Amount":  153129.47,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-04",
-                                                            "Amount":  135973.4,
+                                                            "Amount":  135971.87,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-05",
-                                                            "Amount":  112545.92,
+                                                            "Amount":  112544.7,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-06",
-                                                            "Amount":  130631.4,
+                                                            "Amount":  130630.48,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-03-06",
-                                   "ExpectedCollections":  258134.31,
+                                   "ExpectedCollections":  258113.93,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  14674.35,
-                                                   "From1_30":  167404.95,
-                                                   "FromCurrent":  390817.2,
+                                                   "From61_90":  14673.95,
+                                                   "From1_30":  167385.6,
+                                                   "FromCurrent":  390791.4,
                                                    "From90Plus":  8087.68,
-                                                   "From31_60":  64351.6
+                                                   "From31_60":  64346.2
                                                },
                                    "StartDate":  "2026-03-02",
-                                   "Predicted":  632339.74,
+                                   "Predicted":  632333.63,
                                    "ARDue":  91365.90,
                                    "WeekNum":  5,
                                    "Week":  "Week of Mar 2",
                                    "Confidence":  22
                                },
                                {
-                                   "Total":  616011.6,
+                                   "Total":  616006.94,
                                    "DayBreakdown":  [
                                                         {
                                                             "Date":  "2026-03-09",
-                                                            "Amount":  97608.81,
+                                                            "Amount":  97608.11,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Monday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-10",
-                                                            "Amount":  149048.96,
+                                                            "Amount":  149047.8,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Tuesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-11",
-                                                            "Amount":  131891.36,
+                                                            "Amount":  131890.19,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Wednesday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-12",
-                                                            "Amount":  109280.29,
+                                                            "Amount":  109279.36,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Thursday"
                                                         },
                                                         {
                                                             "Date":  "2026-03-13",
-                                                            "Amount":  128182.18,
+                                                            "Amount":  128181.48,
                                                             "Type":  "Predicted",
                                                             "DayOfWeek":  "Friday"
                                                         }
                                                     ],
                                    "EndDate":  "2026-03-13",
-                                   "ExpectedCollections":  203707.16,
+                                   "ExpectedCollections":  203691.63,
                                    "Actual":  0,
                                    "Sources":  {
-                                                   "From61_90":  18316,
-                                                   "From1_30":  159065.55,
-                                                   "FromCurrent":  252763.6,
-                                                   "From90Plus":  9393.36,
-                                                   "From31_60":  69729.4
+                                                   "From61_90":  18315.05,
+                                                   "From1_30":  159050.1,
+                                                   "FromCurrent":  252748,
+                                                   "From90Plus":  9393.32,
+                                                   "From31_60":  69722.6
                                                },
                                    "StartDate":  "2026-03-09",
-                                   "Predicted":  616011.6,
+                                   "Predicted":  616006.94,
                                    "ARDue":  86037.11,
                                    "WeekNum":  6,
                                    "Week":  "Week of Mar 9",
@@ -1939,5 +1939,5 @@
                                                 "totalStates":  28
                                             }
                             },
-    "GeneratedAt":  "2026-02-02 08:18:43"
+    "GeneratedAt":  "2026-02-02 08:33:52"
 }

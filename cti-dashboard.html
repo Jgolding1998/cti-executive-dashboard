@@ -439,6 +439,29 @@
 
     <!-- P&L / INCOME STATEMENT PAGE -->
     <div id="pnl" class="page">
+        <!-- YTD Section -->
+        <h3 style="color: var(--text-primary); margin: 0 0 15px 0; padding-left: 10px; border-left: 4px solid var(--success);">📊 Year-to-Date Revenue</h3>
+        <div class="kpi-row">
+            <div class="kpi-card" style="cursor:pointer;" onclick="showDrilldown('ytd')">
+                <div class="value" style="color: var(--success);" id="pnlYTDRevenue">$0</div>
+                <div class="label">YTD Total Revenue</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: #4ecdc4;" id="pnlYTDProduct">$0</div>
+                <div class="label">YTD Product</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: #ff6b6b;" id="pnlYTDService">$0</div>
+                <div class="label">YTD Service</div>
+            </div>
+            <div class="kpi-card">
+                <div class="value" style="color: var(--warning);" id="pnlYTDOther">$0</div>
+                <div class="label">YTD Other (Freight + Misc)</div>
+            </div>
+        </div>
+        
+        <!-- MTD Section -->
+        <h3 style="color: var(--text-primary); margin: 20px 0 15px 0; padding-left: 10px; border-left: 4px solid var(--accent);">📅 Month-to-Date Revenue</h3>
         <div class="kpi-row">
             <div class="kpi-card" style="cursor:pointer;" onclick="showDrilldown('mtd')">
                 <div class="value" style="color: var(--success);" id="pnlRevenue">$0</div>
@@ -533,14 +556,14 @@
                 <div class="card-title">Prediction Algorithm Details</div>
                 <div style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 8px; font-size: 13px; line-height: 1.8;">
                     <strong>How the forecast is calculated:</strong><br>
-                    • <strong>Historical Patterns:</strong> Weighted average of sales by day of week (60%)<br>
-                    • <strong>AR Expectations:</strong> Expected collections from aging buckets (40%)<br>
-                    • <strong>Collection Rates:</strong> Current 20%/wk, 1-30d 15%/wk, 31-60d 10%/wk<br>
-                    • <strong>Actual Data:</strong> Days already passed use actual GL data<br>
-                    • <strong>Weekend Rule:</strong> Saturday/Sunday sales roll into Monday<br>
-                    • <strong>Confidence:</strong> Decreases with forecast distance<br>
+                    - <strong>Historical Patterns:</strong> Weighted average of sales by day of week (60%)<br>
+                    - <strong>AR Expectations:</strong> Expected collections from aging buckets (40%)<br>
+                    - <strong>Collection Rates:</strong> Current 20%/wk, 1-30d 15%/wk, 31-60d 10%/wk<br>
+                    - <strong>Actual Data:</strong> Days already passed use actual GL data<br>
+                    - <strong>Weekend Rule:</strong> Saturday/Sunday sales roll into Monday<br>
+                    - <strong>Confidence:</strong> Decreases with forecast distance<br>
                     <br>
-                    <em style="color: var(--text-secondary);">Formula: (Historical DOW Avg × 0.70) + (AR Collection Expectation × 0.30)</em>
+                    <em style="color: var(--text-secondary);">Formula: (Historical DOW Avg x 0.70) + (AR Collection Expectation x 0.30)</em>
                 </div>
             </div>
             <div class="card span-2">
@@ -1003,7 +1026,14 @@
         }
 
         function initPnL() {
-            // P&L KPIs
+            // YTD KPIs
+            const ytd = DATA.Summary?.YTD || {};
+            document.getElementById('pnlYTDRevenue').textContent = fmt(ytd.Total);
+            document.getElementById('pnlYTDProduct').textContent = fmt(ytd.Product);
+            document.getElementById('pnlYTDService').textContent = fmt(ytd.Service);
+            document.getElementById('pnlYTDOther').textContent = fmt((ytd.Freight || 0) + (ytd.Miscellaneous || 0));
+            
+            // MTD KPIs
             const mtd = DATA.Summary?.MTD || {};
             document.getElementById('pnlRevenue').textContent = fmt(mtd.Total);
             document.getElementById('pnlProductRev').textContent = fmt(mtd.Product);
@@ -1229,6 +1259,9 @@
             } else if (type === 'yesterday') {
                 data = DATA.Summary?.Yesterday || {};
                 titleText = 'Yesterday\'s Revenue Breakdown';
+            } else if (type === 'ytd') {
+                data = DATA.Summary?.YTD || {};
+                titleText = 'YTD Revenue Breakdown';
             } else {
                 return;
             }
