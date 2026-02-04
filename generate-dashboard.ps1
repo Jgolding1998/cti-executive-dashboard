@@ -254,9 +254,22 @@ foreach ($gl in $ledgerData) {
             } elseif ($acct -eq "495000") {
                 $salesByDate[$dateKey].Miscellaneous += $amount
                 $salesByDate[$dateKey].Total += $amount
-            } elseif ($acct -in @("401000", "402000") -and $gl.Ref -match "ARI\s+(\d+)") {
-                $invNum = $matches[1].Trim()
-                $orderNum = $invToOrder[$invNum]
+            } elseif ($acct -in @("401000", "402000")) {
+                # Handle both invoices (ARI) and credit memos (ARC)
+                $invNum = $null
+                $orderNum = $null
+                $svcRatio = 0
+                $prodRatio = 1  # Default to product
+                
+                if ($gl.Ref -match "ARI\s+(\d+)") {
+                    $invNum = $matches[1].Trim()
+                    $orderNum = $invToOrder[$invNum]
+                } elseif ($gl.Ref -match "ARC") {
+                    # AR Credit - reduces revenue (amount is already handled by * -1)
+                    # These don't have order linkage, so default to product
+                    $invNum = $null
+                    $orderNum = $null
+                }
                 
                 if ($orderNum -and $orderBreakdown.ContainsKey($orderNum) -and $orderBreakdown[$orderNum].Total -gt 0) {
                     $breakdown = $orderBreakdown[$orderNum]
@@ -266,7 +279,7 @@ foreach ($gl in $ledgerData) {
                     $salesByDate[$dateKey].Service += $amount * $svcRatio
                     $salesByDate[$dateKey].Product += $amount * $prodRatio
                 } else {
-                    $salesByDate[$dateKey].Product += $amount  # Default to product
+                    $salesByDate[$dateKey].Product += $amount  # Default to product (includes ARC credits)
                 }
                 $salesByDate[$dateKey].Total += $amount
                 
@@ -360,20 +373,20 @@ foreach ($dow in @("Monday","Tuesday","Wednesday","Thursday","Friday")) {
 }
 Write-Host "Day of week averages calculated: Mon=$($avgByDayOfWeek['Monday']), Tue=$($avgByDayOfWeek['Tuesday']), Wed=$($avgByDayOfWeek['Wednesday']), Thu=$($avgByDayOfWeek['Thursday']), Fri=$($avgByDayOfWeek['Friday'])"
 
-# === STEP 6: AR Aging (use Birst data if available) ===
+# === STEP 6: AR Aging (use SyteLine calculated data - Invoice minus Payments) ===
 Write-Host "Loading AR aging data..."
-$birstArPath = Join-Path $OutputPath "data\birst-ar-aging.json"
-if (Test-Path $birstArPath) {
-    $birstAR = Get-Content $birstArPath | ConvertFrom-Json
+$sytelineArPath = Join-Path $OutputPath "data\ar-aging-net.json"
+if (Test-Path $sytelineArPath) {
+    $sytelineAR = Get-Content $sytelineArPath | ConvertFrom-Json
     $arAging = @{
-        Current = [decimal]$birstAR.Current
-        Days1_30 = [decimal]$birstAR.Days1_30
-        Days31_60 = [decimal]$birstAR.Days31_60
-        Days61_90 = [decimal]$birstAR.Days61_90
-        Days90Plus = [decimal]$birstAR.Days90Plus
-        Total = [decimal]$birstAR.Total
+        Current = [decimal]$sytelineAR.summary.buckets.current
+        Days1_30 = [decimal]$sytelineAR.summary.buckets.'1-30'
+        Days31_60 = [decimal]$sytelineAR.summary.buckets.'31-60'
+        Days61_90 = [decimal]$sytelineAR.summary.buckets.'61-90'
+        Days90Plus = [decimal]$sytelineAR.summary.buckets.'91+'
+        Total = [decimal]$sytelineAR.summary.totalAR
     }
-    Write-Host "Using Birst AR aging data: Total = `$$([math]::Round($arAging.Total, 2))"
+    Write-Host "Using SyteLine AR aging (Invoice-Payments): Total = `$$([math]::Round($arAging.Total, 2))"
 } else {
     # Calculate from transactions if Birst data not available
     $arAging = @{ Current=0; Days1_30=0; Days31_60=0; Days61_90=0; Days90Plus=0; Total=0 }
@@ -542,7 +555,7 @@ Write-Host "6-week forecast total: `$$([math]::Round($cf6WeekTotal, 2))"
 
 # === STEP 8: Shipments ===
 Write-Host "Fetching shipment data..."
-$shipments = Invoke-SyteLineAPI -Token $token -IDO "SLShipments" -Properties "ConsigneeCity,ConsigneeState,ConsigneeZip" -RecordCap 3000
+$shipments = Invoke-SyteLineAPI -Token $token -IDO "SLShipments" -Properties "ConsigneeCity,ConsigneeState,ConsigneeZip" -RecordCap 10000
 $locationCounts = @{}
 foreach ($ship in $shipments) {
     if ($ship.ConsigneeCity -and $ship.ConsigneeState) {
@@ -551,6 +564,38 @@ foreach ($ship in $shipments) {
         $locationCounts[$locKey].Count++
     }
 }
+Write-Host "Total shipping locations: $($locationCounts.Count)"
+
+# === STEP 8.5: Service Tech Locations ===
+Write-Host "Building service tech location data..."
+# Get service items (LFTR, LGAS, LIHL = Field/Gas/In-house Labor)
+$serviceItemFilter = "ProductCode IN ('LFTR','LGAS','LIHL')"
+$serviceItemsData = Invoke-SyteLineAPI -Token $token -IDO "SLItems" -Properties "Item" -Filter $serviceItemFilter -RecordCap 500
+$serviceItemSet = @{}
+foreach ($si in $serviceItemsData) { if ($si.Item) { $serviceItemSet[$si.Item.Trim()] = $true } }
+Write-Host "Service items: $($serviceItemSet.Count)"
+
+# Find orders with service items using existing $coItems data
+$serviceOrderNums = @{}
+foreach ($line in $coItems) {
+    if ($line.Item -and $serviceItemSet.ContainsKey($line.Item.Trim()) -and $line.CoNum) {
+        $serviceOrderNums[$line.CoNum.Trim()] = $true
+    }
+}
+Write-Host "Orders with service items: $($serviceOrderNums.Count)"
+
+# Get service locations from orders
+$serviceLocationCounts = @{}
+foreach ($order in $orders) {
+    if ($order.CoNum -and $serviceOrderNums.ContainsKey($order.CoNum.Trim()) -and $order.ShipToCity -and $order.ShipToState) {
+        $locKey = "$($order.ShipToCity.Trim()), $($order.ShipToState.Trim())"
+        if (-not $serviceLocationCounts.ContainsKey($locKey)) { 
+            $serviceLocationCounts[$locKey] = @{City=$order.ShipToCity.Trim(); State=$order.ShipToState.Trim(); Count=0} 
+        }
+        $serviceLocationCounts[$locKey].Count++
+    }
+}
+Write-Host "Service tech locations: $($serviceLocationCounts.Count)"
 
 # === STEP 9: Build output ===
 $dailyTrend = @()
@@ -566,7 +611,10 @@ for ($i = 60; $i -ge 0; $i--) {
 $topCustomersMTD = $salesByCustomer.GetEnumerator() | Where-Object { $_.Value.MTD -gt 0 } | Sort-Object { $_.Value.MTD } -Descending | Select-Object -First 15 | ForEach-Object { @{Name=$_.Key; Amount=[math]::Round($_.Value.MTD,2)} }
 $topCustomersYesterday = $salesByCustomer.GetEnumerator() | Where-Object { $_.Value.Yesterday -gt 0 } | Sort-Object { $_.Value.Yesterday } -Descending | Select-Object -First 15 | ForEach-Object { @{Name=$_.Key; Amount=[math]::Round($_.Value.Yesterday,2)} }
 $topProductsMTD = $salesByProduct.GetEnumerator() | Sort-Object { $_.Value.MTD } -Descending | Select-Object -First 15 | ForEach-Object { @{Item=$_.Key; Description=$_.Value.Description; Amount=[math]::Round($_.Value.MTD,2)} }
-$shippingLocations = $locationCounts.Values | Sort-Object -Property Count -Descending | Select-Object -First 100
+# All shipping locations (no limit)
+$shippingLocations = $locationCounts.Values | Sort-Object -Property Count -Descending
+# All service tech locations (no limit)
+$serviceTechLocations = $serviceLocationCounts.Values | Sort-Object -Property Count -Descending
 
 # Team member roles and labels
 $teamRoles = @{
@@ -638,6 +686,18 @@ $salespersonMTD | ForEach-Object { Write-Host "  $($_.Name): `$$($_.Amount)" }
 Write-Host "`nService Reps Only:"
 $serviceRepMTD | ForEach-Object { Write-Host "  $($_.Name): `$$($_.Amount)" }
 
+# Load Salesforce territory data if available
+$salesforceTerritoryPath = Join-Path $OutputPath "data\salesforce-territory.json"
+$salesforceTerritory = $null
+if (Test-Path $salesforceTerritoryPath) {
+    try {
+        $salesforceTerritory = Get-Content $salesforceTerritoryPath | ConvertFrom-Json
+        Write-Host "Loaded Salesforce territory data: $($salesforceTerritory.salesTeam.Count) sales reps"
+    } catch {
+        Write-Host "Warning: Could not load Salesforce territory data"
+    }
+}
+
 $dashboardData = @{
     GeneratedAt = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
     DataSource = "SyteLine GL Ledger with ProductCode (LFTR/LGAS/LIHL=Service)"
@@ -657,7 +717,9 @@ $dashboardData = @{
     AllTeam = @{ Yesterday=$allTeamYesterday; MTD=$allTeamMTD }
     DailyTrend = $dailyTrend
     ShippingHeatMap = $shippingLocations
+    ServiceTechLocations = $serviceTechLocations
     DayOfWeekAverages = $avgByDayOfWeek
+    SalesforceTerritory = $salesforceTerritory
 }
 
 # Save JSON
@@ -675,6 +737,7 @@ $cashFlowPrediction | ForEach-Object { Write-Host "  $($_.Week): `$$($_.Total) (
 
 # Create self-contained HTML
 Write-Host "`nCreating self-contained dashboard..."
+# Use cti-dashboard.html as template (has latest AllTeam, ServiceReps, Salesforce features)
 $htmlTemplatePath = Join-Path $OutputPath "cti-dashboard.html"
 if (Test-Path $htmlTemplatePath) {
     $htmlTemplate = Get-Content $htmlTemplatePath -Raw
