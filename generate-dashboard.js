@@ -46,7 +46,6 @@ async function fetchIDO(token, ido, properties, filter = null, recordCap = 10000
 
 function parseDate(dateStr) {
     if (!dateStr || dateStr.length < 8) return null;
-    // Handle format: "20230131 00:00:00.000" or "20230131"
     const clean = dateStr.replace(/\s.*/g, '').replace(/-/g, '');
     const y = clean.substring(0, 4);
     const m = clean.substring(4, 6);
@@ -56,7 +55,6 @@ function parseDate(dateStr) {
 
 function parseDateToKey(dateStr) {
     if (!dateStr || dateStr.length < 8) return null;
-    // Convert "20230131 00:00:00.000" to "2023-01-31"
     const clean = dateStr.replace(/\s.*/g, '').replace(/-/g, '');
     const y = clean.substring(0, 4);
     const m = clean.substring(4, 6);
@@ -93,7 +91,6 @@ async function generateDashboard() {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     
-    // Find yesterday (skip weekends)
     let yesterday = new Date(today);
     yesterday.setDate(yesterday.getDate() - 1);
     while (isWeekend(yesterday)) yesterday.setDate(yesterday.getDate() - 1);
@@ -144,17 +141,26 @@ async function generateDashboard() {
     const invToOrder = {};
     const invToCustomer = {};
     const invoiceBalances = {};
+    const invoiceInfo = {}; // Store invoice details for drill-down
     
     // First pass: Add invoices
     arTrans.forEach(ar => {
         if (ar.Type === 'I' && ar.InvNum) {
             const invNum = ar.InvNum.trim();
             if (!invoiceBalances[invNum]) {
-                invoiceBalances[invNum] = { Customer: ar.CadName, DueDate: ar.DueDate, CoNum: ar.CoNum, OriginalAmount: 0, Applied: 0 };
+                invoiceBalances[invNum] = { Customer: ar.CadName, DueDate: ar.DueDate, InvDate: ar.InvDate, CoNum: ar.CoNum, OriginalAmount: 0, Applied: 0 };
             }
             invoiceBalances[invNum].OriginalAmount += parseFloat(ar.Amount) || 0;
             if (ar.CoNum) invToOrder[invNum] = ar.CoNum.trim();
             if (ar.CadName) invToCustomer[invNum] = ar.CadName;
+            
+            // Store invoice info for drill-down
+            invoiceInfo[invNum] = {
+                Customer: ar.CadName || 'Unknown',
+                CoNum: ar.CoNum || '',
+                InvDate: ar.InvDate,
+                Amount: parseFloat(ar.Amount) || 0
+            };
         }
     });
     
@@ -189,8 +195,9 @@ async function generateDashboard() {
     const ledgerData = await fetchIDO(token, 'SLLedgers', 'Acct,DomAmount,TransDate,Ref', filter, 15000);
     console.log(`Got ${ledgerData.length} GL ledger records`);
     
-    // Process sales by date
+    // Process sales by date AND capture invoice details
     const salesByDate = {};
+    const invoicesByDate = {}; // NEW: Track invoices per date for drill-down
     const salesByCustomer = {};
     
     ledgerData.forEach(gl => {
@@ -201,28 +208,39 @@ async function generateDashboard() {
         const acct = (gl.Acct || '').trim();
         
         if (!salesByDate[dateKey]) salesByDate[dateKey] = { Product: 0, Service: 0, Freight: 0, Miscellaneous: 0, Total: 0 };
+        if (!invoicesByDate[dateKey]) invoicesByDate[dateKey] = [];
         
         if (acct === '495400') {
             salesByDate[dateKey].Freight += amount;
             salesByDate[dateKey].Total += amount;
+            invoicesByDate[dateKey].push({ InvNum: 'FREIGHT', Customer: 'Freight Revenue', Amount: amount, Category: 'Freight' });
         } else if (acct === '495000') {
             salesByDate[dateKey].Miscellaneous += amount;
             salesByDate[dateKey].Total += amount;
+            invoicesByDate[dateKey].push({ InvNum: 'MISC', Customer: 'Miscellaneous', Amount: amount, Category: 'Miscellaneous' });
         } else if (['401000', '402000'].includes(acct) && gl.Ref) {
             const match = gl.Ref.match(/ARI\s+(\d+)/);
             if (match) {
                 const invNum = match[1].trim();
                 const orderNum = invToOrder[invNum];
-                const custName = invToCustomer[invNum];
+                const custName = invToCustomer[invNum] || 'Unknown';
+                
+                let category = 'Product';
+                let svcAmount = 0, prodAmount = 0;
                 
                 if (orderNum && orderBreakdown[orderNum] && orderBreakdown[orderNum].Total > 0) {
                     const breakdown = orderBreakdown[orderNum];
                     const svcRatio = breakdown.Service / breakdown.Total;
                     const prodRatio = breakdown.Product / breakdown.Total;
                     
-                    salesByDate[dateKey].Service += amount * svcRatio;
-                    salesByDate[dateKey].Product += amount * prodRatio;
+                    svcAmount = amount * svcRatio;
+                    prodAmount = amount * prodRatio;
+                    
+                    salesByDate[dateKey].Service += svcAmount;
+                    salesByDate[dateKey].Product += prodAmount;
                     salesByDate[dateKey].Total += amount;
+                    
+                    category = svcRatio > 0.5 ? 'Service' : 'Product';
                     
                     if (custName) {
                         if (!salesByCustomer[custName]) salesByCustomer[custName] = { MTD: 0, Yesterday: 0 };
@@ -231,9 +249,21 @@ async function generateDashboard() {
                         if (salesDate && formatDate(salesDate) === formatDate(yesterday)) salesByCustomer[custName].Yesterday += amount;
                     }
                 } else {
+                    prodAmount = amount;
                     salesByDate[dateKey].Product += amount;
                     salesByDate[dateKey].Total += amount;
                 }
+                
+                // Add invoice detail for drill-down
+                invoicesByDate[dateKey].push({
+                    InvNum: invNum,
+                    Customer: custName,
+                    Amount: Math.round(amount * 100) / 100,
+                    Category: category,
+                    Product: Math.round(prodAmount * 100) / 100,
+                    Service: Math.round(svcAmount * 100) / 100,
+                    CoNum: orderNum || ''
+                });
             }
         }
     });
@@ -241,19 +271,34 @@ async function generateDashboard() {
     // Calculate summaries
     const yesterdayKey = formatDate(yesterday);
     const yesterdaySales = salesByDate[yesterdayKey] || { Product: 0, Service: 0, Freight: 0, Miscellaneous: 0, Total: 0 };
+    const yesterdayInvoices = invoicesByDate[yesterdayKey] || [];
     
     const mtdSales = { Product: 0, Service: 0, Freight: 0, Miscellaneous: 0, Total: 0 };
     const ytdSales = { Product: 0, Service: 0, Freight: 0, Miscellaneous: 0, Total: 0 };
+    const mtdInvoices = [];
+    const ytdInvoices = [];
     
     Object.entries(salesByDate).forEach(([dateKey, data]) => {
         const date = new Date(dateKey);
         if (date >= monthStart && date <= today) {
             ['Product', 'Service', 'Freight', 'Miscellaneous', 'Total'].forEach(cat => mtdSales[cat] += data[cat]);
+            if (invoicesByDate[dateKey]) {
+                invoicesByDate[dateKey].forEach(inv => mtdInvoices.push({ ...inv, Date: dateKey }));
+            }
         }
         if (date >= yearStart && date <= today) {
             ['Product', 'Service', 'Freight', 'Miscellaneous', 'Total'].forEach(cat => ytdSales[cat] += data[cat]);
+            if (invoicesByDate[dateKey]) {
+                invoicesByDate[dateKey].forEach(inv => ytdInvoices.push({ ...inv, Date: dateKey }));
+            }
         }
     });
+    
+    // Sort invoices by amount descending for drill-down display
+    const sortByAmount = (a, b) => b.Amount - a.Amount;
+    mtdInvoices.sort(sortByAmount);
+    ytdInvoices.sort(sortByAmount);
+    yesterdayInvoices.sort(sortByAmount);
     
     // Calculate business days
     let mtdDays = 0, ytdDays = 0;
@@ -267,17 +312,36 @@ async function generateDashboard() {
     const mtdAvg = mtdDays > 0 ? mtdSales.Total / mtdDays : 0;
     const ytdAvg = ytdDays > 0 ? ytdSales.Total / ytdDays : 0;
     
-    // AR Aging
+    // AR Aging with invoice details
     const arAging = { Current: 0, Days1_30: 0, Days31_60: 0, Days61_90: 0, Days90Plus: 0, Total: 0 };
+    const arInvoicesByBucket = { Current: [], Days1_30: [], Days31_60: [], Days61_90: [], Days90Plus: [] };
+    
     openAR.forEach(inv => {
         const days = inv.DaysOverdue;
-        if (days <= 0) arAging.Current += inv.Amount;
-        else if (days <= 30) arAging.Days1_30 += inv.Amount;
-        else if (days <= 60) arAging.Days31_60 += inv.Amount;
-        else if (days <= 90) arAging.Days61_90 += inv.Amount;
-        else arAging.Days90Plus += inv.Amount;
+        const invDetail = { InvNum: inv.InvNum, Customer: inv.Customer, Amount: Math.round(inv.Amount * 100) / 100, DaysOverdue: days };
+        
+        if (days <= 0) {
+            arAging.Current += inv.Amount;
+            arInvoicesByBucket.Current.push(invDetail);
+        } else if (days <= 30) {
+            arAging.Days1_30 += inv.Amount;
+            arInvoicesByBucket.Days1_30.push(invDetail);
+        } else if (days <= 60) {
+            arAging.Days31_60 += inv.Amount;
+            arInvoicesByBucket.Days31_60.push(invDetail);
+        } else if (days <= 90) {
+            arAging.Days61_90 += inv.Amount;
+            arInvoicesByBucket.Days61_90.push(invDetail);
+        } else {
+            arAging.Days90Plus += inv.Amount;
+            arInvoicesByBucket.Days90Plus.push(invDetail);
+        }
         arAging.Total += inv.Amount;
     });
+    
+    // Sort AR invoices by amount
+    Object.values(arInvoicesByBucket).forEach(arr => arr.sort(sortByAmount));
+    
     console.log(`AR Total: $${Math.round(arAging.Total)}`);
     
     // Smart Cash Flow Prediction
@@ -294,7 +358,6 @@ async function generateDashboard() {
         weekEnd.setDate(weekEnd.getDate() + 4);
         const weekLabel = `Week of ${weekStart.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}`;
         
-        // Expected collections from each bucket
         const expectedFromCurrent = rollingAR.Current * COLLECTION_RATES.current;
         const expectedFrom1_30 = rollingAR.Days1_30 * COLLECTION_RATES.days1_30;
         const expectedFrom31_60 = rollingAR.Days31_60 * COLLECTION_RATES.days31_60;
@@ -329,7 +392,6 @@ async function generateDashboard() {
             }
         }
         
-        // Age the AR buckets for next week
         rollingAR.Days90Plus = Math.max(0, rollingAR.Days90Plus - expectedFrom90Plus + rollingAR.Days61_90 * 0.3);
         rollingAR.Days61_90 = Math.max(0, rollingAR.Days61_90 * 0.7 - expectedFrom61_90 + rollingAR.Days31_60 * 0.3);
         rollingAR.Days31_60 = Math.max(0, rollingAR.Days31_60 * 0.7 - expectedFrom31_60 + rollingAR.Days1_30 * 0.3);
@@ -350,7 +412,7 @@ async function generateDashboard() {
         });
     }
     
-    // Build daily trend (last 60 business days)
+    // Build daily trend
     const dailyTrend = [];
     for (let i = 60; i >= 0; i--) {
         const date = new Date(today);
@@ -387,7 +449,7 @@ async function generateDashboard() {
         .slice(0, 15)
         .map(([item, data]) => ({ Item: item, Description: data.Description, Amount: Math.round(data.MTD * 100) / 100 }));
     
-    // Build dashboard data
+    // Build dashboard data WITH invoice details for drill-down
     const dashboardData = {
         GeneratedAt: new Date().toISOString().replace('T', ' ').substring(0, 19),
         DataSource: 'SyteLine IDO API (Automated)',
@@ -399,13 +461,35 @@ async function generateDashboard() {
             YTDBusinessDays: ytdDays
         },
         Summary: {
-            Yesterday: { Product: Math.round(yesterdaySales.Product * 100) / 100, Service: Math.round(yesterdaySales.Service * 100) / 100, Freight: Math.round(yesterdaySales.Freight * 100) / 100, Miscellaneous: Math.round(yesterdaySales.Miscellaneous * 100) / 100, Total: Math.round(yesterdaySales.Total * 100) / 100 },
-            MTD: { Product: Math.round(mtdSales.Product * 100) / 100, Service: Math.round(mtdSales.Service * 100) / 100, Freight: Math.round(mtdSales.Freight * 100) / 100, Miscellaneous: Math.round(mtdSales.Miscellaneous * 100) / 100, Total: Math.round(mtdSales.Total * 100) / 100 },
-            YTD: { Product: Math.round(ytdSales.Product * 100) / 100, Service: Math.round(ytdSales.Service * 100) / 100, Freight: Math.round(ytdSales.Freight * 100) / 100, Miscellaneous: Math.round(ytdSales.Miscellaneous * 100) / 100, Total: Math.round(ytdSales.Total * 100) / 100 },
+            Yesterday: { 
+                Product: Math.round(yesterdaySales.Product * 100) / 100, 
+                Service: Math.round(yesterdaySales.Service * 100) / 100, 
+                Freight: Math.round(yesterdaySales.Freight * 100) / 100, 
+                Miscellaneous: Math.round(yesterdaySales.Miscellaneous * 100) / 100, 
+                Total: Math.round(yesterdaySales.Total * 100) / 100,
+                Invoices: yesterdayInvoices.slice(0, 100) // Top 100 for drill-down
+            },
+            MTD: { 
+                Product: Math.round(mtdSales.Product * 100) / 100, 
+                Service: Math.round(mtdSales.Service * 100) / 100, 
+                Freight: Math.round(mtdSales.Freight * 100) / 100, 
+                Miscellaneous: Math.round(mtdSales.Miscellaneous * 100) / 100, 
+                Total: Math.round(mtdSales.Total * 100) / 100,
+                Invoices: mtdInvoices.slice(0, 200) // Top 200 for drill-down
+            },
+            YTD: { 
+                Product: Math.round(ytdSales.Product * 100) / 100, 
+                Service: Math.round(ytdSales.Service * 100) / 100, 
+                Freight: Math.round(ytdSales.Freight * 100) / 100, 
+                Miscellaneous: Math.round(ytdSales.Miscellaneous * 100) / 100, 
+                Total: Math.round(ytdSales.Total * 100) / 100,
+                Invoices: ytdInvoices.slice(0, 500) // Top 500 for drill-down
+            },
             MTDDailyAverage: Math.round(mtdAvg * 100) / 100,
             YTDDailyAverage: Math.round(ytdAvg * 100) / 100
         },
         ARaging: arAging,
+        ARInvoices: arInvoicesByBucket, // NEW: AR invoices by bucket for drill-down
         CashFlowPrediction: cashFlowPrediction,
         TopCustomers: { Yesterday: topCustomersYesterday, MTD: topCustomersMTD },
         TopProducts: { MTD: topProductsMTD },
@@ -425,16 +509,16 @@ async function generateDashboard() {
     }
     
     console.log('\n=== SUMMARY ===');
-    console.log(`Yesterday: $${Math.round(yesterdaySales.Total)} (Product: $${Math.round(yesterdaySales.Product)}, Service: $${Math.round(yesterdaySales.Service)})`);
-    console.log(`MTD: $${Math.round(mtdSales.Total)} (Product: $${Math.round(mtdSales.Product)}, Service: $${Math.round(mtdSales.Service)})`);
-    console.log(`AR Total: $${Math.round(arAging.Total)}`);
+    console.log(`Yesterday: $${Math.round(yesterdaySales.Total)} (${yesterdayInvoices.length} invoices)`);
+    console.log(`MTD: $${Math.round(mtdSales.Total)} (${mtdInvoices.length} invoices)`);
+    console.log(`YTD: $${Math.round(ytdSales.Total)} (${ytdInvoices.length} invoices)`);
+    console.log(`AR Total: $${Math.round(arAging.Total)} (${openAR.length} open invoices)`);
     console.log('6-Week Cash Flow Forecast:');
     cashFlowPrediction.forEach(w => console.log(`  ${w.Week}: $${Math.round(w.Total)} (${w.Confidence}% confidence)`));
     
     console.log(`\n${new Date().toISOString()} - Dashboard generation complete!`);
 }
 
-// Create data directory if needed
 if (!fs.existsSync(path.join(__dirname, 'data'))) {
     fs.mkdirSync(path.join(__dirname, 'data'));
 }
