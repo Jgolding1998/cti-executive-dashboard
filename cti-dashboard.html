@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CTI Gas - Executive Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         :root {
             --primary: #1e3a5f;
@@ -47,6 +45,7 @@
             padding: 8px 16px;
             border-radius: 20px;
             transition: all 0.3s;
+            cursor: pointer;
         }
         .header .nav a:hover, .header .nav a.active {
             background: rgba(255,255,255,0.1);
@@ -94,1307 +93,801 @@
         .metric.green { background: linear-gradient(135deg, var(--success), #00ff88); -webkit-background-clip: text; background-clip: text; }
         .metric.small { font-size: 26px; }
         .metric-label { font-size: 12px; color: var(--text-secondary); margin-top: 4px; }
+        
+        /* Clickable items */
+        .clickable {
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .clickable:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(238,108,77,0.3);
+        }
+        
+        /* KPI Cards */
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+        .kpi-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .kpi-value { font-size: 28px; font-weight: 700; }
+        .kpi-label { font-size: 11px; color: var(--text-secondary); margin-top: 5px; text-transform: uppercase; }
+        .kpi-sub { font-size: 10px; color: var(--text-secondary); margin-top: 3px; }
+        
+        /* Breakdown */
         .breakdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
         .breakdown-item {
             text-align: center;
             padding: 12px 8px;
             background: rgba(255,255,255,0.03);
             border-radius: 8px;
-            border-left: 3px solid;
-            overflow: hidden;
-            min-width: 0;
         }
-        .breakdown-item.product { border-color: #4ecdc4; }
-        .breakdown-item.service { border-color: #ff6b6b; }
-        .breakdown-item.freight { border-color: #feca57; }
-        .breakdown-item.misc { border-color: #a29bfe; }
-        .breakdown-item .amount { font-size: 16px; font-weight: 600; }
-        .breakdown-item .label { font-size: 10px; text-transform: uppercase; color: var(--text-secondary); margin-top: 3px; }
-        .chart-container { position: relative; height: 280px; margin-top: 10px; }
-        .chart-container.tall { height: 350px; }
-        #shippingMap { height: 320px; border-radius: 10px; margin-top: 10px; }
-        .top-list { margin-top: 10px; max-height: 350px; overflow-y: auto; }
-        .top-item {
+        .breakdown-value { font-size: 18px; font-weight: 600; }
+        .breakdown-label { font-size: 10px; color: var(--text-secondary); margin-top: 4px; }
+        
+        /* Customer/Product lists */
+        .list-item {
             display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .list-item:last-child { border-bottom: none; }
+        .list-item:hover { background: rgba(255,255,255,0.05); }
+        .list-name { font-size: 13px; }
+        .list-value { font-size: 13px; font-weight: 600; color: var(--success); }
+        
+        /* AR Aging */
+        .ar-bucket {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+        }
+        .ar-bucket.current { background: rgba(6,214,160,0.15); border-left: 4px solid var(--success); }
+        .ar-bucket.warning { background: rgba(255,209,102,0.15); border-left: 4px solid var(--warning); }
+        .ar-bucket.danger { background: rgba(239,71,111,0.15); border-left: 4px solid var(--danger); }
+        
+        /* Charts */
+        .chart-container { position: relative; height: 250px; }
+        
+        /* Cash Flow */
+        .cf-week {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            padding: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             align-items: center;
-            padding: 10px 12px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 6px;
-            margin-bottom: 6px;
         }
-        .top-item:hover { background: rgba(255,255,255,0.06); }
-        .top-item .rank {
-            width: 24px;
-            height: 24px;
-            background: var(--secondary);
-            border-radius: 50%;
-            display: flex;
+        .cf-week:hover { background: rgba(255,255,255,0.05); }
+        .cf-week-name { font-weight: 600; }
+        .cf-actual { color: var(--success); }
+        .cf-predicted { color: var(--warning); }
+        .cf-total { font-weight: 700; }
+        
+        /* Drill-down Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 1000;
             align-items: center;
             justify-content: center;
-            font-size: 11px;
-            font-weight: 700;
-            margin-right: 12px;
-            flex-shrink: 0;
         }
-        .top-item .rank.gold { background: linear-gradient(135deg, #ffd700, #ff8c00); }
-        .top-item .rank.silver { background: linear-gradient(135deg, #c0c0c0, #808080); }
-        .top-item .rank.bronze { background: linear-gradient(135deg, #cd7f32, #8b4513); }
-        .top-item .name { flex: 1; font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .top-item .amount { font-weight: 600; color: var(--success); font-size: 13px; white-space: nowrap; }
-        .top-item .meta { font-size: 11px; color: var(--text-secondary); margin-left: 10px; white-space: nowrap; }
-        .cash-flow-week {
-            background: rgba(255,255,255,0.03);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 12px;
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: var(--bg-card);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 85vh;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
         }
-        .cash-flow-week .week-header {
+        .modal-header {
+            padding: 20px 25px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
         }
-        .cash-flow-week .week-label { font-weight: 600; font-size: 14px; }
-        .cash-flow-week .week-total { font-size: 22px; font-weight: 700; color: var(--success); }
-        .cash-flow-week .confidence {
-            font-size: 11px;
-            padding: 3px 8px;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.1);
+        .modal-header h2 { font-size: 18px; font-weight: 500; }
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 28px;
+            cursor: pointer;
+            opacity: 0.7;
         }
-        .cash-flow-week .confidence.high { background: rgba(6,214,160,0.2); color: var(--success); }
-        .cash-flow-week .confidence.medium { background: rgba(255,209,102,0.2); color: var(--warning); }
-        .cash-flow-week .confidence.low { background: rgba(239,71,111,0.2); color: var(--danger); }
-        .cash-flow-week .day-breakdown { display: flex; gap: 8px; }
-        .cash-flow-week .day {
-            flex: 1;
+        .modal-close:hover { opacity: 1; }
+        .modal-body {
+            padding: 25px;
+            overflow-y: auto;
+            max-height: calc(85vh - 80px);
+        }
+        .modal-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .modal-stat {
             text-align: center;
-            padding: 8px 4px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 6px;
-            font-size: 11px;
-        }
-        .cash-flow-week .day.actual { border-bottom: 2px solid var(--success); }
-        .cash-flow-week .day.predicted { border-bottom: 2px solid var(--warning); opacity: 0.8; }
-        .cash-flow-week .day.today { border-bottom: 2px solid var(--accent); }
-        .cash-flow-week .day .day-name { color: var(--text-secondary); margin-bottom: 4px; }
-        .cash-flow-week .day .day-amount { font-weight: 600; }
-        .ar-aging { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 15px; }
-        .ar-bucket {
-            text-align: center;
-            padding: 12px 6px;
+            padding: 15px;
             background: rgba(255,255,255,0.03);
             border-radius: 8px;
-            min-width: 0;
-            overflow: hidden;
         }
-        .ar-bucket .amount { font-size: 14px; font-weight: 700; white-space: nowrap; }
-        .ar-bucket .label { font-size: 10px; color: var(--text-secondary); margin-top: 4px; }
-        .ar-bucket.current .amount { color: var(--success); }
-        .ar-bucket.days30 .amount { color: #4ecdc4; }
-        .ar-bucket.days60 .amount { color: var(--warning); }
-        .ar-bucket.days90 .amount { color: #ff9f43; }
-        .ar-bucket.over90 .amount { color: var(--danger); }
-        .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 20px; }
-        .kpi-card {
-            background: var(--bg-card);
-            border-radius: 12px;
-            padding: 18px;
-            text-align: center;
+        .modal-stat-value { font-size: 24px; font-weight: 700; }
+        .modal-stat-label { font-size: 11px; color: var(--text-secondary); margin-top: 5px; }
+        
+        /* Invoice Table */
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
         }
-        .kpi-card .value { font-size: 28px; font-weight: 700; }
-        .kpi-card .label { font-size: 11px; color: var(--text-secondary); margin-top: 5px; text-transform: uppercase; }
-        .tab-buttons { display: flex; gap: 8px; margin-bottom: 12px; }
-        .tab-btn {
-            padding: 6px 14px;
+        .invoice-table th {
+            text-align: left;
+            padding: 12px 8px;
             background: rgba(255,255,255,0.05);
-            border: none;
-            border-radius: 15px;
             color: var(--text-secondary);
-            cursor: pointer;
-            font-size: 12px;
+            font-weight: 500;
+            font-size: 11px;
+            text-transform: uppercase;
+            position: sticky;
+            top: 0;
         }
-        .tab-btn.active { background: var(--accent); color: white; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-        .salesperson-card {
-            background: rgba(255,255,255,0.03);
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .invoice-table td {
+            padding: 10px 8px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
-        .salesperson-card .name { font-weight: 600; font-size: 16px; }
-        .salesperson-card .amount { font-size: 24px; font-weight: 700; color: var(--success); }
-        .salesperson-card .invoices { font-size: 12px; color: var(--text-secondary); }
-        @media (max-width: 1200px) {
-            .card.span-2, .card.span-3 { grid-column: span 1; }
+        .invoice-table tr:hover td { background: rgba(255,255,255,0.03); }
+        .invoice-num { color: var(--accent); font-weight: 500; }
+        .amount { text-align: right; font-weight: 600; }
+        .amount.positive { color: var(--success); }
+        .category-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: 500;
+        }
+        .category-badge.product { background: rgba(78,205,196,0.2); color: #4ecdc4; }
+        .category-badge.service { background: rgba(255,107,107,0.2); color: #ff6b6b; }
+        .category-badge.freight { background: rgba(254,202,87,0.2); color: #feca57; }
+        .category-badge.misc { background: rgba(162,155,254,0.2); color: #a29bfe; }
+        
+        @media (max-width: 768px) {
             .breakdown { grid-template-columns: repeat(2, 1fr); }
-            .kpi-row { grid-template-columns: repeat(2, 1fr); }
-            .ar-aging { grid-template-columns: repeat(3, 1fr); }
+            .card.span-2, .card.span-3, .card.span-4 { grid-column: span 1; }
+            .cf-week { grid-template-columns: 1fr 1fr; gap: 5px; }
         }
-        /* Drill-down Modal */
-        .drilldown-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7); z-index: 1000; backdrop-filter: blur(4px);
-        }
-        .drilldown-overlay.active { display: flex; align-items: center; justify-content: center; }
-        .drilldown-modal {
-            background: var(--bg-card); border-radius: 16px; max-width: 700px; width: 90%; max-height: 80vh;
-            overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);
-        }
-        .drilldown-header {
-            padding: 20px 25px; border-bottom: 1px solid rgba(255,255,255,0.1);
-            display: flex; justify-content: space-between; align-items: center; background: rgba(255,255,255,0.03);
-        }
-        .drilldown-header h3 { margin: 0; font-size: 18px; }
-        .drilldown-header .close-btn { background: none; border: none; color: var(--text-secondary); font-size: 24px; cursor: pointer; }
-        .drilldown-header .close-btn:hover { color: white; }
-        .drilldown-body { padding: 25px; overflow-y: auto; max-height: calc(80vh - 80px); }
-        .drilldown-total { font-size: 36px; font-weight: 700; color: var(--success); margin-bottom: 20px; }
-        .drilldown-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .drilldown-row:last-child { border-bottom: none; }
-        .drilldown-row .value { font-weight: 600; }
     </style>
 </head>
 <body>
-    <div class="header">
+    <header class="header">
         <h1><span>CTI</span> Executive Dashboard</h1>
-        <div class="nav">
-            <a href="#" class="active" onclick="showPage('overview')">Overview</a>
-            <a href="#" onclick="showPage('sales')">Sales Team</a>
-            <a href="#" onclick="showPage('pnl')">P&L</a>
-            <a href="#" onclick="showPage('cashflow')">Cash Flow</a>
-            <a href="#" onclick="showPage('customers')">Customers</a>
-            <a href="#" onclick="showPage('products')">Products</a>
-            <a href="#" onclick="showPage('geography')">Geography</a>
-        </div>
+        <nav class="nav">
+            <a class="active" onclick="showPage('overview')">Overview</a>
+            <a onclick="showPage('sales')">Sales Detail</a>
+            <a onclick="showPage('ar')">AR Aging</a>
+            <a onclick="showPage('cashflow')">Cash Flow</a>
+        </nav>
         <div class="timestamp" id="timestamp">Loading...</div>
-    </div>
-
-    <!-- OVERVIEW PAGE -->
-    <div id="overview" class="page active">
-        <div class="kpi-row">
-            <div class="kpi-card" style="cursor:pointer" onclick="showDrilldown('yesterday')">
-                <div class="value" style="color: var(--success);" id="kpiYesterday">$0</div>
-                <div class="label">Yesterday's Sales (click)</div>
-            </div>
-            <div class="kpi-card" style="cursor:pointer" onclick="showDrilldown('mtd')">
-                <div class="value" style="color: #4ecdc4;" id="kpiMTD">$0</div>
-                <div class="label">Month-to-Date (click)</div>
-            </div>
-            <div class="kpi-card">
-                <div class="value" style="color: var(--warning);" id="kpiYTD">$0</div>
-                <div class="label">Year-to-Date</div>
-            </div>
-            <div class="kpi-card">
-                <div class="value" style="color: var(--accent);" id="kpiAR">$0</div>
-                <div class="label">AR Outstanding</div>
-            </div>
-        </div>
+    </header>
+    
+    <!-- Overview Page -->
+    <div class="page active" id="page-overview">
         <div class="dashboard">
-            <div class="card span-2">
-                <div class="card-title">60-Day Sales Trend</div>
-                <div class="chart-container tall"><canvas id="trendChart"></canvas></div>
-            </div>
-            <div class="card">
-                <div class="card-title">Yesterday's Breakdown</div>
-                <div class="metric" id="yesterdayTotal">$0</div>
-                <div class="metric-label" id="yesterdayDate">--</div>
+            <!-- Yesterday -->
+            <div class="card clickable" onclick="drilldown('yesterday')">
+                <div class="card-title">Yesterday's Sales</div>
+                <div class="metric green" id="yesterdayTotal">$0</div>
+                <div class="metric-label" id="yesterdayDate">Loading...</div>
                 <div class="breakdown">
-                    <div class="breakdown-item product"><div class="amount" id="yProduct">$0</div><div class="label">Product</div></div>
-                    <div class="breakdown-item service"><div class="amount" id="yService">$0</div><div class="label">Service</div></div>
-                    <div class="breakdown-item freight"><div class="amount" id="yFreight">$0</div><div class="label">Freight</div></div>
-                    <div class="breakdown-item misc"><div class="amount" id="yMisc">$0</div><div class="label">Misc</div></div>
+                    <div class="breakdown-item clickable" onclick="event.stopPropagation(); drilldown('yesterday', 'Product')">
+                        <div class="breakdown-value" style="color:#4ecdc4" id="yesterdayProduct">$0</div>
+                        <div class="breakdown-label">Product</div>
+                    </div>
+                    <div class="breakdown-item clickable" onclick="event.stopPropagation(); drilldown('yesterday', 'Service')">
+                        <div class="breakdown-value" style="color:#ff6b6b" id="yesterdayService">$0</div>
+                        <div class="breakdown-label">Service</div>
+                    </div>
+                    <div class="breakdown-item clickable" onclick="event.stopPropagation(); drilldown('yesterday', 'Freight')">
+                        <div class="breakdown-value" style="color:#feca57" id="yesterdayFreight">$0</div>
+                        <div class="breakdown-label">Freight</div>
+                    </div>
+                    <div class="breakdown-item clickable" onclick="event.stopPropagation(); drilldown('yesterday', 'Miscellaneous')">
+                        <div class="breakdown-value" style="color:#a29bfe" id="yesterdayMisc">$0</div>
+                        <div class="breakdown-label">Misc</div>
+                    </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-title">MTD Sales Mix</div>
-                <div class="chart-container"><canvas id="categoryPie"></canvas></div>
+            
+            <!-- MTD -->
+            <div class="card clickable" onclick="drilldown('mtd')">
+                <div class="card-title">Month to Date</div>
+                <div class="metric" id="mtdTotal">$0</div>
+                <div class="metric-label" id="mtdDays">0 business days</div>
+                <div class="breakdown">
+                    <div class="breakdown-item clickable" onclick="event.stopPropagation(); drilldown('mtd', 'Product')">
+                        <div class="breakdown-value" style="color:#4ecdc4" id="mtdProduct">$0</div>
+                        <div class="breakdown-label">Product</div>
+                    </div>
+                    <div class="breakdown-item clickable" onclick="event.stopPropagation(); drilldown('mtd', 'Service')">
+                        <div class="breakdown-value" style="color:#ff6b6b" id="mtdService">$0</div>
+                        <div class="breakdown-label">Service</div>
+                    </div>
+                    <div class="breakdown-item clickable" onclick="event.stopPropagation(); drilldown('mtd', 'Freight')">
+                        <div class="breakdown-value" style="color:#feca57" id="mtdFreight">$0</div>
+                        <div class="breakdown-label">Freight</div>
+                    </div>
+                    <div class="breakdown-item clickable" onclick="event.stopPropagation(); drilldown('mtd', 'Miscellaneous')">
+                        <div class="breakdown-value" style="color:#a29bfe" id="mtdMisc">$0</div>
+                        <div class="breakdown-label">Misc</div>
+                    </div>
+                </div>
             </div>
+            
+            <!-- YTD -->
+            <div class="card clickable" onclick="drilldown('ytd')">
+                <div class="card-title">Year to Date</div>
+                <div class="metric" id="ytdTotal">$0</div>
+                <div class="metric-label" id="ytdDays">0 business days</div>
+                <div class="breakdown">
+                    <div class="breakdown-item clickable" onclick="event.stopPropagation(); drilldown('ytd', 'Product')">
+                        <div class="breakdown-value" style="color:#4ecdc4" id="ytdProduct">$0</div>
+                        <div class="breakdown-label">Product</div>
+                    </div>
+                    <div class="breakdown-item clickable" onclick="event.stopPropagation(); drilldown('ytd', 'Service')">
+                        <div class="breakdown-value" style="color:#ff6b6b" id="ytdService">$0</div>
+                        <div class="breakdown-label">Service</div>
+                    </div>
+                    <div class="breakdown-item clickable" onclick="event.stopPropagation(); drilldown('ytd', 'Freight')">
+                        <div class="breakdown-value" style="color:#feca57" id="ytdFreight">$0</div>
+                        <div class="breakdown-label">Freight</div>
+                    </div>
+                    <div class="breakdown-item clickable" onclick="event.stopPropagation(); drilldown('ytd', 'Miscellaneous')">
+                        <div class="breakdown-value" style="color:#a29bfe" id="ytdMisc">$0</div>
+                        <div class="breakdown-label">Misc</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Daily Average -->
             <div class="card">
                 <div class="card-title">Daily Averages</div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 10px;">
-                    <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 10px;">
-                        <div class="metric small green" id="mtdAvg">$0</div>
-                        <div class="metric-label">MTD Daily Avg</div>
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-value" style="color:var(--success)" id="mtdAvg">$0</div>
+                        <div class="kpi-label">MTD Daily Avg</div>
                     </div>
-                    <div style="text-align: center; padding: 20px; background: rgba(255,255,255,0.03); border-radius: 10px;">
-                        <div class="metric small" id="ytdAvg">$0</div>
-                        <div class="metric-label">YTD Daily Avg</div>
-                    </div>
-                </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 15px;">
-                    <div style="text-align: center; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px;">
-                        <div style="font-size: 20px; font-weight: 600;" id="mtdDays">0</div>
-                        <div class="metric-label">MTD Business Days</div>
-                    </div>
-                    <div style="text-align: center; padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px;">
-                        <div style="font-size: 20px; font-weight: 600;" id="ytdDays">0</div>
-                        <div class="metric-label">YTD Business Days</div>
+                    <div class="kpi-card">
+                        <div class="kpi-value" id="ytdAvg">$0</div>
+                        <div class="kpi-label">YTD Daily Avg</div>
                     </div>
                 </div>
             </div>
-            <div class="card">
-                <div class="card-title">AR Aging</div>
-                <div class="ar-aging">
-                    <div class="ar-bucket current"><div class="amount" id="arCurrent">$0</div><div class="label">Current</div></div>
-                    <div class="ar-bucket days30"><div class="amount" id="ar30">$0</div><div class="label">1-30 Days</div></div>
-                    <div class="ar-bucket days60"><div class="amount" id="ar60">$0</div><div class="label">31-60 Days</div></div>
-                    <div class="ar-bucket days90"><div class="amount" id="ar90">$0</div><div class="label">61-90 Days</div></div>
-                    <div class="ar-bucket over90"><div class="amount" id="ar90plus">$0</div><div class="label">90+ Days</div></div>
-                </div>
-                <div class="chart-container" style="height: 180px;"><canvas id="arChart"></canvas></div>
-            </div>
-            <div class="card">
-                <div class="card-title">Day of Week Performance</div>
-                <div class="chart-container"><canvas id="dowChart"></canvas></div>
-            </div>
-            <div class="card">
-                <div class="card-title">Top Customers (MTD)</div>
-                <div class="top-list" id="topCustomersMTD"></div>
-            </div>
-            <div class="card">
-                <div class="card-title">Top Products (MTD)</div>
-                <div class="top-list" id="topProductsMTD"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- SALES TEAM PAGE (NEW) -->
-    <div id="sales" class="page">
-        <div class="kpi-row">
-            <div class="kpi-card">
-                <div class="value" style="color: var(--success);" id="spYesterdayTotal">$0</div>
-                <div class="label">Yesterday Total (All)</div>
-            </div>
-            <div class="kpi-card">
-                <div class="value" style="color: #4ecdc4;" id="spMTDTotal">$0</div>
-                <div class="label">MTD Total (All)</div>
-            </div>
-            <div class="kpi-card">
-                <div class="value" style="color: var(--warning);" id="spTopPerformer">--</div>
-                <div class="label">Top Performer MTD</div>
-            </div>
-            <div class="kpi-card">
-                <div class="value" style="color: var(--accent);" id="spInvoiceCount">0</div>
-                <div class="label">MTD Invoices</div>
-            </div>
-        </div>
-        
-        <!-- All Team Section -->
-        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--warning);">All Team Performance (with Roles)</h3>
-        <div class="dashboard">
-            <div class="card span-2">
-                <div class="card-title">All Team - Month to Date</div>
-                <div class="chart-container tall"><canvas id="allTeamBarChart"></canvas></div>
-            </div>
-            <div class="card span-2">
-                <div class="card-title">MTD Breakdown by Role</div>
-                <div id="allTeamMTDList" style="max-height: 400px; overflow-y: auto;"></div>
-            </div>
-        </div>
-        
-        <!-- Sales Reps Section -->
-        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--success);">Sales Reps</h3>
-        <div class="dashboard">
-            <div class="card span-2">
-                <div class="card-title">Sales Reps - Month to Date</div>
-                <div class="chart-container tall"><canvas id="salespersonBarChart"></canvas></div>
-            </div>
-            <div class="card span-2">
-                <div class="card-title">Sales Rep Performance</div>
-                <div id="salespersonMTDList" style="max-height: 400px; overflow-y: auto;"></div>
-            </div>
-        </div>
-        
-        <!-- Service Reps Section -->
-        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid #4ecdc4;">Service Reps & Territory Coverage</h3>
-        <div class="dashboard">
-            <div class="card span-2">
-                <div class="card-title">Service Reps - Revenue by Territory</div>
-                <div class="chart-container tall"><canvas id="serviceRepBarChart"></canvas></div>
-            </div>
-            <div class="card span-2">
-                <div class="card-title">Service Rep Performance & Territory</div>
-                <div id="serviceRepMTDList" style="max-height: 400px; overflow-y: auto;"></div>
-            </div>
-        </div>
-        
-        <!-- Yesterday Section -->
-        <h3 style="color: var(--text-primary); margin: 20px 0 10px 0; padding-left: 10px; border-left: 4px solid var(--accent);">Yesterday's Activity</h3>
-        <div class="dashboard">
-            <div class="card span-2">
-                <div class="card-title">Yesterday's Sales by Team Member</div>
-                <div class="chart-container tall"><canvas id="salespersonYesterdayChart"></canvas></div>
-            </div>
-            <div class="card span-2">
-                <div class="card-title">Yesterday Performance</div>
-                <div id="salespersonYesterdayList" style="max-height: 400px; overflow-y: auto;"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- P&L / INCOME STATEMENT PAGE -->
-    <div id="pnl" class="page">
-        <!-- YTD Section -->
-        <h3 style="color: var(--text-primary); margin: 0 0 15px 0; padding-left: 10px; border-left: 4px solid var(--success);">Year-to-Date Revenue</h3>
-        <div class="kpi-row">
-            <div class="kpi-card" style="cursor:pointer;" onclick="showDrilldown('ytd')">
-                <div class="value" style="color: var(--success);" id="pnlYTDRevenue">$0</div>
-                <div class="label">YTD Total Revenue</div>
-            </div>
-            <div class="kpi-card">
-                <div class="value" style="color: #4ecdc4;" id="pnlYTDProduct">$0</div>
-                <div class="label">YTD Product</div>
-            </div>
-            <div class="kpi-card">
-                <div class="value" style="color: #ff6b6b;" id="pnlYTDService">$0</div>
-                <div class="label">YTD Service</div>
-            </div>
-            <div class="kpi-card">
-                <div class="value" style="color: var(--warning);" id="pnlYTDOther">$0</div>
-                <div class="label">YTD Other (Freight + Misc)</div>
-            </div>
-        </div>
-        
-        <!-- MTD Section -->
-        <h3 style="color: var(--text-primary); margin: 20px 0 15px 0; padding-left: 10px; border-left: 4px solid var(--accent);">Month-to-Date Revenue</h3>
-        <div class="kpi-row">
-            <div class="kpi-card" style="cursor:pointer;" onclick="showDrilldown('mtd')">
-                <div class="value" style="color: var(--success);" id="pnlRevenue">$0</div>
-                <div class="label">MTD Total Revenue</div>
-            </div>
-            <div class="kpi-card">
-                <div class="value" style="color: #4ecdc4;" id="pnlProductRev">$0</div>
-                <div class="label">Product Revenue</div>
-            </div>
-            <div class="kpi-card">
-                <div class="value" style="color: #ff6b6b;" id="pnlServiceRev">$0</div>
-                <div class="label">Service Revenue</div>
-            </div>
-            <div class="kpi-card">
-                <div class="value" style="color: var(--warning);" id="pnlOtherRev">$0</div>
-                <div class="label">Other (Freight + Misc)</div>
-            </div>
-        </div>
-        <div class="dashboard">
-            <div class="card span-2">
-                <div class="card-title">Revenue by Category (MTD)</div>
-                <div class="chart-container tall"><canvas id="pnlCategoryChart"></canvas></div>
-            </div>
-            <div class="card span-2">
-                <div class="card-title">Revenue Mix</div>
-                <div class="chart-container tall"><canvas id="pnlMixPieChart"></canvas></div>
-            </div>
-            <div class="card span-2">
-                <div class="card-title">Revenue Breakdown</div>
-                <div style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px;">
-                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                        <span style="color: var(--text-secondary);">Product Sales (401000)</span>
-                        <span id="pnlProductRow" style="font-weight: 600; color: #4ecdc4;">$0</span>
+            
+            <!-- AR Summary -->
+            <div class="card clickable" onclick="showPage('ar')">
+                <div class="card-title">Accounts Receivable</div>
+                <div class="metric" id="arTotal">$0</div>
+                <div class="metric-label">Total Outstanding</div>
+                <div style="margin-top:15px">
+                    <div class="ar-bucket current clickable" onclick="event.stopPropagation(); drilldownAR('Current')">
+                        <span>Current</span>
+                        <span id="arCurrent">$0</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                        <span style="color: var(--text-secondary);">Service Sales (402000)</span>
-                        <span id="pnlServiceRow" style="font-weight: 600; color: #ff6b6b;">$0</span>
+                    <div class="ar-bucket warning clickable" onclick="event.stopPropagation(); drilldownAR('Days1_30')">
+                        <span>1-30 Days</span>
+                        <span id="ar1_30">$0</span>
                     </div>
-                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                        <span style="color: var(--text-secondary);">Freight Revenue (495400)</span>
-                        <span id="pnlFreightRow" style="font-weight: 600; color: #feca57;">$0</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                        <span style="color: var(--text-secondary);">Miscellaneous (495000)</span>
-                        <span id="pnlMiscRow" style="font-weight: 600; color: #a29bfe;">$0</span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; padding: 12px 0; margin-top: 8px; border-top: 2px solid var(--accent);">
-                        <span style="font-weight: 700;">TOTAL REVENUE</span>
-                        <span id="pnlTotalRow" style="font-weight: 700; color: var(--success);">$0</span>
+                    <div class="ar-bucket danger clickable" onclick="event.stopPropagation(); drilldownAR('Days90Plus')">
+                        <span>90+ Days</span>
+                        <span id="ar90plus">$0</span>
                     </div>
                 </div>
             </div>
+            
+            <!-- Top Customers Yesterday -->
+            <div class="card">
+                <div class="card-title">Top Customers Yesterday</div>
+                <div id="topCustomersYesterday" style="max-height:300px;overflow-y:auto"></div>
+            </div>
+            
+            <!-- Top Customers MTD -->
+            <div class="card">
+                <div class="card-title">Top Customers MTD</div>
+                <div id="topCustomersMTD" style="max-height:300px;overflow-y:auto"></div>
+            </div>
+            
+            <!-- Daily Trend Chart -->
             <div class="card span-2">
-                <div class="card-title">Daily Revenue Trend (MTD)</div>
-                <div class="chart-container tall"><canvas id="pnlDailyChart"></canvas></div>
+                <div class="card-title">Daily Sales Trend (Click bars for details)</div>
+                <div class="chart-container">
+                    <canvas id="dailyChart"></canvas>
+                </div>
             </div>
-        </div>
-    </div>
-
-    <!-- CASH FLOW PAGE -->
-    <div id="cashflow" class="page">
-        <div class="kpi-row">
-            <div class="kpi-card">
-                <div class="value" style="color: var(--success);" id="cfThisWeek">$0</div>
-                <div class="label">This Week Forecast</div>
-            </div>
-            <div class="kpi-card">
-                <div class="value" style="color: #4ecdc4;" id="cfNextWeek">$0</div>
-                <div class="label">Next Week Forecast</div>
-            </div>
-            <div class="kpi-card">
-                <div class="value" style="color: var(--warning);" id="cf6Week">$0</div>
-                <div class="label">6-Week Total</div>
-            </div>
-            <div class="kpi-card">
-                <div class="value" style="color: var(--accent);" id="cfARDue">$0</div>
-                <div class="label">AR Due Next 6 Weeks</div>
-            </div>
-        </div>
-        <div class="dashboard">
-            <div class="card span-3">
+            
+            <!-- Cash Flow Preview -->
+            <div class="card span-2 clickable" onclick="showPage('cashflow')">
                 <div class="card-title">6-Week Cash Flow Forecast</div>
-                <div class="chart-container tall"><canvas id="cashFlowChart"></canvas></div>
-            </div>
-            <div class="card">
-                <div class="card-title">Week-by-Week Breakdown</div>
-                <div id="weekBreakdown" style="max-height: 500px; overflow-y: auto;"></div>
-            </div>
-        </div>
-        <div class="dashboard" style="margin-top: 20px;">
-            <div class="card span-2">
-                <div class="card-title">Prediction Algorithm Details</div>
-                <div style="padding: 15px; background: rgba(255,255,255,0.03); border-radius: 8px; font-size: 13px; line-height: 1.8;">
-                    <strong>How the forecast is calculated:</strong><br>
-                    - <strong>Historical Patterns:</strong> Weighted average of sales by day of week (60%)<br>
-                    - <strong>AR Expectations:</strong> Expected collections from aging buckets (40%)<br>
-                    - <strong>Collection Rates:</strong> Current 20%/wk, 1-30d 15%/wk, 31-60d 10%/wk<br>
-                    - <strong>Actual Data:</strong> Days already passed use actual GL data<br>
-                    - <strong>Weekend Rule:</strong> Saturday/Sunday sales roll into Monday<br>
-                    - <strong>Confidence:</strong> Decreases with forecast distance<br>
-                    <br>
-                    <em style="color: var(--text-secondary);">Formula: (Historical DOW Avg x 0.70) + (AR Collection Expectation x 0.30)</em>
-                </div>
-            </div>
-            <div class="card span-2">
-                <div class="card-title">Historical Day-of-Week Averages</div>
-                <div class="chart-container"><canvas id="dowAvgChart"></canvas></div>
+                <div id="cashflowPreview"></div>
             </div>
         </div>
     </div>
-
-    <!-- CUSTOMERS PAGE -->
-    <div id="customers" class="page">
+    
+    <!-- Sales Detail Page -->
+    <div class="page" id="page-sales">
         <div class="dashboard">
-            <div class="card span-2">
-                <div class="card-title">Top 15 Customers - Month to Date</div>
-                <div class="chart-container tall"><canvas id="customerBarChart"></canvas></div>
-            </div>
-            <div class="card">
-                <div class="card-title">Yesterday's Top Customers</div>
-                <div class="top-list" id="topCustomersYesterday" style="max-height: 500px;"></div>
-            </div>
-            <div class="card">
-                <div class="card-title">MTD Customer List</div>
-                <div class="top-list" id="fullCustomerList" style="max-height: 500px;"></div>
+            <div class="card span-4">
+                <div class="card-title">Top Products MTD (Click for details)</div>
+                <div id="topProducts" style="max-height:500px;overflow-y:auto"></div>
             </div>
         </div>
     </div>
-
-    <!-- PRODUCTS PAGE -->
-    <div id="products" class="page">
+    
+    <!-- AR Aging Page -->
+    <div class="page" id="page-ar">
         <div class="dashboard">
-            <div class="card span-2">
-                <div class="card-title">Top 15 Products - Month to Date</div>
-                <div class="chart-container tall"><canvas id="productBarChart"></canvas></div>
+            <div class="card">
+                <div class="card-title">Current (Not Yet Due)</div>
+                <div class="metric green" id="arCurrentDetail">$0</div>
+                <div class="metric-label" id="arCurrentCount">0 invoices</div>
+                <button onclick="drilldownAR('Current')" style="margin-top:15px;padding:10px 20px;background:var(--success);border:none;border-radius:8px;color:white;cursor:pointer">View Invoices</button>
             </div>
-            <div class="card span-2">
-                <div class="card-title">Product Category Mix</div>
-                <div class="chart-container tall"><canvas id="productPieChart"></canvas></div>
+            <div class="card">
+                <div class="card-title">1-30 Days Overdue</div>
+                <div class="metric" style="color:var(--warning)" id="ar1_30Detail">$0</div>
+                <div class="metric-label" id="ar1_30Count">0 invoices</div>
+                <button onclick="drilldownAR('Days1_30')" style="margin-top:15px;padding:10px 20px;background:var(--warning);border:none;border-radius:8px;color:#333;cursor:pointer">View Invoices</button>
             </div>
-            <div class="card span-2">
-                <div class="card-title">Full Product List (MTD)</div>
-                <div class="top-list" id="fullProductList" style="max-height: 600px;"></div>
+            <div class="card">
+                <div class="card-title">31-60 Days Overdue</div>
+                <div class="metric" style="color:var(--accent)" id="ar31_60Detail">$0</div>
+                <div class="metric-label" id="ar31_60Count">0 invoices</div>
+                <button onclick="drilldownAR('Days31_60')" style="margin-top:15px;padding:10px 20px;background:var(--accent);border:none;border-radius:8px;color:white;cursor:pointer">View Invoices</button>
+            </div>
+            <div class="card">
+                <div class="card-title">61-90 Days Overdue</div>
+                <div class="metric" style="color:#ff6b6b" id="ar61_90Detail">$0</div>
+                <div class="metric-label" id="ar61_90Count">0 invoices</div>
+                <button onclick="drilldownAR('Days61_90')" style="margin-top:15px;padding:10px 20px;background:#ff6b6b;border:none;border-radius:8px;color:white;cursor:pointer">View Invoices</button>
+            </div>
+            <div class="card">
+                <div class="card-title">90+ Days Overdue</div>
+                <div class="metric" style="color:var(--danger)" id="ar90plusDetail">$0</div>
+                <div class="metric-label" id="ar90plusCount">0 invoices</div>
+                <button onclick="drilldownAR('Days90Plus')" style="margin-top:15px;padding:10px 20px;background:var(--danger);border:none;border-radius:8px;color:white;cursor:pointer">View Invoices</button>
             </div>
         </div>
     </div>
-
-    <!-- GEOGRAPHY PAGE -->
-    <div id="geography" class="page">
-        <!-- Shipping Destinations Section -->
-        <h3 style="color: var(--text-primary); margin: 0 0 15px 0; padding-left: 10px; border-left: 4px solid #4ecdc4;">Product Shipping Destinations</h3>
+    
+    <!-- Cash Flow Page -->
+    <div class="page" id="page-cashflow">
         <div class="dashboard">
-            <div class="card span-3">
-                <div class="card-title">All Shipping Destinations</div>
-                <div id="shippingMap"></div>
-            </div>
-            <div class="card">
-                <div class="card-title">Top Shipping Locations</div>
-                <div class="top-list" id="topLocations" style="max-height: 400px;"></div>
-            </div>
-        </div>
-        
-        <!-- Service Tech Locations Section -->
-        <h3 style="color: var(--text-primary); margin: 25px 0 15px 0; padding-left: 10px; border-left: 4px solid #ff6b6b;">Service Tech Visit Locations</h3>
-        <div class="dashboard">
-            <div class="card span-3">
-                <div class="card-title">Service Tech Destinations (On-Site Calibration & Service)</div>
-                <div id="serviceMap" style="height: 320px; border-radius: 10px;"></div>
-            </div>
-            <div class="card">
-                <div class="card-title">Top Service Locations</div>
-                <div class="top-list" id="topServiceLocations" style="max-height: 400px;"></div>
-            </div>
-        </div>
-        
-        <!-- State Breakdown -->
-        <h3 style="color: var(--text-primary); margin: 25px 0 15px 0; padding-left: 10px; border-left: 4px solid var(--warning);">State Breakdown</h3>
-        <div class="dashboard">
-            <div class="card span-2">
-                <div class="card-title">Shipments by State</div>
-                <div class="chart-container tall"><canvas id="stateChart"></canvas></div>
-            </div>
-            <div class="card span-2">
-                <div class="card-title">Sales Rep Territories (Salesforce)</div>
-                <div id="salesTerritoryList" class="top-list" style="max-height: 400px;"></div>
+            <div class="card span-4">
+                <div class="card-title">6-Week Cash Flow Forecast (Click any row for day-by-day breakdown)</div>
+                <div id="cashflowDetail"></div>
             </div>
         </div>
     </div>
-
+    
+    <!-- Drill-down Modal -->
+    <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <h2 id="modalTitle">Details</h2>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+    
     <script>
-        // Data will be embedded here by the generator script
         let DATA = null;
-
-        // Load data from file or embedded
-        async function loadData() {
-            try {
-                // Try to load from file first
-                const response = await fetch('data/dashboard-data.json?' + Date.now());
-                DATA = await response.json();
-            } catch (e) {
-                console.log('Loading from embedded data...');
-                // Embedded data will be here if generated
-            }
-            if (DATA) {
-                initDashboard();
-            } else {
-                document.getElementById('timestamp').textContent = 'Error: No data available. Run generate-dashboard.ps1';
-            }
-        }
-
-        const stateCoords = {
-            'AL':[32.8,-86.8],'AK':[61.4,-152.4],'AZ':[33.7,-111.4],'AR':[35,-92.4],'CA':[36.1,-119.7],
-            'CO':[39.1,-105.3],'CT':[41.6,-72.8],'DE':[39.3,-75.5],'FL':[27.8,-81.7],'GA':[33,-83.6],
-            'HI':[21.1,-157.5],'ID':[44.2,-114.5],'IL':[40.3,-89],'IN':[39.8,-86.3],'IA':[42,-93.2],
-            'KS':[38.5,-96.7],'KY':[37.7,-84.7],'LA':[31.2,-91.9],'ME':[44.7,-69.4],'MD':[39.1,-76.8],
-            'MA':[42.2,-71.5],'MI':[43.3,-84.5],'MN':[45.7,-93.9],'MS':[32.7,-89.7],'MO':[38.5,-92.3],
-            'MT':[46.9,-110.5],'NE':[41.1,-98.3],'NV':[38.3,-117.1],'NH':[43.5,-71.6],'NJ':[40.3,-74.5],
-            'NM':[34.8,-106.2],'NY':[42.2,-75],'NC':[35.6,-79.8],'ND':[47.5,-99.8],'OH':[40.4,-82.8],
-            'OK':[35.6,-96.9],'OR':[44.6,-122.1],'PA':[40.6,-77.2],'RI':[41.7,-71.5],'SC':[33.9,-80.9],
-            'SD':[44.3,-99.4],'TN':[35.7,-86.7],'TX':[31.1,-97.6],'UT':[40.2,-111.9],'VT':[44,-72.7],
-            'VA':[37.8,-78.2],'WA':[47.4,-121.5],'WV':[38.5,-81],'WI':[44.3,-89.6],'WY':[42.8,-107.3]
-        };
-
-        function fmt(n) { return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',minimumFractionDigits:0,maximumFractionDigits:0}).format(n||0); }
-        function fmtK(n) { return '$' + (n/1000).toFixed(0) + 'k'; }
-        function fmtCompact(n) { 
-            if (n >= 1000000) return '$' + (n/1000000).toFixed(1) + 'M';
-            if (n >= 1000) return '$' + (n/1000).toFixed(0) + 'K';
-            return '$' + Math.round(n);
-        }
-
-        function showPage(pageId) {
+        let dailyChart = null;
+        
+        const fmt = (n) => '$' + (n || 0).toLocaleString('en-US', {minimumFractionDigits: 0, maximumFractionDigits: 0});
+        const fmtK = (n) => '$' + ((n || 0) / 1000).toFixed(0) + 'K';
+        
+        function showPage(page) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav a').forEach(a => a.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
+            document.getElementById('page-' + page).classList.add('active');
             event.target.classList.add('active');
-            if (pageId === 'geography') setTimeout(initMap, 100);
-            if (pageId === 'sales') setTimeout(initSalesPage, 100);
         }
-
-        function renderList(id, items, nameField='Name') {
-            const el = document.getElementById(id);
-            if (!items?.length) { el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-secondary)">No data</div>'; return; }
-            el.innerHTML = items.map((item,i) => {
-                const rank = i<3 ? ['gold','silver','bronze'][i] : '';
-                const name = item[nameField] || item.Name || item.Item || '?';
-                return `<div class="top-item"><div class="rank ${rank}">${i+1}</div><div class="name" title="${name}">${name.substring(0,40)}</div><div class="amount">${fmt(item.Amount)}</div></div>`;
-            }).join('');
-        }
-
-        function renderSalespersonList(id, items, showBreakdown = false, showTerritory = false) {
-            const el = document.getElementById(id);
-            if (!items?.length) { el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-secondary)">No data</div>'; return; }
-            el.innerHTML = items.map((item,i) => {
-                const rank = i<3 ? ['gold','silver','bronze'][i] : '';
-                const invoices = item.InvoiceCount ? ` (${item.InvoiceCount} inv)` : '';
-                const role = item.Role ? `<span style="font-size:11px;color:var(--text-secondary);background:rgba(255,255,255,0.1);padding:2px 6px;border-radius:4px;margin-left:8px;">${item.Role}</span>` : '';
-                const breakdown = showBreakdown && (item.ProductAmount || item.ServiceAmount) ? 
-                    `<div style="font-size:11px;color:var(--text-secondary);margin-top:4px;">
-                        <span style="color:#4ecdc4;">Product: ${fmt(item.ProductAmount || 0)}</span> · 
-                        <span style="color:#ff6b6b;">Service: ${fmt(item.ServiceAmount || 0)}</span>
-                    </div>` : '';
-                const territory = showTerritory && (item.StateCount || item.CityCount) ?
-                    `<div style="font-size:11px;color:var(--warning);margin-top:4px;">
-                        📍 ${item.StateCount || 0} states · ${item.CityCount || 0} locations
-                        ${item.States ? `<div style="font-size:10px;color:var(--text-secondary);margin-top:2px;">${item.States}</div>` : ''}
-                    </div>` : '';
-                return `<div class="salesperson-card">
-                    <div>
-                        <div class="name">${item.Name || 'Unknown'}${role}</div>
-                        <div class="invoices">${invoices}</div>
-                        ${breakdown}
-                        ${territory}
-                    </div>
-                    <div class="amount">${fmt(item.Amount)}</div>
-                </div>`;
-            }).join('');
-        }
-
-        let charts = {};
-
-        function initDashboard() {
-            document.getElementById('timestamp').textContent = `Updated: ${DATA.GeneratedAt}`;
+        
+        function loadData() {
+            if (!DATA) return;
             
-            // KPIs
-            document.getElementById('kpiYesterday').textContent = fmt(DATA.Summary.Yesterday.Total);
-            document.getElementById('kpiMTD').textContent = fmt(DATA.Summary.MTD.Total);
-            document.getElementById('kpiYTD').textContent = fmt(DATA.Summary.YTD.Total);
-            document.getElementById('kpiAR').textContent = fmt(DATA.ARaging?.Total || 0);
-
+            // Timestamp
+            document.getElementById('timestamp').textContent = `Data as of: ${DATA.LatestDataDate || DATA.GeneratedAt}`;
+            
             // Yesterday
-            document.getElementById('yesterdayTotal').textContent = fmt(DATA.Summary.Yesterday.Total);
+            const y = DATA.Summary.Yesterday;
+            document.getElementById('yesterdayTotal').textContent = fmt(y.Total);
             document.getElementById('yesterdayDate').textContent = DATA.Period.Yesterday;
-            document.getElementById('yProduct').textContent = fmt(DATA.Summary.Yesterday.Product);
-            document.getElementById('yService').textContent = fmt(DATA.Summary.Yesterday.Service);
-            document.getElementById('yFreight').textContent = fmt(DATA.Summary.Yesterday.Freight);
-            document.getElementById('yMisc').textContent = fmt(DATA.Summary.Yesterday.Miscellaneous);
-
+            document.getElementById('yesterdayProduct').textContent = fmt(y.Product);
+            document.getElementById('yesterdayService').textContent = fmt(y.Service);
+            document.getElementById('yesterdayFreight').textContent = fmt(y.Freight);
+            document.getElementById('yesterdayMisc').textContent = fmt(y.Miscellaneous);
+            
+            // MTD
+            const m = DATA.Summary.MTD;
+            document.getElementById('mtdTotal').textContent = fmt(m.Total);
+            document.getElementById('mtdDays').textContent = `${DATA.Period.MTDBusinessDays} business days`;
+            document.getElementById('mtdProduct').textContent = fmt(m.Product);
+            document.getElementById('mtdService').textContent = fmt(m.Service);
+            document.getElementById('mtdFreight').textContent = fmt(m.Freight);
+            document.getElementById('mtdMisc').textContent = fmt(m.Miscellaneous);
+            
+            // YTD
+            const yt = DATA.Summary.YTD;
+            document.getElementById('ytdTotal').textContent = fmt(yt.Total);
+            document.getElementById('ytdDays').textContent = `${DATA.Period.YTDBusinessDays} business days`;
+            document.getElementById('ytdProduct').textContent = fmt(yt.Product);
+            document.getElementById('ytdService').textContent = fmt(yt.Service);
+            document.getElementById('ytdFreight').textContent = fmt(yt.Freight);
+            document.getElementById('ytdMisc').textContent = fmt(yt.Miscellaneous);
+            
             // Averages
             document.getElementById('mtdAvg').textContent = fmt(DATA.Summary.MTDDailyAverage);
             document.getElementById('ytdAvg').textContent = fmt(DATA.Summary.YTDDailyAverage);
-            document.getElementById('mtdDays').textContent = DATA.Period.MTDBusinessDays;
-            document.getElementById('ytdDays').textContent = DATA.Period.YTDBusinessDays;
-
-            // AR Aging - use compact format to fit in boxes
-            if (DATA.ARaging) {
-                document.getElementById('arCurrent').textContent = fmtCompact(DATA.ARaging.Current);
-                document.getElementById('ar30').textContent = fmtCompact(DATA.ARaging.Days1_30);
-                document.getElementById('ar60').textContent = fmtCompact(DATA.ARaging.Days31_60);
-                document.getElementById('ar90').textContent = fmtCompact(DATA.ARaging.Days61_90);
-                document.getElementById('ar90plus').textContent = fmtCompact(DATA.ARaging.Days90Plus);
-            }
-
-            // Lists
-            renderList('topCustomersMTD', DATA.TopCustomers.MTD);
-            renderList('topProductsMTD', DATA.TopProducts.MTD, 'Item');
-            renderList('topCustomersYesterday', DATA.TopCustomers.Yesterday);
-            renderList('fullCustomerList', DATA.TopCustomers.MTD);
-            renderList('fullProductList', DATA.TopProducts.MTD, 'Item');
-
-            // Charts
-            initCharts();
-            initCashFlow();
-            initPnL();
-        }
-
-        function initCharts() {
-            // Trend Chart - filter out zero days at the beginning
-            const trendData = DATA.DailyTrend.filter((d,i,arr) => {
-                // Find first non-zero day and include all days from there
-                const firstNonZero = arr.findIndex(x => x.Total > 0);
-                return i >= firstNonZero;
-            });
             
-            const trendCtx = document.getElementById('trendChart').getContext('2d');
-            charts.trend = new Chart(trendCtx, {
-                type: 'line',
-                data: {
-                    labels: trendData.map(d => new Date(d.Date).toLocaleDateString('en-US',{month:'short',day:'numeric'})),
-                    datasets: [{
-                        label: 'Total Sales',
-                        data: trendData.map(d => d.Total),
-                        borderColor: '#4ecdc4',
-                        backgroundColor: 'rgba(78,205,196,0.1)',
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', maxTicksLimit: 15 } },
-                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }
-                    }
-                }
-            });
-
-            // Category Pie
-            const pieCtx = document.getElementById('categoryPie').getContext('2d');
-            charts.pie = new Chart(pieCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Product', 'Service', 'Freight', 'Misc'],
-                    datasets: [{ data: [DATA.Summary.MTD.Product, DATA.Summary.MTD.Service, DATA.Summary.MTD.Freight, DATA.Summary.MTD.Miscellaneous], backgroundColor: ['#4ecdc4','#ff6b6b','#feca57','#a29bfe'], borderWidth: 0 }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#98c1d9' } } } }
-            });
-
-            // AR Chart
-            if (DATA.ARaging) {
-                const arCtx = document.getElementById('arChart').getContext('2d');
-                charts.ar = new Chart(arCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Current', '1-30', '31-60', '61-90', '90+'],
-                        datasets: [{ data: [DATA.ARaging.Current, DATA.ARaging.Days1_30, DATA.ARaging.Days31_60, DATA.ARaging.Days61_90, DATA.ARaging.Days90Plus], backgroundColor: ['#06d6a0','#4ecdc4','#ffd166','#ff9f43','#ef476f'] }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } } }
-                });
-            }
-
-            // Day of Week Chart - This Week (blue) vs Last Week (orange)
-            const dowCtx = document.getElementById('dowChart').getContext('2d');
-            const days = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
-            const dayIndex = { 'Monday': 0, 'Tuesday': 1, 'Wednesday': 2, 'Thursday': 3, 'Friday': 4 };
+            // AR Summary
+            const ar = DATA.ARaging;
+            document.getElementById('arTotal').textContent = fmt(ar.Total);
+            document.getElementById('arCurrent').textContent = fmt(ar.Current);
+            document.getElementById('ar1_30').textContent = fmt(ar.Days1_30);
+            document.getElementById('ar90plus').textContent = fmt(ar.Days90Plus);
             
-            // Get today's day of week (0=Sun, 1=Mon, etc) and calculate dates
-            const today = new Date();
-            const todayDOW = today.getDay(); // 0=Sun, 1=Mon, ... 5=Fri, 6=Sat
+            // AR Detail Page
+            document.getElementById('arCurrentDetail').textContent = fmt(ar.Current);
+            document.getElementById('arCurrentCount').textContent = `${DATA.ARInvoices?.Current?.length || 0} invoices`;
+            document.getElementById('ar1_30Detail').textContent = fmt(ar.Days1_30);
+            document.getElementById('ar1_30Count').textContent = `${DATA.ARInvoices?.Days1_30?.length || 0} invoices`;
+            document.getElementById('ar31_60Detail').textContent = fmt(ar.Days31_60);
+            document.getElementById('ar31_60Count').textContent = `${DATA.ARInvoices?.Days31_60?.length || 0} invoices`;
+            document.getElementById('ar61_90Detail').textContent = fmt(ar.Days61_90);
+            document.getElementById('ar61_90Count').textContent = `${DATA.ARInvoices?.Days61_90?.length || 0} invoices`;
+            document.getElementById('ar90plusDetail').textContent = fmt(ar.Days90Plus);
+            document.getElementById('ar90plusCount').textContent = `${DATA.ARInvoices?.Days90Plus?.length || 0} invoices`;
             
-            // Calculate this week's Monday
-            let thisMonday = new Date(today);
-            const daysFromMonday = todayDOW === 0 ? 6 : todayDOW - 1;
-            thisMonday.setDate(today.getDate() - daysFromMonday);
-            thisMonday.setHours(0,0,0,0);
-            
-            // Calculate last week's Monday
-            let lastMonday = new Date(thisMonday);
-            lastMonday.setDate(lastMonday.getDate() - 7);
-            
-            // Build this week and last week data from DailyTrend
-            const thisWeekData = [0, 0, 0, 0, 0];
-            const lastWeekData = [0, 0, 0, 0, 0];
-            
-            if (DATA.DailyTrend) {
-                DATA.DailyTrend.forEach(d => {
-                    const date = new Date(d.Date + 'T12:00:00');
-                    const dow = d.DayOfWeek;
-                    if (dayIndex[dow] !== undefined) {
-                        // Check if it's this week
-                        if (date >= thisMonday && date < new Date(thisMonday.getTime() + 7*24*60*60*1000)) {
-                            thisWeekData[dayIndex[dow]] = d.Total || 0;
-                        }
-                        // Check if it's last week
-                        else if (date >= lastMonday && date < thisMonday) {
-                            lastWeekData[dayIndex[dow]] = d.Total || 0;
-                        }
-                    }
-                });
-            }
-            
-            charts.dow = new Chart(dowCtx, {
-                type: 'bar',
-                data: {
-                    labels: days.map(d => d.substring(0,3)),
-                    datasets: [
-                        { label: 'This Week', data: thisWeekData, backgroundColor: '#4ecdc4' },
-                        { label: 'Last Week', data: lastWeekData, backgroundColor: '#ff9f43' }
-                    ]
-                },
-                options: { 
-                    responsive: true, 
-                    maintainAspectRatio: false, 
-                    plugins: { legend: { display: true, position: 'top', labels: { color: '#98c1d9' } } }, 
-                    scales: { 
-                        x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, 
-                        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } 
-                    } 
-                }
-            });
-
-            // Customer Bar Chart
-            if (DATA.TopCustomers.MTD?.length) {
-                const custCtx = document.getElementById('customerBarChart').getContext('2d');
-                charts.cust = new Chart(custCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: DATA.TopCustomers.MTD.slice(0,15).map(c => c.Name.substring(0,25)),
-                        datasets: [{ data: DATA.TopCustomers.MTD.slice(0,15).map(c => c.Amount), backgroundColor: '#4ecdc4' }]
-                    },
-                    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }, y: { grid: { display: false }, ticks: { color: '#98c1d9' } } } }
-                });
-            }
-
-            // Product Bar Chart
-            if (DATA.TopProducts.MTD?.length) {
-                const prodCtx = document.getElementById('productBarChart').getContext('2d');
-                charts.prod = new Chart(prodCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: DATA.TopProducts.MTD.slice(0,15).map(p => p.Item.substring(0,20)),
-                        datasets: [{ data: DATA.TopProducts.MTD.slice(0,15).map(p => p.Amount), backgroundColor: '#feca57' }]
-                    },
-                    options: { indexAxis: 'y', responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }, y: { grid: { display: false }, ticks: { color: '#98c1d9' } } } }
-                });
-            }
-
-            // Product Pie Chart (MTD category breakdown)
-            const prodPieCtx = document.getElementById('productPieChart').getContext('2d');
-            charts.prodPie = new Chart(prodPieCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Product', 'Service', 'Freight', 'Miscellaneous'],
-                    datasets: [{ 
-                        data: [DATA.Summary.MTD.Product, DATA.Summary.MTD.Service, DATA.Summary.MTD.Freight, DATA.Summary.MTD.Miscellaneous], 
-                        backgroundColor: ['#4ecdc4','#ff6b6b','#feca57','#a29bfe'], 
-                        borderWidth: 0 
-                    }]
-                },
-                options: { 
-                    responsive: true, 
-                    maintainAspectRatio: false, 
-                    plugins: { 
-                        legend: { position: 'right', labels: { color: '#98c1d9', padding: 15 } },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    const total = context.dataset.data.reduce((a,b) => a+b, 0);
-                                    const pct = ((context.raw / total) * 100).toFixed(1);
-                                    return `${context.label}: ${fmt(context.raw)} (${pct}%)`;
-                                }
-                            }
-                        }
-                    } 
-                }
-            });
-        }
-
-        let salesChartsInit = false;
-        function initSalesPage() {
-            if (salesChartsInit || !DATA.AllTeam) return;
-            salesChartsInit = true;
-            
-            const allTeamMTD = DATA.AllTeam?.MTD || [];
-            const allTeamYesterday = DATA.AllTeam?.Yesterday || [];
-            const salesMTD = DATA.Salesperson?.MTD || [];
-            const salesYesterday = DATA.Salesperson?.Yesterday || [];
-            const serviceMTD = DATA.ServiceReps?.MTD || [];
-            const serviceYesterday = DATA.ServiceReps?.Yesterday || [];
-            
-            // KPIs (use all team totals)
-            const mtdTotal = allTeamMTD.reduce((s,p) => s + p.Amount, 0);
-            const yTotal = allTeamYesterday.reduce((s,p) => s + p.Amount, 0);
-            const invoiceCount = allTeamMTD.reduce((s,p) => s + (p.InvoiceCount || 0), 0);
-            const topPerformer = allTeamMTD[0]?.Name || '--';
-            
-            document.getElementById('spYesterdayTotal').textContent = fmt(yTotal);
-            document.getElementById('spMTDTotal').textContent = fmt(mtdTotal);
-            document.getElementById('spTopPerformer').textContent = topPerformer;
-            document.getElementById('spInvoiceCount').textContent = invoiceCount;
-            
-            // Lists
-            renderSalespersonList('allTeamMTDList', allTeamMTD, true);
-            renderSalespersonList('salespersonMTDList', salesMTD, true);
-            renderSalespersonList('serviceRepMTDList', serviceMTD, true, true);  // Show territory for service reps
-            renderSalespersonList('salespersonYesterdayList', allTeamYesterday, true);
-            
-            // All Team MTD Stacked Bar Chart
-            if (allTeamMTD.length) {
-                const allCtx = document.getElementById('allTeamBarChart').getContext('2d');
-                charts.allTeam = new Chart(allCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: allTeamMTD.map(p => `${p.Name} (${p.Role || 'Team'})`),
-                        datasets: [
-                            { label: 'Product', data: allTeamMTD.map(p => p.ProductAmount || 0), backgroundColor: '#4ecdc4' },
-                            { label: 'Service', data: allTeamMTD.map(p => p.ServiceAmount || 0), backgroundColor: '#ff6b6b' }
-                        ]
-                    },
-                    options: { 
-                        indexAxis: 'y', 
-                        responsive: true, 
-                        maintainAspectRatio: false, 
-                        plugins: { legend: { display: true, position: 'top', labels: { color: '#98c1d9' } } }, 
-                        scales: { 
-                            x: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }, 
-                            y: { stacked: true, grid: { display: false }, ticks: { color: '#98c1d9', font: { size: 11 } } } 
-                        } 
-                    }
-                });
-            }
-            
-            // Sales Reps MTD Bar Chart
-            if (salesMTD.length) {
-                const spCtx = document.getElementById('salespersonBarChart').getContext('2d');
-                charts.spMtd = new Chart(spCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: salesMTD.map(p => p.Name),
-                        datasets: [
-                            { label: 'Product', data: salesMTD.map(p => p.ProductAmount || 0), backgroundColor: '#4ecdc4' },
-                            { label: 'Service', data: salesMTD.map(p => p.ServiceAmount || 0), backgroundColor: '#ff6b6b' }
-                        ]
-                    },
-                    options: { 
-                        indexAxis: 'y', 
-                        responsive: true, 
-                        maintainAspectRatio: false, 
-                        plugins: { legend: { display: true, position: 'top', labels: { color: '#98c1d9' } } }, 
-                        scales: { 
-                            x: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }, 
-                            y: { stacked: true, grid: { display: false }, ticks: { color: '#98c1d9' } } 
-                        } 
-                    }
-                });
-            }
-            
-            // Service Reps MTD Bar Chart
-            if (serviceMTD.length) {
-                const svcCtx = document.getElementById('serviceRepBarChart').getContext('2d');
-                charts.svcMtd = new Chart(svcCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: serviceMTD.map(p => p.Name),
-                        datasets: [
-                            { label: 'Product', data: serviceMTD.map(p => p.ProductAmount || 0), backgroundColor: '#4ecdc4' },
-                            { label: 'Service', data: serviceMTD.map(p => p.ServiceAmount || 0), backgroundColor: '#ff6b6b' }
-                        ]
-                    },
-                    options: { 
-                        indexAxis: 'y', 
-                        responsive: true, 
-                        maintainAspectRatio: false, 
-                        plugins: { legend: { display: true, position: 'top', labels: { color: '#98c1d9' } } }, 
-                        scales: { 
-                            x: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }, 
-                            y: { stacked: true, grid: { display: false }, ticks: { color: '#98c1d9' } } 
-                        } 
-                    }
-                });
-            }
-            
-            // Yesterday Bar Chart
-            if (allTeamYesterday.length) {
-                const spYCtx = document.getElementById('salespersonYesterdayChart').getContext('2d');
-                charts.spYesterday = new Chart(spYCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: allTeamYesterday.map(p => `${p.Name} (${p.Role || 'Team'})`),
-                        datasets: [
-                            { label: 'Product', data: allTeamYesterday.map(p => p.ProductAmount || 0), backgroundColor: '#4ecdc4' },
-                            { label: 'Service', data: allTeamYesterday.map(p => p.ServiceAmount || 0), backgroundColor: '#ff6b6b' }
-                        ]
-                    },
-                    options: { 
-                        indexAxis: 'y', 
-                        responsive: true, 
-                        maintainAspectRatio: false, 
-                        plugins: { legend: { display: true, position: 'top', labels: { color: '#98c1d9' } } }, 
-                        scales: { 
-                            x: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }, 
-                            y: { stacked: true, grid: { display: false }, ticks: { color: '#98c1d9' } } 
-                        } 
-                    }
-                });
-            }
-        }
-
-        function initPnL() {
-            // YTD KPIs
-            const ytd = DATA.Summary?.YTD || {};
-            document.getElementById('pnlYTDRevenue').textContent = fmt(ytd.Total);
-            document.getElementById('pnlYTDProduct').textContent = fmt(ytd.Product);
-            document.getElementById('pnlYTDService').textContent = fmt(ytd.Service);
-            document.getElementById('pnlYTDOther').textContent = fmt((ytd.Freight || 0) + (ytd.Miscellaneous || 0));
-            
-            // MTD KPIs
-            const mtd = DATA.Summary?.MTD || {};
-            document.getElementById('pnlRevenue').textContent = fmt(mtd.Total);
-            document.getElementById('pnlProductRev').textContent = fmt(mtd.Product);
-            document.getElementById('pnlServiceRev').textContent = fmt(mtd.Service);
-            document.getElementById('pnlOtherRev').textContent = fmt((mtd.Freight || 0) + (mtd.Miscellaneous || 0));
-            
-            // Breakdown rows
-            document.getElementById('pnlProductRow').textContent = fmt(mtd.Product);
-            document.getElementById('pnlServiceRow').textContent = fmt(mtd.Service);
-            document.getElementById('pnlFreightRow').textContent = fmt(mtd.Freight);
-            document.getElementById('pnlMiscRow').textContent = fmt(mtd.Miscellaneous);
-            document.getElementById('pnlTotalRow').textContent = fmt(mtd.Total);
-            
-            // Category chart (bar)
-            const catCtx = document.getElementById('pnlCategoryChart')?.getContext('2d');
-            if (catCtx) {
-                new Chart(catCtx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Product', 'Service', 'Freight', 'Misc'],
-                        datasets: [{
-                            data: [mtd.Product || 0, mtd.Service || 0, mtd.Freight || 0, mtd.Miscellaneous || 0],
-                            backgroundColor: ['#4ecdc4', '#ff6b6b', '#feca57', '#a29bfe']
-                        }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } } }
-                });
-            }
-            
-            // Mix pie chart
-            const mixCtx = document.getElementById('pnlMixPieChart')?.getContext('2d');
-            if (mixCtx) {
-                new Chart(mixCtx, {
-                    type: 'doughnut',
-                    data: {
-                        labels: ['Product', 'Service', 'Freight', 'Misc'],
-                        datasets: [{
-                            data: [mtd.Product || 0, mtd.Service || 0, mtd.Freight || 0, mtd.Miscellaneous || 0],
-                            backgroundColor: ['#4ecdc4', '#ff6b6b', '#feca57', '#a29bfe'],
-                            borderWidth: 0
-                        }]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: '#98c1d9' } } } }
-                });
-            }
-            
-            // Daily trend chart
-            const dailyCtx = document.getElementById('pnlDailyChart')?.getContext('2d');
-            if (dailyCtx && DATA.DailyTrend) {
-                const mtdTrend = DATA.DailyTrend.filter(d => {
-                    const date = new Date(d.Date);
-                    const monthStart = new Date(DATA.Period.MonthStart);
-                    return date >= monthStart && d.Total > 0;
-                });
-                new Chart(dailyCtx, {
-                    type: 'line',
-                    data: {
-                        labels: mtdTrend.map(d => new Date(d.Date).toLocaleDateString('en-US', {month:'short', day:'numeric'})),
-                        datasets: [
-                            { label: 'Product', data: mtdTrend.map(d => d.Product), borderColor: '#4ecdc4', tension: 0.4, fill: false },
-                            { label: 'Service', data: mtdTrend.map(d => d.Service), borderColor: '#ff6b6b', tension: 0.4, fill: false }
-                        ]
-                    },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: '#98c1d9' } } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } } }
-                });
-            }
-        }
-
-        function initCashFlow() {
-            if (!DATA.CashFlowPrediction?.length) return;
-
-            const cf = DATA.CashFlowPrediction;
-            document.getElementById('cfThisWeek').textContent = fmt(cf[0]?.Total);
-            document.getElementById('cfNextWeek').textContent = fmt(cf[1]?.Total);
-            document.getElementById('cf6Week').textContent = fmt(cf.reduce((s,w) => s + w.Total, 0));
-            document.getElementById('cfARDue').textContent = fmt(cf.reduce((s,w) => s + (w.ARDue||0), 0));
-
-            // Week breakdown
-            const wb = document.getElementById('weekBreakdown');
-            wb.innerHTML = cf.map(w => {
-                const confClass = w.Confidence >= 80 ? 'high' : w.Confidence >= 60 ? 'medium' : 'low';
-                return `
-                    <div class="cash-flow-week">
-                        <div class="week-header">
-                            <div><span class="week-label">${w.Week}</span></div>
-                            <div class="week-total">${fmt(w.Total)}</div>
-                            <span class="confidence ${confClass}">${w.Confidence}% confidence</span>
-                        </div>
-                        <div class="day-breakdown">
-                            ${w.DayBreakdown.map(d => `
-                                <div class="day ${d.Type.toLowerCase()}">
-                                    <div class="day-name">${d.DayOfWeek.substring(0,3)}</div>
-                                    <div class="day-amount">${fmt(d.Amount)}</div>
-                                </div>
-                            `).join('')}
-                        </div>
+            // Top Customers Yesterday
+            const custYesterday = DATA.TopCustomers?.Yesterday || [];
+            document.getElementById('topCustomersYesterday').innerHTML = custYesterday.length === 0 
+                ? '<div style="color:var(--text-secondary);padding:20px;text-align:center">No sales data for yesterday</div>'
+                : custYesterday.map(c => `
+                    <div class="list-item clickable" onclick="drilldownCustomer('${c.Name.replace(/'/g, "\\'")}', 'yesterday')">
+                        <span class="list-name">${c.Name}</span>
+                        <span class="list-value">${fmt(c.Amount)}</span>
                     </div>
-                `;
-            }).join('');
-
-            // Cash Flow Chart
-            const cfCtx = document.getElementById('cashFlowChart').getContext('2d');
-            charts.cf = new Chart(cfCtx, {
-                type: 'bar',
-                data: {
-                    labels: cf.map(w => w.Week.replace('Week of ','')),
-                    datasets: [
-                        { label: 'Actual', data: cf.map(w => w.Actual), backgroundColor: '#06d6a0' },
-                        { label: 'Predicted', data: cf.map(w => w.Predicted), backgroundColor: 'rgba(255,209,102,0.7)' }
-                    ]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { labels: { color: '#98c1d9' } } },
-                    scales: {
-                        x: { stacked: true, grid: { display: false }, ticks: { color: '#98c1d9' } },
-                        y: { stacked: true, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } }
-                    }
-                }
-            });
-
-            // DOW Avg Chart
-            const dowCtx = document.getElementById('dowAvgChart').getContext('2d');
-            const days = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
-            const dowData = DATA.DayOfWeekAverages ? days.map(d => DATA.DayOfWeekAverages[d] || 0) : days.map(() => DATA.Summary.MTDDailyAverage || 0);
-            charts.dowAvg = new Chart(dowCtx, {
-                type: 'bar',
-                data: {
-                    labels: days,
-                    datasets: [{ label: 'Historical Average', data: dowData, backgroundColor: '#4ecdc4' }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9', callback: v => fmtK(v) } } } }
-            });
-        }
-
-        let map = null;
-        function initMap() {
-            if (map || !DATA.ShippingHeatMap?.length) return;
-            map = L.map('shippingMap').setView([39.8, -98.6], 4);
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+                `).join('');
             
-            const stateCounts = {};
-            DATA.ShippingHeatMap.forEach(loc => {
-                const coords = stateCoords[loc.State];
-                if (coords) {
-                    stateCounts[loc.State] = (stateCounts[loc.State] || 0) + loc.Count;
-                    L.circleMarker([coords[0] + (Math.random()-0.5)*2, coords[1] + (Math.random()-0.5)*2], {
-                        radius: Math.min(Math.max(loc.Count * 2, 4), 25),
-                        fillColor: '#4ecdc4',
-                        color: '#4ecdc4',
-                        weight: 1,
-                        opacity: 0.8,
-                        fillOpacity: 0.4
-                    }).addTo(map).bindPopup(`<b>${loc.City}, ${loc.State}</b><br>${loc.Count} shipments`);
-                }
-            });
-
-            // Top locations list
-            renderList('topLocations', DATA.ShippingHeatMap.slice(0,20).map(l => ({Name: `${l.City}, ${l.State}`, Amount: l.Count})));
-            document.querySelectorAll('#topLocations .amount').forEach(el => el.textContent = el.textContent.replace('$','') + ' shipments');
-            
-            // Service Tech Map
-            if (DATA.ServiceTechLocations?.length) {
-                const serviceMap = L.map('serviceMap').setView([39.8, -98.6], 4);
-                L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(serviceMap);
-                
-                DATA.ServiceTechLocations.forEach(loc => {
-                    const coords = stateCoords[loc.State];
-                    if (coords) {
-                        L.circleMarker([coords[0] + (Math.random()-0.5)*2, coords[1] + (Math.random()-0.5)*2], {
-                            radius: Math.min(Math.max(loc.Count * 3, 5), 30),
-                            fillColor: '#ff6b6b',
-                            color: '#ff6b6b',
-                            weight: 1,
-                            opacity: 0.8,
-                            fillOpacity: 0.5
-                        }).addTo(serviceMap).bindPopup(`<b>${loc.City}, ${loc.State}</b><br>${loc.Count} service visits`);
-                    }
-                });
-                
-                // Top service locations list
-                renderList('topServiceLocations', DATA.ServiceTechLocations.slice(0,20).map(l => ({Name: `${l.City}, ${l.State}`, Amount: l.Count})));
-                document.querySelectorAll('#topServiceLocations .amount').forEach(el => el.textContent = el.textContent.replace('$','') + ' visits');
-            }
-
-            // State chart
-            const sorted = Object.entries(stateCounts).sort((a,b) => b[1]-a[1]).slice(0,15);
-            const stateCtx = document.getElementById('stateChart').getContext('2d');
-            charts.state = new Chart(stateCtx, {
-                type: 'bar',
-                data: {
-                    labels: sorted.map(s => s[0]),
-                    datasets: [{ data: sorted.map(s => s[1]), backgroundColor: '#4ecdc4' }]
-                },
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { color: '#98c1d9' } }, y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#98c1d9' } } } }
-            });
-            
-            // Salesforce Territory Data
-            renderSalesTerritory();
-        }
-        
-        function renderSalesTerritory() {
-            const el = document.getElementById('salesTerritoryList');
-            if (!DATA.SalesforceTerritory?.salesTeam?.length) {
-                el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--text-secondary)">No Salesforce data available. Run salesforce-territory-data.js to generate.</div>';
-                return;
-            }
-            
-            el.innerHTML = DATA.SalesforceTerritory.salesTeam.map((rep, i) => {
-                const rank = i < 3 ? ['gold', 'silver', 'bronze'][i] : '';
-                const states = rep.topStates?.map(s => s.state).join(', ') || 'N/A';
-                return `<div class="top-item" style="flex-direction:column;align-items:stretch;padding:12px;">
-                    <div style="display:flex;justify-content:space-between;align-items:center;">
-                        <div style="display:flex;align-items:center;gap:10px;">
-                            <div class="rank ${rank}">${i+1}</div>
-                            <div>
-                                <div style="font-weight:600;">${rep.name}</div>
-                                <div style="font-size:11px;color:var(--text-secondary);">${rep.role}</div>
-                            </div>
-                        </div>
-                        <div style="text-align:right;">
-                            <div style="color:var(--success);font-weight:600;">${fmt(rep.revenue)}</div>
-                            <div style="font-size:11px;color:var(--text-secondary);">${rep.wonOpps || 0} won opps</div>
-                        </div>
-                    </div>
-                    <div style="margin-top:8px;font-size:11px;color:var(--text-secondary);display:flex;gap:15px;">
-                        <span>📍 ${rep.stateCount} states</span>
-                        <span>🏢 ${rep.totalAccounts} accounts</span>
-                    </div>
-                    <div style="margin-top:4px;font-size:10px;color:var(--warning);">Top: ${states}</div>
-                </div>`;
-            }).join('');
-        }
-
-        // Drill-down functionality
-        function showDrilldown(type) {
-            const overlay = document.getElementById('drilldownOverlay');
-            const title = document.getElementById('drilldownTitle');
-            const total = document.getElementById('drilldownTotal');
-            const body = document.getElementById('drilldownBody');
-            
-            let data, titleText;
-            if (type === 'mtd') {
-                data = DATA.Summary?.MTD || {};
-                titleText = 'MTD Revenue Breakdown';
-            } else if (type === 'yesterday') {
-                data = DATA.Summary?.Yesterday || {};
-                titleText = 'Yesterday\'s Revenue Breakdown';
-            } else if (type === 'ytd') {
-                data = DATA.Summary?.YTD || {};
-                titleText = 'YTD Revenue Breakdown';
-            } else {
-                return;
-            }
-            
-            title.textContent = titleText;
-            total.textContent = fmt(data.Total);
-            
-            body.innerHTML = `
-                <div class="drilldown-row"><span>Product Sales</span><span class="value" style="color:#4ecdc4">${fmt(data.Product)}</span></div>
-                <div class="drilldown-row"><span>Service Sales</span><span class="value" style="color:#ff6b6b">${fmt(data.Service)}</span></div>
-                <div class="drilldown-row"><span>Freight Revenue</span><span class="value" style="color:#feca57">${fmt(data.Freight)}</span></div>
-                <div class="drilldown-row"><span>Miscellaneous</span><span class="value" style="color:#a29bfe">${fmt(data.Miscellaneous)}</span></div>
-                <div class="drilldown-row" style="margin-top:15px;padding-top:15px;border-top:2px solid var(--accent);">
-                    <span style="font-weight:700;">TOTAL</span>
-                    <span class="value" style="color:var(--success);font-weight:700;">${fmt(data.Total)}</span>
+            // Top Customers MTD
+            const custMTD = DATA.TopCustomers?.MTD || [];
+            document.getElementById('topCustomersMTD').innerHTML = custMTD.map(c => `
+                <div class="list-item clickable" onclick="drilldownCustomer('${c.Name.replace(/'/g, "\\'")}', 'mtd')">
+                    <span class="list-name">${c.Name}</span>
+                    <span class="list-value">${fmt(c.Amount)}</span>
                 </div>
+            `).join('');
+            
+            // Top Products
+            const prods = DATA.TopProducts?.MTD || [];
+            document.getElementById('topProducts').innerHTML = `
+                <table class="invoice-table">
+                    <thead><tr><th>Item</th><th>Description</th><th>Category</th><th style="text-align:right">MTD Sales</th></tr></thead>
+                    <tbody>
+                        ${prods.map(p => `
+                            <tr class="clickable">
+                                <td class="invoice-num">${p.Item}</td>
+                                <td>${p.Description || '-'}</td>
+                                <td><span class="category-badge ${(p.Category || 'product').toLowerCase()}">${p.Category || 'Product'}</span></td>
+                                <td class="amount positive">${fmt(p.Amount)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
             `;
             
-            overlay.classList.add('active');
+            // Cash Flow Preview
+            const cf = DATA.CashFlowPrediction || [];
+            document.getElementById('cashflowPreview').innerHTML = cf.map(w => `
+                <div class="cf-week clickable" onclick="drilldownWeek(${w.WeekNum - 1})">
+                    <span class="cf-week-name">${w.Week}</span>
+                    <span class="cf-actual">Actual: ${fmt(w.Actual)}</span>
+                    <span class="cf-predicted">Predicted: ${fmt(w.Predicted)}</span>
+                    <span class="cf-total">${fmt(w.Total)}</span>
+                </div>
+            `).join('');
+            
+            // Cash Flow Detail
+            document.getElementById('cashflowDetail').innerHTML = cf.map(w => `
+                <div class="cf-week clickable" onclick="drilldownWeek(${w.WeekNum - 1})" style="border-bottom:2px solid rgba(255,255,255,0.1);padding:15px 12px;">
+                    <span class="cf-week-name">${w.Week} <span style="color:var(--text-secondary);font-size:12px">(${w.Confidence}% confidence)</span></span>
+                    <span class="cf-actual">Actual: ${fmt(w.Actual)}</span>
+                    <span class="cf-predicted">Predicted: ${fmt(w.Predicted)}</span>
+                    <span class="cf-total" style="font-size:18px">${fmt(w.Total)}</span>
+                </div>
+            `).join('');
+            
+            // Daily Chart
+            renderDailyChart();
         }
         
-        function closeDrilldown(e) {
-            if (e.target.classList.contains('drilldown-overlay') || e.target.classList.contains('close-btn')) {
-                document.getElementById('drilldownOverlay').classList.remove('active');
+        function renderDailyChart() {
+            const trend = DATA.DailyTrend?.slice(-20) || [];
+            const ctx = document.getElementById('dailyChart').getContext('2d');
+            
+            if (dailyChart) dailyChart.destroy();
+            
+            dailyChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: trend.map(d => d.Date.slice(5)),
+                    datasets: [
+                        { label: 'Product', data: trend.map(d => d.Product), backgroundColor: '#4ecdc4', stack: 'stack' },
+                        { label: 'Service', data: trend.map(d => d.Service), backgroundColor: '#ff6b6b', stack: 'stack' },
+                        { label: 'Freight', data: trend.map(d => d.Freight), backgroundColor: '#feca57', stack: 'stack' }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    onClick: (e, elements) => {
+                        if (elements.length > 0) {
+                            const idx = elements[0].index;
+                            const dateKey = trend[idx].Date;
+                            drilldownDate(dateKey);
+                        }
+                    },
+                    plugins: { legend: { labels: { color: '#98c1d9' } } },
+                    scales: {
+                        x: { stacked: true, ticks: { color: '#98c1d9' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                        y: { stacked: true, ticks: { color: '#98c1d9', callback: v => fmtK(v) }, grid: { color: 'rgba(255,255,255,0.05)' } }
+                    }
+                }
+            });
+        }
+        
+        // DRILL-DOWN FUNCTIONS
+        function drilldown(period, category = null) {
+            const data = period === 'yesterday' ? DATA.Summary.Yesterday :
+                         period === 'mtd' ? DATA.Summary.MTD : DATA.Summary.YTD;
+            
+            let invoices = data.Invoices || [];
+            let title = period === 'yesterday' ? `Yesterday (${DATA.Period.Yesterday})` :
+                        period === 'mtd' ? 'Month to Date' : 'Year to Date';
+            
+            if (category) {
+                invoices = invoices.filter(inv => inv.Category === category);
+                title += ` - ${category}`;
+            }
+            
+            const total = invoices.reduce((sum, inv) => sum + inv.Amount, 0);
+            
+            showModal(title, `
+                <div class="modal-summary">
+                    <div class="modal-stat">
+                        <div class="modal-stat-value" style="color:var(--success)">${fmt(total)}</div>
+                        <div class="modal-stat-label">Total</div>
+                    </div>
+                    <div class="modal-stat">
+                        <div class="modal-stat-value">${invoices.length}</div>
+                        <div class="modal-stat-label">Invoices</div>
+                    </div>
+                    ${!category ? `
+                    <div class="modal-stat">
+                        <div class="modal-stat-value" style="color:#4ecdc4">${fmt(data.Product)}</div>
+                        <div class="modal-stat-label">Product</div>
+                    </div>
+                    <div class="modal-stat">
+                        <div class="modal-stat-value" style="color:#ff6b6b">${fmt(data.Service)}</div>
+                        <div class="modal-stat-label">Service</div>
+                    </div>
+                    ` : ''}
+                </div>
+                ${renderInvoiceTable(invoices)}
+            `);
+        }
+        
+        function drilldownDate(dateKey) {
+            const invoices = DATA.InvoicesByDate?.[dateKey] || [];
+            const dayData = DATA.DailyTrend?.find(d => d.Date === dateKey);
+            
+            showModal(`Sales on ${dateKey}`, `
+                <div class="modal-summary">
+                    <div class="modal-stat">
+                        <div class="modal-stat-value" style="color:var(--success)">${fmt(dayData?.Total || 0)}</div>
+                        <div class="modal-stat-label">Total</div>
+                    </div>
+                    <div class="modal-stat">
+                        <div class="modal-stat-value">${invoices.length}</div>
+                        <div class="modal-stat-label">Invoices</div>
+                    </div>
+                    <div class="modal-stat">
+                        <div class="modal-stat-value" style="color:#4ecdc4">${fmt(dayData?.Product || 0)}</div>
+                        <div class="modal-stat-label">Product</div>
+                    </div>
+                    <div class="modal-stat">
+                        <div class="modal-stat-value" style="color:#ff6b6b">${fmt(dayData?.Service || 0)}</div>
+                        <div class="modal-stat-label">Service</div>
+                    </div>
+                </div>
+                ${renderInvoiceTable(invoices)}
+            `);
+        }
+        
+        function drilldownAR(bucket) {
+            const invoices = DATA.ARInvoices?.[bucket] || [];
+            const total = invoices.reduce((sum, inv) => sum + inv.Amount, 0);
+            const bucketNames = {
+                'Current': 'Current (Not Yet Due)',
+                'Days1_30': '1-30 Days Overdue',
+                'Days31_60': '31-60 Days Overdue',
+                'Days61_90': '61-90 Days Overdue',
+                'Days90Plus': '90+ Days Overdue'
+            };
+            
+            showModal(`AR Aging: ${bucketNames[bucket]}`, `
+                <div class="modal-summary">
+                    <div class="modal-stat">
+                        <div class="modal-stat-value" style="color:var(--danger)">${fmt(total)}</div>
+                        <div class="modal-stat-label">Total Outstanding</div>
+                    </div>
+                    <div class="modal-stat">
+                        <div class="modal-stat-value">${invoices.length}</div>
+                        <div class="modal-stat-label">Invoices</div>
+                    </div>
+                </div>
+                <table class="invoice-table">
+                    <thead><tr><th>Invoice</th><th>Customer</th><th>Due Date</th><th>Days Over</th><th style="text-align:right">Amount</th></tr></thead>
+                    <tbody>
+                        ${invoices.slice(0, 100).map(inv => `
+                            <tr>
+                                <td class="invoice-num">${inv.InvNum}</td>
+                                <td>${inv.Customer || '-'}</td>
+                                <td>${inv.DueDate || '-'}</td>
+                                <td style="color:${inv.DaysOverdue > 60 ? 'var(--danger)' : inv.DaysOverdue > 30 ? 'var(--warning)' : 'inherit'}">${inv.DaysOverdue}</td>
+                                <td class="amount positive">${fmt(inv.Amount)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+                ${invoices.length > 100 ? `<p style="color:var(--text-secondary);margin-top:15px">Showing 100 of ${invoices.length} invoices</p>` : ''}
+            `);
+        }
+        
+        function drilldownCustomer(name, period) {
+            const custData = period === 'yesterday' 
+                ? DATA.TopCustomers?.Yesterday?.find(c => c.Name === name)
+                : DATA.TopCustomers?.MTD?.find(c => c.Name === name);
+            
+            const invoices = custData?.Invoices || [];
+            
+            showModal(`${name} - ${period === 'yesterday' ? 'Yesterday' : 'MTD'}`, `
+                <div class="modal-summary">
+                    <div class="modal-stat">
+                        <div class="modal-stat-value" style="color:var(--success)">${fmt(custData?.Amount || 0)}</div>
+                        <div class="modal-stat-label">Total</div>
+                    </div>
+                    <div class="modal-stat">
+                        <div class="modal-stat-value">${invoices.length}</div>
+                        <div class="modal-stat-label">Invoices</div>
+                    </div>
+                </div>
+                <table class="invoice-table">
+                    <thead><tr><th>Invoice</th><th>Date</th><th>Order</th><th style="text-align:right">Amount</th></tr></thead>
+                    <tbody>
+                        ${invoices.map(inv => `
+                            <tr>
+                                <td class="invoice-num">${inv.InvNum}</td>
+                                <td>${inv.Date || '-'}</td>
+                                <td>${inv.CoNum || '-'}</td>
+                                <td class="amount positive">${fmt(inv.Amount)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `);
+        }
+        
+        function drilldownWeek(weekIdx) {
+            const week = DATA.CashFlowPrediction?.[weekIdx];
+            if (!week) return;
+            
+            showModal(`${week.Week} - Day by Day Breakdown`, `
+                <div class="modal-summary">
+                    <div class="modal-stat">
+                        <div class="modal-stat-value" style="color:var(--success)">${fmt(week.Actual)}</div>
+                        <div class="modal-stat-label">Actual</div>
+                    </div>
+                    <div class="modal-stat">
+                        <div class="modal-stat-value" style="color:var(--warning)">${fmt(week.Predicted)}</div>
+                        <div class="modal-stat-label">Predicted</div>
+                    </div>
+                    <div class="modal-stat">
+                        <div class="modal-stat-value">${fmt(week.Total)}</div>
+                        <div class="modal-stat-label">Total</div>
+                    </div>
+                    <div class="modal-stat">
+                        <div class="modal-stat-value">${week.Confidence}%</div>
+                        <div class="modal-stat-label">Confidence</div>
+                    </div>
+                </div>
+                <table class="invoice-table">
+                    <thead><tr><th>Date</th><th>Day</th><th>Type</th><th style="text-align:right">Amount</th><th>Invoices</th></tr></thead>
+                    <tbody>
+                        ${(week.DayBreakdown || []).map(day => `
+                            <tr class="${day.Type === 'Actual' ? 'clickable' : ''}" ${day.Type === 'Actual' ? `onclick="drilldownDate('${day.Date}')"` : ''}>
+                                <td>${day.Date}</td>
+                                <td>${day.DayOfWeek}</td>
+                                <td><span class="category-badge ${day.Type === 'Actual' ? 'product' : 'service'}">${day.Type}</span></td>
+                                <td class="amount ${day.Type === 'Actual' ? 'positive' : ''}">${fmt(day.Amount)}</td>
+                                <td>${day.Invoices?.length || (day.Type === 'Predicted' ? '-' : '0')}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `);
+        }
+        
+        function renderInvoiceTable(invoices) {
+            if (!invoices || invoices.length === 0) {
+                return '<p style="color:var(--text-secondary);text-align:center;padding:20px">No invoices found</p>';
+            }
+            return `
+                <table class="invoice-table">
+                    <thead><tr><th>Invoice</th><th>Customer</th><th>Date</th><th>Category</th><th style="text-align:right">Amount</th></tr></thead>
+                    <tbody>
+                        ${invoices.slice(0, 200).map(inv => `
+                            <tr>
+                                <td class="invoice-num">${inv.InvNum}</td>
+                                <td style="max-width:250px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${inv.Customer || '-'}</td>
+                                <td>${inv.Date || '-'}</td>
+                                <td><span class="category-badge ${(inv.Category || 'product').toLowerCase()}">${inv.Category || 'Product'}</span></td>
+                                <td class="amount positive">${fmt(inv.Amount)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+                ${invoices.length > 200 ? `<p style="color:var(--text-secondary);margin-top:15px">Showing 200 of ${invoices.length} invoices</p>` : ''}
+            `;
+        }
+        
+        function showModal(title, content) {
+            document.getElementById('modalTitle').textContent = title;
+            document.getElementById('modalBody').innerHTML = content;
+            document.getElementById('modal').classList.add('active');
+        }
+        
+        function closeModal(e) {
+            if (!e || e.target.classList.contains('modal-overlay')) {
+                document.getElementById('modal').classList.remove('active');
             }
         }
-
+        
+        // Keyboard shortcut to close modal
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') closeModal();
+        });
+        
+        // Load data when page loads
         loadData();
     </script>
-    
-    <!-- Drill-down Modal -->
-    <div class="drilldown-overlay" id="drilldownOverlay" onclick="closeDrilldown(event)">
-        <div class="drilldown-modal" onclick="event.stopPropagation()">
-            <div class="drilldown-header">
-                <h3 id="drilldownTitle">Details</h3>
-                <button class="close-btn" onclick="closeDrilldown(event)">&times;</button>
-            </div>
-            <div class="drilldown-body">
-                <div class="drilldown-total" id="drilldownTotal">$0</div>
-                <div id="drilldownBody"></div>
-            </div>
-        </div>
-    </div>
 </body>
 </html>
