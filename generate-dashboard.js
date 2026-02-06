@@ -47,10 +47,10 @@ async function fetchIDO(token, ido, properties, filter = null, recordCap = 10000
 function parseDate(dateStr) {
     if (!dateStr || dateStr.length < 8) return null;
     const clean = dateStr.replace(/\s.*/g, '').replace(/-/g, '');
-    const y = clean.substring(0, 4);
-    const m = clean.substring(4, 6);
-    const d = clean.substring(6, 8);
-    return new Date(`${y}-${m}-${d}`);
+    const y = parseInt(clean.substring(0, 4));
+    const m = parseInt(clean.substring(4, 6)) - 1; // JS months are 0-indexed
+    const d = parseInt(clean.substring(6, 8));
+    return new Date(y, m, d); // Local time, not UTC
 }
 
 function parseDateToKey(dateStr) {
@@ -63,14 +63,19 @@ function parseDateToKey(dateStr) {
 }
 
 function formatDate(date) {
-    return date.toISOString().split('T')[0];
+    // Use local date components to avoid timezone shift
+    const y = date.getFullYear();
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const d = String(date.getDate()).padStart(2, '0');
+    return `${y}-${m}-${d}`;
 }
 
 function getWeekStart(date) {
-    const d = new Date(date);
+    const d = new Date(date.getFullYear(), date.getMonth(), date.getDate());
     const day = d.getDay();
     const diff = d.getDate() - day + (day === 0 ? -6 : 1);
-    return new Date(d.setDate(diff));
+    d.setDate(diff);
+    return d;
 }
 
 function isWeekend(date) {
@@ -80,6 +85,12 @@ function isWeekend(date) {
 
 function getDayName(date) {
     return ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][date.getDay()];
+}
+
+// Parse YYYY-MM-DD string to local Date (avoids UTC timezone shift)
+function parseDateKey(dateKey) {
+    const [y, m, d] = dateKey.split('-').map(Number);
+    return new Date(y, m - 1, d);
 }
 
 async function generateDashboard() {
@@ -217,7 +228,12 @@ async function generateDashboard() {
         }
     });
     const sortedDates = Array.from(allDates).sort();
-    const latestDataDate = sortedDates.length > 0 ? new Date(sortedDates[sortedDates.length - 1]) : today;
+    let latestDataDate = today;
+    if (sortedDates.length > 0) {
+        const latest = sortedDates[sortedDates.length - 1];
+        const [y, m, d] = latest.split('-').map(Number);
+        latestDataDate = new Date(y, m - 1, d); // Local time
+    }
     console.log(`Latest GL data date: ${formatDate(latestDataDate)}`);
     
     // Use latest data date as "yesterday" if today has no data
@@ -359,7 +375,7 @@ async function generateDashboard() {
     const ytdInvoices = [];
     
     Object.entries(salesByDate).forEach(([dateKey, data]) => {
-        const date = new Date(dateKey);
+        const date = parseDateKey(dateKey);
         if (date >= monthStart && date <= latestDataDate) {
             ['Product', 'Service', 'Freight', 'Miscellaneous', 'Total'].forEach(cat => mtdSales[cat] += data[cat]);
             if (invoicesByDate[dateKey]) {
@@ -525,7 +541,7 @@ async function generateDashboard() {
         .map(([name, data]) => {
             // Filter to MTD invoices only
             const mtdInvs = data.Invoices.filter(inv => {
-                const d = new Date(inv.Date);
+                const d = parseDateKey(inv.Date);
                 return d >= monthStart && d <= latestDataDate;
             });
             const mtdTotal = mtdInvs.reduce((sum, inv) => sum + inv.Amount, 0);
